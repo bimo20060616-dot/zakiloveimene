@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لعبة إيمان وزاكي 💖</title>
+    <style>
+      /* إعدادات الخط والألوان */
+      @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
+
+      :root {
+        --primary-pink: #ff4d94;
+        --soft-pink: #ff9a9e;
+        --purple: #a18cd1;
+        --white: rgba(255, 255, 255, 0.9);
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Tajawal", sans-serif;
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        color: #333;
+      }
+
+      /* القلوب المتحركة في الخلفية */
+      .heart {
+        position: absolute;
+        color: rgba(255, 77, 148, 0.3);
+        font-size: 20px;
+        pointer-events: none;
+        animation: float 6s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* الحاوية الرئيسية */
+      .container {
+        background: var(--white);
+        padding: 20px;
+        border-radius: 25px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 320px;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        transition: all 0.5s ease;
+      }
+
+      h1 {
+        color: var(--primary-pink);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+
+      .question-box {
+        margin-bottom: 25px;
+        min-height: 80px;
+      }
+      .question-text {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      /* الأزرار */
+      .options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 50px;
+        background: linear-gradient(to right, #ff758c, #ff7eb3);
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        font-family: "Tajawal", sans-serif;
+      }
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
+      }
+      button:active {
+        transform: scale(0.95);
+      }
+
+      /* رسالة الغزل */
+      .romantic-msg {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 15px;
+        background: #fff0f3;
+        color: #d63384;
+        display: none;
+        font-weight: bold;
+        animation: fadeIn 0.5s ease-in;
+        line-height: 1.6;
+      }
+
+      /* زر التالي */
+      #next-btn {
+        margin-top: 20px;
+        background: #6c5ce7;
+        display: none;
+        width: 100%;
+      }
+
+      /* عبارات غزل تلمع في الزوايا */
+      .floating-text {
+        position: fixed;
+        font-size: 0.8rem;
+        color: #fff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        animation: shine 2s infinite alternate;
+      }
+
+      @keyframes shine {
+        from {
+          opacity: 0.5;
+          filter: blur(0px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(1px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* شاشة النهاية */
+      #end-screen {
+        display: none;
+      }
+      .progress {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-text" style="top: 10%; left: 5%">
+      إيمان هي السعادة ✨
+    </div>
+    <div class="floating-text" style="bottom: 10%; right: 5%">
+      قلب زاكي ملكك وانت ملكي 💖
+    </div>
+
+    <div class="container" id="game-container">
+      <div class="progress">سؤال <span id="current-num">1</span> من 42</div>
+      <h1>اختبار الذكاء والحب 🌸</h1>
+
+      <div class="question-box">
+        <span class="question-text" id="question-text">تحميل السؤال...</span>
+      </div>
+
+      <div class="options" id="options-container"></div>
+
+      <div class="romantic-msg" id="romantic-msg"></div>
+
+      <button id="next-btn" onclick="nextQuestion()">السؤال التالي ✨</button>
+
+      <div id="end-screen">
+        <h2>مبروك يا أميرة قلبي! 👑</h2>
+        <p>
+          لقد أثب أنك الأذكى، والأجمل، والجواب الصحيح الوحيد لكل أسئلة حياتي.
+        </p>
+        <p style="font-size: 2rem">❤️</p>
+        <button onclick="location.reload()">أعد اللعبة لأجل زاكي 😊</button>
+      </div>
+    </div>
+
+    <script>
+                 const questions = [
+                   {
+                     q: "ما هو الاتجاه الذي يشير إليه إبرة البوصلة دائماً؟",
+                     options: ["الشمال", "الجنوب"],
+                     msg: "البوصلة تشير للشمال، بس قلب زاكي دايمًا يشير لجهة إيمان.. هي اتجاهه الوحيد. ❤️",
+                   },
+                   {
+    q: "ما هي أقوى الرابطة التي تجمع بين الذرات؟",
+    options: ["التساهمية", "الأيونية"],
+    msg: "الكيمياء تقول التساهمية، بس الواقع يقول إن أقوى رابطة هي اللي تربط روح زاكي بروح إيمان 🔗",
+  },
+            {
+    q: "ما هي فصيلة الدم التي تسمى المعطي العام؟",
+    options: ["O-", "AB+"],
+    msg: "فصيلة O تعطي الكل، وزاكي مستعد يعطي عمره كله فدوة لعيون إيمان ❤️",
+  },
+  {
+    q: "ماذا يحدث عند تقريب قطبين مغناطيسيين مختلفين؟",
+    options: ["تجاذب", "تنافر"],
+    msg: "يصير تجاذب، تماماً مثل قوة الجذب اللي تشد زاكي لإيمان بدون أي مقاومة 🧲",
+  },
+{
+    q: "ما هو العضو المسؤول عن ضخ الدم في الجسم؟",
+    options: ["القلب", "الرئتين"],
+    msg: "القلب يضخ الدم للناس كلها، بس قلب زاكي ما يضخ إلا حب وإخلاص لإيمان 💓",
+  },
+{
+    q: "من هو العالم الذي وضع نظرية النسبية؟",
+    options: ["أينشتاين", "نيوتن"],
+    msg: "أينشتاين فسر الزمن، بس زاكي اكتشف إن الزمن يوقف تماماً لما يكون مع إيمان ⏳❤️",
+  },
+  {
+    q: "ما هو المعدن السائل الوحيد في درجة حرارة الغرفة؟",
+    options: ["الزئبق", "الحديد"],
+    msg: "الزئبق سائل، وزاكي يذوب كلياً في حب إيمان وما يبقى فيه شي صلب إلا وعده لها 🫠",
+  },
+
+
+{
+    q: "ما هو الشيء الذي لا يمكن لزاكي أن يبدأ يومه بدونه؟",
+    options: ["القهوة", "الفطور"],
+    msg: "القهوة تعدل المزاج، بس اليوم الحقيقي لزاكي ما يبدأ إلا بكلمة good morning from إيمان ☕❤️",
+  },
+
+{
+    q: "ما هو اللون المفضل الذي يحب زاكي ارتداءه؟",
+    options: ["الأزرق", "الأسود"],
+    msg: "الألوان كثيرة، بس لون عيون إيمان هو اللون الوحيد اللي يعطي لدنيا زاكي حياة 🎨",
+  },
+
+{
+    q: "كم ساعة يحتاج زاكي للنوم يومياً؟",
+    options: ["8 ساعات", "6 ساعات"],
+    msg: "ساعات النوم للنوم، بس زاكي يقضي كل ليلة سهران يفكر في إيمان ويدير قصة جديدة تجمعهم في المستقبل مع بعض  ✨",
+  },
+
+{
+    q: "أين يحب زاكي أن يقضي عطلته السنوية؟",
+    options: ["البحر", "الجبل"],
+    msg: "المكان مو مهم، لأن أي مكان تكون فيه إيمان هو جنة زاكي الخاصة وعطلته الأبدية 🏝️",
+  },
+
+
+{
+    q: "ما هو نوع الموسيقى الذي يفضله زاكي؟",
+    options: ["rap", "eng"],
+    msg: "كل الألحان حلوة، بس صوت إيمان هو المعزوفة اللي يحب زاكي يسمعها طول عمره 🎵",
+  },
+{
+    q: "ما هو الفصل المفضل لدى زاكي في السنة؟",
+    options: ["الشتاء", "الربيع"],
+    msg: "الجو قد يكون شتاء أو ربيع، بس حضن إيمان هو الفصل الدافئ اللي يحمي قلب زاكي 🍂",
+  },
+
+{
+    q: "ما هي الموهبة التي يتمنى زاكي إتقانها؟",
+    options: ["الرسم", "الرياضة"],
+    msg: "يتمنى يرسم، بس اكتشف إن إيمان هي اللوحة اللي رسمها القدر لزاكي وما تحتاج تعديل 🖼️",
+  },
+
+{
+    q: "ما هي كلمة السر التي يستخدمها زاكي دائماً؟",
+    options: ["تاريخ ميلاده", "رقم هاتفه"],
+    msg: "كلمات السر كثيرة، بس كلمة السر الوحيدة اللي تفتح قلب زاكي هي 'إيمان' 🔐❤️",
+  },
+
+{
+    q: "ما هو الحلم الذي يراود زاكي دائماً في منامه؟",
+    options: ["السفر حول العالم", "تحقيق النجاح"],
+    msg: "الأحلام كبيرة، بس زاكي يصحى كل يوم وهو يحمد ربه إن 'إيمان' هي واقعه الأجمل من أي حلم 💭❤️",
+  },
+
+{
+    q: "ما هي لغة البرمجة التي يفضلها زاكي في حياته؟",
+    options: ["JavaScript", "Python"],
+    msg: "بالكود يكتب لغات كثيرة، بس في حياته ما بيفهم ولا بيتكلم إلا لغة الحب اللي بتبدأ بـ 'إيمان' 💻✨",
+  },
+
+{
+    q: "ما هو الدواء الذي يحتاجه زاكي عندما يشعر بالتعب؟",
+    options: ["النوم والراحة", "المسكنات"],
+    msg: "الأدوية مفعولها مؤقت، بس ضحكة إيمان هي العلاج الوحيد اللي يشفي قلب زاكي فوراً 💊😍",
+  },
+
+{
+    q: "ما هي القاعدة الأولى في قانون زاكي الخاص؟",
+    options: ["العمل بجد", "الصدق"],
+    msg: "القوانين كثيرة، بس القاعدة الأولى والأساسية هي: 'إيمان دائماً على حق' 📜⚖️",
+  },
+
+
+{
+    q: "كيف يصف زاكي مفهوم السعادة الحقيقية؟",
+    options: ["راحة البال", "جمع المال"],
+    msg: "السعادة بالنسبة للعالم مفاهيم، وبالنسبة لزاكي هي مجرد 'اسم' مكون من خمس حروف: إيمان 💖",
+  },
+{
+    q: "ما هي الأغنية التي تذكر زاكي بطفولته؟",
+    options: ["أغاني الكرتون", "ألحان هادئة"],
+    msg: "الموسيقى ترجعنا للماضي، بس صوت إيمان هو اللحن اللي يخلي زاكي يحب حاضره ومستقبله 🎵🥰",
+  },
+
+{
+    q: "ما هو العنوان الذي يختاره زاكي لقصة حياته؟",
+    options: ["كفاح ونجاح", "رحلة العمر"],
+    msg: "العناوين ممكن تكون فخمة، بس زاكي اختار لقصته عنوان بسيط وعميق: 'إيمان.. نصفي الآخر' 📖💞",
+  },
+
+
+{
+    q: "ما هو التاريخ الذي يعتبره زاكي بداية التاريخ الحقيقي للعالم؟",
+    options: ["2007-03-08", "2000-01-01"],
+    msg: "8 مارس 2007 مو بس عيد ميلاد، هو اليوم اللي نورت فيه My Angel الدنيا عشان تحلي حياة زاكي 🎂✨",
+  },
+  {
+    q: "ما هو اليوم المفضل لزاكي في أيام الأسبوع؟",
+    options: ["الخميس", "الجمعة"],
+    msg: "الخميس طبعاً! لأن الطريق من الجامعة للمدينة في الحافلة هو أطول وأجمل وقت يقضيه زاكي جنب his Sweetheart 🚌❤️",
+  },
+  {
+    q: "عندما يغرق زاكي في التعب، من هو الشخص الذي يناديه؟",
+    options: ["ryn", "Mommy"],
+    msg: "ما في غيرها Mommy.. هي الحضن والملجأ والراحة اللي تخليني أنسى تعب الجامعة كله 😍",
+  },
+
+  {
+    q: "ماذا يتمنى زاكي أن يحدث للساعة في موعد يوم الخميس؟",
+    options: ["تتوقف تماماً", "تسرع قليلاً"],
+    msg: "يتمنى الوقت يوقف والحافلة ما توصل أبداً، عشان يضل جالس جنب his white Angel لأطول وقت ممكن ⏳✨",
+  },
+
+  {
+    q: "ما هو الشيء الذي يجعل زاكي يشعر بالأمان التام؟",
+    options: ["البيت", "وجود Mommy بجانبه"],
+    msg: "البيت جدران، بس الأمان الحقيقي هو لما يكون زاكي جنب hot Mommy ويحس إن العالم كله بخير 🤱❤️",
+  },
+  {
+    q: "ما هو الموعد الذي ينتظره زاكي بكل جوارحه هذا الأسبوع؟",
+    options: ["موعد الخميس", "عطلة نهاية الأسبوع"],
+    msg: "موعد الخميس في الحافلة! حيث تلتقي القلوب وتختصر المسافات بين زاكي و  my imene 🛣️💞",
+  },
+
+
+
+{
+q: "When I saw the two pictures you sent, what happened to my dih?",
+options: ["It became hard", "It didn't move"],
+msg: "It became hard with terrifying strength, oh Imane.. My dih rose to the highest degree and stood throbbing from the beauty of your hot body The pictures made me lose control completely I want to see you in much diffrend and bolder positions 🔥"
+},
+
+{
+q: "When I saw your body in the pictures.. what did I feel?",
+options: ["Lust", "Madness"],
+msg: "My dih stood rock hard and rose to its maximum length. I'm burning up right now and I want to see you in at least 4 different positions.. especially from behind and ur boobs please imene i will only see it one time ​🥹​​🥹​ "
+},
+
+
+{
+    q: "What is the thing that makes my day better?",
+    options: ["Exercise", "Reading"],
+    msg: "Exercise gives energy, but what really made my body rise to the highest level is the sound of your ah ah ah in my mind.. Right now I want to hear you scream while you're beneath me, send me something that drives me crazier 🔥"
+},
+
+
+{
+    q: "What inspires me?",
+    options: ["Books", "Movies]"],
+    msg: "Books might inspire the mind… but you my hot blonde mommy energy got my dih rock-hard and throbbing, begging to inspire you right back by sliding deep inside that perfect body in ways you’ve never felt before."
+},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 ];
+
+                 let currentIdx = 0;
+
+                 // وظيفة إنشاء القلوب
+                 function createHearts() {
+                   for (let i = 0; i < 15; i++) {
+                     let heart = document.createElement("div");
+                     heart.className = "heart";
+                     heart.innerHTML = "❤️";
+                     heart.style.left = Math.random() * 100 + "vw";
+                     heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+                     heart.style.fontSize = Math.random() * 20 + 10 + "px";
+                     document.body.appendChild(heart);
+
+                     // إزالة القلب بعد انتهاء الحركة لضمان الأداء
+                     setTimeout(() => heart.remove(), 6000);
+                   }
+                 }
+                 setInterval(createHearts, 2000);
+
+                 function loadQuestion() {
+                   const q = questions[currentIdx];
+                   document.getElementById("question-text").innerText = q.q;
+                   document.getElementById("current-num").innerText = currentIdx + 1;
+
+                   const optionsContainer = document.getElementById("options-container");
+                   optionsContainer.innerHTML = "";
+
+                   q.options.forEach((option) => {
+                     const btn = document.createElement("button");
+                     btn.innerText = option;
+                     btn.onclick = () => showAnswer(q.msg);
+                     optionsContainer.appendChild(btn);
+                   });
+
+                   document.getElementById("romantic-msg").style.display = "none";
+                   document.getElementById("next-btn").style.display = "none";
+                 }
+
+                 function showAnswer(msg) {
+                   const msgDiv = document.getElementById("romantic-msg");
+                   msgDiv.innerHTML = `❌خطا الاجابة الصحيحة هي : <br><br> ${msg}`;
+                   msgDiv.style.display = "block";
+                   document.getElementById("next-btn").style.display = "block";
+
+                   // اهتزاز خفيف كأن الإجابة خاطئة
+                   const container = document.getElementById("game-container");
+                   container.style.transform = "translateX(5px)";
+                   setTimeout(() => (container.style.transform = "translateX(-5px)"), 50);
+                   setTimeout(() => (container.style.transform = "translateX(0)"), 100);
+                 }
+
+                 function nextQuestion() {
+                   currentIdx++;
+                   if (currentIdx < questions.length) {
+                     // انتقال ناعم
+                     const container = document.getElementById("game-container");
+                     container.style.opacity = "0";
+                     setTimeout(() => {
+                       loadQuestion();
+                       container.style.opacity = "1";
+                     }, 300);
+                   } else {
+                     showEndScreen();
+                   }
+                 }
+
+                 function showEndScreen() {
+                   document.getElementById("question-text").style.display = "none";
+                   document.getElementById("options-container").style.display = "none";
+                   document.getElementById("romantic-msg").style.display = "none";
+                   document.getElementById("next-btn").style.display = "none";
+                   document.querySelector(".progress").style.display = "none";
+                   document.getElementById("end-screen").style.display = "block";
+                 }
+
+                 // بدء اللعبة
+                 loadQuestion();
+    </script>
+  </body>
+</html>

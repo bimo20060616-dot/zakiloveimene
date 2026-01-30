@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Mosaic</title>
+    <style>
+        /* --- CSS STYLES --- */
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .controls {
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: #00d2ff;
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #mosaic-container {
+            display: grid;
+            width: 600px;
+            height: 600px;
+            background-color: #000;
+            border: 2px solid #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            /* Grid template is set via JavaScript */
+        }
+
+        .tile {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://picsum.photos/id/10/800/800');
+            background-size: 600px 600px; /* Must match container dimensions */
+            background-repeat: no-repeat;
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                        opacity 1s ease-in-out,
+                        filter 0.5s ease;
+        }
+
+        /* Hover effect on small images */
+        .tile:hover {
+            z-index: 100;
+            transform: scale(1.5) !important;
+            outline: 2px solid #00d2ff;
+            filter: brightness(1.2);
+            cursor: crosshair;
+        }
+
+        @media (max-width: 650px) {
+            #mosaic-container {
+                width: 90vw;
+                height: 90vw;
+            }
+            .tile {
+                background-size: 90vw 90vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button id="rebuildBtn">Reshuffle & Rebuild</button>
+    </div>
+
+    <div id="mosaic-container"></div>
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+        const container = document.getElementById('mosaic-container');
+        const rebuildBtn = document.getElementById('rebuildBtn');
+
+        const gridSize = 20; // 20x20 grid
+        const totalTiles = gridSize * gridSize;
+        let tiles = [];
+
+        // 1. Initialize the Grid
+        function init() {
+            container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+            
+            for (let i = 0; i < totalTiles; i++) {
+                const tile = document.createElement('div');
+                tile.classList.add('tile');
+                
+                // Calculate position for background mapping
+                const row = Math.floor(i / gridSize);
+                const col = i % gridSize;
+                
+                // Calculate percentage position of the background image
+                const xPercent = (col / (gridSize - 1)) * 100;
+                const yPercent = (row / (gridSize - 1)) * 100;
+                tile.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+                
+                // Apply initial "exploded" state
+                applyRandomTransform(tile);
+                
+                container.appendChild(tile);
+                tiles.push(tile);
+            }
+
+            // Small delay before assembling for the first time
+            setTimeout(assemble, 300);
+        }
+
+        // 2. Randomize tiles (Shuffled state)
+        function applyRandomTransform(tile) {
+            const randomX = (Math.random() - 0.5) * 1000; // Move far on X axis
+            const randomY = (Math.random() - 0.5) * 1000; // Move far on Y axis
+            const randomRotation = (Math.random() - 0.5) * 720; // Spin
+            const randomScale = Math.random() * 2;
+            
+            tile.style.opacity = "0";
+            tile.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotation}deg) scale(${randomScale})`;
+        }
+
+        // 3. Assemble tiles (Form the image)
+        function assemble() {
+            tiles.forEach((tile, index) => {
+                // Add a very slight stagger effect for a more "organic" feel
+                setTimeout(() => {
+                    tile.style.opacity = "1";
+                    tile.style.transform = "translate(0, 0) rotate(0deg) scale(1)";
+                }, index * 0.5); 
+            });
+        }
+
+        // 4. Rebuild Handler
+        function handleRebuild() {
+            // Explode them first
+            tiles.forEach(tile => applyRandomTransform(tile));
+            
+            // Wait for explosion to finish, then reassemble
+            setTimeout(assemble, 1000);
+        }
+
+        rebuildBtn.addEventListener('click', handleRebuild);
+
+        // Launch
+        init();
+    </script>
+</body>
+</html>
