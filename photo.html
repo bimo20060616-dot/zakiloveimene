@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أنتِ كوني وكل عالمي 🌌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@700&family=Reem+Kufi:wght@500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --soft-pink: #ff758c;
+            --deep-blue: #0a0a12;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-blue);
+            font-family: 'Amiri', serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* قماش الخلفية للنجوم */
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* شاشة الدخول الفخمة */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: radial-gradient(circle at center, rgba(10, 10, 18, 0.8), var(--deep-blue));
+            transition: all 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 2s ease;
+        }
+
+        .login-card h1 {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pass-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--gold);
+            color: white;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            outline: none;
+        }
+
+        /* المحتوى الرئيسي */
+        #main-container {
+            display: none;
+            opacity: 0;
+            height: 100vh;
+            width: 100%;
+            transition: opacity 2s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .split-view {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+
+        .person-frame {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 1s ease;
+        }
+
+        .person-image {
+            width: 60%;
+            height: 80%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            transition: transform 0.6s ease;
+            position: relative;
+        }
+
+        .person-frame:hover .person-image {
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+
+        /* تسميات */
+        .name-label {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 10px black;
+        }
+
+        /* الفاصل والقلب */
+        .center-axis {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .glow-heart {
+            font-size: 60px;
+            color: var(--soft-pink);
+            filter: drop-shadow(0 0 20px var(--soft-pink));
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: blur(0px); }
+            50% { transform: scale(1.2); filter: blur(1px); }
+            100% { transform: scale(1); filter: blur(0px); }
+        }
+
+        /* النصوص السفلية */
+        .bottom-quote {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #eee;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .gold-text { color: var(--gold); font-family: 'Dancing Script', cursive; font-size: 2rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <canvas id="star-canvas"></canvas>
+
+    <div id="login-overlay">
+        <div class="login-card">
+                <h1>Hello nimooo</h1>
+            <p>the password is name of the girl that i love her :
+                (password is imene he is password of my heart too)
+            </p>
+            <input type="password" id="passCode" class="pass-input" maxlength="5">
+            <br>
+        </div>
+    </div>
+
+    <div id="main-container">
+        <div class="split-view">
+            <div class="person-frame">
+                <div class="person-image" style="background-image: url('ph/zaki.jpg');">
+                    <span class="name-label">Me</span>
+                </div>
+            </div>
+
+            <div class="person-frame">
+                <div class="person-image" style="background-image: url('ph/imene.jpg');">
+                    <span class="name-label">My Love</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-axis">
+            <div class="glow-heart">❤</div>
+        </div>
+
+        <div class="bottom-quote">
+            <span class="gold-text">Infinity is not enough...</span><br>
+            "المسافات كذبة اخترعها البشر، نحن دائما في نفس القلب."
+        </div>
+    </div>
+
+    <script>
+        // --- محرك النجوم الخلفي ---
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initStars() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for(let i=0; i<200; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.width,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        initStars();
+        drawStars();
+
+        // --- منطق الدوران وكلمة السر ---
+        const passInput = document.getElementById('passCode');
+        passInput.addEventListener('input', (e) => {
+            // غير كلمة السر هنا (مثلاً: 2024)
+            if(e.target.value === "imene") {
+                unlock();
+            }
+        });
+
+        function unlock() {
+            const overlay = document.getElementById('login-overlay');
+            const main = document.getElementById('main-container');
+            
+            overlay.style.transform = "scale(2) rotate(10deg)";
+            overlay.style.opacity = "0";
+            
+            setTimeout(() => {
+                overlay.style.display = "none";
+                main.style.display = "block";
+                setTimeout(() => main.style.opacity = "1", 100);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
