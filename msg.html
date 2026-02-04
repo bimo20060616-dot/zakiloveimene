@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letters for You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Garamond', serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffe4e9 25%, #f3e5f5 50%, #e8d5f0 75%, #ffd1dc 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            height: 120vh;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 182, 193, 0.4);
+            pointer-events: none;
+            animation: floatHeart 8s linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .envelope {
+            position: absolute;
+            width: 70px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .envelope:hover {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 8px 16px rgba(255,105,180,0.3));
+        }
+
+        .envelope-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe4e9 100%);
+            border: 2px solid #ffb6c1;
+            border-radius: 3px;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 35px solid transparent;
+            border-right: 35px solid transparent;
+            border-top: 30px solid #ffc0cb;
+            top: 0;
+            left: 0;
+            filter: brightness(0.95);
+        }
+
+        .envelope-seal {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #ff69b4;
+            border-radius: 50%;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .letter-card {
+            background: linear-gradient(to bottom, #fffaf0 0%, #fff5f5 100%);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: scale(0.7) rotateX(90deg);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .letter-card {
+            transform: scale(1) rotateX(0deg);
+            opacity: 1;
+        }
+
+        .letter-header {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .letter-title {
+            font-size: 28px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .letter-subtitle {
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .letter-content {
+            padding: 40px 35px;
+            max-height: calc(80vh - 150px);
+            overflow-y: auto;
+            font-size: 17px;
+            line-height: 1.9;
+            color: #4a4a4a;
+            text-align: justify;
+        }
+
+        .letter-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .letter-content::-webkit-scrollbar-track {
+            background: #f9e6f0;
+            border-radius: 10px;
+        }
+
+        .letter-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
+            border-radius: 10px;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+            font-size: 20px;
+            color: #ff1493;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .title-text {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.4);
+            letter-spacing: 4px;
+            font-weight: normal;
+            font-style: italic;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .decorative-flourish {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 192, 203, 0.3);
+            pointer-events: none;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="title-text">Letters of Love</div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="letter-card" id="letterCard">
+            <div class="letter-header">
+                <button class="close-button" id="closeButton">×</button>
+                <div class="letter-title" id="letterTitle">My Dearest</div>
+                <div class="letter-subtitle" id="letterDate">A moment frozen in time</div>
+            </div>
+            <div class="letter-content" id="letterContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const loveLetters = [
+            {
+                title: "To My Forever",
+                date: "Every sunrise, every sunset",
+                content: `<p>My beloved, as I write these words, my heart overflows with emotions that no language can fully capture. You are the melody that plays softly in my soul, the gentle whisper that calms every storm within me.</p>
+                <p>I remember the first moment I saw you, how time seemed to pause, how the world around us faded into a beautiful blur. In that instant, I knew my life would never be the same. You walked into my existence like spring arrives after a long winter, bringing warmth, color, and new life to everything you touched.</p>
+                <p>Every day with you is a gift I never knew I needed. Your laughter is the symphony I want to hear for the rest of my days. Your smile is the sunrise that brightens even my darkest hours. The way you look at me makes me feel like I'm the most precious treasure in your world, and darling, you are everything in mine.</p>
+                <p>I love you in the morning when you're still half asleep, your hair messy and your eyes barely open. I love you in the quiet moments when we sit in comfortable silence, just existing together. I love you when you're passionate about something, when your eyes light up and you talk with your hands. I love every version of you, every mood, every moment.</p>
+                <p>Thank you for choosing me, for trusting me with your heart, for letting me be part of your beautiful journey. I promise to cherish you, to hold your dreams as sacred as my own, to be your safe harbor in every storm.</p>
+                <p class="letter-signature">Forever yours, always and eternally ♡</p>`
+            },
+            {
+                title: "My Sweet Imene",
+                date: "In every heartbeat",
+                content: `<p>Dearest Imene,</p>
+                <p>From the moment our paths crossed, my life has been a tapestry woven with threads of joy, love, and endless wonder. You are the light that guides me through the darkest nights, the warmth that fills my heart even on the coldest days.</p>
+                <p>Your smile is my favorite sight, your laughter my favorite sound. Every moment spent with you is a treasure I hold close to my heart. You have shown me what it means to love unconditionally, to give without expecting anything in return.</p>
+                <p>With you, I have found a home for my soul. A place where I can be myself, where I am accepted and cherished for who I am. You inspire me to be a better person, to reach for the stars and believe in the impossible.</p>
+                <p>I promise to stand by your side through every challenge, to celebrate every triumph, and to love you more deeply with each passing day. You are my everything, Imene, and I am eternally grateful for the gift of your love.</p>
+                <p class="letter-signature">Yours forever, in this life and the next ♡</p>`
+            }
+        ];
+
+        // Initialize envelopes
+        const envelopes = [];
+        for (let i = 0; i < 20; i++) {
+            const envelope = document.createElement('div');
+            envelope.className = 'envelope';
+            envelope.innerHTML = `
+                <div class="envelope-body">
+                    <div class="envelope-back"></div>
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-seal">♡</div>
+                </div>
+            `;
+            
+            const x = Math.random() * (window.innerWidth - 70);
+            const y = Math.random() * (window.innerHeight - 50);
+            envelope.style.left = x + 'px';
+            envelope.style.top = y + 'px';
+            
+            document.body.appendChild(envelope);
+            
+            envelopes.push({
+                element: envelope,
+                x: x,
+                y: y,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3,
+                letter: loveLetters[i]
+            });
+            
+            envelope.addEventListener('click', () => openLetter(envelopes[i].letter));
+        }
+
+        // Create heart particles
+        function createHeartParticle() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            heart.textContent = '♡';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+            heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        setInterval(createHeartParticle, 2000);
+
+        // Create decorative flourishes
+        for (let i = 0; i < 8; i++) {
+            const flourish = document.createElement('div');
+            flourish.className = 'decorative-flourish';
+            flourish.textContent = '❀';
+            flourish.style.left = Math.random() * window.innerWidth + 'px';
+            flourish.style.top = Math.random() * window.innerHeight + 'px';
+            flourish.style.animationDuration = (15 + Math.random() * 10) + 's';
+            document.body.appendChild(flourish);
+        }
+
+        // Animate envelopes
+        function animateEnvelopes() {
+            envelopes.forEach((env, index) => {
+                env.x += env.speedX;
+                env.y += env.speedY;
+                
+                if (env.x <= 0 || env.x >= window.innerWidth - 70) env.speedX *= -1;
+                if (env.y <= 0 || env.y >= window.innerHeight - 50) env.speedY *= -1;
+                
+                // Avoid collisions
+                envelopes.forEach((other, otherIndex) => {
+                    if (index !== otherIndex) {
+                        const dx = env.x - other.x;
+                        const dy = env.y - other.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            env.speedX += dx * 0.001;
+                            env.speedY += dy * 0.001;
+                        }
+                    }
+                });
+                
+                env.element.style.left = env.x + 'px';
+                env.element.style.top = env.y + 'px';
+            });
+            
+            requestAnimationFrame(animateEnvelopes);
+        }
+
+        animateEnvelopes();
+
+        // Letter modal functionality
+        const modalOverlay = document.getElementById('modalOverlay');
+        const letterCard = document.getElementById('letterCard');
+        const closeButton = document.getElementById('closeButton');
+        const letterTitle = document.getElementById('letterTitle');
+        const letterDate = document.getElementById('letterDate');
+        const letterContent = document.getElementById('letterContent');
+
+        function openLetter(letter) {
+            letterTitle.textContent = letter.title;
+            letterDate.textContent = letter.date;
+            letterContent.innerHTML = letter.content;
+            modalOverlay.classList.add('active');
+            letterContent.scrollTop = 0;
+        }
+
+        function closeLetter() {
+            modalOverlay.classList.remove('active');
+        }
+
+        closeButton.addEventListener('click', closeLetter);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeLetter();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLetter();
+        });
+    </script>
+</body>
+</html>

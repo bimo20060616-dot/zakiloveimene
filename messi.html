@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرآة الحب التفاعلية 🖤</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* خلفية سوداء */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: none; /* إخفاء الماوس العادي */
+        }
+
+        #canvas {
+            display: block;
+        }
+
+        /* تصميم رسالة الإرشاد */
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Arial', sans-serif;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* تصميم المؤشر (القلب المتوهج) */
+        #custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff4d6d;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #custom-cursor::after {
+            content: '❤';
+            color: white;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+    <div class="hint">حركي الماوس لاستكشاف الكلمات المخفية...</div>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const cursor = document.getElementById('custom-cursor');
+        const hint = document.querySelector('.hint');
+
+        let width, height;
+        let particles = [];
+        
+        // قائمة الكلمات الخاصة بك
+        const wordsList = ["ilove u", "my imene", "Mamasita", "sweetheart", "pookie", "my woifie", "my angel", "Hot mommy", "My first LOVE", "My world", "My star", "Nbghyk" , "Hbibti", "Omri", "Hayati", "Rohi", "3iniya", "Galbi", "Nour 3ini",  "nty 7yati"];
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            createGridParticles(); // إعادة توزيع الكلمات عند تغيير حجم الشاشة
+        }
+
+        // الكلاس المسؤول عن كل كلمة تظهر على الشاشة
+        class Particle {
+            constructor(x, y, text) {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.opacity = 0;
+                this.size = Math.random() * 10 + 18; // حجم خط عشوائي بين 18 و 28
+                this.fadeSpeed = 0.02; // سرعة اختفاء الكلمة
+            }
+
+            draw() {
+                ctx.font = `bold ${this.size}px Arial`;
+                ctx.fillStyle = `rgba(255, 77, 109, ${this.opacity})`; // لون وردي متوهج
+                ctx.textAlign = "center";
+                ctx.fillText(this.text, this.x, this.y);
+            }
+
+            update(mouseX, mouseY) {
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                // إذا كان المؤشر قريباً من الكلمة (مسافة 120 بكسل)
+                if (distance < 120) {
+                    if (this.opacity < 1) this.opacity += 0.1; // تظهر بسرعة
+                } else {
+                    if (this.opacity > 0) this.opacity -= this.fadeSpeed; // تختفي ببطء
+                }
+            }
+        }
+
+        // وظيفة لتوزيع الكلمات بشكل منتظم يغطي كامل الشاشة
+        function createGridParticles() {
+            particles = [];
+            const spacing = 130; // المسافة بين كل كلمة وأخرى
+            
+            // حلقة تكرار لملء العرض والطول بالكلمات
+            for (let x = spacing; x < width; x += spacing) {
+                for (let y = spacing; y < height; y += spacing) {
+                    // اختيار كلمة عشوائية من القائمة
+                    const randomText = wordsList[Math.floor(Math.random() * wordsList.length)];
+                    // إضافة تذبذب بسيط في الموقع لكي لا تبدو كجدول جامد
+                    const offsetX = (Math.random() - 0.5) * 50;
+                    const offsetY = (Math.random() - 0.5) * 50;
+                    
+                    particles.push(new Particle(x + offsetX, y + offsetY, randomText));
+                }
+            }
+        }
+
+        // تحديث إحداثيات الماوس والمؤشر الجميل
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        function updateMouse(e) {
+            // تحديث إحداثيات الماوس سواء كان لمس أو ماوس عادي
+            const x = e.clientX || (e.touches && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0].clientY);
+            
+            mouseX = x;
+            mouseY = y;
+
+            // تحريك القلب المتوهج ليتبع الماوس
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+            
+            // إخفاء تلميح البداية
+            hint.style.opacity = 0;
+        }
+
+        window.addEventListener('mousemove', updateMouse);
+        window.addEventListener('touchstart', updateMouse);
+        window.addEventListener('touchmove', updateMouse);
+
+        // وظيفة التحريك المستمر (Animation Loop)
+        function animate() {
+            // رسم طبقة سوداء شفافة جداً فوق القديم لخلق تأثير "الذيل" أو الـ Motion Blur
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update(mouseX, mouseY);
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body>
+</html>
