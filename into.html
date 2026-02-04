@@ -600,11 +600,7 @@
             // إذا لم نجد صورة محددة، نستخدم صورة افتراضية (اختياري)
             if (winner.gifSrc) {
                 imageElement.src = winner.gifSrc;
-            } else {
-                // رابط لصورة احتياطية في حال نسيت وضع صورة لاسم معين
-                 imageElement.src = "https://media.giphy.com/media/l4pTfx2qLszoacZRS/giphy.gif";
-            }
-            
+            } 
             modal.classList.add('active');
             startConfetti();
         }
