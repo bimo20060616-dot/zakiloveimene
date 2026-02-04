@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عجلة دلالكِ 💖</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ------------------- إعدادات الصفحة والخلفية ------------------- */
+      :root {
+        --primary-pink: #ffb7b2;
+        --soft-purple: #c7ceea;
+        --gold: #ffd700;
+        --glass: rgba(255, 255, 255, 0.15);
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(circle at center, #2b1029 0%, #000000 100%);
+        font-family: "Amiri", serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      /* تأثير النجوم الخلفية */
+      .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background-image:
+          radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+          radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+          radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+          radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0));
+        background-repeat: repeat;
+        background-size: 200px 200px;
+        animation: twinkle 4s infinite;
+        opacity: 0.5;
+      }
+
+      @keyframes twinkle {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-100px);
+        }
+      }
+
+      /* تأثير بتلات الورد المتساقطة */
+      .petal {
+        position: absolute;
+        background-color: #ff4d6d;
+        border-radius: 150% 0 150% 0;
+        animation: fall linear infinite;
+        opacity: 0.7;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translate(0, -10vh) rotate(0deg);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(-20px, 110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      body {
+        font-family: "Tajawal", sans-serif;
+        overflow: hidden;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+      }
+
+      /* Animated Stars Background */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Falling Rose Petals */
+      .petal {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 182, 193, 0.7);
+        border-radius: 50% 0 50% 0;
+        animation: fall linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+
+      /* ------------------- العنوان والزر ------------------- */
+      .header {
+        z-index: 10;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        color: #fff0f5;
+      }
+
+      p.subtitle {
+        font-size: 1.2rem;
+        color: var(--primary-pink);
+        margin-top: 5px;
+      }
+
+      /* حاوية العجلة */
+      .wheel-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 5;
+        filter: drop-shadow(0 0 15px rgba(255, 183, 178, 0.3));
+      }
+
+      /* قماش العجلة */
+      canvas {
+        border-radius: 50%;
+        transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+      }
+
+      /* المؤشر (القلب في الوسط) */
+      .center-heart {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle at 30% 30%, #ff5e78, #ff0a43);
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px rgba(255, 10, 67, 0.6),
+          inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .center-heart::after {
+        content: "❤";
+        font-size: 30px;
+        color: white;
+        padding-top: 4px;
+      }
+
+      .center-heart:active {
+        transform: scale(0.9);
+      }
+
+      /* مؤشر السهم الثابت في الأعلى */
+      .marker {
+        position: absolute;
+        top: -15px;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 25px solid white;
+        z-index: 20;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+      }
+
+      /* زر الدوران */
+      .spin-btn {
+        margin-top: 30px;
+        padding: 12px 40px;
+        font-size: 1.2rem;
+        background: linear-gradient(
+          45deg,
+          #ff9a9e 0%,
+          #fad0c4 99%,
+          #fad0c4 100%
+        );
+        border: none;
+        border-radius: 50px;
+        color: #000000;
+        font-family: "Amiri", serif;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+        transition: all 0.3s;
+        z-index: 10;
+      }
+
+      .spin-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 154, 158, 0.6);
+      }
+
+      .spin-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ------------------- النافذة المنبثقة (Modal) ------------------- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+        z-index: 100;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: rgba(255, 255, 255, 0.95);
+        width: 90%;
+        max-width: 400px;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        color: #333;
+        transform: scale(0.7);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        border: 2px solid var(--gold);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: scale(1);
+      }
+
+      .modal-title {
+        font-size: 2rem;
+        color: #ff4d6d;
+        margin-bottom: 10px;
+        font-family: "Dancing Script", cursive; /* خط إنجليزي أو عربي مزخرف */
+      }
+
+      .modal-message {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .modal-image {
+        width: 200px;
+        height:auto;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid var(--gold);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .close-btn {
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: "Amiri", serif;
+        font-size: 1rem;
+      }
+
+      /* ------------------- القصاصات (Confetti) ------------------- */
+      #confetti-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div id="petals-container"></div>
+
+    <div class="header">
+      <h1>Kifach nlghalk lyom my nimo </h1>
+      <p class="subtitle">دعي قلبك يختار دلاله ياحلوتي الصغيرة...</p>
+    </div>
+
+    <div class="wheel-container">
+      <div class="marker"></div>
+      <canvas id="wheel" width="350" height="350"></canvas>
+      <div class="center-heart" onclick="spinWheel()"></div>
+    </div>
+
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+     khliha dor kima my heart ki ychofk 
+    </button>
+
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <img
+          src="https://media.giphy.com/media/l4pTfx2qLszoacZRS/giphy.gif"
+          alt="Heart"
+          class="modal-image"
+          id="resultImage"
+        />
+        <div class="modal-title" id="resultTitle">اسم الدلال</div>
+        <div class="modal-message" id="resultMessage">
+          الرسالة الرومانسية...
+        </div>
+        <button class="close-btn" onclick="closeModal()">❤️ I like it ❤️</button>
+      </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+      // ------------------- البيانات (يمكنك التعديل هنا) -------------------
+      const segments = [
+        {
+          name: "My imene",
+          color: "#FFB7B2",
+          msg: "I look at you and see the rest of my life in your eyes",
+          gifSrc: "gifs/cat.gif"
+        },
+        {
+          name: " my nimo",
+          color: "#FFDAC1",
+          msg: "You're the first thing I think of when I wake up and the last before I sleep",
+           gifSrc: "gifs/wow1.gif"
+        },
+        {
+          name: "Mommy",
+          color: "#E2F0CB",
+          msg: "Do you have a map? I just got lost in your eyes",
+           gifSrc: "gifs/wow2.gif"
+        },
+        {
+          name: "My girl ",
+          color: "#B5EAD7",
+          msg: "Aside from being gorgeous and pretty what do you do for a living?",
+           gifSrc: "gifs/wow3.gif"
+        },
+        {
+          name: "My heart",
+          color: "#C7CEEA",
+          msg:"Are you a magician? Because whenever I look at you, everyone else disappears",
+           gifSrc: "gifs/wow4.gif"
+        },
+        {
+          name:"My love",
+          color: "#F08080",
+          msg: "Are you a camera? Because every time I look at you I smile",
+           gifSrc: "gifs/wow5.gif"
+        },
+      ];
+
+      // ------------------- إعداد العجلة -------------------
+      const canvas = document.getElementById("wheel");
+      const ctx = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const radius = width / 2 - 10; // ترك هامش بسيط
+
+      let currentAngle = 0;
+      let isSpinning = false;
+      let spinVelocity = 0;
+      let animationFrameId;
+
+      // رسم العجلة
+      function drawWheel() {
+        const arcSize = (2 * Math.PI) / segments.length;
+
+        segments.forEach((segment, i) => {
+          const angle = currentAngle + i * arcSize;
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+          ctx.fillStyle = segment.color;
+          ctx.fill();
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // رسم النص
+          ctx.save();
+          ctx.translate(centerX, centerY);
+          ctx.rotate(angle + arcSize / 2);
+          ctx.textAlign = "right";
+          ctx.fillStyle = "#555";
+          ctx.font = "bold 18px Amiri";
+          ctx.fillText(segment.name, radius - 20, 5);
+
+          // إضافة قلوب صغيرة في الأطراف
+          ctx.font = "14px Arial";
+          ctx.fillText("♥", radius - 5, 4);
+
+          ctx.restore();
+        });
+
+        // رسم إطار خارجي ذهبي
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = "#FFD700"; // ذهبي
+        ctx.stroke();
+      }
+
+      drawWheel();
+
+      // ------------------- منطق الدوران -------------------
+      // إنشاء سياق صوتي لتوليد صوت "التكتكة"
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      function playTickSound() {
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.type = "triangle";
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // تردد عالي للنقرة
+        oscillator.frequency.exponentialRampToValueAtTime(
+          100,
+          audioCtx.currentTime + 0.1,
+        );
+
+        gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); // صوت خافت
+        gainNode.gain.exponentialRampToValueAtTime(
+          0.001,
+          audioCtx.currentTime + 0.1,
+        );
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+      }
+
+      let lastSegmentIndex = -1;
+
+      function spin() {
+        spinVelocity *= 0.985; // احتكاك (إبطاء تدريجي)
+        currentAngle += spinVelocity;
+
+        // التأكد من الزاوية بين 0 و 2PI
+        if (currentAngle >= 2 * Math.PI) currentAngle -= 2 * Math.PI;
+
+        drawWheel();
+
+        // حساب المؤشر الحالي لتشغيل الصوت
+        // السهم في الأعلى (زاوية 270 درجة أو -90)
+        // نحتاج لحساب أي قطعة تمر تحت السهم الآن
+        const arcSize = (2 * Math.PI) / segments.length;
+        const correction = Math.PI / 2; // تصحيح لأن الصفر عادة على اليمين والسهم في الأعلى
+        // معادلة تقريبية لمعرفة المؤشر الحالي أثناء الدوران
+        const rawAngle =
+          2 * Math.PI - ((currentAngle + correction) % (2 * Math.PI));
+        const currentIndex = Math.floor(
+          ((rawAngle + 2 * Math.PI) % (2 * Math.PI)) / arcSize,
+        );
+
+        if (currentIndex !== lastSegmentIndex && spinVelocity > 0.05) {
+          playTickSound();
+          lastSegmentIndex = currentIndex;
+        }
+
+        if (spinVelocity < 0.002) {
+          isSpinning = false;
+          cancelAnimationFrame(animationFrameId);
+          determineWinner();
+        } else {
+          animationFrameId = requestAnimationFrame(spin);
+        }
+      }
+
+      function spinWheel() {
+        if (isSpinning) return;
+        isSpinning = true;
+        document.getElementById("spinBtn").disabled = true;
+
+        // سرعة ابتدائية عشوائية (سريعة)
+        spinVelocity = Math.random() * 0.3 + 0.4;
+        spin();
+      }
+
+      function determineWinner() {
+        const arcSize = (2 * Math.PI) / segments.length;
+        // المؤشر الثابت في الأعلى (-PI/2)
+        // الزاوية الفعلية للقطعة الفائزة هي التي تكون عند الزاوية 270 درجة
+        const correction = Math.PI / 2;
+        let winningAngle =
+          2 * Math.PI - ((currentAngle + correction) % (2 * Math.PI));
+        if (winningAngle < 0) winningAngle += 2 * Math.PI;
+
+        const winningIndex = Math.floor(winningAngle / arcSize);
+        const winner = segments[winningIndex];
+
+        showResult(winner);
+      }
+
+      // ------------------- إظهار النتيجة -------------------
+      // ------------------- إظهار النتيجة -------------------
+        function showResult(winner) {
+            const modal = document.getElementById('modal');
+            const imageElement = document.getElementById('resultImage'); // العنصر المسؤول عن الصورة
+
+            document.getElementById('resultTitle').innerText = winner.name;
+            document.getElementById('resultMessage').innerText = winner.msg;
+            
+            // هنا التعديل الجديد: تغيير مصدر الصورة بناءً على الفائز
+            // إذا لم نجد صورة محددة، نستخدم صورة افتراضية (اختياري)
+            if (winner.gifSrc) {
+                imageElement.src = winner.gifSrc;
+            } else {
+                // رابط لصورة احتياطية في حال نسيت وضع صورة لاسم معين
+                 imageElement.src = "https://media.giphy.com/media/l4pTfx2qLszoacZRS/giphy.gif";
+            }
+            
+            modal.classList.add('active');
+            startConfetti();
+        }
+        
+      // ------------------- تأثيرات الخلفية (البتلات) -------------------
+      function createPetals() {
+        const container = document.getElementById("petals-container");
+        const petalCount = 15;
+
+        for (let i = 0; i < petalCount; i++) {
+          const petal = document.createElement("div");
+          petal.classList.add("petal");
+          petal.style.left = Math.random() * 100 + "vw";
+          petal.style.animationDuration = Math.random() * 5 + 5 + "s";
+          petal.style.animationDelay = Math.random() * 5 + "s";
+          container.appendChild(petal);
+        }
+      }
+      createPetals();
+
+      // ------------------- تأثير القصاصات (Confetti) السريع -------------------
+      const confettiCanvas = document.getElementById("confetti-canvas");
+      const cCtx = confettiCanvas.getContext("2d");
+      let confettiParticles = [];
+      let confettiAnimationId;
+
+      function resizeConfetti() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeConfetti);
+      resizeConfetti();
+
+      function startConfetti() {
+        confettiParticles = [];
+        for (let i = 0; i < 150; i++) {
+          confettiParticles.push({
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2,
+            w: Math.random() * 20 + 10,
+            h: Math.random() * 10 + 5,
+            vx: (Math.random() - 0.5) * 20,
+            vy: (Math.random() - 0.5) * 20 - 10,
+            color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+            rotation: Math.random() * 360,
+            rotationSpeed: (Math.random() - 0.5) * 10,
+          });
+        }
+        animateConfetti();
+      }
+
+      function animateConfetti() {
+        cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+        confettiParticles.forEach((p, index) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.5; // جاذبية
+          p.rotation += p.rotationSpeed;
+
+          // رسم قلب
+          cCtx.save();
+          cCtx.translate(p.x, p.y);
+          cCtx.rotate((p.rotation * Math.PI) / 180);
+          cCtx.fillStyle = p.color;
+          cCtx.font = `${p.w}px serif`;
+          cCtx.fillText("♥", 0, 0);
+          cCtx.restore();
+
+          if (p.y > window.innerHeight) confettiParticles.splice(index, 1);
+        });
+
+        if (confettiParticles.length > 0) {
+          confettiAnimationId = requestAnimationFrame(animateConfetti);
+        }
+      }
+
+      function stopConfetti() {
+        cancelAnimationFrame(confettiAnimationId);
+        cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+
+      // ------------------- دالة إغلاق النافذة (انسخي هذا الجزء) -------------------
+        function closeModal() {
+            // إخفاء النافذة
+            document.getElementById('modal').classList.remove('active');
+            
+            // إعادة تفعيل زر الدوران
+            document.getElementById('spinBtn').disabled = false;
+            
+            // إيقاف القصاصات الملونة
+            stopConfetti();
+        }
+    </script>
+  </body>
+</html>
