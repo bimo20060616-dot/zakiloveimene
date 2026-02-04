@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نجوم منصورة 🌌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #020205; 
+            color: white;
+            font-family: 'Amiri', serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* حاوية الخريطة */
+        .star-map-container {
+            position: relative;
+            width: 85vw;
+            max-width: 500px;
+            height: 80vh;
+            border: 1.5px solid #c5a059;
+            padding: 30px;
+            background: radial-gradient(circle at center, #0a0a20 0%, #020205 100%);
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 5;
+        }
+
+        #star-canvas {
+            width: 100%;
+            height: 60%;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #c5a059;
+            margin: 0;
+        }
+
+        .location-info {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .coords {
+            font-size: 0.85rem;
+            color: #c5a059;
+            opacity: 0.7;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+
+        .love-note {
+            font-size: 1.1rem;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            padding-top: 20px;
+            color: #c5a059;
+            line-height: 1.6;
+        }
+
+        /* سديم خفيف في الخلفية */
+        .nebula {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(80, 40, 120, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nebula"></div>
+
+    <div class="star-map-container">
+        <div class="info">
+            <h1>The Night in the day ta3 first date ta3na</h1>
+            <div class="location-info">Mansourah, Tlemcen</div>
+            <div class="coords">34.8715° N, 1.3255° W • University la Rocad</div>
+        </div>
+
+        <canvas id="star-canvas"></canvas>
+
+        <div class="love-note">
+            "في سماء المنصورة، لم تكن النجوم عشوائية.. <br>لقد رسمت قلبي الذي اختارك"
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+
+        function init() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+            createHeartStars();
+        }
+
+        // معادلة رسم شكل القلب رياضياً
+        function getHeartPoint(t) {
+            // t من 0 إلى 2PI
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            return { x, y };
+        }
+
+        class Star {
+            constructor(x, y, isStatic = false) {
+                this.baseX = x;
+                this.baseY = y;
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 1.8 + 0.5;
+                this.opacity = Math.random();
+                this.blinkSpeed = Math.random() * 0.02 + 0.005;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = "white";
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            update() {
+                this.opacity += this.blinkSpeed;
+                if (this.opacity > 1 || this.opacity < 0) this.blinkSpeed = -this.blinkSpeed;
+                
+                // حركة اهتزاز خفيفة جداً لتبدو حية
+                this.x = this.baseX + Math.sin(Date.now() * 0.001 + this.baseX) * 0.5;
+                this.y = this.baseY + Math.cos(Date.now() * 0.001 + this.baseY) * 0.5;
+            }
+        }
+
+        function createHeartStars() {
+            stars = [];
+            const scale = Math.min(width, height) / 40; // حجم القلب متناسب مع الشاشة
+            
+            // خلق نجوم على محيط القلب
+            for (let t = 0; t < Math.PI * 2; t += 0.1) {
+                const point = getHeartPoint(t);
+                const x = centerX(point.x * scale);
+                const y = centerY(point.y * scale);
+                stars.push(new Star(x, y));
+            }
+
+            // إضافة نجوم عشوائية داخل القلب لملئه
+            for (let i = 0; i < 100; i++) {
+                const r = Math.random() * Math.PI * 2;
+                const d = Math.random(); 
+                const point = getHeartPoint(r);
+                const x = centerX(point.x * scale * d);
+                const y = centerY(point.y * scale * d);
+                stars.push(new Star(x, y));
+            }
+
+            // إضافة بعض النجوم البعيدة في الخلفية
+            for (let i = 0; i < 50; i++) {
+                stars.push(new Star(Math.random() * width, Math.random() * height));
+            }
+        }
+
+        function centerX(x) { return x + width / 2; }
+        function centerY(y) { return y + height / 2; }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body>
+</html>
