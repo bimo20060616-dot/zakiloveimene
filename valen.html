@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? | Private Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --dark-red: #800e13;
+            --glass: rgba(255, 255, 255, 0.05);
+            --gold: #d4af37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a0a10 0%, #050505 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* الوعاء الرئيسي بتأثير زجاجي */
+        .main-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+            padding: 60px 40px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .main-card:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #fff, var(--primary-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            height: 100px; /* مساحة لحركة الزر */
+        }
+
+        .btn {
+            position: relative;
+            padding: 18px 50px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+
+        #yesBtn {
+            background: var(--primary-pink);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.5);
+            z-index: 100;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.8);
+        }
+
+        #noBtn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.1s; /* حركة أسرع للهروب */
+        }
+
+        /* Success Screen */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .celebration h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: var(--primary-pink);
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); text-shadow: 0 0 30px var(--primary-pink); }
+            100% { transform: scale(1); }
+        }
+
+        #success-gif {
+            width: 300px;
+            border-radius: 20px;
+            margin-top: 30px;
+            box-shadow: 0 0 50px rgba(255, 77, 109, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="main-card" id="card">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🌹</div>
+        <p>A Special Invitation for My nimo </p>
+        <h1>Will you be my Valentine?</h1>
+        
+        <div class="btn-container">
+            <button class="btn" id="yesBtn" onclick="celebrate()">Of Course!</button>
+            <button class="btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <h2>I knew it! ❤️</h2>
+        <p style="color: gold; margin-top: 10px;">You've made me the happiest person</p>
+        <img src="gifs/wow2.gif" id="success-gif">
+        <button class="btn" style="margin-top: 40px; background: none; border: 1px solid white; color: white; font-size: 1rem;" onclick="location.reload()">Back to Home</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // 1. Particle System Setup
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 100 },
+                "color": { "value": "#ff4d6d" },
+                "shape": { "type": "heart" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ff4d6d", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2 }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+            }
+        });
+
+        // 2. The Smart Runaway Button
+        const noBtn = document.getElementById('noBtn');
+        const card = document.getElementById('card');
+
+        const moveButton = (e) => {
+            // أبعاد الكارت لمنع الزر من الخروج منه بشكل قبيح
+            const cardRect = card.getBoundingClientRect();
+            
+            // حساب مواقع جديدة داخل حدود الكارت
+            const newX = Math.random() * (cardRect.width - noBtn.offsetWidth);
+            const newY = Math.random() * (cardRect.height - noBtn.offsetHeight);
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.transition = 'all 0.2s ease-out';
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        };
+
+        // الهروب عند اقتراب الماوس أو اللمس
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        // 3. Celebration Logic
+        function celebrate() {
+            const success = document.getElementById('celebration');
+            success.style.display = 'flex';
+            
+            // إطلاق قصاصات ورق ملونة (اختياري يمكنك إضافة مكتبة confetti)
+            playHeartSound();
+        }
+
+        function playHeartSound() {
+            // تأثير صوتي بسيط عند النجاح
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        }
+    </script>
+</body>
+</html>
