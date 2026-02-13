@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Loooooooooove imene </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --main-pink: #ff758c;
+            --dark-pink: #ff7eb3;
+            --glass: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Cairo', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts Background */
+        .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .heart-particle { position: absolute; color: rgba(255,255,255,0.5); animation: float 10s infinite linear; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .hero-section {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-bottom: 50px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .date-text { font-size: 1.5rem; letter-spacing: 5px; opacity: 0.9; }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 70px;
+            padding: 20px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            transform: rotate(-3deg);
+            transition: 0.4s;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; }
+
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+
+        /* English title and long text styles */
+        .polaroid .card-title-en {
+            color: #333;
+            font-size: 1.05rem;
+            margin-top: 10px;
+            font-weight: 700;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .polaroid .card-text-en {
+            color: #222;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 8px;
+            text-align: left;
+            direction: ltr;
+            max-height: 9.5em;
+            overflow: hidden;
+        }
+
+      
+
+        .message-box::before {
+            font-size: 50px;
+            position: absolute;
+            top: -30px;
+            right: 50%;
+            transform: translateX(50%);
+        }
+
+        .highlight {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 2rem;
+        }
+
+        .first-kiss-text {
+            font-family: 'Dancing Script', cursive;
+            color: var(--main-pink);
+            font-size: 1.8rem;
+        }
+
+        footer { margin-top: 100px; padding-bottom: 50px; opacity: 0.7; }
+
+    </style>
+</head>
+<body>
+
+    <div class="hearts" id="heartContainer"></div>
+
+    <div class="container">
+        <header class="hero-section animate__animated animate__fadeInDown">
+            <p class="date-text">To u , my forever</p>
+            <h1>My Beautiful Queen</h1>
+                </header>
+
+        <div class="gallery">
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p1.jpg" alt="Memory">
+                <h3 class="card-title-en">The Epic of Returning</h3>
+                <p class="card-text-en" dir="ltr">Our disagreement wasn't just a misunderstanding; it was a lonely exile where I felt I’d lost my compass. Returning to the shores of your love, I realize you aren't just a woman I love; you are the homeland I can never replace. I promise to protect this love with all my might, and to make our future a paradise sown with loyalty and harvested in eternal bliss. There is no room for parting in our dictionary anymore</p>
+            </div>
+
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p2.jpg" alt="Memory">
+                <h3 class="card-title-en">Sunrise After the Storm</h3>
+                <p class="card-text-en" dir="ltr">the past days were dull, tasteless and colorless, as if the sun refused to rise in my world without your smile. Our reconciliation today is not just a passing peace; it is a rebirth of our story that deserves to be told. I want to build a future with you that transcends dreams, where we are the beginning and the end, and where time dares not touch the sanctity of our bond. You are the queen of my heart today, tomorrow, and every second of my coming life</p>
+            </div>
+
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p3.jpg" alt="Memory">
+                <h3 class="card-title-en">The Vow of Constancy</h3>
+                <p class="card-text-en" dir="ltr">
+They say love cools with time, but I promise you my love will only burn brighter as we age. I will look at you at seventy with the same gaze I have now; a gaze of awe and gratitude that you accepted me as your partner. My future isn't just coming years; it's a long journey where I'll spend every day discovering a new reason to love you even more                </p>
+            </div>
+
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p4.jpg" alt="Memory">
+                <h3 class="card-title-en">Imene: The Melody of the Soul</h3>
+                <p class="card-text-en" dir="ltr">
+My beloved Imene, when I repeat your name, I feel as if a heavenly melody is playing in my heart; it is not just a name, but the light that illuminates the darkness of my days. I apologize with all my heart for being the reason your smile faded even for a moment without me knowing; sadness does not suit your eyes, where I see all the beauty of this world. I am drowned in your details, in the tenderness of your voice, and in the warmth of your presence that gives my life its true meaning. I want you to know that you are not just a part of my life, but life itself, and the most beautiful thing that ever happened to me. Every time I look at you, I realize that I found in you everything I was looking for and more                </p>
+            </div>
+
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p5.jpg" alt="Memory">
+                <h3 class="card-title-en">Imene: The Poem of Existence</h3>
+                <p class="card-text-en" dir="ltr">
+        My beloved Imene, there is a kind of beauty dwelling within you that words cannot describe—a beauty that transcends features to reach the depths of the soul and capture it. When I am with you, time stops, all the noise around me fades, and nothing remains but the rhythm of your love beating in my chest. You, Imene, are the sanctuary I run to find myself, and the light that makes everything around me seem brighter. I love how you turn the simplest things into unforgettable memories, and how you fill the voids of my soul with your overwhelming presence. You are the undisputed queen of this heart, and I am drowned in your details to the core, grateful for every second I breathe your love
+                </p>
+            </div>
+
+            <div class="polaroid animate__animated animate__zoomIn">
+                <img src="promise/p6.jpg" alt="Memory">
+                <h3 class="card-title-en">An Apology for Unseen Wounds</h3>
+                <p class="card-text-en" dir="ltr">
+I write to you with a heart full of regret, not just because we disagreed, but because I saddened your tender heart without realizing it, as if I had stabbed my own soul. I didn't know my words or actions could scratch your purity, so please forgive my ignorance of your sensitivity. I promise to guard your heart more than my own pulse, and to make my future with you an atonement for every moment of distress I unintentionally caused.                </p>
+            </div>
+
+        </div>
+
+        <div class="message-box animate__animated animate__fadeInUp">
+            <p style="font-size: 1.5rem; line-height: 2;">
+
+        <footer>
+            <p>Made with my love to u nimo </p>
+        </footer>
+    </div>
+
+    <script>
+        // دالة لإنشاء قلوب تتساقط في الخلفية
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+    </script>
+
+    </body>
+</html>
