@@ -67,6 +67,11 @@
             filter: drop-shadow(0 8px 16px rgba(255,105,180,0.3));
         }
 
+        .envelope.opened {
+            filter: grayscale(100%) opacity(0.6) drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+            transform: scale(1) rotate(0deg);
+            cursor: default;
+        }
         .envelope-body {
             position: relative;
             width: 100%;
@@ -398,6 +403,8 @@ Sweet Imene, with eyes like warm espresso and hair to match, you're a vision. I 
 
         // Initialize envelopes
         const envelopes = [];
+        const openedKey = 'openedEnvelopes_v1';
+        const openedMap = JSON.parse(localStorage.getItem(openedKey) || '{}');
         for (let i = 0; i < 20; i++) {
             const envelope = document.createElement('div');
             envelope.className = 'envelope';
@@ -411,6 +418,7 @@ Sweet Imene, with eyes like warm espresso and hair to match, you're a vision. I 
             
             const x = Math.random() * (window.innerWidth - 70);
             const y = Math.random() * (window.innerHeight - 50);
+            envelope.dataset.index = i;
             envelope.style.left = x + 'px';
             envelope.style.top = y + 'px';
             
@@ -424,8 +432,14 @@ Sweet Imene, with eyes like warm espresso and hair to match, you're a vision. I 
                 speedY: (Math.random() - 0.5) * 0.3,
                 letter: loveLetters[i]
             });
-            
-            envelope.addEventListener('click', () => openLetter(envelopes[i].letter));
+
+            // If this envelope was previously opened, apply opened style
+            if (openedMap[i]) envelope.classList.add('opened');
+
+            envelope.addEventListener('click', () => {
+                markOpened(i);
+                openLetter(envelopes[i].letter);
+            });
         }
 
         // Create heart particles
@@ -485,6 +499,19 @@ Sweet Imene, with eyes like warm espresso and hair to match, you're a vision. I 
         }
 
         animateEnvelopes();
+
+        // Mark an envelope as opened and persist state
+        function markOpened(index) {
+            openedMap[index] = true;
+            try {
+                localStorage.setItem(openedKey, JSON.stringify(openedMap));
+            } catch (e) {
+                console.warn('Could not save opened state', e);
+            }
+            if (envelopes[index] && envelopes[index].element) {
+                envelopes[index].element.classList.add('opened');
+            }
+        }
 
         // Letter modal functionality
         const modalOverlay = document.getElementById('modalOverlay');
