@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message From My Heart</title>
+    <style>
+        :root {
+            --primary-color: #ff4b2b;
+            --secondary-color: #ff416c;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0f0f0f; /* خلفية داكنة لتركيز الضوء */
+            font-family: 'Georgia', serif;
+            color: white;
+            overflow: hidden;
+            transition: background 2s ease;
+        }
+
+        #glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #glass-card:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+        }
+
+        #message-box {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            min-height: 150px;
+            font-style: italic;
+        }
+
+        .heart-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden { display: none; }
+
+        /* تأثير النبض في الخلفية */
+        .bg-pulse {
+            background: radial-gradient(circle, #2c0e0e 0%, #0f0f0f 100%) !important;
+        }
+
+        #tap-hint {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="body" class="roman-bg">
+
+    <div id="glass-card" onclick="startSurprise()">
+        <span class="heart-icon" id="main-icon">🔒</span>
+        <h1 id="header">You have a hidden message</h1>
+        <div id="message-box"></div>
+        <p id="tap-hint">Tap to unlock</p>
+    </div>
+
+    <script>
+        const message = "I've been thinking about how to say this... My world feels silent when we're not okay. You are my home, my peace, and my greatest joy. I'm truly sorry for everything. Can we please start over? I love you beyond words. ❤️";
+        let i = 0;
+        let started = false;
+
+        function startSurprise() {
+            if (started) return;
+            started = true;
+
+            // تغيير الحالة المرئية
+            document.getElementById('body').classList.add('bg-pulse');
+            document.getElementById('main-icon').innerHTML = "❤️";
+            document.getElementById('header').innerText = "For My Only One";
+            document.getElementById('tap-hint').classList.add('hidden');
+            
+            typeWriter();
+        }
+
+        function typeWriter() {
+            if (i < message.length) {
+                document.getElementById("message-box").innerHTML += message.charAt(i);
+                i++;
+                // سرعة الكتابة العشوائية تجعلها تبدو كأنها بشرية
+                setTimeout(typeWriter, Math.random() * 50 + 50);
+            } else {
+                // إظهار زر "أحبك" في النهاية
+                setTimeout(() => {
+                    document.getElementById("message-box").innerHTML += "<br><br><small style='color:#ff416c'>- Your Forever Person</small>";
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
