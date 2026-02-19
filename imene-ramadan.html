@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رمضان إيمان 🌙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ramadan.css">
+
+</head>
+
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-moon">🌙</div>
+  <div class="loader-text">رمضان مبارك</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- Canvas for Stars -->
+<canvas id="starsCanvas"></canvas>
+
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="popupOverlay"></div>
+<div class="message-popup" id="messagePopup">
+  <button class="popup-close" id="popupClose">✕</button>
+  <span class="popup-icon" id="popupIcon">🌙</span>
+  <div class="popup-title" id="popupTitle">رسالة خاصة</div>
+  <div class="popup-msg" id="popupMsg"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="top-nav">
+  <a class="nav-link" onclick="scrollTo('hero')">الرئيسية</a>
+  <a class="nav-link" onclick="scrollTo('rizz-section')">رسائلي</a>
+  <span class="nav-moon">🌙</span>
+  <a class="nav-link" onclick="scrollTo('letter-section')">رسالتي</a>
+  <a class="nav-link" onclick="scrollTo('final-section')">للأبد</a>
+</nav>
+
+<!-- Audio Button -->
+<button class="audio-btn" id="audioBtn" title="تشغيل/إيقاف الموسيقى">🔇</button>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <!-- Rope -->
+    <div class="rope"></div>
+
+    <!-- Lanterns -->
+    <div class="lanterns-row">
+      <div class="lantern-wrapper">
+        <div class="lantern-string"></div>
+        <div class="lantern-cap"></div>
+        <div class="lantern-body lantern-1"><div class="lantern-glow"></div></div>
+        <div class="lantern-bottom-piece" style="width:40px;height:12px;background:var(--gold)"></div>
+        <div class="lantern-tassel"></div>
+      </div>
+      <div class="lantern-wrapper">
+        <div class="lantern-string"></div>
+        <div class="lantern-cap"></div>
+        <div class="lantern-body lantern-2"><div class="lantern-glow"></div></div>
+        <div class="lantern-bottom-piece" style="width:40px;height:12px;background:var(--gold)"></div>
+        <div class="lantern-tassel"></div>
+      </div>
+      <div class="lantern-wrapper">
+        <div class="lantern-string"></div>
+        <div class="lantern-cap"></div>
+        <div class="lantern-body lantern-3"><div class="lantern-glow"></div></div>
+        <div class="lantern-bottom-piece" style="width:40px;height:12px;background:var(--gold)"></div>
+        <div class="lantern-tassel"></div>
+      </div>
+      <div class="lantern-wrapper">
+        <div class="lantern-string"></div>
+        <div class="lantern-cap"></div>
+        <div class="lantern-body lantern-4"><div class="lantern-glow"></div></div>
+        <div class="lantern-bottom-piece" style="width:40px;height:12px;background:var(--gold)"></div>
+        <div class="lantern-tassel"></div>
+      </div>
+      <div class="lantern-wrapper">
+        <div class="lantern-string"></div>
+        <div class="lantern-cap"></div>
+        <div class="lantern-body lantern-5"><div class="lantern-glow"></div></div>
+        <div class="lantern-bottom-piece" style="width:40px;height:12px;background:var(--gold)"></div>
+        <div class="lantern-tassel"></div>
+      </div>
+    </div>
+
+    <!-- Static Stars -->
+    <div class="hero-stars" id="heroStars"></div>
+
+    <!-- Moon -->
+    <div class="moon-container">
+      <div class="moon">
+        <div class="moon-outer"></div>
+        <div class="moon-crescent"></div>
+      </div>
+    </div>
+
+    <!-- Floating Particles Container -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+      <div class="ramadan-badge">✦ رمضان كريم ١٤٤٦ ✦</div>
+      <h1 class="hero-title-main">
+        كُلَّ رَمَضَانٍ
+        <span class="hero-name">و زاكي مع إيمـان  ✨</span>
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">
+        شهر مقدس وأنت أجمل هدية فيه<br>
+        <span style="color:var(--rose-light); font-size:0.9em">أحبك أكثر من عدد نجوم هذه السماء</span>
+      </p>
+      <div class="scroll-indicator" onclick="document.getElementById('countdown-section').scrollIntoView({behavior:'smooth'})">
+        ⬇
+      </div>
+    </div>
+
+    <!-- City Silhouette -->
+    <div class="city-silhouette">
+      <svg viewBox="0 0 1400 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <!-- Mosques and buildings -->
+        <!-- Central grand mosque -->
+        <rect x="650" y="80" width="100" height="200" />
+        <polygon points="700,30 650,80 750,80" />
+        <!-- Left minaret -->
+        <rect x="620" y="100" width="20" height="180" />
+        <polygon points="630,80 620,100 640,100" />
+        <circle cx="630" cy="78" r="6" fill="#080C16" />
+        <!-- Right minaret -->
+        <rect x="760" y="100" width="20" height="180" />
+        <polygon points="770,80 760,100 780,100" />
+        <circle cx="770" cy="78" r="6" fill="#080C16" />
+        <!-- Dome -->
+        <ellipse cx="700" cy="80" rx="55" ry="25" />
+        <!-- Small side dome -->
+        <ellipse cx="640" cy="110" rx="25" ry="12" />
+        <ellipse cx="760" cy="110" rx="25" ry="12" />
+        <!-- Crescent on top -->
+        <path d="M697,25 Q700,15 703,25 Q706,20 700,18 Q694,20 697,25" fill="#D4AF37" opacity="0.5" />
+
+        <!-- Left area buildings -->
+        <rect x="0" y="160" width="80" height="120" />
+        <rect x="90" y="140" width="60" height="140" />
+        <rect x="80" y="120" width="20" height="20" />
+        <rect x="160" y="170" width="70" height="110" />
+        <rect x="155" y="150" width="10" height="25" />
+        <rect x="240" y="130" width="90" height="150" />
+        <rect x="260" y="100" width="15" height="35" />
+        <!-- Mosque left -->
+        <rect x="340" y="150" width="60" height="130" />
+        <ellipse cx="370" cy="150" rx="35" ry="15" />
+        <rect x="360" y="120" width="10" height="35" />
+        <rect x="385" y="130" width="8" height="25" />
+        <polygon points="365,118 360,120 370,120" />
+        <!-- More left buildings -->
+        <rect x="410" y="160" width="50" height="120" />
+        <rect x="470" y="145" width="80" height="135" />
+        <rect x="485" y="125" width="12" height="25" />
+        <rect x="560" y="155" width="70" height="125" />
+        <ellipse cx="595" cy="155" rx="38" ry="16" />
+        <rect x="588" y="128" width="9" height="30" />
+
+        <!-- Right area buildings -->
+        <rect x="760" y="155" width="70" height="125" />
+        <ellipse cx="795" cy="155" rx="38" ry="16" />
+        <rect x="788" y="128" width="9" height="30" />
+        <rect x="840" y="165" width="60" height="115" />
+        <rect x="855" y="148" width="10" height="22" />
+        <rect x="910" y="140" width="80" height="140" />
+        <rect x="925" y="115" width="12" height="30" />
+        <!-- Right mosque -->
+        <rect x="1000" y="150" width="65" height="130" />
+        <ellipse cx="1032" cy="150" rx="37" ry="16" />
+        <rect x="1024" y="120" width="10" height="35" />
+        <polygon points="1029,118 1024,120 1034,120" />
+        <rect x="1005" y="128" width="8" height="25" />
+        <rect x="1055" y="130" width="8" height="25" />
+        <rect x="1075" y="155" width="75" height="125" />
+        <rect x="1090" y="135" width="12" height="25" />
+        <rect x="1160" y="145" width="90" height="135" />
+        <rect x="1175" y="120" width="15" height="30" />
+        <rect x="1260" y="165" width="70" height="115" />
+        <rect x="1340" y="150" width="60" height="130" />
+        <rect x="1355" y="130" width="10" height="25" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ====== COUNTDOWN SECTION ====== -->
+  <section id="countdown-section">
+    <div class="section-pattern"></div>
+    <div class="section-header reveal">
+      <div class="crescent-decoration">🌙 ✦ 🌙</div>
+      <p class="section-label">العد التنازلي</p>
+      <h2 class="section-title">أيام الرحمة والبركة</h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="countdown-grid reveal">
+      <div class="countdown-card">
+        <div class="countdown-number" id="cd-days">00</div>
+        <div class="countdown-label">يوم</div>
+      </div>
+      <div class="countdown-dots">:</div>
+      <div class="countdown-card">
+        <div class="countdown-number" id="cd-hours">00</div>
+        <div class="countdown-label">ساعة</div>
+      </div>
+      <div class="countdown-dots">:</div>
+      <div class="countdown-card">
+        <div class="countdown-number" id="cd-mins">00</div>
+        <div class="countdown-label">دقيقة</div>
+      </div>
+      <div class="countdown-dots">:</div>
+      <div class="countdown-card">
+        <div class="countdown-number" id="cd-secs">00</div>
+        <div class="countdown-label">ثانية</div>
+      </div>
+    </div>
+
+    <div class="ornament-divider reveal">
+      <div class="ornament-line"></div>
+      <span class="ornament-star">✦</span>
+      <span class="ornament-star">☽</span>
+      <span class="ornament-star">✦</span>
+      <div class="ornament-line right"></div>
+    </div>
+  </section>
+
+  <!-- ====== RIZZ SECTION ====== -->
+  <section id="rizz-section">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">💖 ✦ 💖</div>
+      <p class="section-label">كلمات من قلب زاكي الى قلب ايمان</p>
+      <h2 class="section-title">عشرون رسالة لإيمان نور عيني </h2>
+      <div class="section-underline"></div>
+      <p style="margin-top:15px; color:rgba(245,222,179,0.5); font-size:0.95rem; font-family:'Scheherazade New',serif">
+        اضغط على أي بطاقة لتجد مفاجأة 💫
+      </p>
+    </div>
+
+    <div class="rizz-grid" id="rizzGrid">
+      <!-- Cards generated by JS -->
+    </div>
+
+    <div class="ornament-divider" style="margin-top:80px">
+      <div class="ornament-line"></div>
+      <span class="ornament-star">✦</span>
+      <span class="ornament-star">🌙</span>
+      <span class="ornament-star">✦</span>
+      <div class="ornament-line right"></div>
+    </div>
+  </section>
+
+  <!-- ====== QUOTES SECTION ====== -->
+  <section id="quotes-section">
+    <div class="section-header reveal">
+      <p class="section-label">كلمات الموقع كلها من الشاعر ابو علال </p>
+      <h2 class="section-title">في حبك ورمضان</h2>
+      <div class="section-underline"></div>
+    </div>
+    <div class="quote-display" id="quoteDisplay">
+      <div class="quote-text fade-in" id="quoteText">
+        يقال أن رمضان يقرب القلوب، وأنت يا إيمان كنت دائما قريبة من قلبي
+      </div>
+    </div>
+    <p class="quote-author" id="quoteAuthor" style="text-align:center; margin-top:220px">— مهداة لإيمان 🌙</p>
+    <div class="quote-nav" id="quoteNav"></div>
+  </section>
+
+  <!-- ====== MOON TRACKER ====== -->
+  <section id="moon-tracker">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">🌑 🌒 🌓 🌔 🌕</div>
+      <p class="section-label">أطوار القمر</p>
+      <h2 class="section-title">مع كل هلال أفتكرك يامحبوبتي</h2>
+      <div class="section-underline"></div>
+    </div>
+    <div class="moon-phases" id="moonPhases"></div>
+  </section>
+
+  <!-- ====== PRAYER SECTION ====== -->
+  <section id="prayer-section">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">🕌 ✦ 🕌</div>
+      <p class="section-label">مواقيت الصلاة</p>
+      <h2 class="section-title">ادعي لي في سجودك</h2>
+      <div class="section-underline"></div>
+    </div>
+    <div class="prayer-container reveal">
+      <div class="prayer-card-wrapper">
+        <div class="prayer-header">
+          <div class="prayer-city">العزة — اولاد بن صابر</div>
+          <div class="prayer-date" id="prayerDate">اليوم المبارك</div>
+        </div>
+        <ul class="prayer-list" id="prayerList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== LETTER SECTION ====== -->
+  <section id="letter-section">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">💌 ✦ 💌</div>
+      <p class="section-label">رسالة خاصة</p>
+      <h2 class="section-title">رسالتي إليك يا إيمان</h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="letter-envelope reveal">
+      <div class="envelope-flap" id="envelopeFlap" onclick="openEnvelope()"></div>
+      <div class="envelope-body" id="envelopeBody">
+        <div class="letter-seal" onclick="openEnvelope()">💝</div>
+        <div id="letterContent" style="display:none">
+          <div class="letter-salutation">إيموش الغالية... 💕</div>
+          <div class="letter-body">
+            <p>
+              في هذا الشهر الفضيل، الذي تنزل فيه الرحمة وتفتح فيه أبواب الجنة، وجدت نفسي أفكر فيك في كل لحظة. أنت <span class="highlight">نعمة من نعم الله</span> التي أشكره عليها كل يوم.
+            </p>
+            <p>
+              حين يؤذن المؤذن لصلاة الفجر، وتسكن الدنيا في تلك اللحظة العجيبة، أتمنى أن أكون قريبا منك وزوجا لك. <span class="heart-inline">💗</span> رمضان علمني أن الصبر جميل، وأنت علمتني أن الحب أجمل.
+            </p>
+            <p>
+              في ليالي رمضان المضيئة بالنجوم، أرى في عينيك ما هو أجمل من كل هذه النجوم. أنت يا إيمان <span class="highlight">سرُ سعادتي</span> وبهجة أيامي.
+            </p>
+            <p>
+              كل سحور أتناوله أفكر فيك، وكل إفطار يمر يكون أجمل بوجودك في خاطري. ليتنا نفطر يوما معا ونسمع صوت أذان المغرب معا، ستكون أجمل لحظة في حياتي. <span class="heart-inline">🌙❤️</span>
+            </p>
+            <p>
+              في دعائي وسجودي، لا أنسى أن أذكرك بالخير، وأسأل الله أن يحفظك ويسعدك ويجعلك من أهل الجنة. <span class="highlight">أنت تستحقين كل الخير</span>.
+            </p>
+          </div>
+          <div class="letter-signature">
+            <span>مع كل محبتي... 💛</span>
+            <span class="letter-date">رمضان ١٤٤٦ هـ</span>
+          </div>
+        </div>
+        <div id="letterHint" class="letter-hint">🌙 انقري على الختم لفتح الرسالة 🌙</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DUAS SECTION ====== -->
+  <section id="duas-section">
+    <div class="section-pattern"></div>
+    <div class="section-header reveal">
+      <div class="crescent-decoration">🤲 ✦ 🤲</div>
+      <p class="section-label">أدعية رمضان</p>
+      <h2 class="section-title">ادعي بها وأنا معك</h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="duas-grid reveal" id="duasGrid"></div>
+  </section>
+
+  <!-- ====== BIG LANTERN SECTION ====== -->
+  <section id="lantern-section">
+    <div class="section-header reveal">
+      <p class="section-label">فانوسي</p>
+      <h2 class="section-title glitter-text">فانوس الحب والأماني</h2>
+      <div class="section-underline"></div>
+    </div>
+
+    <div class="big-lantern-container" onclick="toggleLantern()">
+      <div style="width:3px;height:60px;background:linear-gradient(180deg,rgba(212,175,55,0.8),rgba(212,175,55,0.2));margin:0 auto;"></div>
+      <div class="lantern-top-piece"></div>
+      <div class="big-lantern" id="bigLantern">
+        <div class="big-lantern-body" id="bigLanternBody">
+          <div class="big-lantern-pattern"></div>
+          <div class="big-lantern-glow"></div>
+          <div class="big-lantern-inner-text" id="bigLanternText">
+            🌙<br>إيمـان<br>نور حياتي
+          </div>
+        </div>
+      </div>
+      <div class="lantern-bottom-piece"></div>
+      <div class="lantern-tassels">
+        <div class="big-tassel"></div>
+        <div class="big-tassel"></div>
+        <div class="big-tassel"></div>
+      </div>
+    </div>
+    <p class="lantern-click-hint">✦ اضغط على الفانوس لإضاءته ✦</p>
+  </section>
+
+  <!-- ====== WISH SECTION ====== -->
+  <section id="wish-section">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">✨ ✦ ✨</div>
+      <p class="section-label">أمنياتي</p>
+      <h2 class="section-title">اكتبي أمنيتك</h2>
+      <div class="section-underline"></div>
+      <p style="margin-top:12px;color:rgba(245,222,179,0.5);font-family:'Scheherazade New',serif;font-size:1rem">
+        اكتبي أمنيتك وسأرسلها مع دعائي 🤲
+      </p>
+    </div>
+    <div class="wish-box reveal">
+      <textarea class="wish-input-area" id="wishInput" placeholder="اكتبي أمنيتك هنا..." rows="4"></textarea>
+      <button class="wish-btn" onclick="addWish()">✦ أرسلي الأمنية ✦</button>
+      <div class="wishes-display" id="wishesDisplay"></div>
+    </div>
+  </section>
+
+  <!-- ====== CALENDAR SECTION ====== -->
+  <section id="calendar-section">
+    <div class="section-header reveal">
+      <div class="crescent-decoration">📅 ✦ 🌙</div>
+      <p class="section-label">تقويم رمضان</p>
+      <h2 class="section-title">أيام البركة والنور</h2>
+      <div class="section-underline"></div>
+    </div>
+    <div class="ramadan-calendar" id="ramadanCalendar"></div>
+  </section>
+
+  <!-- ====== FINAL SECTION ====== -->
+  <section id="final-section">
+    <div class="final-heart-container">
+      <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="heartGrad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#F48FB1"/>
+            <stop offset="50%" stop-color="#E91E63"/>
+            <stop offset="100%" stop-color="#880E4F"/>
+          </radialGradient>
+        </defs>
+        <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C37 5 45 11 50 20 C55 11 63 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z" fill="url(#heartGrad)" />
+        <!-- Inner glow -->
+        <path d="M50 75 C50 75 15 50 15 30 C15 20 22 13 30 13 C37 13 44 18 50 28 C56 18 63 13 70 13 C78 13 85 20 85 30 C85 50 50 75 50 75Z" fill="rgba(255,255,255,0.15)" />
+        <!-- Stars inside heart -->
+        <text x="32" y="38" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="middle">✦</text>
+        <text x="68" y="38" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="middle">✦</text>
+        <text x="50" y="55" font-size="14" fill="rgba(255,255,255,0.7)" text-anchor="middle">🌙</text>
+      </svg>
+    </div>
+
+    <div class="final-message">
+      في كل رمضان يأتي وأنت في قلبي
+      <span class="final-name">إيمان</span>
+      تكون الحياة أجمل بألف مرة
+    </div>
+
+    <div class="final-decoration">
+      <div class="deco-line"></div>
+      <span class="deco-icon">✦</span>
+      <span class="deco-icon">🌙</span>
+      <span class="deco-icon">✦</span>
+      <div class="deco-line right"></div>
+    </div>
+
+    <p style="font-family:'Scheherazade New',serif; font-size:1.4rem; color:rgba(245,222,179,0.5); margin-top:20px; line-height:2">
+      رمضان مبارك يا ام اولادي علال والزهرة 💛<br>
+      <span style="font-size:1rem;color:rgba(212,175,55,0.4)">تقبل الله منا ومنك صالح الأعمال</span>
+    </p>
+
+    <!-- Fireworks canvas -->
+    <canvas id="fireworksCanvas" style="position:absolute;inset:0;pointer-events:none;width:100%;height:100%;z-index:0;"></canvas>
+  </section>
+
+</div><!-- end main-wrapper -->
+
+<!-- Footer -->
+<footer>
+  <div class="footer-text">
+    صنع بكل الحب تعاونا من زاكي وابو علال  <span class="footer-heart">❤️</span> لإيمان في رمضان ١٤٤٦
+  </div>
+</footer>
+
+<!-- Audio (Web Audio API beep melody simulation) -->
+<audio id="bgAudio" loop style="display:none"></audio>
+
+<script>
+// =========================================================
+// JAVASCRIPT - FULL INTERACTIVE EXPERIENCE
+// =========================================================
+
+// ---- GLOBAL STATE ----
+let lanternLit = true;
+let currentQuote = 0;
+let audioContext = null;
+let audioPlaying = false;
+let currentLanternMessageIndex = 0;
+let envelopeOpen = false;
+
+// ---- RIZZ MESSAGES DATA ----
+const rizzMessages = [
+  {
+    icon: "🌙",
+    title: "رسالة ١",
+    text: "يا إيمان، لو كانت النجوم تعد، فأنت أجملها وأكثرها ضياء في سماء قلبي. في رمضان وفي غيره، أنت وحدك من تجعلني أشعر بأن الحياة تستحق.",
+    secret: "أنت أجمل من البدر ليلة اكتماله 🌕"
+  },
+  {
+    icon: "💛",
+    title: "رسالة ٢",
+    text: "حين يفطر الصائم ويشعر بلذة أول قطرة ماء، أنا أشعر بنفس اللذة كلما سمعت صوتك أو رأيت اسمك. أنت أحلى من تمر الإفطار وأدفأ من حريرة امي.",
+    secret: "روحك تنير قلبي كما ينير الفانوس الليل 🏮"
+  },
+  {
+    icon: "🌹",
+    title: "رسالة ٣",
+    text: "في الليالي العشر الأخيرة يبحث الجميع عن ليلة القدر. أنا لا أحتاج إلى البحث، فأنت يا إيمان خير من ألف شهر في حياتي.",
+    secret: "دعواتي في ليلة القدر... كلها لك ✨"
+  },
+  {
+    icon: "✨",
+    title: "رسالة ٤",
+    text: "كل ليلة من رمضان أنظر إلى القمر وأتساءل: هل تنظرين إليه في نفس اللحظة؟ وأتمنى أن يكون هذا القمر المشترك بيننا ويوصل لك كل مشاعري.",
+    secret: "عندما نرى البدر نعلن عن شهر رمضان , وقلبي عندما رءاك اعلن عن حبه الابدي🌙"
+  },
+  {
+    icon: "🤲",
+    title: "رسالة ٥",
+    text: "في كل سجود أسجده، تأتين في خاطري كالنسيم الرقيق. وأسأل الله بكرمه وجوده أن يحفظك ويسعدك في الدنيا والآخرة. أنت في دعائي دائما.",
+    secret: "الله يعلم كم أحبك 🌸"
+  },
+  {
+    icon: "🕌",
+    title: "رسالة ٦",
+    text: "صوت الأذان في رمضان أجمل من أي موسيقى، لكن لو اختلط بصوتك وانت تصحيني من النوم لكان ذلك أعظم لحن سمعته أذني. يا إيمان، أنت موسيقى روحي.",
+    secret: "صوتك أحلى نغمة في الكون 🎵"
+  },
+  {
+    icon: "💫",
+    title: "رسالة ٧",
+    text: "يقولون إن رمضان شهر الصبر، وأنا صابر على بعدك صبر أيوب. لكن كل دقيقة أعلم فيها أنك موجودة في هذا العالم تجعل الانتظار يستحق.",
+    secret: "الانتظار حلو إذا كنت في النهاية معي 💛"
+  },
+  {
+    icon: "🌺",
+    title: "رسالة ٨",
+    text: "كما يتجمل المسجد في رمضان بالأضواء والزخارف، تتجمل أيامي بتفكيري فيك. أنت الزينة الأجمل في كل شهر وكل يوم وكل ساعة من حياتي.",
+    secret: "حياتي بدونك كرمضان بلا فوانيس 🏮"
+  },
+  {
+    icon: "🌠",
+    title: "رسالة ٩",
+    text: "في الفجر حين يسكت كل شيء وتسمعين أنفاسك فقط، أعلمي أنني في تلك اللحظة أفكر فيك. الفجر يذكرني بنقاء روحك وجمال قلبك.",
+    secret: " احبك ماي نيموووووو"
+  },
+  {
+    icon: "💝",
+    title: "رسالة ١٠",
+    text: "قرأت أن الدعاء يستجاب في ثلاث أوقات: عند الإفطار، وفي جوف الليل، وعند السحور. في الأوقات الثلاثة، اسمك يا إيمان أول ما يخرج من قلبي.",
+    secret: "في كل دعاء اسمك الأول والأخير 🌙"
+  },
+  {
+    icon: "🌻",
+    title: "رسالة ١١",
+    text: "يا إيمان، عيناك كنجمتي الجوزاء تضيئان الليل وتهديان التائه. ولولاك لتهت في الحياة كمن يبحث في صحراء بلا دليل.",
+    secret: "أنت بوصلتي التي تدلني على اتجاه الحب والسكينة  🌟"
+  },
+  {
+    icon: "🦋",
+    title: "رسالة ١٢",
+    text: "كما تفيض اكل امي في رمضان بالحلويات والمملحات ، تفيض روحك يا إيمان بالدفء والطيب. أنتِ تذكريني أن العطاء أجمل أشكال الحب.",
+    secret: "قلبك جميل وانا سعيد لانني املكه واعدك انني ساعتني به  💛"
+  },
+  {
+    icon: "🌸",
+    title: "رسالة ١٣",
+    text: "في العشرين من رمضان يبدأ الاعتكاف، وأنا معتكف في حبك منذ أن عرفتك. لا أريد الخروج من هذا الحب أبدا، فهو أجمل مكان عرفته روحي.",
+    secret: "قلبي معتكف في حبك إلى الأبد 💗"
+  },
+  {
+    icon: "🕯️",
+    title: "رسالة ١٤",
+    text: "الفانوس يضيء الطريق في رمضان، وأنت تضيئين طريقي في الحياة. فرق واحد فقط: الفانوس ينطفئ، أما نور محبتي لك فلن ينطفئ ما حييت.",
+    secret: "أنت نوري الذي لا يغيب أبدا 🕯️✨"
+  },
+  {
+    icon: "🍯",
+    title: "رسالة ١٥",
+    text: "العسل حلو، والتمر حلو، والشامية حلوة لكن أحلى شيء في رمضان وفي كل الأيام هي ابتسامتك يا إيمان. تلك الابتسامة التي أتمنى أن أراها كل يوم.",
+    secret: "ابتسامتك أحلى من كل حلويات رمضان 🍬"
+  },
+  {
+    icon: "🌊",
+    title: "رسالة ١٦",
+    text: "البحر يتحرك بجاذبية القمر، وقلبي يتحرك بجاذبيتك يا إيمان. لا أستطيع إيقاف هذا الشعور تماما كما لا يستطيع البحر مقاومة القمر.",
+    secret: "أنت قمري الذي يحرك كل شيء في 🌊"
+  },
+  {
+    icon: "🦋",
+    title: "رسالة ١٧",
+    text:"الكلام نفد مني لكن حبي مازال يكتب لك ",
+    secret:"احبك اكثر من الحب نفسه "
+  },
+  {
+    icon: "🌴",
+    title: "رسالة ١٨",
+    text: "كما يصبر النخل على حرارة الصحراء ليثمر تمرا حلوا، أنا أصبر على كل شيء لأن في النهاية أنت يا إيمان ثمرة صبري وجائزة قلبي.",
+    secret: "الصبر حلو لأن في نهايته أنت "
+  },
+  {
+    icon: "🦋",
+    title: "رسالة ١٩",
+    text: "يا إيمان، أنت تجمعين في شخصيتك ما تفرق في غيرك: الجمال والذكاء والطيبة والأصالة. أنت قوس قزح حياتي، فيكِ كل الألوان الجميلة.",
+    secret: "أنت كل الجمال في شخص واحد"
+  },
+  {
+    icon: "💎",
+    title: "رسالة ٢٠",
+    text: "في ليلة القدر، الليلة التي هي خير من ألف شهر، أتمنى شيئا واحدا: أن أجعلك دائما تبتسمين. يا إيمان الغالية عللى قلبي .",
+    secret: "أمنيتي الوحيدة: أن تكوني سعيدة وخصوصا معي يا إيمان 💎🌙"
+  }
+];
+
+// ---- DUAS DATA ----
+const duas = [
+  {
+    icon: "🤲",
+    arabic: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+  },
+  {
+    icon: "🌙",
+    arabic: "اللَّهُمَّ بَارِكْ لَنَا فِي رَجَبٍ وَشَعْبَانَ وَبَلِّغْنَا رَمَضَان",
+  },
+  {
+    icon: "💛",
+    arabic: "اللَّهُمَّ اجْعَلْنِي مِنَ الَّذِينَ يَصُومُونَ وَيَقُومُونَ رَمَضَان",
+  },
+  {
+    icon: "🌟",
+    arabic: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+  },
+  {
+    icon: "🌸",
+    arabic: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ",
+  },
+  {
+    icon: "🕊️",
+    arabic: "اللَّهُمَّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَات",
+  }
+];
+
+// ---- QUOTES DATA ----
+const quotes = [
+  {
+    text: "يقال أن رمضان يقرب القلوب، وأنت يا إيمان كنت دائما قريبة من قلبي",
+    author: "— مهداة لإيمان 🌙"
+  },
+  {
+    text: "في رمضان يغلق إبليس، ولكن ما وجدت حيلة لإغلاق بابك في قلبي، فأنت أقوى من كل شيء",
+    author: "— مشاعري لك 💛"
+  },
+  {
+    text: "كما أن الصيام يطهر الجسد، فإن حبك يا إيمان يطهر روحي من كل الهموم",
+    author: "— لإيمان الغالية ✨"
+  },
+  {
+    text: "في كل ليلة قدر، أتمنى أمنية واحدة: أن تكوني دائما بأمان وسعادة ومعيييييي",
+    author: "— دعائي لك 🤲"
+  },
+  {
+    text: "النجوم في رمضان أكثر وأجمل، ولعلها تحمل رسائلي إليك في كل ليلة",
+    author: "— رسائلي المعلَقة في السماء 🌟"
+  },
+  {
+    text: "الفانوس يضيء شارعا، أما أنت يا إيمان فتضيئين حياة كاملة, حياتي بالطبع",
+    author: "— من قلب مضاء بحبك 🏮"
+  },
+  {
+    text: "قال الشاعر ابو علال : الليل يبكي والنجوم تشهد، وقلبي يهفو إليك كل لحظة",
+    author: "— شعر أكتبه لك وحدك 💫"
+  }
+];
+
+// ---- LANTERN MESSAGES ----
+const lanternMessages = [
+  { icon: "💛", title: "إيمان نور قلبي", msg: "أنت لضوء الذي ينير أيامي المعتمة. مهما ابتعدنا فضوؤك يصلني دائما." },
+  { icon: "🌙", title: "قمر رمضان", msg: "كما يكمل القمر رمضان بجماله، أنت تكملين كل يوم من أيامي بوجودك." },
+  { icon: "✨", title: "نجمة هذه الليلة", msg: "بين ملايين النجوم في السماء، عيناي تبحان دائما عن نجمتي أنت." },
+  { icon: "🌹", title: "وردة رمضان", msg: "كما تتفتح الورود في الربيع، قلبي يتفتح كلما فكرت فيك." },
+  { icon: "💝", title: "هديتي لك", msg: "ليس عندي ما أهديك إياه يساوي قيمتك ، لذلك أهديك كل قلبي." }
+];
+
+// ========================================
+// INIT
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+  initLoader();
+  initCursor();
+  initCanvas();
+  initScrollProgress();
+  initRizzCards();
+  initDuas();
+  initQuotes();
+  initMoonPhases();
+  initPrayer();
+  initCalendar();
+  initFallingStars();
+  initStaticStars();
+  initScrollReveal();
+  initParticles();
+  initClickEffects();
+  initFireworks();
+  initCountdown();
+});
+
+// ========================================
+// LOADER
+// ========================================
+function initLoader() {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    startEntrance();
+  }, 3000);
+}
+
+function startEntrance() {
+  // Trigger sparkle particles after load
+  setTimeout(() => {
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => spawnSparkle(
+        Math.random() * window.innerWidth,
+        Math.random() * window.innerHeight
+      ), i * 100);
+    }
+  }, 500);
+}
+
+// ========================================
+// CUSTOM CURSOR
+// ========================================
+function initCursor() {
+  const cursor = document.getElementById('cursor');
+  const dot = document.getElementById('cursorDot');
+  let mouseX = 0, mouseY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  document.querySelectorAll('a, button, .rizz-card, .dua-card, .cal-day, .moon-phase-item, .big-lantern-container, .letter-seal, .envelope-flap').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
+
+// ========================================
+// STAR CANVAS
+// ========================================
+function initCanvas() {
+  const canvas = document.getElementById('starsCanvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const stars = [];
+  const numStars = 200;
+
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.8 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.02 + 0.005,
+      twinkleOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() * 0.001;
+
+    stars.forEach(s => {
+      const alpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed * 10 + s.twinkleOffset));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 235, 100, ${alpha * 0.8})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+}
+
+// ========================================
+// STATIC HERO STARS
+// ========================================
+function initStaticStars() {
+  const container = document.getElementById('heroStars');
+  const positions = [
+    { top: '15%', right: '25%', size: 3, dur: '2s', delay: '0s' },
+    { top: '25%', right: '35%', size: 2, dur: '3s', delay: '0.5s' },
+    { top: '10%', right: '55%', size: 4, dur: '2.5s', delay: '1s' },
+    { top: '30%', left: '15%', size: 2, dur: '4s', delay: '0.2s' },
+    { top: '20%', left: '30%', size: 3, dur: '3.5s', delay: '0.8s' },
+    { top: '40%', left: '10%', size: 2, dur: '2.8s', delay: '1.5s' },
+    { top: '8%', left: '50%', size: 3, dur: '3.2s', delay: '0.3s' },
+    { top: '35%', right: '15%', size: 4, dur: '2.2s', delay: '1.2s' },
+    { top: '18%', right: '42%', size: 2, dur: '4.5s', delay: '0.7s' },
+    { top: '45%', right: '30%', size: 3, dur: '3.8s', delay: '0.1s' },
+  ];
+
+  positions.forEach(p => {
+    const star = document.createElement('div');
+    star.className = 'static-star';
+    star.style.cssText = `
+      width: ${p.size}px;
+      height: ${p.size}px;
+      --dur: ${p.dur};
+      --delay: ${p.delay};
+      animation-delay: ${p.delay};
+      ${p.top ? 'top:' + p.top + ';' : ''}
+      ${p.left ? 'left:' + p.left + ';' : ''}
+      ${p.right ? 'right:' + p.right + ';' : ''}
+    `;
+    container.appendChild(star);
+  });
+}
+
+// ========================================
+// FALLING STARS
+// ========================================
+function initFallingStars() {
+  const count = 8;
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.className = 'falling-star';
+    const left = Math.random() * 100;
+    const dur = (3 + Math.random() * 5) + 's';
+    const delay = (Math.random() * 8) + 's';
+    const drift = (Math.random() * 100 - 50) + 'px';
+    star.style.cssText = `
+      left: ${left}%;
+      --dur: ${dur};
+      --delay: ${delay};
+      --drift: ${drift};
+      animation-delay: ${delay};
+      animation-duration: ${dur};
+    `;
+    document.body.appendChild(star);
+  }
+}
+
+// ========================================
+// PARTICLES
+// ========================================
+function initParticles() {
+  const container = document.getElementById('particles');
+  const colors = ['rgba(212,175,55,0.6)', 'rgba(244,143,177,0.6)', 'rgba(255,235,100,0.5)', 'rgba(255,255,255,0.3)'];
+
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    const left = Math.random() * 100;
+    const dur = (8 + Math.random() * 12) + 's';
+    const delay = -(Math.random() * 20) + 's';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${left}%;
+      background: ${color};
+      animation-duration: ${dur};
+      animation-delay: ${delay};
+    `;
+    container.appendChild(p);
+  }
+}
+
+// ========================================
+// SCROLL PROGRESS
+// ========================================
+function initScrollProgress() {
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (scrolled / total) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+}
+
+// ========================================
+// SCROLL REVEAL
+// ========================================
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+// ========================================
+// RIZZ CARDS
+// ========================================
+function initRizzCards() {
+  const grid = document.getElementById('rizzGrid');
+
+  rizzMessages.forEach((msg, i) => {
+    const card = document.createElement('div');
+    card.className = 'rizz-card';
+    card.style.transitionDelay = (i * 0.08) + 's';
+    card.innerHTML = `
+      <div class="rizz-number">0${i < 9 ? '0' : ''}${i+1}</div>
+      <span class="rizz-icon">${msg.icon}</span>
+      <div class="rizz-text">${msg.text}</div>
+      <div class="rizz-heart">💛 💛 💛</div>
+    `;
+    card.addEventListener('click', () => {
+      showPopup(msg.icon, msg.title, msg.secret);
+      createHeartBurst(card);
+    });
+    grid.appendChild(card);
+  });
+
+  // Observe cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.rizz-card').forEach(card => observer.observe(card));
+}
+
+// ========================================
+// DUAS
+// ========================================
+function initDuas() {
+  const grid = document.getElementById('duasGrid');
+  duas.forEach((dua, i) => {
+    const card = document.createElement('div');
+    card.className = 'dua-card';
+    card.innerHTML = `
+      <span class="dua-icon">${dua.icon}</span>
+      <div class="dua-arabic">${dua.arabic}</div>
+      <div class="dua-translation">${dua.translation}</div>
+    `;
+    card.addEventListener('click', () => {
+      spawnSparkle(event.clientX, event.clientY);
+      spawnFloatingHeart(event.clientX, event.clientY);
+    });
+    grid.appendChild(card);
+  });
+}
+
+// ========================================
+// QUOTES CAROUSEL
+// ========================================
+function initQuotes() {
+  const nav = document.getElementById('quoteNav');
+
+  quotes.forEach((q, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'quote-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => setQuote(i));
+    nav.appendChild(dot);
+  });
+
+  // Auto rotate
+  setInterval(() => {
+    const next = (currentQuote + 1) % quotes.length;
+    setQuote(next);
+  }, 5000);
+}
+
+function setQuote(index) {
+  const text = document.getElementById('quoteText');
+  const author = document.getElementById('quoteAuthor');
+
+  text.classList.remove('fade-in');
+  text.classList.add('fade-out');
+
+  setTimeout(() => {
+    text.textContent = quotes[index].text;
+    author.textContent = quotes[index].author;
+    text.classList.remove('fade-out');
+    text.classList.add('fade-in');
+    currentQuote = index;
+
+    document.querySelectorAll('.quote-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === index);
+    });
+  }, 400);
+}
+
+// ========================================
+// MOON PHASES
+// ========================================
+function initMoonPhases() {
+  const container = document.getElementById('moonPhases');
+  const phases = [
+    { name: 'المحاق', lit: 0, emoji: '🌑' },
+    { name: 'الهلال', lit: 25, emoji: '🌒' },
+    { name: 'التربيع الأول', lit: 50, emoji: '🌓' },
+    { name: 'الأحدب المتزايد', lit: 75, emoji: '🌔' },
+    { name: 'البدر', lit: 100, emoji: '🌕' },
+    { name: 'الأحدب المتناقص', lit: 75, emoji: '🌖' },
+    { name: 'التربيع الأخير', lit: 50, emoji: '🌗' },
+    { name: 'الهلال المتناقص', lit: 25, emoji: '🌘' },
+  ];
+
+  phases.forEach((phase, i) => {
+    const item = document.createElement('div');
+    item.className = 'moon-phase-item reveal';
+    item.style.transitionDelay = (i * 0.1) + 's';
+    item.innerHTML = `
+      <div class="moon-phase-circle">
+        <div class="lit" style="left:${phase.lit === 100 ? '0%' : (phase.lit === 0 ? '100%' : (50 - phase.lit/2) + '%')}; right:0;"></div>
+      </div>
+      <div class="moon-phase-label">${phase.emoji}<br>${phase.name}</div>
+    `;
+    item.addEventListener('click', () => {
+      showPopup(phase.emoji, phase.name, `في ${phase.name} أفكر فيك يا إيمان 🌙`);
+    });
+    container.appendChild(item);
+  });
+
+  // Observe them
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  container.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ========================================
+// PRAYER TIMES (Static but beautiful)
+// ========================================
+function initPrayer() {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('ar-DZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('prayerDate').textContent = dateStr;
+
+  const prayers = [
+    { name: 'الفجر', nameEn: 'Fajr', time: '06:40' },
+    { name: 'الشروق', nameEn: 'Sunrise', time: '07:28' },
+    { name: 'الظهر', nameEn: 'Dhuhr', time: '01:00' },
+    { name: 'العصر', nameEn: 'Asr', time: '16:45' },
+    { name: 'المغرب', nameEn: 'Maghrib', time: '18:52' },
+    { name: 'العشاء', nameEn: 'Isha', time: '19:20' }
+  ];
+
+  const list = document.getElementById('prayerList');
+  const currentHour = now.getHours() * 100 + now.getMinutes();
+
+  prayers.forEach((p, i) => {
+    const [h, m] = p.time.split(':').map(Number);
+    const pTime = h * 100 + m;
+    const isActive = i === prayers.findIndex(pr => {
+      const [ph, pm] = pr.time.split(':').map(Number);
+      return (ph * 100 + pm) > currentHour;
+    }) - 1;
+
+    const li = document.createElement('li');
+    li.className = 'prayer-item';
+    li.innerHTML = `
+      <div style="display:flex;align-items:center">
+        <div class="prayer-indicator ${isActive >= 0 && i === isActive ? 'active' : ''}"></div>
+        <div>
+          <div class="prayer-name-ar">${p.name}</div>
+          <div class="prayer-name-en">${p.nameEn}</div>
+        </div>
+      </div>
+      <div class="prayer-time">${p.time}</div>
+    `;
+    li.addEventListener('click', () => {
+      showPopup('🕌', p.name, `وقت ${p.name} - ادعي لنا فيه يا إيمان 🤲`);
+    });
+    list.appendChild(li);
+  });
+}
+
+// ========================================
+// CALENDAR
+// ========================================
+function initCalendar() {
+  const calendar = document.getElementById('ramadanCalendar');
+  const days = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+  const today = new Date().getDate();
+
+  // Headers
+  days.forEach(d => {
+    const h = document.createElement('div');
+    h.className = 'cal-header';
+    h.textContent = d;
+    calendar.appendChild(h);
+  });
+
+  // Days of Ramadan (30 days starting from first day offset)
+  const firstDayOffset = 4; // Example offset
+  for (let i = 0; i < firstDayOffset; i++) {
+    const empty = document.createElement('div');
+    calendar.appendChild(empty);
+  }
+
+  for (let day = 1; day <= 30; day++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-day' + (day === today ? ' today' : '');
+    cell.innerHTML = `
+      <div class="cal-day-num">${day}</div>
+      <div class="cal-day-hijri">${day} ر</div>
+    `;
+    cell.addEventListener('click', () => {
+      const msgs = [
+        `يوم ${day} من رمضان - يوم بركة ونور 🌙`,
+        `في هذا اليوم أفكر فيك يا إيمان 💛`,
+        `${day} من أيام الرحمة والمغفرة ✨`,
+        `اليوم ${day} - ادعي لنكون زوجين ان شاء الله 🤲`
+      ];
+      showPopup('🌙', `اليوم ${day} من رمضان`, msgs[Math.floor(Math.random() * msgs.length)]);
+    });
+    calendar.appendChild(cell);
+  }
+}
+
+// ========================================
+// ENVELOPE / LETTER
+// ========================================
+function openEnvelope() {
+  if (envelopeOpen) return;
+  envelopeOpen = true;
+
+  document.getElementById('envelopeFlap').classList.add('open');
+  setTimeout(() => {
+    document.getElementById('letterContent').style.display = 'block';
+    document.getElementById('letterHint').style.display = 'none';
+
+    // Typewriter effect on salutation
+    createHeartRain();
+  }, 800);
+}
+
+function createHeartRain() {
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      spawnFloatingHeart(
+        Math.random() * window.innerWidth,
+        window.innerHeight
+      );
+    }, i * 200);
+  }
+}
+
+// ========================================
+// LANTERN TOGGLE
+// ========================================
+function toggleLantern() {
+  lanternLit = !lanternLit;
+  const body = document.getElementById('bigLanternBody');
+  const text = document.getElementById('bigLanternText');
+
+  if (lanternLit) {
+    body.classList.remove('dim');
+    text.classList.remove('dim');
+    // Show next message
+    currentLanternMessageIndex = (currentLanternMessageIndex + 1) % lanternMessages.length;
+    const msg = lanternMessages[currentLanternMessageIndex];
+    text.innerHTML = `${msg.icon}<br>${msg.title}`;
+    showPopup(msg.icon, msg.title, msg.msg);
+  } else {
+    body.classList.add('dim');
+    text.classList.add('dim');
+  }
+
+  // Burst sparkles
+  const rect = document.getElementById('bigLanternBody').getBoundingClientRect();
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      spawnSparkle(
+        rect.left + Math.random() * rect.width,
+        rect.top + Math.random() * rect.height
+      );
+    }, i * 100);
+  }
+}
+
+// ========================================
+// WISH SYSTEM
+// ========================================
+function addWish() {
+  const input = document.getElementById('wishInput');
+  const val = input.value.trim();
+  if (!val) return;
+
+  const display = document.getElementById('wishesDisplay');
+  const bubble = document.createElement('div');
+  bubble.className = 'wish-bubble';
+  bubble.textContent = val;
+
+  display.insertBefore(bubble, display.firstChild);
+  input.value = '';
+
+  // Celebration
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      spawnFloatingHeart(
+        Math.random() * window.innerWidth,
+        window.innerHeight - 100
+      );
+    }, i * 150);
+  }
+
+  showPopup('✨', 'أمنيتك وصلت', 'أرسلنا أمنيتك مع نسيم رمضان ودعواتنا 🌙💛');
+}
+
+// ========================================
+// POPUP
+// ========================================
+function showPopup(icon, title, msg) {
+  document.getElementById('popupIcon').textContent = icon;
+  document.getElementById('popupTitle').textContent = title;
+  document.getElementById('popupMsg').textContent = msg;
+  document.getElementById('messagePopup').classList.add('show');
+  document.getElementById('popupOverlay').classList.add('show');
+
+  // Spawn effects
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      spawnSparkle(
+        window.innerWidth / 2 + (Math.random() - 0.5) * 300,
+        window.innerHeight / 2 + (Math.random() - 0.5) * 200
+      );
+    }, i * 150);
+  }
+}
+
+document.getElementById('popupClose').addEventListener('click', closePopup);
+document.getElementById('popupOverlay').addEventListener('click', closePopup);
+
+function closePopup() {
+  document.getElementById('messagePopup').classList.remove('show');
+  document.getElementById('popupOverlay').classList.remove('show');
+}
+
+// ========================================
+// EFFECTS
+// ========================================
+function spawnFloatingHeart(x, y) {
+  const hearts = ['💛', '💝', '💖', '🌙', '⭐', '✨'];
+  const heart = document.createElement('div');
+  heart.className = 'floating-heart';
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  heart.style.left = x + 'px';
+  heart.style.top = y + 'px';
+  heart.style.fontSize = (1 + Math.random()) + 'rem';
+  heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}
+
+function spawnSparkle(x, y) {
+  const sparkles = ['✦', '✧', '⋆', '★', '✸', '✺'];
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+  sparkle.style.left = x + 'px';
+  sparkle.style.top = y + 'px';
+  sparkle.style.color = `hsl(${40 + Math.random() * 30}, 90%, 65%)`;
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1000);
+}
+
+function createHeartBurst(element) {
+  const rect = element.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      spawnFloatingHeart(cx + (Math.random() - 0.5) * 100, cy + (Math.random() - 0.5) * 100);
+      spawnSparkle(cx + (Math.random() - 0.5) * 150, cy + (Math.random() - 0.5) * 100);
+    }, i * 80);
+  }
+}
+
+// ========================================
+// CLICK RIPPLE
+// ========================================
+function initClickEffects() {
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#cursor, .cursor, .cursor-dot')) return;
+
+    const ripple = document.createElement('div');
+    ripple.className = 'ripple';
+    ripple.style.left = e.clientX + 'px';
+    ripple.style.top = e.clientY + 'px';
+    ripple.style.width = '40px';
+    ripple.style.height = '40px';
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 1000);
+
+    // Random floating heart on click
+    if (Math.random() > 0.6) {
+      spawnFloatingHeart(e.clientX, e.clientY);
+    }
+  });
+}
+
+// ========================================
+// COUNTDOWN TIMER
+// ========================================
+function initCountdown() {
+  // Count days remaining in Ramadan (assuming Ramadan ends ~March 29, 2025 or similar)
+  // Using a symbolic countdown to Eid
+  const ramadanEnd = new Date('2025-03-29T00:00:00');
+
+  function update() {
+    const now = new Date();
+    const diff = ramadanEnd - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent = '00';
+      document.getElementById('cd-secs').textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    setCountdownNum('cd-days', String(days).padStart(2, '0'));
+    setCountdownNum('cd-hours', String(hours).padStart(2, '0'));
+    setCountdownNum('cd-mins', String(mins).padStart(2, '0'));
+    setCountdownNum('cd-secs', String(secs).padStart(2, '0'));
+  }
+
+  function setCountdownNum(id, val) {
+    const el = document.getElementById(id);
+    if (el.textContent !== val) {
+      el.classList.add('flip');
+      setTimeout(() => {
+        el.textContent = val;
+        el.classList.remove('flip');
+      }, 250);
+    }
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+// ========================================
+// FIREWORKS (Final Section)
+// ========================================
+function initFireworks() {
+  const canvas = document.getElementById('fireworksCanvas');
+  const ctx = canvas.getContext('2d');
+  const section = document.getElementById('final-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        canvas.width = section.offsetWidth;
+        canvas.height = section.offsetHeight;
+        startFireworks(ctx, canvas);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(section);
+}
+
+function startFireworks(ctx, canvas) {
+  const particles = [];
+  const colors = ['#D4AF37', '#FFD700', '#F48FB1', '#E91E63', '#FFE566', '#FFF8E7'];
+
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vx = (Math.random() - 0.5) * 6;
+      this.vy = (Math.random() - 0.5) * 6 - 2;
+      this.alpha = 1;
+      this.size = Math.random() * 4 + 1;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.decay = Math.random() * 0.02 + 0.01;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += 0.1;
+      this.alpha -= this.decay;
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function explode() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height * 0.6;
+    for (let i = 0; i < 40; i++) {
+      particles.push(new Particle(x, y));
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      particles[i].update();
+      particles[i].draw();
+      if (particles[i].alpha <= 0) particles.splice(i, 1);
+    }
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+
+  setInterval(explode, 1500);
+  setTimeout(explode, 100);
+}
+
+// ========================================
+// AUDIO (Web Audio API)
+// ========================================
+document.getElementById('audioBtn').addEventListener('click', toggleAudio);
+
+function toggleAudio() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (audioPlaying) {
+    audioPlaying = false;
+    document.getElementById('audioBtn').textContent = '🔇';
+    stopMelody();
+  } else {
+    audioPlaying = true;
+    document.getElementById('audioBtn').textContent = '🎵';
+    playMelody();
+  }
+}
+
+let melodyInterval = null;
+let melodyNotes = [];
+
+function playMelody() {
+  // Simple pentatonic melody for a peaceful Ramadan feel
+  const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 392.00, 329.63, 293.66];
+  let noteIndex = 0;
+
+  function playNote(freq, time) {
+    if (!audioPlaying || !audioContext) return;
+    const osc = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    osc.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, time);
+
+    gainNode.gain.setValueAtTime(0, time);
+    gainNode.gain.linearRampToValueAtTime(0.08, time + 0.1);
+    gainNode.gain.linearRampToValueAtTime(0, time + 0.8);
+
+    osc.start(time);
+    osc.stop(time + 0.9);
+  }
+
+  function scheduleMelody() {
+    if (!audioPlaying) return;
+    const now = audioContext.currentTime;
+    for (let i = 0; i < 4; i++) {
+      playNote(notes[(noteIndex + i) % notes.length], now + i * 0.6);
+    }
+    noteIndex = (noteIndex + 4) % notes.length;
+    melodyInterval = setTimeout(scheduleMelody, 2400);
+  }
+
+  scheduleMelody();
+}
+
+function stopMelody() {
+  if (melodyInterval) {
+    clearTimeout(melodyInterval);
+    melodyInterval = null;
+  }
+}
+
+// ========================================
+// NAVIGATION
+// ========================================
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ========================================
+// SCROLL-BASED EVENTS
+// ========================================
+let lastScrollY = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+
+  // Parallax moon
+  const moon = document.querySelector('.moon-container');
+  if (moon) {
+    moon.style.transform = `translateY(${y * 0.08}px)`;
+  }
+
+  // Parallax city
+  const city = document.querySelector('.city-silhouette');
+  if (city) {
+    city.style.transform = `translateY(${y * 0.04}px)`;
+  }
+
+  lastScrollY = y;
+});
+
+// ========================================
+// RANDOM HEART RAIN (periodic)
+// ========================================
+setInterval(() => {
+  if (Math.random() > 0.7) {
+    spawnFloatingHeart(
+      Math.random() * window.innerWidth,
+      window.innerHeight
+    );
+  }
+}, 3000);
+
+// ========================================
+// SPARKLE ON SECTION ENTER
+// ========================================
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          spawnSparkle(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight * 0.5 + window.innerHeight * 0.25
+          );
+        }, i * 200);
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('section').forEach(s => sectionObserver.observe(s));
+
+// ========================================
+// KEYBOARD SHORTCUTS
+// ========================================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    const next = (currentQuote + 1) % quotes.length;
+    setQuote(next);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    const prev = (currentQuote - 1 + quotes.length) % quotes.length;
+    setQuote(prev);
+  }
+  if (e.key === ' ') {
+    toggleLantern();
+  }
+  if (e.key === 'Enter') {
+    // Confetti
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        spawnFloatingHeart(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+        spawnSparkle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+      }, i * 100);
+    }
+  }
+});
+
+// ========================================
+// TOUCH EFFECTS
+// ========================================
+document.addEventListener('touchstart', (e) => {
+  const touch = e.touches[0];
+  spawnSparkle(touch.clientX, touch.clientY);
+}, { passive: true });
+
+// ========================================
+// WELCOME MESSAGE
+// ========================================
+setTimeout(() => {
+  showPopup('🌙', 'أهلا وسهلا يا محبوبة قلبي', 'رمضان مبارك يا نور عيني 💛 هذا الموقع مهدى إليك بكل الحب وسعادة بك ✨');
+}, 4000);
+
+// Periodically offer messages
+const randomMessages = [
+  { icon: '💛', title: 'تذكير', msg: 'لا تنسي أن تبتسمي اليوم، ابتسامتك تنير الدنيا يا إيمان' },
+  { icon: '🌙', title: 'دعاء', msg: 'اللهم اجعل رمضانها شهر سعادة ونور وبركة' },
+  { icon: '✨', title: 'رسالة', msg: 'أنت الأجمل في كل رمضان وكل أوان يا إيمان' },
+  { icon: '🤲', title: 'دعاء خاص', msg: 'في هذه اللحظة، أدعو الله أن يسعدك دائما' }
+];
+
+let randomMsgIndex = 0;
+setInterval(() => {
+  if (Math.random() > 0.85) {
+    const msg = randomMessages[randomMsgIndex % randomMessages.length];
+    showPopup(msg.icon, msg.title, msg.msg);
+    randomMsgIndex++;
+  }
+}, 45000);
+
+console.log('%c🌙 مرحبا يا إيمان 🌙', 'font-size:24px; color:#D4AF37; font-family:serif;');
+console.log('%cرمضان مبارك 💛', 'font-size:18px; color:#F48FB1;');
+</script>
+</body>
+</html>
