@@ -537,7 +537,7 @@ section {
 
 .letter-text {
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 20px;
     font-style: italic;
     color: rgba(255, 229, 236, 0.85);
     line-height: 1.9;
