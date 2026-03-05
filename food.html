@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع البطاقات الجميل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 5px 10px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* تأثير الضوء المتحرك */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        .container {
+            max-width: 2200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 10px;
+            margin-bottom: 50px;
+            
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation: cardAppear 0.6s ease-out forwards;
+            animation-fill-mode: both;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0);
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
+            border-color: rgba(240, 147, 251, 0.5);
+        }
+
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.1);
+        }
+
+        /* صورة placeholder جميلة */
+        .card-image-placeholder {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(118, 75, 162, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .card-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-badge {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* شريط متحرك في الأسفل */
+        .footer-bar {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-size: 0.95rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #764ba2 0%, #f093fb 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>اكلات ايمان السحرية</h1>
+        </div>
+
+        <div class="cards-grid">
+            <!-- البطاقة الرابعة -->
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="hpbphoto/food1.jpg" alt="الغابة" class="card-image">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">🍲 سيمفونية الحب في كيكوطة إيمان</h2>
+                    <p class="card-text">
+في تلك الليلة التي لفها الهدوء من كل جانب، ولم يقطع صمتها سوى همس الريح الرقيقة، قررت إيمان أن تصنع معجزة مطبخية تتجاوز حدود المألوف. لم تكن تطبخ مجرد وجبة، بل كانت كمن يغزل من خيوط السماء عشاء لا ينسى، حيث تخيلت نفسها تمد يدها لتسرق بريق النجوم البعيدة وتضعه بعناية داخل كيكوطتها ، لتوقد تحتها نيران الحب والصبور.
+
+حين حانت اللحظة الحاسمة ورفعت الغطاء، لم يخرج بخار عادي، بل انبعث سحر لا يقاوم مثل سحر عينيها. كانت حبات الجلبان الزمردية تلمع في قاع القدر كأنها لآلئ خضراء منثورة، سقطت للتو من حدائق مخفية لا يعرف طريقها إلا من طبخ بقلبه. وإلى جانبها، كانت قطع البطاطا الذهبية تسبح بدلال، وقد بلغت من الليونة حدا جعلها تشبه الغيوم الناعمة التي تذوب في الفم لتترك أثرا من الراحة والسكينة.
+
+وفي قلب هذا المشهد المهيب، تربعت الدجاجة المحمرة كملكة متوجة على عرش من النكهات الأصيلة. كان جلدها المذهب والمقرمش يحكي قصة إتقان طويلة وساعات من الانتظار والصبر الجميل، لتبدو في النهاية كتحفة فنية لا تجرؤ الفرشيطة على خدش جمالها.
+
+أما البويون، فلم يكن مجرد سائل يحيط بالمكونات، بل كان "إكسير" الحياة الذي صنع خصيصا ليجمع شمل العائلة حول مائدة واحدة. كان مشبعا برائحة التوابل العتيقة التي تهمس في أذن كل من يتذوقه بكلمات دافئة:
+                    </p>
+                </div>
+            </div>
+
+            <!-- البطاقة الخامسة -->
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="hpbphoto/food3.jpg" alt="المدينة" class="card-image">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">لفائف السحر الذهبي</h2>
+                    <p class="card-text">
+حين تلقي نظرتك الاولى على تلك اللفائف ، يخيل اليك للوهلة الاولى انك امام سبائك من الذهب الخالص صفت بعناية فائقة لتسر الناظرين، لكن الحقيقة الكامنة وراء هذا المشهد اعمق واجمل بكثير. انها ليست مجرد وجبة سريعة، بل هي سيمفونية القرمشة الخالدة التي تعزف الحانها ايمان بيدين ملؤهما الابداع والشغف، حيث تحول العجين البسيط الى مقطوعة موسيقية تتردد اصداؤها في القلوب قبل الافواه.
+تلك الطبقة الخارجية المحمرة بعناية، والتي تلمع تحت الضوء كأنها انعكاس لشمس الاصيل في ساعة الغروب، ليست مجرد غطاء من العجين، بل هي ستار رقيق وحارس امين يحمي في جوفه كنزا دفيئا ينتظر لحظة التحرر. وبمجرد ان تقترب من هذا البنيان الذهبي، تنفجر الحواس برائحة الشاورما المتبلة بروح المغامرة، حيث لا مكان للملل في مطبخ ايمان.       
+في الداخل  توجد الشوارما  المشبعة باسرار التوابل المغناوية و كل قطعة شوارما تحكي قصة في مزيج من لبهارات التي اختيرت بميزان الذهب، لتخلق توازنا مثاليا بين الملوحة  والجماااال والحرارة الخفيفة.
+</p>
+                </div>
+            </div>
+
+            <!-- البطاقة السادسة -->
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="hpbphoto/food2.jpg" alt="الثلج" class="card-image">
+                    <div class="card-overlay"></div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">اكلة ايمان </h2>
+                    <p class="card-text"
+                    >
+                  باالله عليك ياايمان اتتوقعي مني ان اجد كلام يضاهي هده التحفة حتى ابو علال وقف عاجزا عن جمالها وحسد كل من اكلها 
+                <br>  just i say ayayaayay and move on hta nakol ur fooodd one day 
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bar">
+            <p>💜 صنع بحب وإبداع | جميع الحقوق محفوظة ©️ 2024</p>
+        </div>
+    </div>
+
+    <script>
+        // تأثير الحركة عند تمرير الماوس
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `translateY(-15px) scale(1.02) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+        });
+
+        // إضافة تأثير عند التمرير على الصفحة
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    card.style.opacity = '1';
+                }
+            });
+        });
+
+        // تأثير عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animationPlayState = 'running';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

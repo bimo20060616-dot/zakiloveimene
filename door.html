@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الباب السحري</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0705;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Amiri', serif;
+    overflow: hidden;
+  }
+
+  .bg {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, #1a0e05 0%, #0a0705 60%);
+    z-index: 0;
+  }
+
+  .scene {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .title {
+    color: #c8921a;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 30px rgba(200,146,26,0.5);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .door-frame {
+    position: relative;
+    width: 260px;
+    height: 400px;
+    background: linear-gradient(135deg, #3d2007 0%, #6b3a10 30%, #3d2007 60%, #7a4515 100%);
+    border-radius: 130px 130px 4px 4px;
+    box-shadow:
+      0 0 0 8px #2a1504,
+      0 0 0 12px #8b5e24,
+      0 0 0 16px #2a1504,
+      0 40px 80px rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.8s forwards;
+    cursor: pointer;
+  }
+
+  .door-frame::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 122px 122px 2px 2px;
+    background: radial-gradient(ellipse at 50% 30%, rgba(255,180,80,0) 0%, transparent 70%);
+    transition: background 1s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .door-frame.open::after {
+    background: radial-gradient(ellipse at 50% 30%, rgba(255,180,80,0.25) 0%, transparent 70%);
+  }
+
+  .door-inner {
+    position: absolute;
+    inset: 10px;
+    border-radius: 122px 122px 2px 2px;
+    overflow: hidden;
+    background: #060d1a;
+  }
+
+  .reveal-scene {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.5s;
+    background: radial-gradient(ellipse at 50% 70%, #0a3d5c 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 30%, #1a0a3d 0%, transparent 50%),
+                #060d1a;
+  }
+
+  .stars {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease 0.7s;
+    background-image:
+      radial-gradient(1px 1px at 15% 25%, white 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 35% 15%, rgba(255,255,200,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 35%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 10%, rgba(200,200,255,0.8) 0%, transparent 100%),
+      radial-gradient(2px 2px at 85% 40%, rgba(255,255,200,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 50%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 45% 65%, rgba(200,220,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 70%, rgba(255,255,200,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 50% 80%, rgba(200,200,255,0.6) 0%, transparent 100%);
+  }
+
+  .moon {
+    position: absolute;
+    top: 15%; left: 50%;
+    transform: translateX(-50%);
+    width: 55px; height: 55px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff9e6, #f0d080);
+    box-shadow: 0 0 20px rgba(255,220,100,0.8), 0 0 60px rgba(255,200,80,0.3);
+    opacity: 0;
+    transition: opacity 0.8s ease 0.9s;
+  }
+
+  .landscape {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, transparent 0%, #051205 50%, #030a03 100%);
+    opacity: 0;
+    transition: opacity 0.8s ease 1s;
+  }
+
+  .door-wrapper {
+    position: absolute;
+    inset: 10px;
+    border-radius: 122px 122px 2px 2px;
+    overflow: hidden;
+    z-index: 3;
+  }
+
+  .door-left, .door-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(160deg, #5c2e08 0%, #8b4a15 25%, #5c2e08 50%, #7a4010 75%, #4a2006 100%);
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .door-left {
+    left: 0;
+    transform-origin: left center;
+    box-shadow: inset -3px 0 8px rgba(0,0,0,0.5);
+  }
+
+  .door-right {
+    right: 0;
+    transform-origin: right center;
+    box-shadow: inset 3px 0 8px rgba(0,0,0,0.5);
+  }
+
+  .door-left::before, .door-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0px, transparent 8px,
+      rgba(0,0,0,0.07) 8px, rgba(0,0,0,0.07) 9px
+    );
+  }
+
+  .door-left::after, .door-right::after {
+    content: '';
+    position: absolute;
+    top: 15px; bottom: 15px;
+    left: 10px; right: 10px;
+    border: 1.5px solid rgba(255,180,80,0.2);
+    border-radius: 50px 50px 4px 4px;
+  }
+
+  .knob-left, .knob-right {
+    position: absolute;
+    top: 50%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #f0c060, #8b6020);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 8px rgba(200,150,50,0.4);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .knob-left { right: 8px; }
+  .knob-right { left: 8px; }
+
+  .door-frame.open .door-left {
+    transform: perspective(600px) rotateY(-88deg);
+  }
+  .door-frame.open .door-right {
+    transform: perspective(600px) rotateY(88deg);
+  }
+  .door-frame.open .reveal-scene,
+  .door-frame.open .stars,
+  .door-frame.open .moon,
+  .door-frame.open .landscape {
+    opacity: 1;
+  }
+
+  .arch-ornament {
+    position: absolute;
+    top: -8px; left: 50%;
+    transform: translateX(-50%);
+    width: 28px; height: 28px;
+    background: radial-gradient(circle, #f0c060, #8b5e24);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(200,150,50,0.7), 0 0 30px rgba(200,150,50,0.3);
+    z-index: 10;
+  }
+
+  .floor-shadow {
+    width: 180px; height: 18px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
+    margin-top: -8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .hint {
+    color: rgba(200,146,26,0.65);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    animation: pulse 2.5s ease-in-out infinite, fadeUp 1s ease 1.5s both;
+    user-select: none;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+  }
+
+  .particle {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: burst 0.8s ease forwards;
+  }
+
+  @keyframes burst {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="scene">
+  <div class="title">✦ الباب السحري ✦</div>
+
+  <div class="door-frame" id="doorFrame">
+    <div class="arch-ornament"></div>
+
+    <div class="door-inner">
+      <div class="reveal-scene">
+        <div class="stars"></div>
+        <div class="moon"></div>
+        <div class="landscape"></div>
+      </div>
+    </div>
+
+    <div class="door-wrapper">
+      <div class="door-left"><div class="knob-left"></div></div>
+      <div class="door-right"><div class="knob-right"></div></div>
+    </div>
+  </div>
+
+  <div class="floor-shadow"></div>
+  <div class="hint" id="hint">انقر على الباب لفتحه</div>
+</div>
+
+<script>
+  const frame = document.getElementById('doorFrame');
+  const hint = document.getElementById('hint');
+  let isOpen = false;
+
+  function spawnParticles() {
+    const rect = frame.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const angle = (i / 20) * Math.PI * 2;
+      const dist = 70 + Math.random() * 80;
+      p.style.cssText = `
+        left:${cx}px; top:${cy}px;
+        width:${3 + Math.random()*5}px;
+        height:${3 + Math.random()*5}px;
+        background:hsl(${30+Math.random()*30},90%,${55+Math.random()*25}%);
+        --tx:${Math.cos(angle)*dist}px;
+        --ty:${Math.sin(angle)*dist}px;
+        animation-duration:${0.5+Math.random()*0.5}s;
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1000);
+    }
+  }
+
+  frame.addEventListener('click', () => {
+    isOpen = !isOpen;
+    frame.classList.toggle('open', isOpen);
+    hint.textContent = isOpen ? 'انقر مرة أخرى للإغلاق' : 'انقر على الباب لفتحه';
+    if (isOpen) spawnParticles();
+  });
+</script>
+</body>
+</html>
