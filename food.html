@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع البطاقات الجميل</title>
+    <title>أكلات إيمان السحرية - مطبخ فاخر</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,58 +12,461 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(135deg, #f5f7fa 0%, #fff1f7 100%);
             min-height: 100vh;
-            padding: 5px 10px;
-            position: relative;
-            overflow-x: hidden;
+            color: #333;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
 
-        /* تأثير الضوء المتحرك */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
-            animation: float 20s ease-in-out infinite;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 30px); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ec4899 0%, #a855f7 100%);
+            border-radius: 5px;
         }
 
-        .container {
-            max-width: 2200px;
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: none;
             position: relative;
-            z-index: 1;
         }
 
-        .header {
+        .search-box input {
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 50px;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            ring: 2px solid #ec4899;
+            border-color: transparent;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        @media (min-width: 768px) {
+            .search-box {
+                display: block;
+            }
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 5rem 1rem;
             text-align: center;
-            margin-bottom: 60px;
-            animation: slideDown 0.8s ease-out;
+            overflow: hidden;
         }
 
-        @keyframes slideDown {
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            mix-blend-mode: multiply;
+            animation: blob 7s infinite;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: #fda7df;
+            top: 40px;
+            right: 40px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: #c084fc;
+            top: 160px;
+            left: 40px;
+            animation-delay: 2s;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: #fcd34d;
+            bottom: -32px;
+            left: 80px;
+            animation-delay: 4s;
+        }
+
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .hero-badge-icon {
+            color: #ec4899;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            margin: 1rem 0;
+            color: #1f2937;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #4b5563;
+            max-width: 42rem;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-button {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.125rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .hero-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+        }
+
+        /* Chef Section */
+        .chef-section {
+            padding: 4rem 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .chef-image-container {
+            position: relative;
+        }
+
+        .chef-image {
+            width: 100%;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .chef-badge {
+            position: absolute;
+            bottom: -1rem;
+            right: -1rem;
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chef-badge p:first-child {
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        .chef-badge p:last-child {
+            font-size: 0.875rem;
+        }
+
+        .chef-info h2 {
+            font-size: 2.25rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .chef-info p {
+            font-size: 1.125rem;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .chef-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-box {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .stat-box.pink {
+            background: #fce7f3;
+        }
+
+        .stat-box.purple {
+            background: #f3e8ff;
+        }
+
+        .stat-box.amber {
+            background: #fef3c7;
+        }
+
+        .stat-box p:first-child {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box.pink p:first-child {
+            color: #ec4899;
+        }
+
+        .stat-box.purple p:first-child {
+            color: #a855f7;
+        }
+
+        .stat-box.amber p:first-child {
+            color: #d97706;
+        }
+
+        .stat-box p:last-child {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        @media (max-width: 768px) {
+            .chef-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .chef-info h2 {
+                font-size: 1.875rem;
+            }
+
+            .chef-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Categories */
+        .categories-section {
+            position: sticky;
+            top: 4rem;
+            z-index: 30;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .categories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .category-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Dishes Grid */
+        .dishes-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 2rem;
+        }
+
+        .section-title span {
+            color: #ec4899;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .dish-card {
+            background: white;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            border: 2px solid transparent;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -71,303 +474,942 @@
             }
         }
 
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: white;
-            margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            letter-spacing: -1px;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 10px;
-            margin-bottom: 50px;
-            
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            animation: cardAppear 0.6s ease-out forwards;
-            animation-fill-mode: both;
-            cursor: pointer;
-            position: relative;
-            border: 2px solid rgba(255, 255, 255, 0);
-        }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
-
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .card:hover {
+        .dish-card:hover {
             transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.25);
             border-color: rgba(240, 147, 251, 0.5);
         }
 
-        .card-image-container {
+        .dish-image-container {
             position: relative;
             width: 100%;
-            height: auto;
+            height: 200px;
             overflow: hidden;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .card-image {
+        .dish-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .card:hover .card-image {
+        .dish-card:hover .dish-image {
             transform: scale(1.1);
         }
 
-        /* صورة placeholder جميلة */
-        .card-image-placeholder {
-            width: 100%;
-            height: auto;
+        .dish-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            background: #ef4444;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        .dish-limited {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+            background: #f59e0b;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .dish-like-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: rgba(255, 255, 255, 0.3);
         }
 
-        .card-overlay {
+        .dish-like-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .dish-like-btn.liked {
+            color: #ef4444;
+        }
+
+        .dish-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: linear-gradient(180deg, transparent 0%, rgba(118, 75, 162, 0.3) 100%);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
 
-        .card:hover .card-overlay {
+        .dish-card:hover .dish-overlay {
             opacity: 1;
         }
 
-        .card-content {
-            padding: 30px;
-            text-align: center;
+        .dish-content {
+            padding: 1.875rem;
         }
 
-        .card-title {
+        .dish-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.125rem;
             color: #667eea;
-            margin-bottom: 15px;
+            margin-bottom: 0.75rem;
             font-weight: 700;
+            line-height: 1.4;
         }
 
-        .card-text {
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.8;
-            font-weight: 400;
+        .dish-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .card-badge {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            color: #d1d5db;
+            font-size: 0.875rem;
+        }
+
+        .star.filled {
+            color: #fbbf24;
+        }
+
+        .dish-rating-text {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .dish-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .dish-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .spicy-level {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .spicy-icon {
+            color: #ef4444;
+            font-size: 1rem;
+        }
+
+        .dish-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dish-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .dish-price-main {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dish-price-original {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+
+        .dish-price-currency {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
             color: white;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .card:hover .card-badge {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        .add-to-cart-btn:hover {
+            transform: scale(1.1);
         }
 
-        /* شريط متحرك في الأسفل */
-        .footer-bar {
+        .no-results {
+            grid-column: 1 / -1;
             text-align: center;
-            padding: 20px;
+            padding: 3rem;
+            color: #9ca3af;
+            font-size: 1.25rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
             color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
             font-size: 0.95rem;
-            animation: fadeIn 1.2s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Footer */
+        .footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
+        .footer-text {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
             }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            position: relative;
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-            border-radius: 6px;
+        .modal-close:hover {
+            background: white;
+            transform: scale(1.1);
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #764ba2 0%, #f093fb 100%);
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .modal-price {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-button {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Empty State */
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .empty-cart-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-cart-text {
+            color: #6b7280;
+            font-size: 1.125rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>اكلات ايمان السحرية</h1>
-        </div>
-
-        <div class="cards-grid">
-            <!-- البطاقة الرابعة -->
-            <div class="card">
-                <div class="card-image-container">
-                    <img src="hpbphoto/food1.jpg" alt="الغابة" class="card-image">
-                    <div class="card-overlay"></div>
-                </div>
-                <div class="card-content">
-                    <h2 class="card-title">🍲 سيمفونية الحب في كيكوطة إيمان</h2>
-                    <p class="card-text">
-في تلك الليلة التي لفها الهدوء من كل جانب، ولم يقطع صمتها سوى همس الريح الرقيقة، قررت إيمان أن تصنع معجزة مطبخية تتجاوز حدود المألوف. لم تكن تطبخ مجرد وجبة، بل كانت كمن يغزل من خيوط السماء عشاء لا ينسى، حيث تخيلت نفسها تمد يدها لتسرق بريق النجوم البعيدة وتضعه بعناية داخل كيكوطتها ، لتوقد تحتها نيران الحب والصبور.
-
-حين حانت اللحظة الحاسمة ورفعت الغطاء، لم يخرج بخار عادي، بل انبعث سحر لا يقاوم مثل سحر عينيها. كانت حبات الجلبان الزمردية تلمع في قاع القدر كأنها لآلئ خضراء منثورة، سقطت للتو من حدائق مخفية لا يعرف طريقها إلا من طبخ بقلبه. وإلى جانبها، كانت قطع البطاطا الذهبية تسبح بدلال، وقد بلغت من الليونة حدا جعلها تشبه الغيوم الناعمة التي تذوب في الفم لتترك أثرا من الراحة والسكينة.
-
-وفي قلب هذا المشهد المهيب، تربعت الدجاجة المحمرة كملكة متوجة على عرش من النكهات الأصيلة. كان جلدها المذهب والمقرمش يحكي قصة إتقان طويلة وساعات من الانتظار والصبر الجميل، لتبدو في النهاية كتحفة فنية لا تجرؤ الفرشيطة على خدش جمالها.
-
-أما البويون، فلم يكن مجرد سائل يحيط بالمكونات، بل كان "إكسير" الحياة الذي صنع خصيصا ليجمع شمل العائلة حول مائدة واحدة. كان مشبعا برائحة التوابل العتيقة التي تهمس في أذن كل من يتذوقه بكلمات دافئة:
-                    </p>
-                </div>
-            </div>
-
-            <!-- البطاقة الخامسة -->
-            <div class="card">
-                <div class="card-image-container">
-                    <img src="hpbphoto/food3.jpg" alt="المدينة" class="card-image">
-                    <div class="card-overlay"></div>
-                </div>
-                <div class="card-content">
-                    <h2 class="card-title">لفائف السحر الذهبي</h2>
-                    <p class="card-text">
-حين تلقي نظرتك الاولى على تلك اللفائف ، يخيل اليك للوهلة الاولى انك امام سبائك من الذهب الخالص صفت بعناية فائقة لتسر الناظرين، لكن الحقيقة الكامنة وراء هذا المشهد اعمق واجمل بكثير. انها ليست مجرد وجبة سريعة، بل هي سيمفونية القرمشة الخالدة التي تعزف الحانها ايمان بيدين ملؤهما الابداع والشغف، حيث تحول العجين البسيط الى مقطوعة موسيقية تتردد اصداؤها في القلوب قبل الافواه.
-تلك الطبقة الخارجية المحمرة بعناية، والتي تلمع تحت الضوء كأنها انعكاس لشمس الاصيل في ساعة الغروب، ليست مجرد غطاء من العجين، بل هي ستار رقيق وحارس امين يحمي في جوفه كنزا دفيئا ينتظر لحظة التحرر. وبمجرد ان تقترب من هذا البنيان الذهبي، تنفجر الحواس برائحة الشاورما المتبلة بروح المغامرة، حيث لا مكان للملل في مطبخ ايمان.       
-في الداخل  توجد الشوارما  المشبعة باسرار التوابل المغناوية و كل قطعة شوارما تحكي قصة في مزيج من لبهارات التي اختيرت بميزان الذهب، لتخلق توازنا مثاليا بين الملوحة  والجماااال والحرارة الخفيفة.
-</p>
-                </div>
-            </div>
-
-            <!-- البطاقة السادسة -->
-            <div class="card">
-                <div class="card-image-container">
-                    <img src="hpbphoto/food2.jpg" alt="الثلج" class="card-image">
-                    <div class="card-overlay"></div>
-                </div>
-                <div class="card-content">
-                    <h2 class="card-title">اكلة ايمان </h2>
-                    <p class="card-text"
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">🍳 أكلات إيمان السحرية</div>
+            <div class="navbar-right">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="ابحث عن طبقك المفضل..."
                     >
-                  باالله عليك ياايمان اتتوقعي مني ان اجد كلام يضاهي هده التحفة حتى ابو علال وقف عاجزا عن جمالها وحسد كل من اكلها 
-                <br>  just i say ayayaayay and move on hta nakol ur fooodd one day 
-
-                    </p>
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <div class="footer-bar">
-            <p>💜 صنع بحب وإبداع | جميع الحقوق محفوظة ©️ 2024</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
+        <div class="hero-badge">
+            <span class="hero-badge-icon">👨‍🍳</span>
+            <span>مطبخ إيمان الفاخر</span>
+        </div>
+
+        <h1 class="hero-title">
+            <span>طعم الحب والإبداع</span>
+        </h1>
+
+        <p class="hero-description">
+            كل طبق يُحضّر بحب وعناية فائقة من قلب مطبخ إيمان، حيث تلتقي الأصالة بالإبداع لإنشاء تجربة طعام لا تُنسى
+        </p>
+
+        <button class="hero-button" onclick="scrollToMenu()">استكشف القائمة الآن</button>
+    </section>
+
+    <!-- Chef Section -->
+    <section class="chef-section">
+        <div class="chef-grid">
+            <div class="chef-image-container">
+                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=600&h=600&fit=crop" alt="الشيف إيمان" class="chef-image">
+                <div class="chef-badge">
+                    <p>⭐ 4.9 تقييم</p>
+                    <p>من آلاف العملاء السعداء</p>
+                </div>
+            </div>
+
+            <div class="chef-info">
+                <h2>عن الشيف إيمان</h2>
+                <p>شيفة متخصصة في الطهي التقليدي بلمسات حديثة، تحول المكونات البسيطة إلى تحف فنية تسعد الحواس والقلب. مع أكثر من 10 سنوات من الخبرة، إيمان تؤمن أن الطعام الحقيقي يُصنع بالحب والصبر.</p>
+                
+                <div class="chef-stats">
+                    <div class="stat-box pink">
+                        <p>10+</p>
+                        <p>سنوات خبرة</p>
+                    </div>
+                    <div class="stat-box purple">
+                        <p>5K+</p>
+                        <p>عملية ناجحة</p>
+                    </div>
+                    <div class="stat-box amber">
+                        <p>⭐4.9</p>
+                        <p>متوسط التقييم</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="categories-container" id="categoriesContainer">
+            <!-- Generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Dishes Section -->
+    <section class="dishes-section">
+        <h2 class="section-title">
+            <span id="sectionTitleText">جميع الأطباق</span>
+            <span id="dishCount"> (0)</span>
+        </h2>
+        <div class="dishes-grid" id="dishesGrid">
+            <!-- Generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2 class="contact-title">تواصل معنا</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>الهاتف</h3>
+                    <p>+966 50 123 4567</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>البريد الإلكتروني</h3>
+                    <p>info@eiman-kitchen.com</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>الموقع</h3>
+                    <p>تلمسان - الجزائر</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">💜 صُنع بحب وإبداع من قبل الشيف إيمان</p>
+        <p class="footer-copyright">© 2024 أكلات إيمان السحرية - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="dishModal">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="" class="modal-image">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="dish-rating" id="modalRating"></div>
+                <p class="modal-description" id="modalDescription"></p>
+                <div id="modalInfo"></div>
+                <div class="modal-footer">
+                    <div class="modal-price" id="modalPrice"></div>
+                    <button class="modal-button" onclick="addSelectedToCart()">إضافة إلى السلة</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // تأثير الحركة عند تمرير الماوس
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `translateY(-15px) scale(1.02) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        // Data
+        const dishes = [
+            {
+                id: 1,
+                name: 'سيمفونية الحب في كيكوطة إيمان',
+                category: 'أساسيات',
+                price: 85,
+                rating: 4.9,
+                reviews: 127,
+                description: 'كيكوطة لذيذة محضرة بحب وعناية مع دجاج طري وبطاطا ناعمة وجلبان أخضر زاهي',
+                image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=500&h=400&fit=crop',
+                time: '25 دقيقة',
+                servings: '2-3 أشخاص',
+                featured: true,
+                spicy: 2
+            },
+            {
+                id: 2,
+                name: 'لفائف السحر الذهبي',
+                category: 'أساسيات',
+                price: 45,
+                rating: 4.8,
+                reviews: 89,
+                description: 'لفائف شاورما محمرة بعناية مع تتبيل مغاوي خاص وطعم لا يُنسى',
+                image: 'https://images.unsplash.com/photo-1599599810694-b308ca884cb1?w=500&h=400&fit=crop',
+                time: '15 دقيقة',
+                servings: '1 شخص',
+                featured: true,
+                spicy: 3
+            },
+            {
+                id: 3,
+                name: 'أم علي الفاخرة',
+                category: 'حلويات',
+                price: 35,
+                rating: 4.9,
+                reviews: 203,
+                description: 'أم علي بالحليب والمكسرات المختارة بعناية فائقة',
+                image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=400&fit=crop',
+                time: '5 دقائق',
+                servings: '3-4 أشخاص',
+                featured: true,
+                spicy: 0
+            },
+            {
+                id: 4,
+                name: 'كنافة الشرقية',
+                category: 'حلويات',
+                price: 42,
+                rating: 4.7,
+                reviews: 156,
+                description: 'كنافة باللقيمة والمكسرات مع شراب القطر الأصلي',
+                image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=500&h=400&fit=crop',
+                time: '10 دقائق',
+                servings: '4 أشخاص',
+                spicy: 0
+            },
+            {
+                id: 5,
+                name: 'الفتّة الفاخرة',
+                category: 'أساسيات',
+                price: 55,
+                rating: 4.8,
+                reviews: 94,
+                description: 'فتة باللحم المتبّل والزبادي الكريمي وزيت الزيتون الأصلي',
+                image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=400&fit=crop',
+                time: '20 دقيقة',
+                servings: '2 شخص',
+                spicy: 1
+            },
+            {
+                id: 6,
+                name: 'عصير الرمان الطازج',
+                category: 'مشروبات',
+                price: 15,
+                rating: 5,
+                reviews: 72,
+                description: 'عصير رمان طازج معصور يومياً في المطبخ',
+                image: 'https://images.unsplash.com/photo-1600271886742-f049cd1f3033?w=500&h=400&fit=crop',
+                time: '2 دقيقة',
+                servings: '1 شخص',
+                spicy: 0
+            },
+            {
+                id: 7,
+                name: 'شاي بالنعناع الريفي',
+                category: 'مشروبات',
+                price: 10,
+                rating: 4.9,
+                reviews: 118,
+                description: 'شاي بالنعناع الطازج من الحديقة',
+                image: 'https://images.unsplash.com/photo-1597318545519-6a7bee8030ed?w=500&h=400&fit=crop',
+                time: '3 دقائق',
+                servings: '1 شخص',
+                spicy: 0
+            },
+            {
+                id: 8,
+                name: 'مجموعة العائلة الفاخرة',
+                category: 'عروض خاصة',
+                price: 189,
+                rating: 4.9,
+                reviews: 45,
+                description: 'وجبة عائلية كاملة: كيكوطة + لفائف + سلطة + حلويات',
+                image: 'https://images.unsplash.com/photo-1577959375944-97733f6c77d5?w=500&h=400&fit=crop',
+                time: '30 دقيقة',
+                servings: '4-5 أشخاص',
+                featured: true,
+                discount: 15,
+                spicy: 2,
+                limited: true
+            },
+            {
+                id: 9,
+                name: 'بطاطا محمرة ذهبية',
+                category: 'أساسيات',
+                price: 20,
+                rating: 4.8,
+                reviews: 64,
+                description: 'بطاطا مقلية بالطريقة البلجيكية مع ملح البحر',
+                image: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=500&h=400&fit=crop',
+                time: '12 دقيقة',
+                servings: '2 شخص',
+                spicy: 0
+            },
+            {
+                id: 10,
+                name: 'سلطة الموسم الطازجة',
+                category: 'أساسيات',
+                price: 30,
+                rating: 4.7,
+                reviews: 82,
+                description: 'سلطة بخضار طازجة مع صلصة الطحينة الفاخرة',
+                image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&h=400&fit=crop',
+                time: '8 دقائق',
+                servings: '2-3 أشخاص',
+                spicy: 0
+            },
+            {
+                id: 11,
+                name: 'قطايف محشية بالجوز',
+                category: 'حلويات',
+                price: 38,
+                rating: 4.8,
+                reviews: 121,
+                description: 'قطايف مقلية محشية بجوز فاخر وقطر أصلي',
+                image: 'https://images.unsplash.com/photo-1585421514827-c7a01258d65e?w=500&h=400&fit=crop',
+                time: '15 دقيقة',
+                servings: '3 أشخاص',
+                spicy: 0
+            },
+            {
+                id: 12,
+                name: 'مقلوبة باللحم والبندورة',
+                category: 'أساسيات',
+                price: 65,
+                rating: 4.9,
+                reviews: 135,
+                description: 'مقلوبة باللحم الأحمر والأرز البسمتي',
+                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=400&fit=crop',
+                time: '35 دقيقة',
+                servings: '3-4 أشخاص',
+                featured: true,
+                spicy: 2
+            }
+        ];
+
+        const categories = ['الكل', 'أساسيات', 'حلويات', 'مشروبات', 'عروض خاصة'];
+
+        // State
+        let selectedCategory = 'الكل';
+        let cartItems = [];
+        let likedItems = new Set();
+        let selectedDish = null;
+        let searchTerm = '';
+
+        // Initialize
+        function init() {
+            renderCategories();
+            renderDishes();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                renderDishes();
+            });
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = categories.map(cat => `
+                <button 
+                    class="category-btn ${cat === selectedCategory ? 'active' : ''}"
+                    onclick="selectCategory('${cat}')"
+                >
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function selectCategory(category) {
+            selectedCategory = category;
+            renderCategories();
+            renderDishes();
+        }
+
+        function renderDishes() {
+            const filtered = dishes.filter(dish => {
+                const matchesCategory = selectedCategory === 'الكل' || dish.category === selectedCategory;
+                const matchesSearch = dish.name.includes(searchTerm) || dish.description.includes(searchTerm);
+                return matchesCategory && matchesSearch;
             });
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(-15px) scale(1.02)';
-            });
+            const container = document.getElementById('dishesGrid');
+            const titleText = document.getElementById('sectionTitleText');
+            const dishCount = document.getElementById('dishCount');
+
+            titleText.textContent = selectedCategory === 'الكل' ? 'جميع الأطباق' : selectedCategory;
+            dishCount.textContent = ` (${filtered.length})`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="no-results">لم نعثر على أي أطباق تطابق بحثك</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map((dish, idx) => `
+                <div class="dish-card" style="animation-delay: ${idx * 0.1}s" onclick="openModal(${dish.id})">
+                    <div class="dish-image-container">
+                        <img src="${dish.image}" alt="${dish.name}" class="dish-image">
+                        <div class="dish-overlay"></div>
+                        
+                        ${dish.discount ? `<div class="dish-badge">-${dish.discount}%</div>` : ''}
+                        ${dish.limited ? `<div class="dish-limited">🔥 محدود</div>` : ''}
+                        
+                        <button 
+                            class="dish-like-btn ${likedItems.has(dish.id) ? 'liked' : ''}"
+                            onclick="toggleLike(event, ${dish.id})"
+                        >
+                            ${likedItems.has(dish.id) ? '❤️' : '🤍'}
+                        </button>
+                    </div>
+
+                    <div class="dish-content">
+                        <h3 class="dish-title">${dish.name}</h3>
+
+                        <div class="dish-rating">
+                            <div class="stars">
+                                ${Array(5).fill(0).map((_, i) => `
+                                    <span class="star ${i < Math.floor(dish.rating) ? 'filled' : ''}">★</span>
+                                `).join('')}
+                            </div>
+                            <span class="dish-rating-text">(${dish.reviews})</span>
+                        </div>
+
+                        <div class="dish-info">
+                            <div class="dish-info-item">⏱️ ${dish.time}</div>
+                            <div class="dish-info-item">👥 ${dish.servings}</div>
+                        </div>
+
+                        ${dish.spicy > 0 ? `
+                            <div class="spicy-level">
+                                ${Array(dish.spicy).fill(0).map(() => '<span class="spicy-icon">🌶️</span>').join('')}
+                            </div>
+                        ` : ''}
+
+                        <div class="dish-footer">
+                            <div class="dish-price">
+                                <span class="dish-price-main">${Math.round(dish.price * (1 - (dish.discount || 0) / 100))}</span>
+                                ${dish.discount ? `<span class="dish-price-original">${dish.price}</span>` : ''}
+                                <span class="dish-price-currency">SAR</span>
+                            </div>
+                            <button 
+                                class="add-to-cart-btn"
+                                onclick="addToCart(event, ${dish.id})"
+                            >
+                                🛒
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleLike(event, id) {
+            event.stopPropagation();
+            if (likedItems.has(id)) {
+                likedItems.delete(id);
+            } else {
+                likedItems.add(id);
+            }
+            renderDishes();
+        }
+
+        function addToCart(event, id) {
+            event.stopPropagation();
+            const dish = dishes.find(d => d.id === id);
+            cartItems.push(dish);
+            updateCartBadge();
+        }
+
+        function addSelectedToCart() {
+            if (selectedDish) {
+                const dish = dishes.find(d => d.id === selectedDish.id);
+                cartItems.push(dish);
+                updateCartBadge();
+                closeModal();
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            if (cartItems.length > 0) {
+                badge.textContent = cartItems.length;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function openModal(id) {
+            selectedDish = dishes.find(d => d.id === id);
+            if (!selectedDish) return;
+
+            document.getElementById('modalTitle').textContent = selectedDish.name;
+            document.getElementById('modalImage').src = selectedDish.image;
+            document.getElementById('modalDescription').textContent = selectedDish.description;
+            
+            const rating = `
+                <div class="stars">
+                    ${Array(5).fill(0).map((_, i) => `
+                        <span class="star ${i < Math.floor(selectedDish.rating) ? 'filled' : ''}">★</span>
+                    `).join('')}
+                </div>
+                <span class="dish-rating-text">(${selectedDish.reviews} تقييم)</span>
+            `;
+            document.getElementById('modalRating').innerHTML = rating;
+
+            const info = `
+                <div class="dish-info" style="margin-bottom: 1.5rem;">
+                    <div class="dish-info-item">⏱️ ${selectedDish.time}</div>
+                    <div class="dish-info-item">👥 ${selectedDish.servings}</div>
+                </div>
+            `;
+            document.getElementById('modalInfo').innerHTML = info;
+
+            const price = Math.round(selectedDish.price * (1 - (selectedDish.discount || 0) / 100));
+            document.getElementById('modalPrice').textContent = `${price} SAR`;
+
+            document.getElementById('dishModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('dishModal').classList.remove('active');
+            selectedDish = null;
+        }
+
+        function toggleCart() {
+            alert(`السلة تحتوي على ${cartItems.length} عنصر`);
+        }
+
+        function scrollToMenu() {
+            document.querySelector('.dishes-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('dishModal').addEventListener('click', (e) => {
+            if (e.target.id === 'dishModal') {
+                closeModal();
+            }
         });
 
-        // إضافة تأثير عند التمرير على الصفحة
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (isVisible) {
-                    card.style.opacity = '1';
-                }
-            });
-        });
-
-        // تأثير عند تحميل الصفحة
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.card').forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.animationPlayState = 'running';
-                }, index * 100);
-            });
-        });
+        // Initialize on load
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
