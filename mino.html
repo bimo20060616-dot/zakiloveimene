@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الكتاب الرقمي الفاخر - سفر من الحكمة والجمال</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #d4af37;
+            --secondary-gold: #c9a961;
+            --dark-brown: #2c2416;
+            --warm-bg: #f5f1e8;
+            --light-gray: #e8e3d8;
+            --accent-beige: #d4cfc7;
+            --text-dark: #3a342d;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, var(--warm-bg) 0%, var(--light-gray) 100%);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تأثير الخلفية المنسوجة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(212, 175, 55, 0.03) 1px,
+                    transparent 1px
+                );
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ✨ الشريط العلوي الفاخر */
+        .header-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(245, 241, 232, 0.98) 0%, rgba(232, 227, 216, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px var(--shadow-medium);
+        }
+
+        .book-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px var(--shadow-light);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-btn {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+            color: var(--dark-brown);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Amiri', serif;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .header-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .header-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* 📚 الحاوية الرئيسية */
+        .main-container {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* 📖 صفحة الغلاف */
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--warm-bg) 0%, var(--accent-beige) 100%);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: floatingBg 20s linear infinite;
+        }
+
+        @keyframes floatingBg {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .book-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cover-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cover-subtitle {
+            font-size: 24px;
+            color: var(--primary-gold);
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .cover-description {
+            font-size: 16px;
+            color: var(--text-dark);
+            max-width: 600px;
+            margin: 0 auto 60px;
+            line-height: 1.9;
+        }
+
+        .toc-button {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+            color: var(--dark-brown);
+            border: 2px solid var(--dark-brown);
+            padding: 15px 50px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .toc-button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.6);
+        }
+
+        /* 📑 جدول المحتويات */
+        .toc-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .toc-content {
+            position: absolute;
+            right: 0;
+            top: 80px;
+            width: 100%;
+            max-width: 450px;
+            height: calc(100vh - 80px);
+            background: linear-gradient(180deg, var(--warm-bg) 0%, var(--light-gray) 100%);
+            overflow-y: auto;
+            padding: 40px 30px;
+            border-left: 3px solid var(--primary-gold);
+            box-shadow: -10px 0 40px var(--shadow-medium);
+            animation: slideInRight 0.4s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .toc-title {
+            font-size: 28px;
+            color: var(--dark-brown);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-gold);
+            padding-bottom: 15px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 20px;
+        }
+
+        .toc-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 12px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-right: 25px;
+        }
+
+        .toc-link::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toc-link:hover {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--primary-gold);
+            transform: translateX(-10px);
+        }
+
+        .toc-link:hover::before {
+            opacity: 1;
+            transform: translateX(-5px);
+        }
+
+        .close-toc {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-toc:hover {
+            transform: rotate(90deg);
+        }
+
+        /* 📄 صفحات الفصول */
+        .chapter-page {
+            display: none;
+            min-height: 100vh;
+            padding: 80px 60px 60px;
+            animation: fadeInChapter 0.6s ease;
+            background: linear-gradient(180deg, var(--warm-bg) 0%, var(--light-gray) 100%);
+        }
+
+        .chapter-page.active {
+            display: block;
+        }
+
+        @keyframes fadeInChapter {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chapter-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 60px 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px var(--shadow-medium);
+            position: relative;
+        }
+
+        .chapter-container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--primary-gold) 1px, transparent 1px);
+            background-size: 10px 10px;
+            opacity: 0.3;
+            border-radius: 15px;
+        }
+
+        .chapter-header {
+            margin-bottom: 50px;
+            border-bottom: 3px solid var(--primary-gold);
+            padding-bottom: 25px;
+            position: relative;
+        }
+
+        .chapter-number {
+            color: var(--primary-gold);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .chapter-title {
+            font-size: 48px;
+            color: var(--dark-brown);
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -1px;
+        }
+
+        .chapter-subtitle {
+            font-size: 18px;
+            color: var(--primary-gold);
+            margin-top: 15px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .chapter-content {
+            font-size: 17px;
+            line-height: 2;
+            color: var(--text-dark);
+            text-align: justify;
+            direction: rtl;
+        }
+
+        .chapter-content p {
+            margin-bottom: 25px;
+            text-indent: 40px;
+        }
+
+        .chapter-content p:first-letter {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-right: 5px;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-right: 4px solid var(--primary-gold);
+            padding: 25px 30px;
+            margin: 40px 0;
+            font-size: 18px;
+            font-style: italic;
+            color: var(--dark-brown);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+            position: relative;
+        }
+
+        .quote::before {
+            content: '❝';
+            font-size: 48px;
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            color: var(--primary-gold);
+            opacity: 0.3;
+        }
+
+        .section-break {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+            opacity: 0.4;
+            font-size: 24px;
+        }
+
+        .section-break span {
+            margin: 0 10px;
+        }
+
+        /* 🔘 أزرار التنقل */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--light-gray);
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+            color: var(--dark-brown);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn.home-btn {
+            background: linear-gradient(135deg, var(--dark-brown) 0%, var(--text-dark) 100%);
+            color: var(--primary-gold);
+            flex: 0.5;
+        }
+
+        /* 📊 مؤشر التقدم */
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-beige);
+        }
+
+        .progress-dot.active {
+            background: var(--primary-gold);
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .progress-dot:hover {
+            background: var(--secondary-gold);
+            transform: scale(1.2);
+        }
+
+        /* 📱 التجاوب */
+        @media (max-width: 1024px) {
+            .chapter-container {
+                padding: 40px 30px;
+            }
+
+            .chapter-title {
+                font-size: 36px;
+            }
+
+            .header-bar {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-bar {
+                height: 70px;
+                padding: 0 15px;
+            }
+
+            .main-container {
+                margin-top: 70px;
+            }
+
+            .cover-title {
+                font-size: 36px;
+            }
+
+            .cover-subtitle {
+                font-size: 18px;
+            }
+
+            .chapter-page {
+                padding: 70px 20px 40px;
+            }
+
+            .chapter-container {
+                padding: 30px 20px;
+                border-radius: 10px;
+            }
+
+            .chapter-title {
+                font-size: 28px;
+            }
+
+            .chapter-content {
+                font-size: 16px;
+                line-height: 1.9;
+            }
+
+            .toc-content {
+                max-width: 100%;
+                width: 100%;
+                padding: 40px 20px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .nav-btn.home-btn {
+                flex: 1;
+            }
+
+            .book-logo {
+                font-size: 18px;
+            }
+
+            .header-controls {
+                gap: 10px;
+            }
+
+            .header-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 28px;
+            }
+
+            .chapter-title {
+                font-size: 24px;
+            }
+
+            .chapter-content {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+
+            .chapter-content p {
+                text-indent: 20px;
+            }
+
+            .quote {
+                padding: 20px 20px;
+                font-size: 16px;
+            }
+        }
+
+        /* 🌙 تأثيرات خفيفة */
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            bottom: -2px;
+            left: -2px;
+            background: linear-gradient(135deg, var(--primary-gold), transparent);
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .glow-effect:hover::after {
+            opacity: 0.1;
+        }
+
+        /* شريط التمرير المخصص */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--secondary-gold) 0%, var(--primary-gold) 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <div class="header-bar">
+        <div class="book-logo">🫶 الرواية التي كتبت خصيصا لاحد اميرات ديزني :ايمان</div>
+        <div class="header-controls">
+            <button class="header-btn" onclick="openTableOfContents()">📑 الفصول</button>
+            <button class="header-btn" onclick="goToHome()">🏠 البداية</button>
+        </div>
+    </div>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="main-container">
+        <!-- صفحة الغلاف -->
+        <div id="cover" class="cover-page active">
+            <div class="cover-content">
+                <div class="book-icon">📕</div>
+                <h1 class="cover-title">كل كلمة مكتوبة هي نبضة حب من قلبي لك 🫶</h1>
+                <p class="cover-subtitle">كل مايوصف ايمان كدب لان لاشي يستطيع وصفها ووصف جمالها </p>
+                <p class="cover-description">
+                  استمتعي بما كتبته لك لقد اخد مني بعض الوقت لكن انت تعلمين انني سخرت وقتي كله لك ولاسعادك 
+                </p>
+                <button class="toc-button" onclick="openTableOfContents()">اكتشف الفصول ولتعيشي الرحلة  ✨</button>
+            </div>
+        </div>
+
+        <!-- الفصول -->
+        <div id="chapter-1" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الأول</div>
+                    <h2 class="chapter-title">المدينة التي تهمس بالأساطير</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+         <p>
+في أقصى أطراف العالم المعروف، حيث تتلاقى الجبال الزرقاء مع غابات لا تنتهي، قامت مملكة عجيبة تُدعى مملكة أوريليا.
+
+كانت مملكةً يقال إن الهواء فيها يحمل آثار السحر، وإن النجوم فوقها تلمع أكثر من أي مكان آخر في الدنيا.
+
+قصورها من حجر أبيض يشبه ضوء القمر، وشوارعها مرصوفة بذكريات مئات السنين من الحكايات…
+حكايات عن فرسانٍ شجعان، وأميراتٍ ضائعات، ووحوشٍ من الظلال.
+
+لكن أكثر حكاياتها شهرة…
+
+كانت عن اللص الأسطوري.
+
+كان الناس يتهامسون باسمه في الأزقة المظلمة.
+
+اسمٌ يقال بخوف… وأحيانًا بإعجاب.
+
+زاكي.
+
+كانوا يقولون إنه يستطيع تسلق الجدران كالعنكبوت، والقفز فوق الأسطح كما لو أن الريح تحمله.
+
+وكان بعض الأطفال يقسمون أنهم رأوه مرةً يقف فوق برجٍ عالٍ، يراقب المدينة مثل بطلٍ خفي.
+
+وكان أحد الصبية قد قال ذات مرة:
+
+"إنه يشبه بطلًا من القصص… مثل سبايدرمان."
+
+فضحك الكبار يومها، لكنهم لم ينكروا الأمر تمامًا.
+
+في تلك الليلة…
+
+كانت المدينة مغطاة بضوء القمر الفضي.
+
+وكان ظلٌ أسود يتحرك فوق أسطح المنازل بسرعة وخفة.
+
+قفز من سطحٍ إلى آخر…
+
+ثم توقف فوق برجٍ حجري قديم.
+
+رفع رأسه قليلًا، وكشف القمر ملامحه.
+
+كان شابًا في أوائل العشرينات.
+
+عيناه حادتان لكنهما تحملان دفئًا غريبًا…
+وشعره الأسود يتحرك مع نسيم الليل.
+
+كان يرتدي معطفًا داكنًا طويلًا يخفي حركاته.
+
+لكن الشيء الذي لم يعرفه أحد…
+
+أن هذا اللص الأسطوري…
+
+لم يكن يسرق بدافع الجشع.
+
+بل لأنه كان يسرق من الأغنياء الفاسدين…
+
+ليحمي من لا يستطيعون حماية أنفسهم.
+
+تمتم زاكي وهو ينظر إلى المدينة:
+
+"كم أنتِ جميلة يا أوريليا… لكنكِ قاسية أيضًا."
+
+ثم ابتسم ابتسامة صغيرة.
+
+وقال بصوت خافت:
+
+"لو كان سبايدرمان هنا… ربما كان سيحب هذه المدينة."
+
+قفز بعدها من البرج…
+
+واختفى في الظلال.
+
+في الجهة الأخرى من المدينة…
+
+كانت هناك غابة صغيرة قرب النهر تُدعى غابة الهمسات.
+
+يقول الناس إن الأشجار هناك تسمع الأسرار.
+
+وإن الرياح تحمل الأحلام.
+
+وفي تلك الليلة…
+
+كانت فتاة تمشي بين الأشجار ببطء.
+
+كانت تمسك كتابًا صغيرًا بين يديها.
+
+شعرها البني الطويل ينساب على كتفيها…
+
+وعيناها البنيتان تلمعان بفضولٍ طفولي.
+
+كانت ترتدي فستانًا بسيطًا بلون السماء.
+
+وكانت تهمس لنفسها وهي تقرأ:
+
+"وفي النهاية… أنقذ الأمير الأميرة…"
+
+ثم أغلقت الكتاب وابتسمت.
+
+وقالت بصوتٍ رقيق:
+
+"قصص ديزني دائمًا تجعلني أؤمن بأن العالم جميل."
+
+اسمها كان…
+
+إيمان.
+
+كانت فتاة حالمة.
+
+تحب القصص السحرية…
+
+وتحب مشاهدة الحكايات التي يكون فيها الحب أقوى من كل شيء.
+
+وكانت دائمًا تقول:
+
+"الحب الحقيقي قادر على تغيير العالم."
+
+لكنها لم تكن تعرف…
+
+أن العالم نفسه كان يستعد لتغيير حياتها.
+
+فجأة…
+
+تحركت الأوراق خلفها.
+
+تجمدت إيمان في مكانها.
+
+ثم التفتت ببطء.
+
+خرج ثلاثة رجال من بين الأشجار.
+
+ملابسهم خشنة…
+
+وأعينهم مليئة بالطمع.
+
+قال أحدهم وهو يبتسم ابتسامة قاسية:
+
+"انظرا ماذا وجدنا هنا."
+
+قال الآخر:
+
+"فتاة جميلة… وحدها في الغابة."
+
+ارتجف صوت إيمان قليلًا.
+
+"م… ماذا تريدون؟"
+
+اقترب الرجل الأول.
+
+وقال:
+
+"لا شيء… فقط بعض المال… وربما—"
+
+لكن الجملة لم تكتمل.
+
+لأن شيئًا ما سقط من فوق الشجرة.
+
+هبط شخص بينهم بسرعة خاطفة.
+
+ثم…
+
+ضربة.
+
+وقع أحد الرجال على الأرض.
+
+وقبل أن يفهم الآخرون ما حدث…
+
+كانت الضربة الثانية قد جاءت.
+
+والثالثة.
+
+في ثوانٍ قليلة…
+
+كان الرجال الثلاثة ملقين على الأرض يئنّون.
+
+وقف الشاب أمام إيمان.
+
+كان القمر خلفه…
+
+فظهر ظله طويلًا مثل أسطورة.
+
+قال بهدوء:
+
+"الناس في هذه المدينة لا يتعلمون."
+
+نظرت إليه إيمان بدهشة.
+
+همست:
+
+"أ… أنت…"
+
+ابتسم قليلًا.
+
+"نعم."
+
+ثم قال بنبرة خفيفة:
+
+"اللص المخيف الذي يخاف منه الجميع."
+
+تأملته إيمان قليلًا.
+
+ثم قالت فجأة:
+
+"لكن… أنت لا تبدو مخيفًا."
+
+رفع حاجبه.
+
+"حقًا؟"
+
+هزت رأسها.
+
+"تبدو… مثل بطل."
+
+ضحك زاكي لأول مرة.
+
+ضحكة خفيفة صادقة.
+
+قال:
+
+"هذه أول مرة يقول لي أحد ذلك."
+
+ثم نظر إليها بجدية.
+
+"هل أنتِ بخير؟"
+
+أومأت برأسها.
+
+"نعم."
+
+صمتا لحظة.
+
+ثم قالت فجأة:
+
+"أنا إيمان."
+
+تردد قليلًا…
+
+ثم قال:
+
+"زاكي."
+
+اتسعت عيناها.
+
+"زاكي؟! اللص الأسطوري؟!"
+
+تنهد.
+
+"يبدو أن سمعتي سبقتني."
+
+لكن إيمان لم تبدُ خائفة.
+
+بل نظرت إليه بإعجاب.
+
+وقالت:
+
+"أنا سعيدة لأنك أنقذتني."
+
+ثم أضافت بابتسامة صغيرة:
+
+"الأبطال الحقيقيون هم من يحمون من يحبونهم… أليس كذلك؟"
+
+تجمد زاكي للحظة.
+
+كانت هذه الجملة…
+
+تشبه تمامًا شيئًا كان يؤمن به منذ طفولته.
+
+نظر إلى الفتاة أمامه.
+
+الفتاة ذات الشعر البني والعينين الدافئتين…
+
+التي تقف في ضوء القمر وكأنها خرجت من قصة سحرية.
+
+ولسببٍ لم يفهمه…
+
+شعر أن هذه اللحظة…
+
+ستغيّر حياته إلى الأبد.
+
+قال بهدوء:
+
+"ربما…"
+
+ثم مد يده.
+
+"دعيني أوصلك إلى المدينة."
+
+ترددت لحظة.
+
+ثم أمسكت يده.
+
+وفي تلك اللحظة…
+
+في مكانٍ بعيد داخل قصرٍ قديم مهجور…
+
+كانت هناك دمية دب محشوة قديمة موضوعة على كرسي.
+
+كانت تبدو لطيفة.
+
+لكن فجأة…
+
+انفتح أحد عينيها ببطء.
+
+وتوهج بضوءٍ أسود.
+
+وصوت خافت مظلم همس في الظلام:
+
+"إذن… التقيا أخيرًا."
+
+ثم تحرك فم الدمية ببطء.
+
+وقال:
+
+"اللعبة بدأت…"
+
+كان اسمه…
+
+نونوس.
+
+وكان ينتظر هذه اللحظة منذ قرون.
+
+أما في الغابة…
+
+فكان زاكي وإيمان يمشيان بين الأشجار.
+
+يتحدثان.
+
+يضحكان.
+
+ولم يكن أي منهما يعلم…
+
+أن هذه الليلة كانت بداية قصة.
+
+قصة حب…
+
+وقصة قدر…
+
+وقصة ستغير مصير مملكة كاملة.
+لكن قبل أن يصلوا إلى نهايتها…
+كان عليهم عبور ظلالٍ كثيرة.
+ومواجهة أسرارٍ لم يعرفها العالم بعد.
+
+         </p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(2)">الفصل الثاني ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الثاني -->
+        <div id="chapter-2" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الثاني</div>
+                    <h2 class="chapter-title">صداقة تنبت كزهرةٍ في الظلال</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>
+                  مرت أيام قليلة بعد تلك الليلة في غابة الهمسات، لكن شيئًا ما في قلب زاكي لم يعد كما كان.
+
+فهو، اللص الذي اعتاد العيش في الظلال…
+لم يعتد أن ينتظر أحدًا.
+
+لكن في مساء اليوم التالي، وجد نفسه واقفًا فوق أحد الأسطح المطلة على النهر، ينظر إلى الطريق الحجري الذي يمر قرب الغابة.
+
+تمتم لنفسه بسخرية خفيفة:
+
+"أنا لص أسطوري… وليس فتى ينتظر فتاة."
+
+لكنه بقي هناك.
+
+ينتظر.
+
+وفي تلك اللحظة…
+
+ظهرت.
+
+كانت تمشي بخطوات هادئة، تحمل كتابًا بين يديها كما فعلت في الليلة الأولى.
+
+شعرها البني الطويل يتحرك مع النسيم…
+
+وعيناها البنيتان تنظران إلى السماء وكأنها تبحث عن نجمة.
+
+ابتسم زاكي دون أن يشعر.
+
+ثم قفز من السطح بهدوء وهبط خلفها.
+
+قال:
+
+"ألم تتعبي من القراءة في الطريق؟"
+
+شهقت إيمان قليلًا ثم التفتت.
+
+لكن عندما رأته…
+
+ابتسمت فورًا.
+
+"زاكي!"
+
+رفع حاجبه.
+
+"يبدو أنك لم تخافي هذه المرة."
+
+ضحكت.
+
+"لم أخف أصلًا."
+
+ثم نظرت إليه بعينين فضوليتين.
+
+"كنت أعلم أنك ستأتي."
+
+توقف للحظة.
+
+"كيف؟"
+
+رفعت كتابها.
+
+"لأن الأبطال في القصص دائمًا يعودون."
+
+تنهد مبتسمًا.
+
+"أنا لست بطلًا."
+
+اقتربت خطوة صغيرة.
+
+وقالت بهدوء:
+
+"ربما لا تعرف ذلك… لكنك كذلك."
+
+كانت كلماتها بسيطة.
+
+لكنها أصابت قلبه بطريقة لم يفهمها.
+
+جلسا قرب النهر.
+
+الماء كان يعكس ضوء القمر مثل مرآةٍ فضية.
+
+قال زاكي وهو يرمي حجرًا في الماء:
+
+"لماذا تأتين إلى هذه الغابة كثيرًا؟"
+
+ابتسمت إيمان.
+
+"لأنها تشبه القصص."
+
+نظر إليها باستغراب.
+
+"القصص؟"
+
+هزت رأسها.
+
+"عندما أكون هنا… أشعر أن شيئًا سحريًا قد يحدث."
+
+ثم نظرت إليه بخفة.
+
+"وقد حدث بالفعل."
+
+قال ساخرًا:
+
+"تقصدين اللص الذي سقط من الشجرة؟"
+
+ضحكت.
+
+ضحكة دافئة جعلت الليل يبدو أكثر لطفًا.
+
+قالت:
+
+"أقصد الشخص الذي أنقذني."
+
+مرت الأيام…
+
+وأصبحت لقاءاتهما عادة.
+
+كان زاكي يأتي كل مساء.
+
+أحيانًا يجلب لها تفاحة سرقها من سوق فاخر.
+
+وأحيانًا يحكي لها قصصًا عن المدينة.
+
+وأحيانًا… يجلسان بصمت.
+
+لكن ذلك الصمت لم يكن ثقيلًا.
+
+كان صمتًا مريحًا.
+
+كأن روحيهما تتحدثان دون كلمات.
+
+في أحد الأيام قالت إيمان فجأة:
+
+"هل يمكنني أن أسألك شيئًا؟"
+
+"تفضلي."
+
+"لماذا أصبحت لصًا؟"
+
+صمت زاكي.
+
+لم يسأله أحد هذا السؤال من قبل.
+
+ثم قال أخيرًا:
+
+"لأن العالم لم يكن لطيفًا معي."
+
+نظرت إليه بهدوء.
+
+لكنه تابع:
+
+"عندما كنت صغيرًا… لم يكن لدي أحد."
+
+رفع عينيه إلى السماء.
+
+"تعلمت أن أعتمد على نفسي."
+
+ثم ابتسم ابتسامة خفيفة.
+
+"لكنني لم أسرق من الأبرياء أبدًا."
+
+قالت إيمان بهدوء:
+
+"أعرف."
+
+تفاجأ.
+
+"تعرفين؟"
+
+هزت رأسها.
+
+"الأشخاص الطيبون يمكن رؤيتهم بسهولة."
+
+ثم أضافت بلطف:
+
+"حتى لو كانوا يرتدون قناع اللصوص."
+
+لأول مرة منذ سنوات…
+
+شعر زاكي أن أحدًا فهمه حقًا.
+
+وفي تلك اللحظة…
+
+في القصر المهجور…
+
+كانت الدمية نونوس تراقب عبر كرة بلورية سوداء.
+
+ضحك صوت مظلم داخلها.
+
+"كم هو جميل…"
+
+ثم قال ببطء:
+
+"الحب الصغير الذي يولد الآن…"
+
+اشتعلت عينا الدمية بلون أسود قاتم.
+
+"سيكون لذيذًا عندما أحطمه."
+
+أما في الغابة…
+
+فكانت الصداقة بين زاكي وإيمان تنمو بهدوء.
+
+مثل زهرةٍ صغيرة…
+
+لا تعرف أنها ستصبح يومًا شجرةً عظيمة.
+
+لكن القدر…
+
+لم يكن قد كشف كل أسراره بعد.
+
+لأن السر الأكبر…
+
+كان مختبئًا في جسد إيمان نفسها.
+
+سر…
+
+سيغيّر مصير المملكة.
+
+لكن لا أحد كان يعرف ذلك بعد.
+                </p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(1)">➤ الفصل الأول</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(3)">الفصل الثالث ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الثالث -->
+        <div id="chapter-3" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الثالث</div>
+                    <h2 class="chapter-title">العلامة التي يوقظها القدر</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                    <p>
+                      كان فجر يومٍ جديد يشرق على مملكة أوريليا.
+
+الشمس الذهبية بدأت تتسلل بين الأبراج البيضاء، وتلوّن السماء بألوانٍ تشبه لوحات الأحلام.
+
+وفي أحد أزقة المدينة الهادئة…
+
+كانت إيمان تمشي وهي تحمل سلة صغيرة.
+
+كانت تبتسم وهي تنظر إلى الواجهات المليئة بالزهور.
+
+فجأة توقفت أمام متجر صغير.
+
+داخل النافذة…
+
+كانت هناك دمية دب محشوة.
+
+بنية اللون.
+
+وعيناها الواسعتان تبدوان بريئتين جدًا.
+
+ابتسمت إيمان.
+
+"يا لها من دمية لطيفة…"
+
+لكن فجأة…
+
+شعرت بقشعريرة تمر في جسدها.
+
+نظرت إلى الدمية مرة أخرى.
+
+للحظة…
+
+خُيّل لها أن عينها تحركت.
+
+تراجعت خطوة.
+
+"غريب…"
+
+لكن البائع قال مبتسمًا:
+
+"هل أعجبتك؟"
+
+هزت رأسها بسرعة.
+
+"لا… أعني… نعم لكنها—"
+
+لم تكمل.
+
+لأن شعورًا غريبًا جعل قلبها ينبض بسرعة.
+
+فابتعدت عن المتجر.
+
+لكن الدمية بقيت تنظر…
+
+وعيناها تلمعان بلونٍ مظلم.
+
+في المساء…
+
+التقت بزاكي قرب النهر كعادتهما.
+
+كان جالسًا فوق صخرة يراقب الغروب.
+
+قالت وهي تقترب:
+
+"مرحبا أيها اللص."
+
+ابتسم دون أن يلتفت.
+
+"مرحبا أيتها الحالمة."
+
+جلست بجانبه.
+
+قالت:
+
+"اليوم حدث شيء غريب."
+
+نظر إليها.
+
+"ماذا؟"
+
+"رأيت دمية… لكن شعرت أنها تنظر إلي."
+
+ضحك زاكي.
+
+"ربما شاهدتِ الكثير من مسلسل كيرداما العفريت."
+
+عبست قليلًا.
+
+"أنا جادة!"
+
+رفع يديه مستسلمًا.
+
+"حسنًا حسنًا."
+
+ثم نظر إليها بلطف.
+
+"لكن طالما أنا هنا… لن يؤذيك شيء."
+
+توقفت عن الكلام.
+
+ونظرت إليه.
+
+كانت تلك الجملة بسيطة…
+
+لكنها جعلت قلبها يهدأ.
+
+فجأة…
+
+هبّت ريح باردة.
+
+تطاير شعر إيمان.
+
+ثم رفعت يدها لتبعده عن وجهها.
+
+لكن زاكي تجمد.
+
+لأنه رأى شيئًا على معصمها.
+
+علامة غريبة.
+
+شكلها يشبه تاجًا صغيرًا تحيط به نجوم.
+
+قال بدهشة:
+
+"ما هذه العلامة؟"
+
+نظرت إلى يدها.
+
+"أي علامة؟"
+
+لكنها اختفت.
+
+اختفت كما لو لم تكن هناك.
+
+قطب زاكي حاجبيه.
+
+"أنا متأكد أنني رأيتها."
+
+قالت وهي تضحك بخفة:
+
+"ربما كنت تتخيل."
+
+لكن في أعماق قلبها…
+
+شعرت أن شيئًا ما استيقظ.
+
+في تلك اللحظة…
+
+في أعماق القصر المهجور…
+
+بدأت الأرض تهتز قليلاً.
+
+فتح نونوس عينيه فجأة.
+
+ثم قال بصوت مليء بالدهشة:
+
+"مستحيل…"
+
+اقترب من الكرة البلورية.
+
+ورأى صورة إيمان.
+
+ثم ظهرت العلامة للحظة فوق يدها داخل الرؤية السحرية.
+
+ارتجف صوته:
+
+"العلامة الملكية…"
+
+ثم ضحك ضحكة مظلمة.
+
+"إذن… الأميرة عادت."
+
+توهجت عيناه أكثر.
+
+وقال ببطء:
+
+"كم كنت أنتظرك يا صاحبة العرش."
+
+ثم ابتسم ابتسامة مرعبة.
+
+"لكن هذه المرة…"
+
+"لن تحكمي هذه المملكة."
+
+أما زاكي وإيمان…
+
+فكانا يجلسان قرب النهر.
+
+لا يعلمان أن القدر بدأ يتحرك.
+قالت إيمان وهي تنظر إلى النجوم:
+"زاكي…
+"نعم؟"
+"هل تعتقد أن الحياة يمكن أن تكون مثل القصص؟
+فكر قليلًا.
+ثم قال:
+"القصص ليست خيالًا."
+نظرت إليه بدهشة.
+فأكمل:
+"إنها فقط… المستقبل الذي لم يحدث بعد."
+ابتسمت.
+لكن قلبها شعر بشيء غريب.
+كأن العالم…
+يستعد لفتح بابٍ كبير.
+باب يقود إلى مغامرة لم يتوقعها أحد.
+ولا حتى زاكي اللص الأسطوري.
+ولا حتى إيمان الحالمة.
+لكن في الظلال…
+كان الشر قد بدأ بالفعل.
+
+                    </p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(2)">➤ الفصل الثاني</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(4)">الفصل الرابع ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الرابع -->
+        <div id="chapter-4" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الرابع</div>
+                    <h2 class="chapter-title">حين يصبح القلب بيتًا</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>
+                  كانت الأيام تمر فوق مملكة أوريليا كصفحاتٍ من كتابٍ سحري.
+
+كل يوم يحمل لحظة جديدة…
+
+ضحكة جديدة…
+
+وذكرى صغيرة تنبت في قلبين لم يكونا يتوقعان أن يجدا بعضهما.
+
+زاكي، الذي اعتاد العيش في الظلال…
+بدأ يكتشف شيئًا غريبًا.
+
+أن الظلال لم تعد موطنه الوحيد.
+
+بل أصبح هناك مكان آخر يشعر فيه بالراحة.
+
+مكان بسيط…
+
+قرب نهرٍ هادئ…
+
+بجوار فتاةٍ تضحك عندما يبالغ في سرد قصصه.
+
+اسمها إيمان.
+
+في إحدى الأمسيات…
+
+كانت السماء مغطاة بغيومٍ ذهبية مع غروب الشمس.
+
+جلس زاكي فوق غصن شجرة كبيرة قرب الغابة، يتأرجح بكسل.
+
+ثم قال بصوتٍ عالٍ:
+
+"أتعلمين؟ لو كنت بطلًا خارقًا… لكنت أعيش فوق الأسطح مثل سبايدرمان."
+
+ضحكت إيمان التي كانت جالسة أسفل الشجرة.
+
+"لكن سبايدرمان لا يسرق التفاح من السوق."
+
+ابتسم زاكي بخبث.
+
+وألقى تفاحة ناضجة إليها.
+
+"هذه ليست سرقة."
+
+أمسكتها وهي تضحك.
+
+"إذن ماذا تسميها؟"
+
+قال بثقة:
+
+"إعادة توزيع الموارد."
+
+ضحكت إيمان أكثر حتى أغلقت عينيها من الضحك.
+
+وكانت تلك اللحظة…
+
+بسيطة جدًا.
+
+لكنها كانت من اللحظات التي تجعل الحياة تبدو خفيفة.
+
+بعد قليل…
+
+هدأ الضحك.
+
+وأصبح المكان مليئًا بصوت النهر فقط.
+
+نظرت إيمان إلى زاكي الذي كان ينظر إلى الأفق.
+
+قالت بهدوء:
+
+"زاكي…"
+
+"نعم؟"
+
+"هل تشعر أحيانًا أن العالم أكبر مما نراه؟"
+
+نظر إليها.
+
+كانت عيناها البنيتان تلمعان بضوء الغروب.
+
+أجاب:
+
+"دائمًا."
+
+ثم أضاف:
+
+"ولهذا أحب التسلق فوق الأسطح."
+
+ابتسمت.
+
+"لماذا؟"
+
+قال وهو يشير إلى الأفق:
+
+"لأنني عندما أكون في الأعلى… أشعر أنني أستطيع حماية كل شيء."
+
+سكت لحظة.
+
+ثم قال بصوتٍ أهدأ:
+
+"وخاصة الأشخاص المهمين."
+
+لم تقل شيئًا.
+
+لكن قلبها خفق بقوة.
+
+فجأة…
+
+سمعوا صهيل خيول بعيد.
+
+اقترب الصوت بسرعة.
+
+ثم ظهرت مجموعة من حراس المملكة بين الأشجار.
+
+صرخ أحدهم:
+
+"إنه هو!"
+
+وأشار إلى زاكي.
+
+"اللص الأسطوري!"
+
+قفز زاكي فورًا من الشجرة.
+
+همس لإيمان:
+
+"ابقِ خلفي."
+
+لكن القائد اقترب وقال بصرامة:
+
+"زاكي… بأمر من الملك… أنت مطلوب للعدالة."
+
+عبست إيمان.
+
+"لكن لماذا؟!"
+
+قال أحد الجنود:
+
+"هذا الرجل سرق من القصر الملكي قبل أشهر."
+
+نظر زاكي إلى الأرض للحظة.
+
+لم ينكر.
+
+قال بهدوء:
+
+"كنت أعلم أن هذا اليوم سيأتي."
+
+نظرت إليه إيمان بقلق.
+
+"زاكي…"
+
+لكن القائد رفع يده.
+
+"ألقوا القبض عليه!"
+
+تحرك الجنود نحوه.
+
+لكن زاكي لم يقاتل.
+
+لم يهرب.
+
+بل نظر إلى إيمان فقط.
+
+وقال بابتسامة صغيرة:
+
+"يبدو أن مغامرتي انتهت هنا."
+
+صرخت:
+
+"لا!"
+
+لكن الجنود قيدوا يديه.
+
+اقتربت إيمان بسرعة.
+
+كانت عيناها مليئتين بالدموع.
+
+"زاكي…"
+
+نظر إليها بهدوء.
+
+كان غريبًا كيف بدا مطمئنًا رغم كل شيء.
+
+قال لها بصوتٍ خافت:
+
+"لا تقلقي."
+
+"لكنهم سيأخذونك!"
+
+ابتسم بلطف.
+
+"أحيانًا… حتى الأبطال يسقطون."
+
+ثم قال مازحًا:
+
+"ربما هذه مجرد نهاية فصل."
+
+هزت رأسها وهي تبكي.
+
+"لا… ليست النهاية."
+
+نظر إليها طويلًا.
+
+ثم قال بهدوء شديد:
+
+"إيمان…"
+
+"نعم؟"
+
+"لقائي بك… كان أجمل شيء حدث في حياتي."
+
+تجمد قلبها.
+
+لكن الجنود سحبوه بعيدًا.
+
+بينما كان يُقاد نحو المدينة…
+
+كانت إيمان واقفة بين الأشجار.
+
+دموعها تنزل بصمت.
+
+لم تستطع فعل شيء.
+
+لكن في تلك اللحظة…
+
+شعرت بحرارة غريبة في معصمها.
+
+نظرت إلى يدها.
+
+وفجأة…
+
+ظهرت العلامة مرة أخرى.
+
+نفس العلامة التي رآها زاكي.
+
+شكل التاج القديم…
+
+محاطًا بنجومٍ صغيرة.
+
+بدأت تلمع بضوءٍ ذهبي خافت.
+
+اتسعت عيناها.
+
+"ما… هذا؟"
+
+لكن الضوء اختفى بسرعة.
+
+وبقيت وحدها في الغابة.
+
+وفي القصر المهجور…
+
+كان نونوس يضحك.
+
+ضحكة بطيئة ومظلمة.
+
+قال وهو ينظر إلى الكرة البلورية:
+
+"ممتاز… ممتاز…"
+
+ثم تمتم:
+
+"اللص في السجن…"
+
+"والأميرة لا تعرف حقيقتها بعد."
+
+توهجت عيناه.
+
+"كل شيء يسير كما خططت."
+
+ثم أضاف بصوتٍ بارد:
+
+"لكن قريبًا جدًا…"
+
+"ستبدأ الفوضى الحقيقية."
+
+أما في زنزانةٍ باردة تحت قصر الملك…
+
+كان زاكي يجلس بهدوء.
+
+ينظر إلى نافذة صغيرة يدخل منها ضوء القمر.
+
+ابتسم لنفسه.
+
+وتمتم:
+
+"سبايدرمان كان يخرج من المواقف الأصعب."
+
+ثم رفع رأسه قليلًا.
+
+"أليس كذلك؟"
+
+لكن في أعماقه…
+
+كان يفكر بشيء واحد فقط.
+
+إيمان.
+
+لم يكن يعرف…
+
+أن القدر لم يبدأ لعبته الحقيقية بعد.
+
+وأن الأيام القادمة…
+
+ستقلب حياة الجميع رأسًا على عقب.
+                </p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(3)">➤ الفصل الثالث</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(5)">الفصل الخامس ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الخامس -->
+        <div id="chapter-5" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الخامس</div>
+                    <h2 class="chapter-title">حكم الظلال</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                   <p>
+
+                    استيقظت مملكة أوريليا ذلك الصباح على خبرٍ هزّ المدينة كلها.
+
+الناس في الأسواق يتحدثون بصوتٍ منخفض…
+الحراس في الشوارع أكثر من المعتاد…
+والقلق ينتشر مثل ضبابٍ بارد.
+
+الخبر كان بسيطًا في كلماته…
+
+لكن ثقيلًا في معناه.
+
+تم القبض على اللص الأسطوري زاكي.
+
+في أعماق القصر الملكي…
+
+كانت قاعة المحكمة كبيرة جدًا، سقفها مرتفع مزين برسوم قديمة تحكي تاريخ المملكة.
+
+جلس الملك على عرشه الذهبي.
+
+كان رجلاً مسنًا، ذا لحية فضية طويلة وعينين مليئتين بالحكمة… لكنهما اليوم كانتا حزينتين.
+
+وقف الجنود في صفين طويلين.
+
+وفي وسط القاعة…
+
+كان يقف زاكي.
+
+يداه مقيدتان بسلاسل حديدية.
+
+لكن رغم ذلك…
+
+كان واقفًا بثبات.
+
+وكأنه لم يُهزم.
+
+همس أحد الناس في القاعة:
+
+"إنه يبدو هادئًا جدًا…"
+
+وقال آخر:
+
+"لأنه مجنون."
+
+لكن أحد الشيوخ تمتم:
+
+"لا… لأنه شجاع."
+
+ضرب الحارس رمحه على الأرض.
+
+"لتبدأ المحاكمة!"
+
+نظر الملك إلى زاكي.
+
+وقال بصوتٍ عميق:
+
+"اسمك زاكي… المعروف باللص الأسطوري."
+
+أجاب بهدوء:
+
+"نعم."
+
+"هل تعترف بأنك سرقت من خزائن النبلاء… ومن القصر الملكي؟"
+
+ساد صمت طويل.
+
+ثم قال زاكي:
+
+"نعم."
+
+همهمة كبيرة انتشرت في القاعة.
+
+لكن الملك رفع يده.
+
+"لماذا فعلت ذلك؟"
+
+نظر زاكي حوله.
+
+ثم قال:
+
+"لأن الجوع في شوارع هذه المملكة… كان أكبر من كنوز القصر."
+
+ساد الصمت.
+
+بعض الناس خفضوا رؤوسهم.
+
+لكن أحد النبلاء صرخ غاضبًا:
+
+"هذا لا يبرر السرقة!"
+
+رد زاكي بهدوء:
+
+"ربما."
+
+ثم أضاف:
+
+"لكنني لم أسرق لنفسي."
+
+نظر الملك إليه طويلًا.
+
+كان في عينيه شيء يشبه الاحترام.
+
+لكن القانون…
+
+كان قانونًا.
+
+تنهد الملك ببطء.
+
+ثم قال:
+
+"زاكي…"
+
+"أنت رجل شجاع… لكنك خالفت قوانين المملكة."
+
+سكت لحظة.
+
+ثم أعلن الحكم.
+
+"الحكم هو…"
+
+ارتجفت القاعة.
+
+"الإعدام عند شروق شمس الغد."
+
+في تلك اللحظة…
+
+دخلت فتاة القاعة مسرعة.
+
+"توقفوا!"
+
+كانت إيمان.
+
+كانت أنفاسها متقطعة من الركض.
+
+صرخ الحراس:
+
+"توقفي!"
+
+لكنها اقتربت.
+
+عيناها مليئتان بالدموع.
+
+"مولاي الملك!"
+
+نظر الملك إليها باستغراب.
+
+"من أنتِ يا فتاة؟"
+
+قالت بصوتٍ مرتجف:
+
+"اسمي إيمان."
+
+ثم أشارت إلى زاكي.
+
+"هذا الرجل… أنقذ حياتي!"
+
+قال أحد الوزراء ببرود:
+
+"هذا لا يغير شيئًا."
+
+لكن إيمان لم تتراجع.
+
+اقتربت أكثر.
+
+"هو ليس شريرًا!"
+
+ثم نظرت إلى زاكي.
+
+"إنه بطل."
+
+ابتسم زاكي قليلًا.
+
+لكن الملك قال بحزن:
+
+"يا ابنتي… حتى الأبطال يجب أن يحاسبوا إن خالفوا القانون."
+
+ارتجف صوتها.
+
+"لكن—"
+
+ثم…
+
+حدث شيء غريب.
+
+فجأة…
+
+شعرت إيمان بحرارة قوية في معصمها.
+
+أمسكت يدها.
+
+لكن الضوء بدأ يظهر.
+
+نور ذهبي قوي.
+
+صرخ الناس:
+
+"ما هذا؟!"
+
+ظهرت العلامة الملكية بوضوح.
+
+علامة التاج المحاط بالنجوم.
+
+اتسعت عينا الملك.
+
+وقف فجأة من عرشه.
+
+"مستحيل…"
+
+همس أحد الحكماء:
+
+"هذه… العلامة الأسطورية."
+
+قال الملك بصوت مرتجف:
+
+"علامة… الوريثة الحقيقية للعرش."
+
+ساد الصمت في القاعة.
+
+كل العيون كانت على إيمان.
+
+وقفت مذهولة.
+
+لا تفهم ما يحدث.
+
+ثم ركع أحد الحكماء فجأة.
+
+"الأميرة."
+
+وبعده ركع الجنود.
+
+واحدًا تلو الآخر.
+
+حتى القاعة كلها…
+
+انحنت.
+
+أما زاكي…
+
+فكان ينظر إليها بدهشة.
+
+همس لنفسه:
+
+"إيمان… أميرة؟"
+
+وفي مكان بعيد…
+
+ضحك نونوس ببطء.
+
+قال بصوتٍ مظلم:
+
+"وأخيرًا…"
+
+ثم همس:
+
+"بدأت اللعبة الحقيقية."
+                   </p>
+            
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(4)">➤ الفصل الرابع</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(6)">الفصل السادس ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل السادس -->
+        <div id="chapter-6" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل السادس</div>
+                    <h2 class="chapter-title">الحارس والقلب</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>مرت أيام قليلة…
+
+لكن حياة الجميع تغيرت.
+
+أصبحت إيمان فجأة الأميرة الشرعية لمملكة أوريليا.
+
+اكتشف الحكماء أن العلامة الملكية تظهر فقط في نسل العائلة الحاكمة القديمة…
+
+العائلة التي اختفت منذ عشرين عامًا.
+
+والتي كانت المملكة تبحث عن وريثها منذ زمن طويل.
+
+لكن إيمان…
+
+لم تشعر وكأنها أميرة.
+
+كانت تجلس في شرفة القصر الكبير، تنظر إلى الحدائق الواسعة.
+
+كل شيء جميل.
+
+لكن قلبها كان قلقًا.
+
+همست لنفسها:
+
+"كل هذا… لا يعني شيئًا إن كان زاكي سيموت."
+
+في اليوم التالي…
+
+دخلت قاعة العرش بثقة لم يعرفها أحد فيها من قبل.
+
+قالت:
+
+"مولاي."
+
+نظر الملك إليها بلطف.
+
+"نعم يا ابنتي."
+
+قالت بصوت ثابت:
+
+"لدي طلب."
+
+"ما هو؟"
+
+أجابت:
+
+"أريد العفو عن زاكي."
+
+ساد الصمت.
+
+قال أحد الوزراء:
+
+"لكن—"
+
+قاطعته.
+
+"أنا الوريثة الشرعية."
+
+ثم نظرت إلى الملك.
+
+"أليس كذلك؟"
+
+ابتسم الملك قليلاً.
+
+"نعم."
+
+قالت:
+
+"إذن أطلب العفو عنه."
+
+فكر الملك طويلًا.
+
+ثم قال:
+
+"هناك شرط."
+
+ارتجف قلبها.
+
+"ما هو؟"
+
+أجاب:
+
+"إن خرج من السجن… فلن يكون حرًا."
+
+"بل سيكون حارسًا شخصيًا لك."
+
+تفاجأت.
+
+لكنها ابتسمت فورًا.
+
+"أوافق."
+
+بعد ساعات…
+
+فُتحت زنزانة زاكي.
+
+دخل الحارس وقال:
+
+"قم."
+
+نظر زاكي بتعب.
+
+"هل حان وقت الإعدام؟"
+
+قال الحارس:
+
+"لا."
+
+"الأميرة طلبت العفو عنك."
+
+تجمد.
+
+"الأميرة؟"
+
+في قاعة العرش…
+
+دخل زاكي.
+
+لكن هذه المرة…
+
+لم يكن مقيدًا.
+
+ورأى إيمان.
+
+كانت ترتدي فستانًا أبيض ملكيًا.
+
+لكن عينيها كانتا نفس العينين اللتين عرفهما.
+
+اقترب قليلًا.
+
+قال مازحًا:
+
+"يبدو أنني أصبحت صديق أميرة."
+
+ابتسمت.
+
+لكن عينيها امتلأتا بالدموع.
+
+"كادوا يقتلونك."
+
+أجاب بلطف:
+
+"لكنهم لم يفعلوا."
+
+ثم نظر إليها.
+
+"إذن… أميرة حقًا؟"
+
+ضحكت بخفة.
+
+"يبدو ذلك."
+
+ثم اقتربت خطوة.
+
+وقالت:
+
+"زاكي."
+
+"نعم؟"
+
+"هل ستبقى معي؟"
+
+نظر إليها.
+
+ثم قال:
+
+"كنت دائمًا أحميك."
+
+ابتسمت.
+
+فأضاف:
+
+"لكن الآن… يبدو أن هذا أصبح رسميًا."
+
+ثم ركع أمامها بطريقة مسرحية.
+
+"أنا زاكي… الحارس الشخصي للأميرة إيمان."
+
+ضحكت.
+
+ضحكة حقيقية.
+
+وفي تلك اللحظة…
+
+بدأ شيء جديد.
+
+ليس فقط صداقة.
+
+بل قصة أكبر بكثير.
+
+لكن في الظلال…
+
+كان نونوس يحرك خيوطه ببطء.
+
+همس بصوت مظلم:
+
+"ليحلموا قليلًا…"
+
+ثم قال:
+
+"لأن الكابوس الحقيقي… لم يبدأ بعد."</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(5)">➤ الفصل الخامس</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(7)">الفصل السابع ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل السابع -->
+        <div id="chapter-7" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل السابع</div>
+                    <h2 class="chapter-title">مغامرات الغابات والجبال</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>بدأت المغامرة الحقيقية بعد أن أصبح زاكي الحارس الشخصي للأميرة إيمان.
+
+كانت المملكة مليئة بالغابات السحرية، الجبال المغطاة بالثلوج، والبحار البعيدة التي تحمل أسرارًا لا يعرفها إلا القدماء.
+
+في صباحٍ مشمس، وقف زاكي وإيمان على حافة غابة الأزهار الليلية، حيث تتفتح الزهور فقط عند اكتمال القمر، وتنبعث منها رائحة ساحرة تثير الذكريات المخفية.
+
+قال زاكي وهو يمد يده لتوجيهها:
+"احذري، الغابة ليست كما تبدو… الأشجار هنا تسمع كل كلمة."
+
+ابتسمت إيمان بخفة، وأخذت يده:
+"لن أخاف، طالما أنت معي."
+
+ساروا بين الأشجار العملاقة، يسمعون همسات الريح وكأنها تتحدث. فجأة، ظهرت أمامهم مخلوقات صغيرة، نصف شفافة، تتلألأ كالأحجار الكريمة.
+
+قالت إيمان بدهشة:
+"إنها… الجنيات!"
+
+ضحك زاكي:
+"تمامًا كما في القصص التي تحبينها."
+
+في تلك الغابة، واجهوا أول تحدٍ حقيقي. كان هناك نهر واسع يحيطه الضباب، يبدو كما لو كان يمتد إلى اللا نهاية.
+
+قال زاكي بثقة:
+"سأجد طريقة للعبور."
+
+وبذكاءه، استطاع أن يربط بعض الأغصان ويصنع جسرًا مؤقتًا، مما جعل إيمان تتشبث به، ويداه تمسكان بيديه.
+
+كان قلبها ينبض بشدة، لكنها شعرت بالأمان.
+
+بعد عدة أيام، وصلوا إلى الجبال الثلجية العالية.
+
+كانت الرياح شديدة، والثلوج تغطي كل شيء.
+
+قال زاكي وهو يحمي إيمان من برد قارس:
+"هذا المكان لا يرحم الضعفاء."
+
+نظرت إليه بعينين لامعتين:
+"لكن أنا أشعر بالأمان… لأنك معي."
+
+في أعلى قمة، بينما كانت الشمس تغرب، ظهرت لهم رؤية غريبة. كانت خطوط الضوء تتشكل على الثلوج، مكونة رمزًا يشبه العلامة الملكية على يد إيمان.
+
+همس زاكي بدهشة:
+"هل هذه العلامة… تقودنا؟"
+
+أومأت إيمان:
+"ربما… لقد شعرت بها منذ أن بدأت مغامرتنا."
+
+لكن في أعماق الظلال، كان نونوس يراقب.
+
+قال بصوت مظلم:
+"ها هي الأضواء… العلامة الملكية بدأت تستيقظ."
+ابتسم ابتسامة شريرة:
+"سأأخذ كل شيء… وسأحطم الحب بينهما قبل أن يصبح قوتهما حقيقية."</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(6)">➤ الفصل السادس</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(8)">الفصل الثامن ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الثامن -->
+        <div id="chapter-8" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الثامن</div>
+                    <h2 class="chapter-title">الحب في مواجهة الظلام</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>مع تقدم المغامرة، بدأت علاقة زاكي وإيمان تتعمق أكثر.
+
+في ليلةٍ هادئة، جلسا قرب بحيرة عاكسة القمر، حيث المياه صافية كمرآة.
+
+قالت إيمان بخجل:
+"أحيانًا أشعر أن العالم كله يتوقف عندما أكون معك."
+
+نظر إليها زاكي بعمق:
+"وأنا كذلك… كل شيء يصبح أهدأ… وكأن كل المخاطر تختفي."
+
+اقترب منها ببطء، ولم يبتعد حتى شعرت بدفء قلبه.
+
+ضحكت بخجل، لكنها شعرت أن المشاعر بينهما تتجاوز الكلمات.
+
+خلال الرحلة، واجهوا سلسلة من المخاطر.
+
+في إحدى المدن القديمة، حاول شياطين الظل المرسلة من نونوس سرقة العلامة الملكية من إيمان.
+
+لكن زاكي، بشجاعته وذكائه، استطاع حمايتها، مستخدمًا حيلًا سريعة وأقفالًا سحرية مخفية في أدواته.
+
+قال زاكي وهو يبتسم بينما كانت إيمان تعانقه من شدة الخوف:
+"لن أترك أحدًا يؤذيك."
+
+ابتسمت وهي تلمس خده:
+"أنا أعلم… وهذا كل ما أحتاجه."
+
+وفي الجبال الثلجية، تعلم زاكي وإيمان الاعتماد على بعضهما البعض أكثر.
+
+ففي عاصفة ثلجية عنيفة، كان زاكي يحميها من الرياح، بينما كانت إيمان تساعده في تحديد الطريق، مستخدمة حدسها وغريزتها.
+
+في تلك اللحظات، أدرك كل منهما أن قوة الحب التي تربطهما ليست مجرد شعور… بل قوة حقيقية يمكن أن تهزم أي تهديد.
+
+أما نونوس… فقد بدأ يخطط بخبث أكبر.
+
+همس في الظلال:
+"لن أسامح أبداً هذا الحب… سأسرق كل شيء منهم… وسأجعلهم يندمون على أن وجدوا بعضهم."
+
+لكن زاكي وإيمان، غير مدركين للخطر المحدق، واصلوا رحلتهم نحو المغامرات القادمة، وقلوبهما ممتلئة بالشجاعة، والإيمان بأن الحب الحقيقي هو أعظم سحر في العالم.</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(7)">➤ الفصل السابع</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(9)">الفصل التاسع ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل التاسع -->
+        <div id="chapter-9" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل التاسع</div>
+                    <h2 class="chapter-title">مواجهة الظلام</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                <p>كانت مملكة أوريليا قد أصبحت أكثر حذرًا. كانت الأشجار تهتز والأنهار تصرخ بأصوات غريبة، وكأن الأرض نفسها تحذر من شرٍ قادم.
+
+في صباحٍ مظلم، بينما كان زاكي وإيمان يسافران عبر الغابة السحرية، شعروا ببرودة غير معتادة.
+
+قال زاكي وهو يلمس سيفه الخفيف:
+"أشعر بأن شيئًا سيئًا يقترب."
+
+ابتلعت إيمان نفسها خوفًا، لكنها تذكرت قوتها الداخلية.
+"لن نتركه يفعل شيئًا، أليس كذلك؟"
+
+تقدم زاكي بخطوات حذرة، ثم ظهر فجأة أمامهم نونوس، دميته المحشوة، لكن عيونه المظلمة تنبض بالشر.
+
+ضحك ضحكة بطيئة ومخيفة، وقال:
+"أهلاً بالأميرة والحارس… لقد انتظرتم كثيرًا."
+
+صرخت إيمان:
+"نونوس! لماذا؟!"
+
+أجاب ببرود:
+"لأن هذه المملكة ملك لي… وأنتِ لن تحكمي عليها."
+
+انهالت كائنات الظل من حولهم، لكن زاكي بسرعة بطل خارق، أمسك يد إيمان، وقال:
+"ابقِ قريبة مني!"
+
+قاتل زاكي بشجاعة لا تضاهى، مستخدمًا كل مهاراته في التخفي والقفز والقتال، بينما إيمان أطلقت قوة علامتها الملكية، التي أصدرت ضوءًا ذهبيًا أقوى من الظلال، تدافع عنهما.
+
+بعد صراع طويل، استطاعا الانتصار، لكن نونوس اختفى في الظلال قائلاً:
+"لن أنتهي هنا… الحب الذي بينكما سيكون عقبة عظيمة… لكن قريبًا… سأعود."
+
+نظرت إيمان إلى زاكي، وعيناها تلمعان بالدموع، وقالت:
+"لقد… أنقذتني مجددًا."
+
+ابتسم زاكي، وهو يمسح يدها:
+"هذا ما يفعل الأبطال."
+
+ثم أدرك كلاهما أن الحب بينهما أصبح أقوى من أي سحر، وأنه ليس مجرد مشاعر… بل قوة حقيقية تقهر الظلام.
+
+الفصل العاشر: إعلان الحب والرحلة الكبرى
+
+بعد مواجهة نونوس، قرر زاكي وإيمان أن الوقت قد حان لاستكشاف المملكة، وربما العالم، معًا.
+
+في أحد الأيام، وقفوا على قمة جبل الرياح البيضاء، يطلون على البحر البعيد الذي يلمع كالفضة تحت الشمس.
+
+قالت إيمان وهي تمسك بيده:
+"زاكي… لم أكن أتخيل أن الحب يمكن أن يكون بهذه القوة… وأن يجعلنا أقوياء هكذا."
+
+ابتسم زاكي، وهو يضع ذراعه حولها:
+"لقد تعلمت أن أعظم قوة ليست السحر… بل الحب الحقيقي."
+
+احتضنا بعضهما البعض، والرياح تعصف بأجنحة الأمل حولهما، وعرفا أن المغامرات القادمة ستكون أكبر وأكثر إثارة.
+
+وفي الليالي التالية، ساروا عبر المدن القديمة، حيث أساطير الحجارة تتحدث عن أبطالٍ مضوا، وعبر الجبال المغطاة بالثلوج والأنهار الجليدية، وغطوا البحار البعيدة، يواجهون المخاطر جنبًا إلى جنب، ويكتشفون أسرار المملكة وقصصها القديمة.
+
+وخلال كل هذه الرحلات، ازدهرت قصة الحب بينهما. كانت هناك لحظات رومانسية هادئة تحت النجوم، وضحكات مشتركة، ونظرات صامتة تقول أكثر من أي كلمات.
+
+وفي إحدى الليالي، بينما كانا يشاهدان القمر ينعكس على مياه البحر، همس زاكي:
+"إيمان… أعدك، مهما حاول نونوس… لن يسمح أي شيء بتفريقنا."
+
+ابتسمت وهي تلمس قلبه:
+"وأنا أعدك… سأظل دائمًا معك، في كل مكان."
+
+لكن بعيدًا في الظلال، كان نونوس يخطط للعودة، أكثر قوة وخبثًا.
+
+همس بصوتٍ بارد:
+"لن ينجوا… لن ينجوا… وكل لحظة سعادة بينهما سأحطمها."
+
+كانت تلك اللحظة الحاسمة… حيث أصبح الحب بين زاكي وإيمان درعًا وقوة، وبدأت الحرب النهائية ضد الشر الحقيقي.
+</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(8)">➤ الفصل الثامن</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(10)">الفصل العاشر ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل العاشر -->
+        <div id="chapter-10" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل العاشر</div>
+                    <h2 class="chapter-title">إعلان الحب والرحلة الكبرى</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                    <p>
+                  بعد مواجهة نونوس، قرر زاكي وإيمان أن الوقت قد حان لاستكشاف المملكة، وربما العالم، معًا.
+
+في أحد الأيام، وقفوا على قمة جبل الرياح البيضاء، يطلون على البحر البعيد الذي يلمع كالفضة تحت الشمس.
+
+قالت إيمان وهي تمسك بيده:
+"زاكي… لم أكن أتخيل أن الحب يمكن أن يكون بهذه القوة… وأن يجعلنا أقوياء هكذا."
+
+ابتسم زاكي، وهو يضع ذراعه حولها:
+"لقد تعلمت أن أعظم قوة ليست السحر… بل الحب الحقيقي."
+
+احتضنا بعضهما البعض، والرياح تعصف بأجنحة الأمل حولهما، وعرفا أن المغامرات القادمة ستكون أكبر وأكثر إثارة.
+
+وفي الليالي التالية، ساروا عبر المدن القديمة، حيث أساطير الحجارة تتحدث عن أبطالٍ مضوا، وعبر الجبال المغطاة بالثلوج والأنهار الجليدية، وغطوا البحار البعيدة، يواجهون المخاطر جنبًا إلى جنب، ويكتشفون أسرار المملكة وقصصها القديمة.
+
+وخلال كل هذه الرحلات،مروار باليابان وصولا الى كوريا ودهابا الى اسبانيا . ازدهرت قصة الحب بينهما. كانت هناك لحظات رومانسية هادئة تحت النجوم، وضحكات مشتركة، ونظرات صامتة تقول أكثر من أي كلمات.
+
+وفي إحدى الليالي، بينما كانا يشاهدان القمر ينعكس على مياه البحر، همس زاكي:
+"إيمان… أعدك، مهما حاول نونوس… لن يسمح أي شيء بتفريقنا."
+
+ابتسمت وهي تلمس قلبه:
+"وأنا أعدك… سأظل دائمًا معك، في كل مكان."
+
+لكن بعيدًا في الظلال، كان نونوس يخطط للعودة، أكثر قوة وخبثًا.
+
+همس بصوتٍ بارد:
+"لن ينجوا… لن ينجوا… وكل لحظة سعادة بينهما سأحطمها."
+
+كانت تلك اللحظة الحاسمة… حيث أصبح الحب بين زاكي وإيمان درعًا وقوة، وبدأت الحرب النهائية ضد الشر الحقيقي.
+                     </p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(9)">➤ الفصل التاسع</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                    <button class="nav-btn" onclick="goToChapter(11)">الفصل الحادي عشر ➤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- الفصل الحادي عشر -->
+        <div id="chapter-11" class="chapter-page">
+            <div class="chapter-container glow-effect">
+                <div class="chapter-header">
+                    <div class="chapter-number">الفصل الحادي عشر</div>
+                    <h2 class="chapter-title">الحقيقة التي تكشف الحلم</h2>
+                    <p class="chapter-subtitle"></p>
+                </div>
+                <div class="chapter-content">
+                  <p>كانت الليلة هادئة بشكل لم تعرفه مملكة أوريليا من قبل.
+
+القمر يضيء بأشعة فضية، والنجوم تتلألأ كأنها مرآة صغيرة تعكس كل أحلام البشر.
+
+وقصر الملك كان يكتظ بالاحتفالات، إذ اجتمع الجميع للاحتفال بانتصار زاكي وإيمان على نونوس.
+
+الألوان الزاهية والزينة الذهبية تغطي القاعة الكبرى، والموسيقى تعلو في كل زاوية، والضحكات والتهاني تتردد بين الأعمدة المزخرفة.
+
+في وسط القاعة، وقف زاكي بجانب إيمان، يلتف ذراعه حولها بلطف، والابتسامة لا تفارق وجهه.
+
+قال بهدوء وهو ينظر في عينيها:
+"لقد فعلناها… كل المخاطر انتهت."
+
+ابتسمت إيمان، عيناها تتلألأان بالدموع:
+"لم أصدق أن كل شيء كان ممكنًا… وأن الحب استطاع أن يغير كل شيء."
+
+ثم أشار الملك إلى الحضور قائلاً:
+"اليوم نحتفل ليس فقط بالسلام، بل بالحب الحقيقي الذي أعاد الأمل إلى المملكة."
+
+بعد الحفل، جلس زاكي وإيمان على شرفة القصر، ينظران إلى المدينة المضيئة بألوانها الليلية.
+
+قالت إيمان:
+"هل تعتقد أن المغامرات انتهت الآن؟"
+
+أجاب زاكي مبتسمًا:
+"لا، العالم كبير جدًا، وهناك الكثير لنكتشفه معًا."
+
+اقتربت منه، ولمست وجهه برفق.
+قالت:
+"أعلم أن أعظم قوة ليست السحر… بل نحن معًا."
+
+ابتسم زاكي وقال:
+"نعم… الحب هو أعظم قوة."
+
+لكن فجأة، بدأ كل شيء يتلاشى.
+
+المدينة، القصر، الزهور، وحتى أصوات الموسيقى… كل شيء اختفى تدريجيًا، وكأن العالم كله كان يغرق في نور أبيض.
+
+فتحت إيمان عينيها ببطء.
+
+كانت في غرفتها، ضوء الصباح يتسلل من النافذة، والهواء معطر برائحة الصباح المعتاد.
+
+نظرت حولها بدهشة ودموع الفرح تملأ عينيها.
+ابتسمت وهي تدرك شيئًا:
+
+"كل شيء… كان حلمًا."
+
+نهضت ببطء، وجلست على السرير، لا تزال تلمس قلبها، تشعر بالدفء والأمان الذي شعرت به مع زاكي.
+
+ابتسمت، وأمسكت بهاتفها، وكتبت رسالة له عبر إنستغرام:
+
+"Good morning ❤️"
+
+أرسلته بابتسامة، وكأن الحلم كله كان رسالة من قلبها إليه… رسالة تقول أن الحب موجود، وأن المشاعر الحقيقية تتجاوز حتى الواقع.
+
+وفي قلبها، شعرت أن زاكي الحقيقي هناك، في مكان ما، وربما هذا الحلم سيقودها إليه يومًا ما.
+
+وفي مكان بعيد، كان العالم يبدو عاديًا، لكن قلب إيمان كان مليئًا بالسحر والحب.
+
+كانت تعلم أن كل لحظة شعرت بها في الحلم…
+كل مغامرة، كل غابة، كل نهر، وكل ضحكة مع زاكي…
+ستظل معها دائمًا، نورًا يضيء قلبها، حتى لو كان مجرد حلم.
+
+ابتسمت مرة أخرى، وغمضت عينيها للحظة، وهي تقول لنفسها:
+"الحب… هو أعظم سحر على الإطلاق."
+الرواية انتهت لكن حبي لك مازال يزداد 
+</p>
+                </div>
+                <div class="navigation">
+                    <button class="nav-btn" onclick="goToChapter(10)">➤ الفصل العاشر</button>
+                    <button class="nav-btn home-btn" onclick="goToHome()">🏠 الرئيسية</button>
+                </div>
+            </div>
+        </div>
+
+    <!-- جدول المحتويات -->
+    <div id="tocModal" class="toc-modal" onclick="if(event.target === this) closeTOC()">
+        <div class="toc-content">
+            <button class="close-toc" onclick="closeTOC()">✕</button>
+            <h2 class="toc-title">📑 الفصول </h2>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToHome(); return false;">🏠 الصفحة الرئيسية</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(1); return false;">الفصل الأول</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(2); return false;">الفصل الثاني</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(3); return false;">الفصل الثالث</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(4); return false;">الفصل الرابع</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(5); return false;">الفصل الخامس</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(6); return false;">الفصل السادس</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(7); return false;">الفصل السابع</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(8); return false;">الفصل الثامن</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(9); return false;">الفصل التاسع</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(10); return false;">الفصل العاشر</a></li>
+                <li class="toc-item"><a href="#" class="toc-link" onclick="goToChapter(11); return false;">الفصل الحادي عشر</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // متغيرات عامة
+        let currentChapter = 0;
+        const totalChapters = 11;
+
+        // فتح/إغلاق جدول المحتويات
+        function openTableOfContents() {
+            document.getElementById('tocModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTOC() {
+            document.getElementById('tocModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // الانتقال إلى فصل معين
+        function goToChapter(chapterNum) {
+            // إخفاء الصفحة الحالية
+            if (currentChapter === 0) {
+                document.getElementById('cover').classList.remove('active');
+            } else {
+                document.getElementById(`chapter-${currentChapter}`).classList.remove('active');
+            }
+
+            // عرض الفصل الجديد
+            currentChapter = chapterNum;
+            document.getElementById(`chapter-${chapterNum}`).classList.add('active');
+
+            // إغلاق جدول المحتويات
+            closeTOC();
+
+            // التمرير إلى الأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // الرجوع إلى الصفحة الرئيسية
+        function goToHome() {
+            if (currentChapter !== 0) {
+                document.getElementById(`chapter-${currentChapter}`).classList.remove('active');
+            }
+
+            currentChapter = 0;
+            document.getElementById('cover').classList.add('active');
+            closeTOC();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إغلاق جدول المحتويات عند الضغط على زر Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeTOC();
+            }
+        });
+
+        // تجنب انتشار الحدث عند الضغط داخل جدول المحتويات
+        document.querySelector('.toc-content').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // تأثير التمرير السلس
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // تحميل الصفحة الأولى
+        window.addEventListener('load', () => {
+            goToHome();
+        });
+    </script>
+</body>
+</html>
