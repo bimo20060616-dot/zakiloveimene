@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry Imene - A Digital Apology</title>
+    
+    <!-- Google Fonts for beautiful typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES & ROOT STYLING
+           ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette - Romantic & Cinematic */
+            --primary-dark: #0f0a1a;
+            --primary-light: #1a1428;
+            --accent-pink: #e94b7f;
+            --accent-purple: #9d4edd;
+            --accent-gold: #ffd60a;
+            --accent-rose: #ff006e;
+            --soft-cream: #f8f5f0;
+            --glow-pink: #ff1493;
+            --glow-purple: #b537f2;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, #0f0a1a 0%, #1a0f2e 25%, #2d1b4e 50%, #1a0f2e 75%, #0f0a1a 100%);
+            --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            
+            /* Typography */
+            --font-display: 'Playfair Display', serif;
+            --font-elegant: 'Cormorant Garamond', serif;
+            --font-body: 'Poppins', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+            --spacing-2xl: 6rem;
+        }
+
+        /* ========================================
+           GLOBAL STYLES
+           ======================================== */
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--primary-dark);
+            color: var(--soft-cream);
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6" fill="%23ff1493"/></svg>'), auto;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--gradient-hero);
+            overflow: hidden;
+            padding: var(--spacing-lg);
+        }
+
+        /* Animated Background Elements */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 22, 95, 0.08) 0%, transparent 50%);
+            animation: gradientShift 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Title */
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, 
+                var(--soft-cream) 0%, 
+                var(--accent-gold) 40%, 
+                var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 20, 147, 0.3);
+            letter-spacing: -2px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(157, 78, 221, 0.6));
+            }
+        }
+
+        /* Subtitle */
+        .hero-subtitle {
+            font-family: var(--font-elegant);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: rgba(248, 245, 240, 0.8);
+            margin-bottom: var(--spacing-2xl);
+            letter-spacing: 1px;
+            animation: fadeInUp 1.2s ease-out 0.6s both;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(248, 245, 240, 0.5);
+            border-radius: 15px;
+            position: relative;
+            animation: scrollBounce 2s infinite;
+        }
+
+        .scroll-arrow::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: scrollMove 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scrollMove {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) translateY(20px);
+                opacity: 0;
+            }
+        }
+
+        /* ========================================
+           PARTICLE & FLOATING ELEMENTS
+           ======================================== */
+        
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: floatUp 3s ease-in forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .particle-dot {
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, var(--accent-pink), transparent);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particleFloat 8s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        /* ========================================
+           LANGUAGES SECTION
+           ======================================== */
+        
+        .languages {
+            position: relative;
+            min-height: 100vh;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            background: linear-gradient(180deg, var(--primary-dark) 0%, #1a0f2e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .languages::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .languages::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 22, 95, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(30px);
+            }
+        }
+
+        .languages-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+            z-index: 10;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .languages-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--soft-cream);
+        }
+
+        .languages-subtitle {
+            font-family: var(--font-elegant);
+            font-size: 1.1rem;
+            color: rgba(248, 245, 240, 0.7);
+            font-weight: 300;
+        }
+
+        /* Language Cards Grid */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Language Card */
+        .language-card {
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: cardAppear 0.6s ease-out backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-card:nth-child(1) { animation-delay: 0s; }
+        .language-card:nth-child(2) { animation-delay: 0.1s; }
+        .language-card:nth-child(3) { animation-delay: 0.2s; }
+        .language-card:nth-child(4) { animation-delay: 0.3s; }
+        .language-card:nth-child(5) { animation-delay: 0.4s; }
+        .language-card:nth-child(6) { animation-delay: 0.5s; }
+        .language-card:nth-child(7) { animation-delay: 0.6s; }
+        .language-card:nth-child(8) { animation-delay: 0.7s; }
+        .language-card:nth-child(9) { animation-delay: 0.8s; }
+        .language-card:nth-child(10) { animation-delay: 0.9s; }
+        .language-card:nth-child(11) { animation-delay: 1s; }
+        .language-card:nth-child(12) { animation-delay: 1.1s; }
+        .language-card:nth-child(13) { animation-delay: 1.2s; }
+        .language-card:nth-child(14) { animation-delay: 1.3s; }
+        .language-card:nth-child(15) { animation-delay: 1.4s; }
+        .language-card:nth-child(16) { animation-delay: 1.5s; }
+        .language-card:nth-child(17) { animation-delay: 1.6s; }
+        .language-card:nth-child(18) { animation-delay: 1.7s; }
+        .language-card:nth-child(19) { animation-delay: 1.8s; }
+        .language-card:nth-child(20) { animation-delay: 1.9s; }
+        .language-card:nth-child(21) { animation-delay: 2s; }
+        .language-card:nth-child(22) { animation-delay: 2.1s; }
+        .language-card:nth-child(23) { animation-delay: 2.2s; }
+        .language-card:nth-child(24) { animation-delay: 2.3s; }
+        .language-card:nth-child(25) { animation-delay: 2.4s; }
+        .language-card:nth-child(26) { animation-delay: 2.5s; }
+        .language-card:nth-child(27) { animation-delay: 2.6s; }
+        .language-card:nth-child(28) { animation-delay: 2.7s; }
+        .language-card:nth-child(29) { animation-delay: 2.8s; }
+        .language-card:nth-child(30) { animation-delay: 2.9s; }
+        .language-card:nth-child(31) { animation-delay: 3s; }
+        .language-card:nth-child(32) { animation-delay: 3.1s; }
+        .language-card:nth-child(33) { animation-delay: 3.2s; }
+        .language-card:nth-child(34) { animation-delay: 3.3s; }
+        .language-card:nth-child(35) { animation-delay: 3.4s; }
+        .language-card:nth-child(36) { animation-delay: 3.5s; }
+        .language-card:nth-child(37) { animation-delay: 3.6s; }
+        .language-card:nth-child(38) { animation-delay: 3.7s; }
+        .language-card:nth-child(39) { animation-delay: 3.8s; }
+        .language-card:nth-child(40) { animation-delay: 3.9s; }
+        .language-card:nth-child(41) { animation-delay: 4s; }
+        .language-card:nth-child(42) { animation-delay: 4.1s; }
+        .language-card:nth-child(43) { animation-delay: 4.2s; }
+        .language-card:nth-child(44) { animation-delay: 4.3s; }
+        .language-card:nth-child(45) { animation-delay: 4.4s; }
+        .language-card:nth-child(46) { animation-delay: 4.5s; }
+        .language-card:nth-child(47) { animation-delay: 4.6s; }
+        .language-card:nth-child(48) { animation-delay: 4.7s; }
+        .language-card:nth-child(49) { animation-delay: 4.8s; }
+        .language-card:nth-child(50) { animation-delay: 4.9s; }
+        .language-card:nth-child(51) { animation-delay: 5s; }
+        .language-card:nth-child(52) { animation-delay: 5.1s; }
+        .language-card:nth-child(53) { animation-delay: 5.2s; }
+        .language-card:nth-child(54) { animation-delay: 5.3s; }
+        .language-card:nth-child(55) { animation-delay: 5.4s; }
+        .language-card:nth-child(56) { animation-delay: 5.5s; }
+        .language-card:nth-child(57) { animation-delay: 5.6s; }
+        .language-card:nth-child(58) { animation-delay: 5.7s; }
+        .language-card:nth-child(59) { animation-delay: 5.8s; }
+        .language-card:nth-child(60) { animation-delay: 5.9s; }
+        .language-card:nth-child(61) { animation-delay: 6s; }
+        .language-card:nth-child(62) { animation-delay: 6.1s; }
+        .language-card:nth-child(63) { animation-delay: 6.2s; }
+        .language-card:nth-child(64) { animation-delay: 6.3s; }
+        .language-card:nth-child(65) { animation-delay: 6.4s; }
+        .language-card:nth-child(66) { animation-delay: 6.5s; }
+        .language-card:nth-child(67) { animation-delay: 6.6s; }
+        .language-card:nth-child(68) { animation-delay: 6.7s; }
+        .language-card:nth-child(69) { animation-delay: 6.8s; }
+        .language-card:nth-child(70) { animation-delay: 6.9s; }
+        .language-card:nth-child(71) { animation-delay: 7s; }
+        .language-card:nth-child(72) { animation-delay: 7.1s; }
+        .language-card:nth-child(73) { animation-delay: 7.2s; }
+        .language-card:nth-child(74) { animation-delay: 7.3s; }
+        .language-card:nth-child(75) { animation-delay: 7.4s; }
+        .language-card:nth-child(76) { animation-delay: 7.5s; }
+        .language-card:nth-child(77) { animation-delay: 7.6s; }
+        .language-card:nth-child(78) { animation-delay: 7.7s; }
+        .language-card:nth-child(79) { animation-delay: 7.8s; }
+        .language-card:nth-child(80) { animation-delay: 7.9s; }
+        .language-card:nth-child(81) { animation-delay: 8s; }
+        .language-card:nth-child(82) { animation-delay: 8.1s; }
+        .language-card:nth-child(83) { animation-delay: 8.2s; }
+        .language-card:nth-child(84) { animation-delay: 8.3s; }
+        .language-card:nth-child(85) { animation-delay: 8.4s; }
+        .language-card:nth-child(86) { animation-delay: 8.5s; }
+        .language-card:nth-child(87) { animation-delay: 8.6s; }
+        .language-card:nth-child(88) { animation-delay: 8.7s; }
+        .language-card:nth-child(89) { animation-delay: 8.8s; }
+        .language-card:nth-child(90) { animation-delay: 8.9s; }
+        .language-card:nth-child(91) { animation-delay: 9s; }
+        .language-card:nth-child(92) { animation-delay: 9.1s; }
+        .language-card:nth-child(93) { animation-delay: 9.2s; }
+        .language-card:nth-child(94) { animation-delay: 9.3s; }
+        .language-card:nth-child(95) { animation-delay: 9.4s; }
+        .language-card:nth-child(96) { animation-delay: 9.5s; }
+        .language-card:nth-child(97) { animation-delay: 9.6s; }
+        .language-card:nth-child(98) { animation-delay: 9.7s; }
+        .language-card:nth-child(99) { animation-delay: 9.8s; }
+        .language-card:nth-child(100) { animation-delay: 9.9s; }
+        .language-card:nth-child(101) { animation-delay: 10s; }
+        .language-card:nth-child(102) { animation-delay: 10.1s; }
+        .language-card:nth-child(103) { animation-delay: 10.2s; }
+        .language-card:nth-child(104) { animation-delay: 10.3s; }
+        .language-card:nth-child(105) { animation-delay: 10.4s; }
+        .language-card:nth-child(106) { animation-delay: 10.5s; }
+        .language-card:nth-child(107) { animation-delay: 10.6s; }
+        .language-card:nth-child(108) { animation-delay: 10.7s; }
+        .language-card:nth-child(109) { animation-delay: 10.8s; }
+        .language-card:nth-child(110) { animation-delay: 10.9s; }
+        .language-card:nth-child(111) { animation-delay: 11s; }
+        .language-card:nth-child(112) { animation-delay: 11.1s; }
+        .language-card:nth-child(113) { animation-delay: 11.2s; }
+        .language-card:nth-child(114) { animation-delay: 11.3s; }
+        .language-card:nth-child(115) { animation-delay: 11.4s; }
+        .language-card:nth-child(116) { animation-delay: 11.5s; }
+        .language-card:nth-child(117) { animation-delay: 11.6s; }
+        .language-card:nth-child(118) { animation-delay: 11.7s; }
+        .language-card:nth-child(119) { animation-delay: 11.8s; }
+        .language-card:nth-child(120) { animation-delay: 11.9s; }
+        .language-card:nth-child(121) { animation-delay: 12s; }
+        .language-card:nth-child(122) { animation-delay: 12.1s; }
+        .language-card:nth-child(123) { animation-delay: 12.2s; }
+        .language-card:nth-child(124) { animation-delay: 12.3s; }
+        .language-card:nth-child(125) { animation-delay: 12.4s; }
+        .language-card:nth-child(126) { animation-delay: 12.5s; }
+        .language-card:nth-child(127) { animation-delay: 12.6s; }
+        .language-card:nth-child(128) { animation-delay: 12.7s; }
+        .language-card:nth-child(129) { animation-delay: 12.8s; }
+        .language-card:nth-child(130) { animation-delay: 12.9s; }
+        .language-card:nth-child(131) { animation-delay: 13s; }
+        .language-card:nth-child(132) { animation-delay: 13.1s; }
+        .language-card:nth-child(133) { animation-delay: 13.2s; }
+        .language-card:nth-child(134) { animation-delay: 13.3s; }
+        .language-card:nth-child(135) { animation-delay: 13.4s; }
+        .language-card:nth-child(136) { animation-delay: 13.5s; }
+        .language-card:nth-child(137) { animation-delay: 13.6s; }
+        .language-card:nth-child(138) { animation-delay: 13.7s; }
+        .language-card:nth-child(139) { animation-delay: 13.8s; }
+        .language-card:nth-child(140) { animation-delay: 13.9s; }
+
+        .language-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--glow-pink), transparent);
+            opacity: 0;
+            transition: all 0.4s ease-out;
+            pointer-events: none;
+        }
+
+        .language-card:hover::before {
+            opacity: 0.5;
+            top: -30%;
+            right: -30%;
+        }
+
+        .language-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(255, 20, 147, 0.5);
+            box-shadow: 0 25px 50px rgba(157, 78, 221, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .card-language {
+            font-family: var(--font-elegant);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.6;
+            color: var(--accent-gold);
+        }
+
+        .card-country {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-message {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: rgba(248, 245, 240, 0.8);
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+            margin-top: var(--spacing-sm);
+        }
+
+        .language-card:hover .card-message {
+            opacity: 1;
+        }
+
+        /* ========================================
+           FINAL MESSAGE SECTION
+           ======================================== */
+        
+        .final-section {
+            position: relative;
+            min-height: 100vh;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            background: linear-gradient(180deg, #1a0f2e 0%, var(--primary-dark) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 5;
+        }
+
+        .final-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 20, 147, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .final-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .final-message {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-2xl);
+            color: var(--soft-cream);
+        }
+
+        .final-message .highlight {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Forgive Button */
+        .forgive-btn {
+            position: relative;
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-family: var(--font-elegant);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-rose));
+            border: 2px solid var(--accent-pink);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+            overflow: hidden;
+            animation: buttonFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes buttonFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .forgive-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease-out;
+        }
+
+        .forgive-btn:hover::before {
+            left: 100%;
+        }
+
+        .forgive-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255, 20, 147, 0.6),
+                        0 0 30px rgba(157, 78, 221, 0.4);
+            background: linear-gradient(135deg, var(--accent-rose), var(--accent-pink));
+        }
+
+        .forgive-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--accent-pink);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            animation: successPop 2s ease-out forwards;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        @keyframes successPop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* ========================================
+           MUSIC BUTTON
+           ======================================== */
+        
+        .music-btn {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
+        }
+
+        .music-btn.playing::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-pink);
+            border-radius: 50%;
+            animation: pulse 1.5s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        
+        @media (max-width: 768px) {
+            .languages-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .music-btn {
+                bottom: var(--spacing-md);
+                right: var(--spacing-md);
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding: var(--spacing-md);
+            }
+
+            .languages {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+
+            .final-section {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* ========================================
+           UTILITY & ANIMATIONS
+           ======================================== */
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .typing-animation {
+            display: inline-block;
+            border-right: 3px solid var(--accent-pink);
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                border-right-color: var(--accent-pink);
+            }
+            51%, 100% {
+                border-right-color: transparent;
+            }
+        }
+
+        /* ========================================
+           CONFETTI & EXPLOSION EFFECTS
+           ======================================== */
+        
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 2rem;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translate(var(--tx), 0) rotateZ(var(--rotation)) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), 100vh) rotateZ(calc(var(--rotation) + 360deg)) scale(0);
+            }
+        }
+
+        .confetti.falling {
+            animation: confettiFall 3s ease-in forwards;
+        }
+
+        /* ========================================
+           ACCESSIBILITY
+           ======================================== */
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Smooth scrolling without jarring transitions */
+        .section-container {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars-container" id="starsContainer"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="heroSection">
+        <div class="hero-content">
+            <h1 class="hero-title">I'm Sorry, Imene</h1>
+            <p class="hero-subtitle">No matter the language... my heart says sorry.</p>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- LANGUAGES SECTION -->
+    <section class="languages" id="languagesSection">
+        <div class="languages-header">
+            <h2 class="languages-title">Around the World</h2>
+            <p class="languages-subtitle">In every language, the feeling is the same</p>
+        </div>
+        <div class="languages-grid" id="languagesGrid"></div>
+    </section>
+
+    <!-- FINAL SECTION -->
+    <section class="final-section" id="finalSection">
+        <div class="final-content">
+            <h2 class="final-message">
+                <span class="highlight">Imene</span>, every language in the world<br>
+                is not enough to say how sorry I am.
+            </h2>
+            <button class="forgive-btn" id="forgiveBtn">Forgive me ❤️</button>
+        </div>
+    </section>
+
+    <!-- Music Control Button -->
+
+    <!-- Success Message (hidden by default) -->
+    <div class="success-message" id="successMessage"></div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        /* ========================================
+           CONFIGURATION & DATA
+           ======================================== */
+
+        // Languages data with messages and country flags (140+ languages)
+        const languages = [
+            { name: 'English', flag: '🇺🇸', message: 'I am sorry, Imene' },
+            { name: 'Arabic', flag: '🇸🇦', message: 'أنا آسف يا إيمان' },
+            { name: 'French', flag: '🇫🇷', message: 'Je suis désolé, Imène' },
+            { name: 'Spanish', flag: '🇪🇸', message: 'Lo siento, Imene' },
+            { name: 'Italian', flag: '🇮🇹', message: 'Mi dispiace, Imene' },
+            { name: 'German', flag: '🇩🇪', message: 'Es tut mir leid, Imene' },
+            { name: 'Turkish', flag: '🇹🇷', message: 'Çok üzgünüm, İmene' },
+            { name: 'Japanese', flag: '🇯🇵', message: 'ごめんなさい、イメネ' },
+            { name: 'Chinese (Mandarin)', flag: '🇨🇳', message: '对不起，伊梅内' },
+            { name: 'Korean', flag: '🇰🇷', message: '죄송합니다, 이메네' },
+            { name: 'Russian', flag: '🇷🇺', message: 'Мне очень жаль, Имене' },
+            { name: 'Portuguese', flag: '🇵🇹', message: 'Desculpe, Imene' },
+            { name: 'Hindi', flag: '🇮🇳', message: 'मुझे खेद है, इमेने' },
+            { name: 'Greek', flag: '🇬🇷', message: 'Συγγνώμη, Ιμένε' },
+            { name: 'Dutch', flag: '🇳🇱', message: 'Het spijt me, Imene' },
+            { name: 'Swedish', flag: '🇸🇪', message: 'Förlåt, Imene' },
+            { name: 'Norwegian', flag: '🇳🇴', message: 'Jeg er lei meg, Imene' },
+            { name: 'Polish', flag: '🇵🇱', message: 'Przepraszam, Imene' },
+            { name: 'Indonesian', flag: '🇮🇩', message: 'Maaf, Imene' },
+            { name: 'Thai', flag: '🇹🇭', message: 'ขอโทษนะ อิมีน' },
+            { name: 'Vietnamese', flag: '🇻🇳', message: 'Tôi xin lỗi, Imene' },
+            { name: 'Bengali', flag: '🇧🇩', message: 'আমি দুঃখিত, ইমেনে' },
+            { name: 'Urdu', flag: '🇵🇰', message: 'مجھے معافی چاہیے، ایمن' },
+            { name: 'Filipino', flag: '🇵🇭', message: 'Paumanhin, Imene' },
+            { name: 'Uzbek', flag: '🇺🇿', message: 'Kechirasiz, Imene' },
+            { name: 'Turkish', flag: '🇹🇷', message: 'Bağışla beni, İmene' },
+            { name: 'Azerbaijani', flag: '🇦🇿', message: 'Bağışlayın, İmene' },
+            { name: 'Georgian', flag: '🇬🇪', message: 'მე ნაშრომი ვარ, იმენე' },
+            { name: 'Armenian', flag: '🇦🇲', message: 'Հաղթախաղ եմ, Իմեն' },
+            { name: 'Hebrew', flag: '🇮🇱', message: 'אני מצטער, אימן' },
+            { name: 'Persian', flag: '🇮🇷', message: 'متأسفم ایمن' },
+            { name: 'Kurdish', flag: '🇮🇷', message: 'Bibore bim, Imene' },
+            { name: 'Pashto', flag: '🇦🇫', message: 'مجھے معافی چاہیے' },
+            { name: 'Albanian', flag: '🇦🇱', message: 'Më vjen keq, Imene' },
+            { name: 'Romanian', flag: '🇷🇴', message: 'Îmi pare rău, Imene' },
+            { name: 'Bulgarian', flag: '🇧🇬', message: 'Съжалявам, Имене' },
+            { name: 'Croatian', flag: '🇭🇷', message: 'Izvinjavam se, Imene' },
+            { name: 'Bosnian', flag: '🇧🇦', message: 'Izvinjavam se, Imene' },
+            { name: 'Slovenian', flag: '🇸🇮', message: 'Oprostite, Imene' },
+            { name: 'Slovak', flag: '🇸🇰', message: 'Ľutujem, Imene' },
+            { name: 'Czech', flag: '🇨🇿', message: 'Omlouvám se, Imene' },
+            { name: 'Hungarian', flag: '🇭🇺', message: 'Elnézést, Imene' },
+            { name: 'Danish', flag: '🇩🇰', message: 'Jeg beklager, Imene' },
+            { name: 'Finnish', flag: '🇫🇮', message: 'Olen pahoillani, Imene' },
+            { name: 'Icelandic', flag: '🇮🇸', message: 'Mér er miður, Imene' },
+            { name: 'Latvian', flag: '🇱🇻', message: 'Man žēl, Imene' },
+            { name: 'Lithuanian', flag: '🇱🇹', message: 'Man gaila, Imene' },
+            { name: 'Estonian', flag: '🇪🇪', message: 'Mul on kahju, Imene' },
+            { name: 'Flemish', flag: '🇧🇪', message: 'Het spijt me, Imene' },
+            { name: 'Luxembourgish', flag: '🇱🇺', message: 'Mir dauert, Imene' },
+            { name: 'Maltese', flag: '🇲🇹', message: 'Jiddispjaċini, Imene' },
+            { name: 'Welsh', flag: '🇬🇧', message: 'Mae\'n ddrwg gen i, Imene' },
+            { name: 'Irish', flag: '🇮🇪', message: 'Tá brón orm, Imene' },
+            { name: 'Scottish Gaelic', flag: '🇬🇧', message: 'Tha mi duilich, Imene' },
+            { name: 'Basque', flag: '🇪🇸', message: 'Barkatu, Imene' },
+            { name: 'Catalan', flag: '🇪🇸', message: 'Em sap greu, Imene' },
+            { name: 'Galician', flag: '🇪🇸', message: 'Síntoo moito, Imene' },
+            { name: 'Corsican', flag: '🇫🇷', message: 'Perdonu, Imene' },
+            { name: 'Friulian', flag: '🇮🇹', message: 'Mi dispiàs, Imene' },
+            { name: 'Occitan', flag: '🇫🇷', message: 'Me despecha, Imene' },
+            { name: 'Romansh', flag: '🇨🇭', message: 'Pardon, Imene' },
+            { name: 'Croatian', flag: '🇭🇷', message: 'Izvinjavam se, Imene' },
+            { name: 'Hausa', flag: '🇳🇬', message: 'Na tsintsiya, Imene' },
+            { name: 'Yoruba', flag: '🇳🇬', message: 'Eba mi, Imene' },
+            { name: 'Igbo', flag: '🇳🇬', message: 'Akwụ m ụta, Imene' },
+            { name: 'Swahili', flag: '🇹🇿', message: 'Nisamehe, Imene' },
+            { name: 'Zulu', flag: '🇿🇦', message: 'Ngiyaxolisa, Imene' },
+            { name: 'Xhosa', flag: '🇿🇦', message: 'Ndicela uxolo, Imene' },
+            { name: 'Somali', flag: '🇸🇴', message: 'Waan ka xumahay, Imene' },
+            { name: 'Amharic', flag: '🇪🇹', message: 'ይቅርታ Imene' },
+            { name: 'Oromo', flag: '🇪🇹', message: 'Walobadheeffadha, Imene' },
+            { name: 'Malagasy', flag: '🇲🇬', message: 'Miala tsiny aho, Imene' },
+            { name: 'Afrikaans', flag: '🇿🇦', message: 'Jammer, Imene' },
+            { name: 'Sesotho', flag: '🇱🇸', message: 'Kea rata, Imene' },
+            { name: 'Setswana', flag: '🇧🇼', message: 'Ke a kopa, Imene' },
+            { name: 'Shona', flag: '🇿🇼', message: 'Ndine mwadzano, Imene' },
+            { name: 'Chichewa', flag: '🇲🇼', message: 'Ndimathenga, Imene' },
+            { name: 'Guarani', flag: '🇵🇾', message: 'Aha ojehuvy, Imene' },
+            { name: 'Aymara', flag: '🇧🇴', message: 'Pampachasiwsa, Imene' },
+            { name: 'Quechua', flag: '🇵🇪', message: 'Sulpayki ama, Imene' },
+            { name: 'Nahuatl', flag: '🇲🇽', message: 'Niquitte, Imene' },
+            { name: 'Yucatec Maya', flag: '🇲🇽', message: 'Xolnakech, Imene' },
+            { name: 'Haitian Creole', flag: '🇭🇹', message: 'Mwen regret, Imene' },
+            { name: 'Javanese', flag: '🇮🇩', message: 'Nyuwun, Imene' },
+            { name: 'Sundanese', flag: '🇮🇩', message: 'Hampura, Imene' },
+            { name: 'Minangkabau', flag: '🇮🇩', message: 'Maaf, Imene' },
+            { name: 'Banjar', flag: '🇮🇩', message: 'Harap ampun, Imene' },
+            { name: 'Acehnese', flag: '🇮🇩', message: 'Bak meulinah, Imene' },
+            { name: 'Balinese', flag: '🇮🇩', message: 'Apuntuk, Imene' },
+            { name: 'Sasak', flag: '🇮🇩', message: 'Maaf, Imene' },
+            { name: 'Paluan', flag: '🇮🇩', message: 'Sampun apunten, Imene' },
+            { name: 'Lampung', flag: '🇮🇩', message: 'Nyuwun, Imene' },
+            { name: 'Iban', flag: '🇲🇾', message: 'Ampai, Imene' },
+            { name: 'Malay', flag: '🇲🇾', message: 'Saya minta maaf, Imene' },
+            { name: 'Brunei', flag: '🇧🇳', message: 'Maaf, Imene' },
+            { name: 'Singapore', flag: '🇸🇬', message: 'Saya minta maaf, Imene' },
+            { name: 'Tagalog', flag: '🇵🇭', message: 'Huwag na magalit, Imene' },
+            { name: 'Ilokano', flag: '🇵🇭', message: 'Pasensya, Imene' },
+            { name: 'Cebuano', flag: '🇵🇭', message: 'Sorry, Imene' },
+            { name: 'Hiligaynon', flag: '🇵🇭', message: 'Pasensya na, Imene' },
+            { name: 'Bicolano', flag: '🇵🇭', message: 'Pasinsya na, Imene' },
+            { name: 'Waray', flag: '🇵🇭', message: 'Pasensya, Imene' },
+            { name: 'Pangasinan', flag: '🇵🇭', message: 'Dipay man, Imene' },
+            { name: 'Kapampangan', flag: '🇵🇭', message: 'Pasensya, Imene' },
+            { name: 'Maori', flag: '🇳🇿', message: 'Aroha mai, Imene' },
+            { name: 'Samoan', flag: '🇼🇸', message: 'Fa\'alafi atu, Imene' },
+            { name: 'Tongan', flag: '🇹🇴', message: 'Faka\'amu, Imene' },
+            { name: 'Fijian', flag: '🇫🇯', message: 'Vinaka, Imene' },
+            { name: 'Hawaiian', flag: '🇺🇸', message: 'Mihi mai, Imene' },
+            { name: 'Palauan', flag: '🇵🇼', message: 'Soak, Imene' },
+            { name: 'Chamorro', flag: '🇬🇺', message: 'Håfa Adai, Imene' },
+            { name: 'Aboriginal', flag: '🇦🇺', message: 'Ama, Imene' },
+            { name: 'Greenlandic', flag: '🇬🇱', message: 'Ajunnngsilaq, Imene' },
+            { name: 'Inuit', flag: '🇨🇦', message: 'Qujanaq, Imene' },
+            { name: 'Latin', flag: '🇻🇦', message: 'Mihi ignoscias, Imene' },
+            { name: 'Middle High German', flag: '🇩🇪', message: 'Es tut mir leid, Imene' },
+            { name: 'Old Norse', flag: '🇸🇪', message: 'Mér harmstýrir, Imene' },
+        ];
+
+        /* ========================================
+           UTILITY FUNCTIONS
+           ======================================== */
+
+        /**
+         * Creates and animates stars in the background
+         */
+        function createStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        /**
+         * Creates floating particles in the hero section
+         */
+        function createParticles() {
+            const heroSection = document.getElementById('heroSection');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+
+                const dot = document.createElement('div');
+                dot.className = 'particle-dot';
+
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200 - 100;
+                const duration = Math.random() * 4 + 6;
+
+                dot.style.setProperty('--tx', tx + 'px');
+                dot.style.setProperty('--ty', ty + 'px');
+                dot.style.animationDuration = duration + 's';
+                dot.style.animationDelay = Math.random() * 2 + 's';
+
+                particle.appendChild(dot);
+                heroSection.appendChild(particle);
+            }
+        }
+
+        /**
+         * Renders language cards from data
+         */
+        function renderLanguageCards() {
+            const grid = document.getElementById('languagesGrid');
+            grid.innerHTML = '';
+
+            languages.forEach((lang, index) => {
+                const card = document.createElement('div');
+                card.className = 'language-card';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <div class="card-language">${lang.message}</div>
+                        <div class="card-country">${lang.flag}</div>
+                        <div class="card-message">${lang.name}</div>
+                    </div>
+                `;
+
+                // Add hover effect with heart particles
+                card.addEventListener('mouseenter', () => {
+                    createHeartParticles(card);
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        /**
+         * Creates floating hearts when hovering over cards
+         */
+        function createHeartParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 3; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = '❤️';
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.animationDuration = (2 + Math.random() * 1) + 's';
+
+                const angle = (Math.PI * 2 * i) / 3;
+                const velocity = 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 50;
+
+                heart.style.setProperty('--tx', tx + 'px');
+                heart.style.setProperty('--ty', ty + 'px');
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 2000 + Math.random() * 1000);
+            }
+        }
+
+        /**
+         * Creates confetti explosion effect
+         */
+        function createConfettiExplosion() {
+            const confettiTypes = ['❤️', '💜', '✨', '🌸', '💖'];
+            const confettiCount = 50;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti falling';
+                confetti.textContent = confettiTypes[Math.floor(Math.random() * confettiTypes.length)];
+
+                const startX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight / 2;
+
+                confetti.style.left = startX + 'px';
+                confetti.style.top = startY + 'px';
+                confetti.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+
+                const tx = (Math.random() - 0.5) * 400;
+                const rotation = Math.random() * 360;
+
+                confetti.style.setProperty('--tx', tx + 'px');
+                confetti.style.setProperty('--rotation', rotation + 'deg');
+                confetti.style.animationDuration = (3 + Math.random() * 1) + 's';
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        /**
+         * Shows success message with animation
+         */
+        function showSuccessMessage() {
+            const messages = [
+                "Thank you for reading my apology.",
+                "Your forgiveness means everything.",
+                "You are loved, Imene.",
+                "From the bottom of my heart... 💖"
+            ];
+
+            const successMessage = document.getElementById('successMessage');
+            successMessage.textContent = messages[Math.floor(Math.random() * messages.length)];
+            successMessage.style.animation = 'none';
+
+            // Trigger reflow to restart animation
+            void successMessage.offsetWidth;
+            successMessage.style.animation = 'successPop 2s ease-out forwards';
+        }
+
+        /**
+         * Observes when elements come into view
+         */
+        function setupIntersectionObserver() {
+            const options = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, options);
+
+            const sections = document.querySelectorAll('.languages, .final-section');
+            sections.forEach(section => observer.observe(section));
+        }
+
+        /**
+         * Mouse trail effect with glowing particles
+         */
+        function setupMouseTrail() {
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Occasionally create small glow particles
+                if (Math.random() > 0.8) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = mouseX + 'px';
+                    particle.style.top = mouseY + 'px';
+
+                    const dot = document.createElement('div');
+                    dot.className = 'particle-dot';
+                    dot.style.width = '2px';
+                    dot.style.height = '2px';
+                    dot.style.setProperty('--tx', (Math.random() - 0.5) * 100 + 'px');
+                    dot.style.setProperty('--ty', (Math.random() - 0.5) * 100 + 'px');
+                    dot.style.animationDuration = '1.5s';
+
+                    particle.appendChild(dot);
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 1500);
+                }
+            });
+        }
+
+        /* ========================================
+           MUSIC FUNCTIONALITY
+           ======================================== */
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let isPlaying = false;
+        let oscillator = null;
+        let gainNode = null;
+
+        /**
+         * Creates a gentle ambient tone using Web Audio API
+         */
+        function playAmbientMusic() {
+            if (isPlaying) return;
+
+            gainNode = audioContext.createGain();
+            gainNode.connect(audioContext.destination);
+            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+
+            // Create a gentle, romantic tone
+            oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(264, audioContext.currentTime); // C4 note
+            oscillator.connect(gainNode);
+            oscillator.start();
+
+            // Add gentle frequency modulation
+            const lfo = audioContext.createOscillator();
+            lfo.frequency.setValueAtTime(0.5, audioContext.currentTime);
+            const lfoGain = audioContext.createGain();
+            lfoGain.gain.setValueAtTime(10, audioContext.currentTime);
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+            lfo.start();
+
+            isPlaying = true;
+            document.getElementById('musicBtn').classList.add('playing');
+        }
+
+        /**
+         * Stops the ambient music
+         */
+        function stopAmbientMusic() {
+            if (!isPlaying) return;
+
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1);
+            setTimeout(() => {
+                oscillator.stop();
+                isPlaying = false;
+                document.getElementById('musicBtn').classList.remove('playing');
+            }, 1000);
+        }
+
+        /**
+         * Toggles music on/off
+         */
+        function toggleMusic() {
+            if (isPlaying) {
+                stopAmbientMusic();
+            } else {
+                playAmbientMusic();
+            }
+        }
+
+        /* ========================================
+           EVENT LISTENERS
+           ======================================== */
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all components
+            createStars();
+            createParticles();
+            renderLanguageCards();
+            setupIntersectionObserver();
+            setupMouseTrail();
+
+            // Music button
+            document.getElementById('musicBtn').addEventListener('click', toggleMusic);
+
+            // Forgive button - main interaction
+            document.getElementById('forgiveBtn').addEventListener('click', () => {
+                createConfettiExplosion();
+                showSuccessMessage();
+
+                // Create multiple heart bursts
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        createHeartParticles(document.getElementById('forgiveBtn'));
+                    }, i * 200);
+                }
+            });
+
+            // Smooth scroll for scroll indicator
+            document.querySelector('.scroll-arrow')?.addEventListener('click', () => {
+                document.getElementById('languagesSection').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        /**
+         * Create floating hearts on random intervals in the background
+         */
+        function startRandomHearts() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = '❤️';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = window.innerHeight + 'px';
+                    heart.style.opacity = '0.3';
+
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 4000);
+                }
+            }, 2000);
+        }
+
+        // Start random hearts after a delay
+        setTimeout(startRandomHearts, 3000);
+
+        /**
+         * Add scroll-based animations for additional immersion
+         */
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+
+            // Parallax effect for background gradients
+            document.querySelectorAll('.languages, .final-section').forEach((section, index) => {
+                const offset = scrolled * 0.5;
+                section.style.backgroundPosition = `0 ${offset}px`;
+            });
+
+            // Fade in language cards as they come into view
+            document.querySelectorAll('.language-card').forEach((card) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    card.style.opacity = '1';
+                }
+            });
+        });
+
+        /**
+         * Responsive design adjustments
+         */
+        function handleResize() {
+            if (window.innerWidth < 768) {
+                // Remove particles on mobile for better performance
+                document.querySelectorAll('.particle').forEach(p => p.remove());
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        /* ========================================
+           KEYBOARD ACCESSIBILITY
+           ======================================== */
+
+        document.addEventListener('keydown', (e) => {
+            // Spacebar to toggle music
+            if (e.code === 'Space' && e.target === document.body) {
+                e.preventDefault();
+                toggleMusic();
+            }
+
+            // Enter to forgive
+            if (e.code === 'Enter' && document.activeElement === document.getElementById('forgiveBtn')) {
+                document.getElementById('forgiveBtn').click();
+            }
+        });
+
+        /**
+         * Mobile touch optimizations
+         */
+        document.addEventListener('touchmove', (e) => {
+            // Prevent zoom on double tap
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
