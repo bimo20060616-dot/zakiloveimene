@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Princess ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --pastel-pink: #ffd6e7;
+            --rose: #ffafcc;
+            --lavender: #d8c2ff;
+            --light-pink: #ffeff7;
+            --soft-purple: #e2d4ff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--lavender));
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #7a4a6d;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #b24a7b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--rose), var(--lavender));
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, var(--light-pink), var(--soft-purple));
+            border-radius: 20px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .image-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+    object-fit: cover; /* تجعل الصورة تغطي العنصر بالكامل */
+    display: block;
+        }
+
+        .promise-section {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .promise-item {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .promise-item i {
+            margin-right: 1rem;
+            color: var(--rose);
+            font-size: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 175, 204, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 175, 204, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(255, 175, 204, 0.5); }
+        }
+
+        /* Decorative elements */
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--rose);
+            opacity: 0.7;
+            z-index: 1;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 1rem;
+            color: #ffd166;
+            opacity: 0.7;
+            z-index: 1;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 1.2rem;
+            color: white;
+            opacity: 0.8;
+            z-index: 1;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .chocolate {
+            position: absolute;
+            font-size: 1.3rem;
+            color: #8b4513;
+            opacity: 0.7;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Page specific styles */
+        #page1 .image-placeholder:nth-child(1) { animation-delay: 0s; }
+        #page1 .image-placeholder:nth-child(2) { animation-delay: 0.5s; }
+        #page1 .image-placeholder:nth-child(3) { animation-delay: 1s; }
+        #page1 .image-placeholder:nth-child(4) { animation-delay: 1.5s; }
+
+        #page2 .image-placeholder {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        #page2 .image-placeholder:nth-child(1) { animation-delay: 0s; }
+        #page2 .image-placeholder:nth-child(2) { animation-delay: 0.7s; }
+        #page2 .image-placeholder:nth-child(3) { animation-delay: 1.4s; }
+        #page2 .image-placeholder:nth-child(4) { animation-delay: 2.1s; }
+
+        #page3 .promise-section {
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        #page4 .image-placeholder {
+            animation: glow 5s ease-in-out infinite;
+        }
+
+        #page4 .image-placeholder:nth-child(1) { animation-delay: 0s; }
+        #page4 .image-placeholder:nth-child(2) { animation-delay: 1s; }
+        #page4 .image-placeholder:nth-child(3) { animation-delay: 2s; }
+        #page4 .image-placeholder:nth-child(4) { animation-delay: 3s; }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-placeholder {
+                height: 350px;
+            }
+           
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Home / Welcome -->
+    <div id="page1" class="page active">
+        <div class="container">
+            <h1>For My Princess imene ❤️</h1>
+             <p>  Hey baby… I know these days are tough, so I made this little magical corner just for you.<br>You deserve comfort, love, and endless smiles.<br><br>
+            like spider-man hwa y7arb achrar b his power w ana n7arb your period b my infinite love <br><br>Messi scores goals, I score smiles on you with my endless love<br><br>Eren never backs down from a fight, and I’ll never back down from making you smile
+             <br><br>Unlike Eren, I haven’t given you the scarf yet. But you like Mikasa, once you get it, you’ll never take it off</p>
+ </p>   
+            <button class="btn" onclick="showPage(2)">Enter the Magic</button>
+            
+            <div class="image-grid">
+                <div class="image-placeholder">
+                    <img src="photo/download (12).jpg">
+                </div>
+                <div class="image-placeholder">
+                 <img src="photo/mathias (1).jpg"  class="messi" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/こん (@ohisama_megumi) on X.jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/download (13).jpg" alt="Description of image">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="heart" style="top: 10%; left: 5%;">❤️</div>
+        <div class="heart" style="top: 20%; left: 90%;">❤️</div>
+        <div class="heart" style="top: 60%; left: 8%;">❤️</div>
+        <div class="heart" style="top: 80%; left: 85%;">❤️</div>
+        <div class="sparkle" style="top: 15%; left: 20%;">✨</div>
+        <div class="sparkle" style="top: 40%; left: 80%;">✨</div>
+        <div class="sparkle" style="top: 70%; left: 15%;">✨</div>
+        <div class="sparkle" style="top: 90%; left: 70%;">✨</div>
+    </div>
+
+    <!-- Page 2: Funny & Mood Booster -->
+    <div id="page2" class="page">
+        <div class="container">
+            <h1> Hormooonaat</h1>
+            <p>We did the research so you can survive your period. Chat with Zaki or explore the site I made just for you 💕
+                <br><br>Sad, happy, or moody… remember, Zaki loves you in every single mood
+                <br><br>If kisses were stars, I’d give you the whole galaxy 
+
+            </p>
+            <p>You're still the cutest girl in the world, even with mood swings.</p>
+            <button class="btn" onclick="showPage(3)">Next Page</button>
+            
+            <div class="image-grid">
+                <div class="image-placeholder">
+                       <img src="photo/download (14).jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/download (15).jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/download.gif" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                        <img src="photo/hugs & tears.jpg" alt="Description of image">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="star" style="top: 10%; left: 15%;">⭐</div>
+        <div class="star" style="top: 25%; left: 85%;">⭐</div>
+        <div class="star" style="top: 65%; left: 10%;">⭐</div>
+        <div class="star" style="top: 80%; left: 80%;">⭐</div>
+        <div class="chocolate" style="top: 15%; left: 75%;">🍫</div>
+        <div class="chocolate" style="top: 40%; left: 10%;">🍫</div>
+        <div class="chocolate" style="top: 75%; left: 70%;">🍫</div>
+        <div class="heart" style="top: 30%; left: 25%;">❤️</div>
+        <div class="heart" style="top: 50%; left: 90%;">❤️</div>
+    </div>
+
+    <!-- Page 3: Love & Support -->
+    <div id="page3" class="page">
+        <div class="container">
+            <h1>I'm Here for You 💕</h1>
+            <p>I wish I could take all your pain away.<br>Since I can't, I'll stay beside you, hold you, and love you even more.
+            <br><br>You call it a normal day… I call it another day of trying not to fall harder for you
+            <br><br>not now not tommorow mais one day ghdy ndir m3ak all sexy things to you my sexy zella bida girl
+            </p>
+            
+            <div class="promise-section">
+                <h2>I promise you:</h2>
+                <div class="promise-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>More hugs(ayayay one day) </span>
+                </div>
+                <div class="promise-item">
+                    <i class="fas fa-heart"></i>
+                    <span>More care</span>
+                </div>
+                <div class="promise-item">
+                    <i class="fas fa-user-clock"></i>
+                    <span>More patience</span>
+                </div>
+                <div class="promise-item">
+                    <i class="fas fa-kiss-wink-heart"></i>
+                    <span>More love</span>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="showPage(4)">To the Last Page</button>
+            
+            <div class="image-grid">
+                <div class="image-placeholder">
+                        <img src="photo/download (14) - Copy.jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                        <img src="photo/download (15) - Copy.jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/download (18).jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                      <img src="photo/download (18) - Copy.jpg" alt="Description of image">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="heart" style="top: 10%; left: 10%;">❤️</div>
+        <div class="heart" style="top: 20%; left: 85%;">❤️</div>
+        <div class="heart" style="top: 50%; left: 5%;">❤️</div>
+        <div class="heart" style="top: 60%; left: 90%;">❤️</div>
+        <div class="heart" style="top: 80%; left: 15%;">❤️</div>
+        <div class="sparkle" style="top: 15%; left: 50%;">✨</div>
+        <div class="sparkle" style="top: 40%; left: 30%;">✨</div>
+        <div class="sparkle" style="top: 70%; left: 70%;">✨</div>
+    </div>
+
+    <!-- Page 4: The Gift Page / Final Surprise -->
+    <div id="page4" class="page">
+        <div class="container">
+            <h1>A Little Gift for You 🎁</h1>
+            <p> made this whole website because I love you…<br>You're the softest part of my heart, and I'll always try to make you smile.
+            <br><br>I can’t wait to give you your gifts… they’re only the beginning. One day, I’ll place the whole world in your hands 💕🌏
+</p>
+            </p>
+            <p>Whenever you're in pain, come here. This place is your comfort corner.</p>
+            <button class="btn" onclick="showPage(1)">Hug Me 💖</button>
+            
+            <div class="image-grid">
+                <div class="image-placeholder">
+                        <img src="photo/Gift Pink Box With Red Ribbon, Tape, Box, Ribbon PNG Transparent Clipart Image and PSD File for Free Download.jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/WhatsApp Image 2025-11-15 à 08.21.19_3b075acb.jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                       <img src="photo/download (19).jpg" alt="Description of image">
+                </div>
+                <div class="image-placeholder">
+                        <img src="photo/Earth.jpg" alt="Description of image">
+                </div>
+            </div>
+            
+            <div class="promise-section" style="margin-top: 2rem;">
+                <p style="font-style: italic; font-size: 1.3rem;">so kant my little gift for you in your priod and remember i here for u fooorrever my 3iniya i looove youu</p>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="heart" style="top: 10%; left: 15%;">❤️</div>
+        <div class="heart" style="top: 20%; left: 80%;">❤️</div>
+        <div class="heart" style="top: 40%; left: 10%;">❤️</div>
+        <div class="heart" style="top: 60%; left: 85%;">❤️</div>
+        <div class="heart" style="top: 80%; left: 20%;">❤️</div>
+        <div class="sparkle" style="top: 15%; left: 70%;">✨</div>
+        <div class="sparkle" style="top: 30%; left: 25%;">✨</div>
+        <div class="sparkle" style="top: 50%; left: 80%;">✨</div>
+        <div class="sparkle" style="top: 70%; left: 15%;">✨</div>
+        <div class="sparkle" style="top: 90%; left: 75%;">✨</div>
+    </div>
+
+    <script>
+        function showPage(pageNumber) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById('page' + pageNumber).classList.add('active');
+            
+            // Scroll to top when changing pages
+            window.scrollTo(0, 0);
+        }
+        
+        // Create more decorative elements dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const pages = document.querySelectorAll('.page');
+            
+            pages.forEach(page => {
+                for (let i = 0; i < 8; i++) {
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    const delay = Math.random() * 5;
+                    
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.style.left = `${left}%`;
+                    heart.style.top = `${top}%`;
+                    heart.style.animationDelay = `${delay}s`;
+                    heart.innerHTML = '❤️';
+                    
+                    page.appendChild(heart);
+                }
+                
+                for (let i = 0; i < 6; i++) {
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    const delay = Math.random() * 4;
+                    
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    sparkle.style.left = `${left}%`;
+                    sparkle.style.top = `${top}%`;
+                    sparkle.style.animationDelay = `${delay}s`;
+                    sparkle.innerHTML = '✨';
+                    
+                    page.appendChild(sparkle);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
