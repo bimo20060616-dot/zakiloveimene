@@ -1,0 +1,2535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إيمان... أنتِ عيدي</title>
+    <style>
+        /* ============================================
+           GLOBAL VARIABLES & THEME CONFIGURATION
+           ============================================ */
+        :root {
+            --primary-pink: #ff69b4;
+            --primary-gold: #ffd700;
+            --primary-purple: #b366ff;
+            --primary-lavender: #e6d5ff;
+            --dark-sky: #0a0e27;
+            --dark-sky-2: #1a1f3a;
+            --light-pink: #ffe6f0;
+            --soft-white: #f5f1ff;
+            --glow-pink: #ff1493;
+            --glow-gold: #ffed4e;
+            --glow-purple: #d946ff;
+            --accent-cyan: #00d9ff;
+            --text-dark: #1a1a2e;
+            --text-light: #ffffff;
+            --gradient-1: linear-gradient(135deg, #ff69b4, #b366ff);
+            --gradient-2: linear-gradient(135deg, #ffd700, #ff69b4);
+            --gradient-3: linear-gradient(135deg, #b366ff, #00d9ff);
+            --gradient-4: linear-gradient(180deg, #1a1f3a, #0a0e27);
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--dark-sky);
+            color: var(--text-light);
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 105, 180, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(179, 102, 255, 0.1) 0%, transparent 50%),
+                var(--gradient-4);
+        }
+
+        /* ============================================
+           MAIN CONTAINER & PAGE STRUCTURE
+           ============================================ */
+        .main-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100%) rotateY(90deg);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0) rotateY(0deg);
+            z-index: 10;
+        }
+
+        .page.prev {
+            transform: translateX(-100%) rotateY(-90deg);
+        }
+
+        /* ============================================
+           BACKGROUND ANIMATIONS & EFFECTS
+           ============================================ */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(-40px) translateX(-10px);
+            }
+            75% {
+                transform: translateY(-20px) translateX(10px);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 105, 180, 0.8);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes rotate-slow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.3);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 105, 180, 0.5),
+                            0 0 20px rgba(255, 105, 180, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
+                            0 0 40px rgba(255, 105, 180, 0.5),
+                            0 0 60px rgba(179, 102, 255, 0.3);
+            }
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+            to {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes scale-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes bounce-in {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(0px);
+            }
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fade-in-down {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rainbow-shift {
+            0% { color: #ff69b4; }
+            20% { color: #ffd700; }
+            40% { color: #b366ff; }
+            60% { color: #00d9ff; }
+            80% { color: #ff69b4; }
+            100% { color: #ff69b4; }
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+
+        .glow-text {
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .twinkling {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .pulse {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ============================================
+           STARFIELD BACKGROUND
+           ============================================ */
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .star.small {
+            width: 1px;
+            height: 1px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .star.medium {
+            width: 3px;
+            height: 3px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+        }
+
+        .star.large {
+            width: 5px;
+            height: 5px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+        }
+
+        .star.colored {
+            background: var(--primary-gold);
+            box-shadow: 0 0 15px var(--primary-gold);
+        }
+
+        .star.pink {
+            background: var(--primary-pink);
+            box-shadow: 0 0 15px var(--primary-pink);
+        }
+
+        .star.purple {
+            background: var(--primary-purple);
+            box-shadow: 0 0 15px var(--primary-purple);
+        }
+
+        /* ============================================
+           PARTICLES & FLOATING EFFECTS
+           ============================================ */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .heart-particle {
+            font-size: 24px;
+            color: var(--primary-pink);
+            animation: float-up 3s ease-out forwards;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+        }
+
+        .sparkle {
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: float-up 2s ease-out forwards;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #ff69b4, #ffd700);
+            animation: float-up 3s ease-out forwards;
+        }
+
+        /* ============================================
+           PAGE 1: OPENING SCENE
+           ============================================ */
+        .opening-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .universe-center {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.4), transparent 60%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: scale-pulse 4s ease-in-out infinite;
+            box-shadow: 0 0 100px rgba(255, 105, 180, 0.5),
+                       0 0 200px rgba(179, 102, 255, 0.3);
+        }
+
+        .universe-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            animation: spin-slow 20s linear infinite;
+        }
+
+        .ring-1 {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-color: rgba(255, 105, 180, 0.2);
+        }
+
+        .ring-2 {
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-color: rgba(179, 102, 255, 0.15);
+            animation: spin-slow 30s linear infinite reverse;
+        }
+
+        .ring-3 {
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-color: rgba(255, 215, 0, 0.1);
+            animation: spin-slow 40s linear infinite;
+        }
+
+        .center-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.2), rgba(179, 102, 255, 0.2));
+            border: 3px solid var(--primary-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            z-index: 5;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.8),
+                       0 0 100px rgba(179, 102, 255, 0.4);
+            animation: pulse-glow 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .center-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, var(--primary-pink), transparent);
+            animation: spin-slow 3s linear infinite;
+        }
+
+        .title-opening {
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            margin-top: 40px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8),
+                        0 0 60px rgba(179, 102, 255, 0.5);
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-purple), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle-opening {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: var(--light-pink);
+            animation: fade-in-up 1s ease-out 0.5s both;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: wave 1.5s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            color: var(--light-pink);
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .scroll-icon {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--primary-pink);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8px;
+            margin: 0 auto;
+        }
+
+        .scroll-icon::before {
+            content: '';
+            width: 3px;
+            height: 8px;
+            background: var(--primary-pink);
+            border-radius: 2px;
+            animation: bounce-in 1.5s ease-in-out infinite;
+        }
+
+        /* ============================================
+           ORBITAL PARTICLES AROUND CENTER
+           ============================================ */
+        .orbital-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .orbit-1 { animation: spin-slow 15s linear infinite; }
+        .orbit-2 { animation: spin-slow 20s linear infinite reverse; }
+        .orbit-3 { animation: spin-slow 25s linear infinite; }
+
+        /* ============================================
+           PAGE 2: EID GREETING
+           ============================================ */
+        .eid-greeting {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eid-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .lantern {
+            position: relative;
+            width: 80px;
+            height: 120px;
+            margin: 30px auto;
+            perspective: 1000px;
+        }
+
+        .lantern-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff8c42, #ffd700);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 0 30px rgba(255, 140, 66, 0.8),
+                       inset -10px -10px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .lantern-light {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.6), transparent);
+            border-radius: 0 0 20px 20px;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .lantern-top {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(180deg, #daa520, #b8860b);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+        }
+
+        .lantern-handle {
+            width: 60%;
+            height: 30px;
+            border: 3px solid #b8860b;
+            border-bottom: none;
+            border-radius: 50% 50% 0 0;
+            margin: -5px auto 0;
+            box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .crescent-moon {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 5px solid var(--primary-gold);
+            border-radius: 50%;
+            top: 20px;
+            right: 100px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8),
+                       -20px -20px 40px rgba(255, 215, 0, 0.3);
+            animation: float 5s ease-in-out infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 30%, 80% 50%, 100% 70%, 100% 100%, 0 100%);
+        }
+
+        .lantern-group {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .lantern-group .lantern:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .lantern-group .lantern:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .eid-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 40px 0;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+                        0 0 60px rgba(255, 105, 180, 0.5);
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .eid-message {
+            font-size: 1.3rem;
+            color: var(--light-pink);
+            margin: 20px auto;
+            max-width: 600px;
+            line-height: 2;
+            animation: fade-in-up 1.2s ease-out 0.3s both;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            font-weight: 300;
+        }
+
+        .stars-around {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* ============================================
+           PAGE 3: LOVE STORY TIMELINE
+           ============================================ */
+        .timeline-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .timeline {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-pink), transparent);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            opacity: 0;
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 52%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 52%;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-pink);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
+                       0 0 40px rgba(255, 105, 180, 0.4);
+        }
+
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 30%, rgba(255, 105, 180, 0.3));
+            animation: scale-pulse 2s ease-in-out infinite;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 105, 180, 0.1);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            border-color: rgba(255, 105, 180, 0.5);
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--primary-pink);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .timeline-text {
+            font-size: 0.95rem;
+            color: var(--light-pink);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           PAGE 4: HEART GALAXY
+           ============================================ */
+        .heart-galaxy-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .galaxy-title {
+            position: absolute;
+            top: 40px;
+            font-size: 2.5rem;
+            z-index: 3;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+        }
+
+        .hearts-canvas {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.1), transparent);
+            box-shadow: 0 0 80px rgba(255, 105, 180, 0.4),
+                       0 0 150px rgba(179, 102, 255, 0.2);
+            z-index: 2;
+        }
+
+        .heart-item {
+            position: absolute;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
+        }
+
+        .heart-item:hover {
+            font-size: 40px;
+            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.9));
+            animation: heartbeat 0.6s ease-in-out;
+        }
+
+        .message-popup {
+            position: fixed;
+            background: rgba(255, 105, 180, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--primary-pink);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            z-index: 50;
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            animation: bounce-in 0.5s ease-out forwards;
+        }
+
+        .message-popup.show {
+            opacity: 1;
+        }
+
+        .popup-text {
+            font-size: 1.1rem;
+            color: var(--light-pink);
+            text-align: center;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--primary-gold);
+            transition: all 0.2s ease;
+        }
+
+        .popup-close:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        /* ============================================
+           PAGE 5: PHOTO GALLERY
+           ============================================ */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            overflow-y: auto;
+        }
+
+        .gallery-title {
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            z-index: 2;
+            position: relative;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            animation: fade-in-up 0.6s ease-out forwards;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(179, 102, 255, 0.3));
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.45s; }
+        .gallery-item:nth-child(10) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(n+11) { animation-delay: calc(0.05s * (var(--index) - 10)); }
+
+        .gallery-item:hover {
+            transform: scale(1.1) rotateY(10deg);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
+            border-color: var(--primary-pink);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 2s infinite;
+        }
+
+        /* ============================================
+           PAGE 6: RIZZ MESSAGES
+           ============================================ */
+        .rizz-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .rizz-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            z-index: 2;
+            position: relative;
+        }
+
+        .rizz-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 700px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .rizz-message {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(179, 102, 255, 0.15));
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            border-radius: 20px;
+            padding: 25px;
+            font-size: 1.15rem;
+            color: var(--light-pink);
+            text-align: center;
+            line-height: 1.8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fade-in-up 0.6s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .rizz-message:nth-child(1) { animation-delay: 0.05s; }
+        .rizz-message:nth-child(2) { animation-delay: 0.1s; }
+        .rizz-message:nth-child(3) { animation-delay: 0.15s; }
+        .rizz-message:nth-child(4) { animation-delay: 0.2s; }
+        .rizz-message:nth-child(5) { animation-delay: 0.25s; }
+        .rizz-message:nth-child(6) { animation-delay: 0.3s; }
+        .rizz-message:nth-child(7) { animation-delay: 0.35s; }
+        .rizz-message:nth-child(8) { animation-delay: 0.4s; }
+        .rizz-message:nth-child(9) { animation-delay: 0.45s; }
+        .rizz-message:nth-child(10) { animation-delay: 0.5s; }
+
+        .rizz-message::before {
+            content: '💕';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            opacity: 0.3;
+        }
+
+        .rizz-message:hover {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.25), rgba(179, 102, 255, 0.25));
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.4);
+            transform: translateX(-10px);
+        }
+
+        .rizz-message::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        /* ============================================
+           PAGE 7: DREAM WORLD
+           ============================================ */
+        .dream-world {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .clouds-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cloud {
+            position: absolute;
+            background: radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.3), transparent 60%);
+            border-radius: 100px;
+            opacity: 0.6;
+            animation: float 15s linear infinite;
+        }
+
+        .cloud.cloud-1 {
+            width: 200px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+        }
+
+        .cloud.cloud-2 {
+            width: 150px;
+            height: 60px;
+            top: 40%;
+            right: 15%;
+            animation-duration: 25s;
+        }
+
+        .cloud.cloud-3 {
+            width: 180px;
+            height: 70px;
+            top: 60%;
+            left: 20%;
+            animation-duration: 22s;
+        }
+
+        .cloud.cloud-4 {
+            width: 160px;
+            height: 65px;
+            top: 50%;
+            right: 10%;
+            animation-duration: 28s;
+        }
+
+        .dream-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 60px 40px;
+        }
+
+        .dream-title {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(179, 102, 255, 0.8);
+        }
+
+        .dream-text {
+            font-size: 1.3rem;
+            line-height: 2.2;
+            color: var(--light-pink);
+            margin-bottom: 30px;
+            animation: fade-in-up 1s ease-out 0.2s both;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .dream-text-2 {
+            animation-delay: 0.4s;
+        }
+
+        .dream-text-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* ============================================
+           PAGE 8: LOVE METER
+           ============================================ */
+        .love-meter-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meter-title {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            z-index: 2;
+        }
+
+        .love-meter {
+            position: relative;
+            width: 300px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid var(--primary-pink);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.4);
+            z-index: 2;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-pink), var(--primary-gold), var(--primary-purple));
+            width: 0%;
+            animation: fill-meter 3s ease-in-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fill-meter {
+            from {
+                width: 0%;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .meter-fill::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        .meter-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+            animation: fade-in-up 0.8s ease-out 0.5s both;
+        }
+
+        .meter-label {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 30px;
+            animation: fade-in-up 0.8s ease-out 1.2s both;
+        }
+
+        .infinity-symbol {
+            font-size: 3rem;
+            color: var(--primary-pink);
+            animation: bounce-in 0.8s ease-out 2.2s both;
+            margin-top: 30px;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+        }
+
+        /* ============================================
+           PAGE 9: CONSTELLATION
+           ============================================ */
+        .constellation-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .constellation-canvas {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            z-index: 2;
+        }
+
+        .constellation-star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        .constellation-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.6), transparent);
+            height: 2px;
+            animation: fade-in-up 1.5s ease-out forwards;
+        }
+
+        .constellation-title {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-top: 50px;
+            animation: rainbow-shift 3s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            letter-spacing: 5px;
+            font-weight: 900;
+        }
+
+        /* ============================================
+           PAGE 10: SECRET MESSAGE
+           ============================================ */
+        .secret-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secret-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            z-index: 2;
+        }
+
+        .secret-lock {
+            width: 150px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 105, 180, 0.3));
+            border: 3px solid var(--primary-gold);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.4);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .secret-lock:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.8);
+        }
+
+        .secret-message-box {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(179, 102, 255, 0.2));
+            backdrop-filter: blur(20px);
+            border: 3px solid var(--primary-pink);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 60px rgba(255, 105, 180, 0.6);
+        }
+
+        .secret-message-box.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .secret-message-content {
+            color: var(--light-pink);
+            font-size: 1.2rem;
+            line-height: 2;
+            margin-bottom: 30px;
+            animation: fade-in-up 0.8s ease-out 0.3s both;
+        }
+
+        .secret-close-btn {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+
+        .secret-close-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+        }
+
+        .click-hint {
+            color: var(--primary-gold);
+            font-size: 0.95rem;
+            margin-top: 20px;
+            animation: fade-in-up 1s ease-out 0.4s both;
+        }
+
+        /* ============================================
+           PAGE 11: FIREWORKS
+           ============================================ */
+        .fireworks-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fireworks-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+            z-index: 2;
+        }
+
+        .firework {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .firework-particle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        /* ============================================
+           PAGE 12: FINAL PAGE
+           ============================================ */
+        .final-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .final-message {
+            font-size: 2.5rem;
+            color: var(--light-pink);
+            line-height: 2;
+            margin-bottom: 40px;
+            animation: fade-in-up 1s ease-out both;
+            max-width: 800px;
+        }
+
+        .final-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(255, 105, 180, 0.8),
+                        0 0 80px rgba(179, 102, 255, 0.5);
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-gold), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation-delay: 0.3s;
+        }
+
+        .heart-rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float-up 4s ease-out forwards;
+        }
+
+        /* ============================================
+           NAVIGATION CONTROLS
+           ============================================ */
+        .nav-buttons {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 30;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-pink);
+            background: rgba(255, 105, 180, 0.2);
+            color: var(--primary-pink);
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 105, 180, 0.4);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            transform: scale(1.1);
+        }
+
+        .page-indicator {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            color: var(--primary-gold);
+            font-size: 1rem;
+            z-index: 30;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+
+        /* ============================================
+           AUDIO CONTROL
+           ============================================ */
+        .audio-toggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-gold);
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary-gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 30;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-toggle:hover {
+            background: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            .title-opening {
+                font-size: 2.5rem;
+            }
+
+            .universe-center {
+                width: 200px;
+                height: 200px;
+            }
+
+            .center-image {
+                width: 140px;
+                height: 140px;
+                font-size: 60px;
+            }
+
+            .timeline::before {
+                left: 0;
+                transform: none;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-right: 0;
+                padding-left: 40px;
+                text-align: right;
+            }
+
+            .timeline-dot {
+                left: -8px;
+            }
+
+            .hearts-canvas {
+                width: 400px;
+                height: 400px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 15px;
+            }
+
+            .rizz-title,
+            .gallery-title {
+                font-size: 2rem;
+            }
+
+            .dream-title {
+                font-size: 2rem;
+            }
+
+            .meter-title {
+                font-size: 2rem;
+            }
+
+            .final-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-buttons {
+                bottom: 20px;
+            }
+
+            .page-indicator,
+            .audio-toggle {
+                top: 15px;
+            }
+
+            .page-indicator {
+                right: 15px;
+                font-size: 0.85rem;
+                padding: 8px 15px;
+            }
+        }
+
+        /* ============================================
+           ADDITIONAL FLOATING ELEMENTS
+           ============================================ */
+        .decorative-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        /* ============================================
+           TEXT EFFECTS
+           ============================================ */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ============================================
+           SMOOTH SCROLLING
+           ============================================ */
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+
+        /* ============================================
+           ENTRANCE ANIMATIONS
+           ============================================ */
+        @keyframes entrance-scale {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateY(-90deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        @keyframes entrance-spin {
+            from {
+                opacity: 0;
+                transform: rotate(-360deg) scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        /* ============================================
+           EXTRA DECORATIVE ELEMENTS
+           ============================================ */
+        .glow-border {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.5), rgba(179, 102, 255, 0.5));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        /* ============================================
+           CURSOR EFFECTS
+           ============================================ */
+        .cursor-glow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-pink);
+            pointer-events: none;
+            z-index: 40;
+            display: none;
+        }
+
+        .cursor-glow.active {
+            display: block;
+        }
+
+        /* ============================================
+           LOADING ANIMATION
+           ============================================ */
+        @keyframes loading-spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 105, 180, 0.3);
+            border-top-color: var(--primary-pink);
+            border-radius: 50%;
+            animation: loading-spin 1s linear infinite;
+        }
+
+    </style>
+
+    <script>
+        // ============================================
+        // GLOBAL STATE & CONFIGURATION
+        // ============================================
+        const state = {
+            currentPage: 0,
+            totalPages: 12,
+            audioEnabled: true,
+            animationComplete: false
+        };
+
+        const pages = [
+            'opening',
+            'eid-greeting',
+            'timeline',
+            'heart-galaxy',
+            'gallery',
+            'rizz',
+            'dream',
+            'love-meter',
+            'constellation',
+            'secret',
+            'fireworks',
+            'final'
+        ];
+
+        const rizzLines = [
+            'إذا كانت النجوم تزين السماء، فأنتِ تزينين حياتي بنورك الساحر',
+            'في كل نبضة قلبي، اسمك مكتوب بأحرف من نور وحب',
+            'أنتِ ليستِ مجرد حلم... أنتِ الحقيقة الجميلة التي أتمنى ألا أستيقظ منها',
+            'عينتك تملك السحر الذي لا يقدر أي ساحر أن يفعله',
+            'كل لحظة بدونك هي برد قارس، وكل لحظة معك هي صيف دافئ',
+            'أنتِ القصيدة التي كنت أنتظر أن أقرأها، والحب الذي كنت أبحث عنه',
+            'في عينيك أرى الكون كله، وفي ابتسامتك أرى كل جمال الوجود',
+            'أنتِ الفراشة التي حطت على قلبي ولن تطيري أبداً، وأنا سعيد بذلك',
+            'حبك ليس خيار، إنه قدري وحقيقتي الوحيدة',
+            'إذا كان الحب لغة، فأنتِ جميع الكلمات الجميلة التي أحتاجها',
+            'أنتِ جعلتِ كل يوم عيداً، وكل لحظة ذكرى غالية',
+            'قلبي عبارة عن معبد، وأنتِ إلهته الوحيدة',
+            'أنتِ الضوء الذي يهديني في أحلك الليالي',
+            'حبك يجري في دمي مثل أغلى الألماس المكتشف',
+            'أنتِ ليستِ حبي، بل أنتِ سبب وجودي وسبب تنفسي',
+            'كل شيء جميل في الكون يشبهك، لكن لا شيء يبلغ جمالك الحقيقي',
+            'في كل مرة أراكِ، أقع في الحب من جديد أكثر من المرة السابقة',
+            'أنتِ حكايتي، وأنا أريد أن تكوني نهايتي السعيدة',
+            'روحك تسحرني، قلبك يملكني، وحبك يحررني',
+            'مع كل غروب شمس، أشكر الله أنك معي في حياتي'
+        ];
+
+        const timelineData = [
+            {
+                date: 'البداية',
+                title: 'اللقاء الأول',
+                text: 'كانت هذه اللحظة التي غيرت كل شيء... عندما رأيتك لأول مرة، عرفت أن قدري قد تغير إلى الأبد'
+            },
+            {
+                date: 'الأيام الأولى',
+                title: 'نبض القلب',
+                text: 'كل كلمة تقولينها تصبح أغنية جميلة في قلبي. بدأت أرى الحياة بألوان جديدة من خلال عينيك'
+            },
+            {
+                date: 'النمو',
+                title: 'يدين في يد',
+                text: 'مع كل خطوة نمشيها معاً، أكتشف أن السعادة الحقيقية هي أن تكوني بجانبي'
+            },
+            {
+                date: 'العمق',
+                title: 'روحي تعرفك',
+                text: 'الحب لا يكون بالكلمات فقط... إنه في كل نظرة، كل ابتسامة، كل لحظة صامتة بيننا'
+            },
+            {
+                date: 'الالتزام',
+                title: 'الأبد معك',
+                text: 'قررت أن أختارك في كل يوم من أيام حياتي. أنتِ اختياري الأبدي يا إيمان'
+            },
+            {
+                date: 'الحاضر',
+                title: 'الآن والدائم',
+                text: 'مع كل عيد فطر، أشعر أن حبي لك يتجدد ويزداد. أنتِ عيدي الذي لا ينتهي'
+            }
+        ];
+
+        const dreamTexts = [
+            'في أعماق أحلامي، يوجد عالم فقط لنا... عالم مليء بالحب والنور',
+            'حيث تحط الفراشات الذهبية والورود الوردية تتفتح بكل جمالها',
+            'في هذا العالم، الزمن يتوقف والأبدية تبدأ من عينيك الجميلتين'
+        ];
+
+        // ============================================
+        // DOM INITIALIZATION
+        // ============================================
+        function initializeDOM() {
+            const container = document.getElementById('main-container');
+            
+            // Create all pages
+            pages.forEach((page, index) => {
+                const pageEl = document.createElement('div');
+                pageEl.className = 'page';
+                pageEl.id = `page-${page}`;
+                if (index === 0) pageEl.classList.add('active');
+                
+                // Create page content based on type
+                switch(page) {
+                    case 'opening':
+                        pageEl.innerHTML = createOpeningPage();
+                        break;
+                    case 'eid-greeting':
+                        pageEl.innerHTML = createEidPage();
+                        break;
+                    case 'timeline':
+                        pageEl.innerHTML = createTimelinePage();
+                        break;
+                    case 'heart-galaxy':
+                        pageEl.innerHTML = createHeartGalaxyPage();
+                        break;
+                    case 'gallery':
+                        pageEl.innerHTML = createGalleryPage();
+                        break;
+                    case 'rizz':
+                        pageEl.innerHTML = createRizzPage();
+                        break;
+                    case 'dream':
+                        pageEl.innerHTML = createDreamPage();
+                        break;
+                    case 'love-meter':
+                        pageEl.innerHTML = createLoveMeterPage();
+                        break;
+                    case 'constellation':
+                        pageEl.innerHTML = createConstellationPage();
+                        break;
+                    case 'secret':
+                        pageEl.innerHTML = createSecretPage();
+                        break;
+                    case 'fireworks':
+                        pageEl.innerHTML = createFireworksPage();
+                        break;
+                    case 'final':
+                        pageEl.innerHTML = createFinalPage();
+                        break;
+                }
+                
+                container.appendChild(pageEl);
+            });
+
+            // Create navigation controls
+            createNavigationControls();
+            
+            // Create audio toggle
+            createAudioToggle();
+            
+            // Create starfield
+            createStarfield();
+            
+            // Add event listeners
+            addEventListeners();
+            
+            // Initialize page animations
+            initializePageAnimations();
+        }
+
+        // ============================================
+        // PAGE CREATION FUNCTIONS
+        // ============================================
+        function createOpeningPage() {
+            return `
+                <div class="opening-scene">
+                    <div class="starfield" id="starfield-opening"></div>
+                    <div class="decorative-hearts">
+                        ${Array(8).fill().map((_, i) => `
+                            <div class="floating-heart" style="left: ${Math.random()*100}%; top: ${Math.random()*100}%; animation-delay: ${i*0.5}s;">❤️</div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="universe-center">
+                        <div class="universe-ring ring-1"></div>
+                        <div class="universe-ring ring-2"></div>
+                        <div class="universe-ring ring-3"></div>
+                        ${Array(24).fill().map((_, i) => {
+                            const angle = (i / 24) * Math.PI * 2;
+                            const radius = 190 + Math.random() * 30;
+                            const x = 150 + Math.cos(angle) * radius;
+                            const y = 150 + Math.sin(angle) * radius;
+                            const orbitClass = i % 3 === 0 ? 'orbit-1' : i % 3 === 1 ? 'orbit-2' : 'orbit-3';
+                            return `<div class="orbital-particle ${orbitClass}" style="left: ${x}px; top: ${y}px;"></div>`;
+                        }).join('')}
+                        <div class="center-image">👸</div>
+                    </div>
+                    
+                    <h1 class="title-opening glow-text">إيمان... أنتِ عيدي</h1>
+                    <p class="subtitle-opening">رحلة حب عبر الكون</p>
+                    
+                    <div class="scroll-indicator">
+                        <div class="scroll-text">اضغطي للمتابعة</div>
+                        <div class="scroll-icon"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createEidPage() {
+            return `
+                <div class="eid-greeting">
+                    <div class="starfield" id="starfield-eid"></div>
+                    <div class="crescent-moon floating"></div>
+                    
+                    <div class="eid-container">
+                        <div class="lantern-group">
+                            ${Array(3).fill().map((_, i) => `
+                                <div class="lantern floating" style="animation-delay: ${i*0.5}s;">
+                                    <div class="lantern-handle"></div>
+                                    <div class="lantern-top"></div>
+                                    <div class="lantern-body">
+                                        <div class="lantern-light"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <h2 class="eid-title">عيد فطر سعيد</h2>
+                        
+                        <p class="eid-message">
+                            في هذا العيد الجميل، أشعر بأن كل لحظة معك هي احتفال<br>
+                            أنتِ نورُ فرحتي، وسبب ابتسامتي<br>
+                            <br>
+                            كل عام وأنتِ أقرب إلى قلبي
+                        </p>
+                        
+                        ${Array(12).fill().map((_, i) => {
+                            const angle = (i / 12) * Math.PI * 2;
+                            const radius = 300 + Math.random() * 100;
+                            const x = window.innerWidth / 2 + Math.cos(angle) * radius;
+                            const y = window.innerHeight / 2 + Math.sin(angle) * radius;
+                            return `<div class="star twinkling" style="position: absolute; left: ${x}px; top: ${y}px; animation-delay: ${i*0.2}s;"></div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTimelinePage() {
+            return `
+                <div class="timeline-container">
+                    <div class="starfield" id="starfield-timeline"></div>
+                    <div class="timeline">
+                        ${timelineData.map((item, index) => `
+                            <div class="timeline-item" style="opacity: 0; animation-delay: ${index * 0.15}s; animation: fade-in-up 0.8s ease-out forwards;">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">${item.date}</div>
+                                    <div class="timeline-title">${item.title}</div>
+                                    <div class="timeline-text">${item.text}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createHeartGalaxyPage() {
+            return `
+                <div class="heart-galaxy-container">
+                    <div class="starfield" id="starfield-galaxy"></div>
+                    
+                    <h2 class="galaxy-title">مجرة القلوب</h2>
+                    
+                    <div class="hearts-canvas">
+                        ${Array(20).fill().map((_, i) => {
+                            const angle = (i / 20) * Math.PI * 2;
+                            const radius = 200 + Math.random() * 100;
+                            const x = 300 + Math.cos(angle) * radius;
+                            const y = 300 + Math.sin(angle) * radius;
+                            return `
+                                <div class="heart-item" style="left: ${x}px; top: ${y}px; animation-delay: ${i * 0.1}s;" 
+                                     onclick="showHeartMessage(${i})" data-index="${i}">
+                                    ❤️
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    
+                    <div id="message-popup" class="message-popup">
+                        <span class="popup-close" onclick="closeHeartMessage()">✕</span>
+                        <div class="popup-text" id="popup-text"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createGalleryPage() {
+            return `
+                <div class="gallery-container">
+                    <div class="starfield" id="starfield-gallery"></div>
+                    <h2 class="gallery-title">ذكرياتنا الجميلة</h2>
+                    <div class="gallery-grid">
+                        ${Array(40).fill().map((_, i) => {
+                            const emojis = ['😍', '💕', '🌹', '✨', '🦋', '💫', '🌟', '💖', '🎀', '👑'];
+                            const emoji = emojis[i % emojis.length];
+                            return `
+                                <div class="gallery-item" style="animation-delay: ${(i % 10) * 0.05}s; --index: ${i};">
+                                    ${emoji}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createRizzPage() {
+            return `
+                <div class="rizz-container">
+                    <div class="starfield" id="starfield-rizz"></div>
+                    <h2 class="rizz-title">رسائل الحب</h2>
+                    <div class="rizz-messages">
+                        ${rizzLines.map((line, i) => `
+                            <div class="rizz-message" style="animation-delay: ${(i % 10) * 0.05}s;" 
+                                 onmouseenter="playMessageAnimation(this)">
+                                ${line}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createDreamPage() {
+            return `
+                <div class="dream-world">
+                    <div class="clouds-bg">
+                        <div class="cloud cloud-1"></div>
+                        <div class="cloud cloud-2"></div>
+                        <div class="cloud cloud-3"></div>
+                        <div class="cloud cloud-4"></div>
+                    </div>
+                    
+                    <div class="dream-content">
+                        <h2 class="dream-title">عالم أحلامك</h2>
+                        ${dreamTexts.map((text, i) => `
+                            <p class="dream-text dream-text-${i+1}">${text}</p>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="starfield" id="starfield-dream"></div>
+                </div>
+            `;
+        }
+
+        function createLoveMeterPage() {
+            return `
+                <div class="love-meter-container">
+                    <div class="starfield" id="starfield-meter"></div>
+                    <h2 class="meter-title">مقياس الحب</h2>
+                    <div class="love-meter">
+                        <div class="meter-fill"></div>
+                        <div class="meter-text">∞</div>
+                    </div>
+                    <p class="meter-label">حبي لك بلا حدود</p>
+                    <div class="infinity-symbol">∞❤️∞</div>
+                </div>
+            `;
+        }
+
+        function createConstellationPage() {
+            return `
+                <div class="constellation-container">
+                    <div class="starfield" id="starfield-constellation"></div>
+                    <div class="constellation-canvas" id="constellation-canvas">
+                        ${generateConstellation()}
+                    </div>
+                    <h2 class="constellation-title">I M E N E</h2>
+                </div>
+            `;
+        }
+
+        function createSecretPage() {
+            return `
+                <div class="secret-container">
+                    <div class="starfield" id="starfield-secret"></div>
+                    <h2 class="secret-title">رسالة سرية</h2>
+                    <div class="secret-lock" onclick="unlockSecret()">🔐</div>
+                    <p class="click-hint">اضغطي على القفل لفتح الرسالة</p>
+                    
+                    <div id="secret-message-box" class="secret-message-box">
+                        <span class="popup-close" onclick="closeSecret()">✕</span>
+                        <div class="secret-message-content">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 20px; color: var(--primary-pink);">رسالة قلبي</h3>
+                            <p>يا إيمان،</p>
+                            <p style="margin: 15px 0;">
+                                في كل لحظة أمر بها، أشعر بحظي السعيد أن تكونِ في حياتي. 
+                                ليس لديّ كلمات كافية لأخبرك بمدى أهميتك لي.
+                            </p>
+                            <p style="margin: 15px 0;">
+                                أنتِ لستِ مجرد حب... أنتِ سبب وجودي، وسبب كل ابتسامة على وجهي.
+                                مع كل عيد فطر، أشعر بأن حبي يتجدد وأتعهد بأن أكون لك الحب الذي تستحقينه.
+                            </p>
+                            <p style="margin: 15px 0;">
+                                كل عيد فطر وأنتِ عيدي يا إيمان... أنتِ دائماً عيدي.
+                            </p>
+                            <p style="margin: 20px 0; font-style: italic;">
+                                مع كل نبضة قلب، أحبك أكثر 💕
+                            </p>
+                        </div>
+                        <button class="secret-close-btn" onclick="closeSecret()">أغلقي الرسالة 💕</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createFireworksPage() {
+            return `
+                <div class="fireworks-container">
+                    <div class="starfield" id="starfield-fireworks"></div>
+                    <div id="fireworks-canvas"></div>
+                    <h2 class="fireworks-title">احتفالية الحب</h2>
+                </div>
+            `;
+        }
+
+        function createFinalPage() {
+            return `
+                <div class="final-container">
+                    <div class="starfield" id="starfield-final"></div>
+                    <div class="heart-rain" id="heart-rain"></div>
+                    
+                    <p class="final-message">
+                        في كل نفس أتنفسه، أنتِ موجودة<br>
+                        في كل نبضة قلب، اسمك مكتوب<br>
+                        في كل حلم، وجهك يظهر<br>
+                    </p>
+                    
+                    <h2 class="final-title">كل عيد فطر وأنتِ عيدي يا إيمان</h2>
+                    
+                    ${Array(15).fill().map((_, i) => `
+                        <div class="falling-heart" style="left: ${Math.random()*100}%; animation-delay: ${i*0.3}s;">❤️</div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        function createNavigationControls() {
+            const navDiv = document.createElement('div');
+            navDiv.className = 'nav-buttons';
+            navDiv.innerHTML = `
+                <button class="nav-btn" onclick="previousPage()" title="السابق">❮</button>
+                <button class="nav-btn" onclick="nextPage()" title="التالي">❯</button>
+            `;
+            document.body.appendChild(navDiv);
+            
+            const indicator = document.createElement('div');
+            indicator.className = 'page-indicator';
+            indicator.id = 'page-indicator';
+            indicator.textContent = `${state.currentPage + 1} / ${state.totalPages}`;
+            document.body.appendChild(indicator);
+        }
+
+        function createAudioToggle() {
+            const audioBtn = document.createElement('button');
+            audioBtn.className = 'audio-toggle';
+            audioBtn.id = 'audio-toggle';
+            audioBtn.innerHTML = '🎵';
+            audioBtn.onclick = toggleAudio;
+            document.body.appendChild(audioBtn);
+        }
+
+        function createStarfield() {
+            const starfield = document.getElementById('starfield-opening');
+            if (!starfield) return;
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Vary star sizes and colors
+                const rand = Math.random();
+                if (rand < 0.5) star.classList.add('small');
+                else if (rand < 0.8) star.classList.add('medium');
+                else star.classList.add('large');
+                
+                if (rand > 0.85) star.classList.add('colored');
+                else if (rand > 0.9) star.classList.add('pink');
+                else if (rand > 0.95) star.classList.add('purple');
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starfield.appendChild(star);
+            }
+        }
+
+        function generateConstellation() {
+            const constellationData = [
+                { x: 100, y: 100 },  // I
+                { x: 200, y: 150 },  // M
+                { x: 300, y: 100 },  // E
+                { x: 400, y: 150 },  // N
+                { x: 500, y: 100 }   // E
+            ];
+            
+            return constellationData.map((point, i) => `
+                <div class="constellation-star" style="left: ${point.x}px; top: ${point.y}px; animation-delay: ${i * 0.2}s;"></div>
+            `).join('');
+        }
+
+        // ============================================
+        // PAGE NAVIGATION
+        // ============================================
+        function nextPage() {
+            if (state.currentPage < state.totalPages - 1) {
+                changePage(state.currentPage + 1);
+            }
+        }
+
+        function previousPage() {
+            if (state.currentPage > 0) {
+                changePage(state.currentPage - 1);
+            }
+        }
+
+        function changePage(pageIndex) {
+            const oldPage = document.getElementById(`page-${pages[state.currentPage]}`);
+            const newPage = document.getElementById(`page-${pages[pageIndex]}`);
+            
+            if (oldPage) {
+                oldPage.classList.remove('active');
+                if (pageIndex > state.currentPage) {
+                    oldPage.classList.remove('prev');
+                } else {
+                    oldPage.classList.add('prev');
+                }
+            }
+            
+            if (newPage) {
+                newPage.classList.add('active');
+                newPage.classList.remove('prev');
+            }
+            
+            state.currentPage = pageIndex;
+            updatePageIndicator();
+            
+            // Initialize starfield for new page
+            createPageStarfield(pages[pageIndex]);
+            
+            // Trigger page-specific animations
+            triggerPageAnimation(pages[pageIndex]);
+        }
+
+        function createPageStarfield(pageName) {
+            const starfieldId = `starfield-${pageName}`;
+            const starfield = document.getElementById(starfieldId);
+            if (!starfield || starfield.children.length > 0) return;
+            
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const rand = Math.random();
+                if (rand < 0.5) star.classList.add('small');
+                else if (rand < 0.8) star.classList.add('medium');
+                else star.classList.add('large');
+                
+                if (rand > 0.85) star.classList.add('colored');
+                else if (rand > 0.9) star.classList.add('pink');
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                
+                starfield.appendChild(star);
+            }
+        }
+
+        function updatePageIndicator() {
+            const indicator = document.getElementById('page-indicator');
+            if (indicator) {
+                indicator.textContent = `${state.currentPage + 1} / ${state.totalPages}`;
+            }
+        }
+
+        function triggerPageAnimation(pageName) {
+            switch(pageName) {
+                case 'fireworks':
+                    triggerFireworks();
+                    break;
+                case 'final':
+                    triggerHeartRain();
+                    break;
+            }
+        }
+
+        // ============================================
+        // INTERACTIVE ELEMENTS
+        // ============================================
+        function showHeartMessage(index) {
+            const messages = [
+                'أنتِ نورُ عيني',
+                'قلبي بين يديك',
+                'أنتِ سعادتي',
+                'لك كل حبي',
+                'أنتِ حلمي الجميل',
+                'أنتِ روحي',
+                'أحبك بلا حدود',
+                'أنتِ كل شيء لي',
+                'أنتِ حياتي',
+                'مع أبد معك',
+                'أنتِ ملاكتي',
+                'أنتِ نجمتي',
+                'أنتِ سلامي',
+                'أنتِ فرحتي',
+                'أنتِ قلبي',
+                'أنتِ كل ما أريد',
+                'أنتِ أميرتي',
+                'أنتِ عالمي',
+                'أنتِ سعادتي الوحيدة',
+                'أنتِ إيمان في قلبي'
+            ];
+            
+            const popup = document.getElementById('message-popup');
+            const textEl = document.getElementById('popup-text');
+            
+            textEl.textContent = messages[index % messages.length];
+            popup.classList.add('show');
+            popup.style.position = 'fixed';
+            
+            const event = event || window.event;
+            popup.style.left = (event?.clientX - 200) + 'px';
+            popup.style.top = (event?.clientY - 100) + 'px';
+        }
+
+        function closeHeartMessage() {
+            const popup = document.getElementById('message-popup');
+            popup.classList.remove('show');
+        }
+
+        function playMessageAnimation(element) {
+            element.style.animation = 'none';
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 10);
+        }
+
+        function unlockSecret() {
+            const box = document.getElementById('secret-message-box');
+            box.classList.add('active');
+        }
+
+        function closeSecret() {
+            const box = document.getElementById('secret-message-box');
+            box.classList.remove('active');
+        }
+
+        function toggleAudio() {
+            state.audioEnabled = !state.audioEnabled;
+            const btn = document.getElementById('audio-toggle');
+            btn.style.opacity = state.audioEnabled ? '1' : '0.5';
+        }
+
+        // ============================================
+        // PARTICLE EFFECTS
+        // ============================================
+        function triggerHeartRain() {
+            const container = document.getElementById('heart-rain');
+            if (!container) return;
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'falling-heart';
+                    heart.textContent = '❤️';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animation = `float-up ${3 + Math.random() * 2}s ease-out forwards`;
+                    container.appendChild(heart);
+                }, i * 100);
+            }
+        }
+
+        function triggerFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            if (!canvas) return;
+            
+            canvas.innerHTML = '';
+            
+            for (let burst = 0; burst < 8; burst++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * (window.innerHeight * 0.7);
+                    
+                    for (let i = 0; i < 20; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'firework-particle';
+                        particle.style.left = x + 'px';
+                        particle.style.top = y + 'px';
+                        particle.style.width = (4 + Math.random() * 4) + 'px';
+                        particle.style.height = particle.style.width;
+                        
+                        const colors = ['var(--primary-pink)', 'var(--primary-gold)', 'var(--primary-purple)'];
+                        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        
+                        const angle = (i / 20) * Math.PI * 2;
+                        const velocity = 5 + Math.random() * 10;
+                        const vx = Math.cos(angle) * velocity;
+                        const vy = Math.sin(angle) * velocity;
+                        
+                        particle.style.animation = `burst ${2 + Math.random() * 1}s ease-out forwards`;
+                        
+                        canvas.appendChild(particle);
+                        
+                        animateParticle(particle, vx, vy);
+                    }
+                }, burst * 600);
+            }
+        }
+
+        function animateParticle(el, vx, vy) {
+            let x = parseFloat(el.style.left);
+            let y = parseFloat(el.style.top);
+            let opacity = 1;
+            
+            const animate = () => {
+                x += vx;
+                y += vy;
+                vy += 0.3; // gravity
+                opacity -= 0.02;
+                
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                el.style.opacity = opacity;
+                
+                if (opacity > 0) {
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            animate();
+        }
+
+        // ============================================
+        // ANIMATION TRIGGERS
+        // ============================================
+        function initializePageAnimations() {
+            // Add animation setup for first page
+            triggerPageAnimation('opening');
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        function addEventListeners() {
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextPage();
+                if (e.key === 'ArrowLeft') previousPage();
+            });
+            
+            // Scroll navigation
+            let scrollTimeout;
+            document.addEventListener('wheel', (e) => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (e.deltaY > 0) nextPage();
+                    else if (e.deltaY < 0) previousPage();
+                }, 100);
+            });
+            
+            // Close popups on escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeHeartMessage();
+                    closeSecret();
+                }
+            });
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDOM();
+            
+            // Add CSS for burst animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes burst {
+                    to {
+                        opacity: 0;
+                        transform: translate(0, 0) scale(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+    </script>
+</head>
+<body>
+    <div class="main-container" id="main-container"></div>
+</body>
+</html>
