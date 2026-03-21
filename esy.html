@@ -1,196 +1,885 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رسالة الأبدية — لكِ وحدكِ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@200;300;400;700;900&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<title>A Real Love Gift for Imene 💝</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Lato:wght@300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ee;
+    --blush: #f7d6d0;
+    --rose: #e8a0a0;
+    --deeprose: #c96c6c;
+    --gold: #e8c87a;
+    --warmwhite: #fef9f4;
+    --shadow: rgba(180,100,80,0.18);
+    --ribbon: #d4567a;
+    --ribbonshine: #f4a0bc;
+    --boxpink: #f2b8c0;
+    --boxdeep: #d98090;
+    --glow: rgba(255,200,150,0.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  body {
+    background: radial-gradient(ellipse at 60% 30%, #f5c9a0 0%, #f0b0a0 30%, #e89090 60%, #c0607a 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  /* ── AMBIENT PARTICLES ── */
+  #particles-canvas {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── DEPTH BLUR BG ── */
+  .bg-blur {
+    position: fixed; inset: 0; z-index: 1;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(120,40,60,0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 120% 60% at 20% 0%, rgba(255,220,160,0.30) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 80% at 80% 20%, rgba(255,180,120,0.25) 0%, transparent 60%);
+    pointer-events: none;
+    transition: background 1.5s ease;
+  }
+  body.darkened .bg-blur {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(60,10,20,0.75) 0%, transparent 70%),
+      radial-gradient(ellipse 120% 60% at 20% 0%, rgba(180,120,80,0.20) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 80% at 80% 20%, rgba(200,120,60,0.15) 0%, transparent 60%);
+  }
+
+  /* ── FABRIC ── */
+  .fabric {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 42%;
+    background: linear-gradient(170deg, #f9e0d8 0%, #f0c8c0 40%, #e0a8a0 100%);
+    z-index: 2;
+    overflow: hidden;
+  }
+  .fabric::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      92deg,
+      transparent 0px, transparent 18px,
+      rgba(255,255,255,0.08) 18px, rgba(255,255,255,0.08) 19px
+    ),
+    repeating-linear-gradient(
+      175deg,
+      transparent 0px, transparent 22px,
+      rgba(200,120,110,0.07) 22px, rgba(200,120,110,0.07) 23px
+    );
+  }
+  /* Fabric wrinkles */
+  .wrinkle {
+    position: absolute;
+    background: rgba(180,80,80,0.07);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .wrinkle:nth-child(1) { width:300px;height:40px;top:20px;left:5%;transform:rotate(-3deg); }
+  .wrinkle:nth-child(2) { width:180px;height:25px;top:60px;left:55%;transform:rotate(5deg); }
+  .wrinkle:nth-child(3) { width:220px;height:30px;top:10px;left:30%;transform:rotate(-1deg); }
+  .wrinkle:nth-child(4) { width:140px;height:20px;top:80px;left:20%;transform:rotate(7deg); }
+  .wrinkle:nth-child(5) { width:260px;height:35px;top:40px;right:10%;transform:rotate(-4deg); }
+
+  /* ── SCENE ── */
+  #scene {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: transform 1.8s cubic-bezier(0.25,0.1,0.1,1);
+    transform-origin: center 70%;
+  }
+  #scene.zoom { transform: scale(1.28) translateY(-4%); }
+
+  /* ── BOX SHADOW ── */
+  .box-shadow {
+    position: absolute;
+    bottom: -18px; left: 50%;
+    transform: translateX(-50%);
+    width: 240px; height: 30px;
+    background: radial-gradient(ellipse, rgba(120,40,40,0.40) 0%, transparent 75%);
+    border-radius: 50%;
+    transition: all 0.8s ease;
+    z-index: 0;
+  }
+
+  /* ── GIFT BOX WRAPPER ── */
+  #gift-wrapper {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(0 20px 40px rgba(140,50,60,0.35));
+    transition: filter 0.5s ease;
+  }
+  #gift-wrapper:hover { filter: drop-shadow(0 20px 60px rgba(220,140,100,0.6)); }
+  #gift-wrapper:hover .glow-ring { opacity: 1; transform: scale(1.08); }
+
+  .glow-ring {
+    position: absolute; inset: -20px;
+    border-radius: 16px;
+    background: radial-gradient(ellipse, rgba(255,200,150,0.25) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    pointer-events: none;
+  }
+
+  /* ── BOX BODY ── */
+  .box-body {
+    position: relative;
+    width: 220px; height: 160px;
+    background: linear-gradient(135deg, #f7c8d0 0%, #eea0b0 40%, #d87890 100%);
+    border-radius: 4px 4px 8px 8px;
+    overflow: hidden;
+    z-index: 2;
+  }
+  .box-body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent 0, transparent 9px, rgba(255,255,255,0.06) 9px, rgba(255,255,255,0.06) 10px),
+      repeating-linear-gradient(90deg, transparent 0, transparent 9px, rgba(255,255,255,0.06) 9px, rgba(255,255,255,0.06) 10px);
+  }
+  /* Heart pattern on box */
+  .box-body::after {
+    content: '♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥';
+    position: absolute; inset: 0;
+    font-size: 11px; color: rgba(200,80,100,0.25);
+    letter-spacing: 6px; line-height: 18px;
+    word-break: break-all; overflow: hidden;
+    padding: 4px;
+  }
+  .box-side-left {
+    position: absolute; left: -14px; top: 8px;
+    width: 14px; height: 152px;
+    background: linear-gradient(90deg, #c06070 0%, #d87890 100%);
+    border-radius: 4px 0 0 4px;
+    transform: skewY(-1deg);
+  }
+  .box-side-bottom {
+    position: absolute; bottom: -10px; left: 0;
+    width: 220px; height: 12px;
+    background: linear-gradient(180deg, #c06070 0%, #a04060 100%);
+    border-radius: 0 0 8px 8px;
+    transform: perspective(200px) rotateX(-20deg);
+    transform-origin: top;
+  }
+
+  /* ── BOX LIGHT (glow from inside) ── */
+  .box-inner-glow {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 110%, rgba(255,220,140,0.0) 0%, transparent 70%);
+    transition: background 1.2s ease;
+    pointer-events: none; z-index: 5;
+  }
+  .box-inner-glow.glowing {
+    background: radial-gradient(ellipse at 50% 110%, rgba(255,210,120,0.7) 0%, rgba(255,180,80,0.2) 50%, transparent 80%);
+  }
+
+  /* ── BOX LID ── */
+  .box-lid {
+    position: absolute;
+    top: -28px; left: -6px;
+    width: 232px; height: 36px;
+    background: linear-gradient(135deg, #f9d0d8 0%, #f0a8b8 50%, #e08098 100%);
+    border-radius: 6px;
+    transform-origin: bottom center;
+    transform: rotateX(0deg);
+    transition: transform 1.4s cubic-bezier(0.4,0,0.2,1);
+    z-index: 6;
+    box-shadow: 0 -4px 12px rgba(180,60,80,0.20);
+    overflow: hidden;
+  }
+  .box-lid::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent 9px, rgba(255,255,255,0.07) 9px, rgba(255,255,255,0.07) 10px);
+  }
+  .box-lid::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  }
+  .lid-open { transform: rotateX(-110deg) !important; }
+
+  /* ── RIBBON VERTICAL ── */
+  .ribbon-v {
+    position: absolute;
+    left: 50%; top: -28px;
+    transform: translateX(-50%);
+    width: 20px; height: calc(100% + 36px);
+    background: linear-gradient(90deg, #a03060 0%, #d4567a 30%, #f090b0 50%, #d4567a 70%, #a03060 100%);
+    z-index: 7;
+    transform-origin: top center;
+    transition: opacity 1s ease, transform 1s ease;
+    box-shadow: inset 2px 0 4px rgba(255,255,255,0.2);
+  }
+  .ribbon-h {
+    position: absolute;
+    top: -18px; left: -6px;
+    width: 232px; height: 20px;
+    background: linear-gradient(180deg, #a03060 0%, #d4567a 30%, #f090b0 50%, #d4567a 70%, #a03060 100%);
+    z-index: 8;
+    transition: opacity 1s ease, transform 1s ease;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
+  }
+
+  /* ── BOW ── */
+  #bow {
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 9;
+    transition: transform 1.2s cubic-bezier(0.4,0,0.2,1), opacity 1.2s ease;
+    transform-origin: bottom center;
+    animation: bowIdle 3s ease-in-out infinite;
+  }
+  @keyframes bowIdle {
+    0%,100% { transform: translateX(-50%) rotate(-1deg) translateY(0); }
+    50% { transform: translateX(-50%) rotate(1deg) translateY(-3px); }
+  }
+  #bow.falling {
+    animation: none;
+    transform: translateX(-50%) rotate(25deg) translateY(80px) !important;
+    opacity: 0 !important;
+  }
+
+  .bow-left, .bow-right {
+    position: absolute; top: 10px;
+    width: 45px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c03070 0%, #e06090 40%, #f8aac8 60%, #e06090 100%);
+    box-shadow: inset -4px -3px 8px rgba(140,30,60,0.4), 2px 2px 8px rgba(140,30,60,0.3);
+  }
+  .bow-left { left: -42px; transform: rotate(-30deg); border-radius: 60% 40% 60% 40%; }
+  .bow-right { right: -42px; transform: rotate(30deg) scaleX(-1); border-radius: 60% 40% 60% 40%; }
+  .bow-center {
+    width: 18px; height: 18px;
+    background: radial-gradient(circle at 40% 35%, #f8b0d0 0%, #d04070 60%);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(140,30,60,0.4);
+  }
+  .bow-tail-left, .bow-tail-right {
+    position: absolute; top: 16px;
+    width: 20px; height: 40px;
+    background: linear-gradient(180deg, #d4567a, #c03070);
+    border-radius: 0 0 8px 8px;
+  }
+  .bow-tail-left { left: -8px; transform: rotate(-15deg); }
+  .bow-tail-right { right: -8px; transform: rotate(15deg); }
+
+  /* ── INNER LIGHT RAY ── */
+  .light-rays {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 1s ease;
+  }
+  .light-rays.visible { opacity: 1; }
+  .ray {
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 2px;
+    background: linear-gradient(to top, rgba(255,220,140,0.8), transparent);
+    transform-origin: bottom center;
+    border-radius: 2px;
+  }
+
+  /* ── MESSAGE AREA ── */
+  #message-area {
+    position: absolute;
+    top: -220px; left: 50%;
+    transform: translateX(-50%);
+    width: min(480px, 90vw);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+    z-index: 20;
+  }
+  #message-area.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .msg-frame {
+    background: rgba(254,248,240,0.90);
+    border: 1px solid rgba(220,160,140,0.50);
+    border-radius: 16px;
+    padding: 28px 32px;
+    box-shadow: 0 8px 40px rgba(160,60,70,0.18), 0 2px 8px rgba(200,120,100,0.10);
+    backdrop-filter: blur(6px);
+  }
+  .msg-deco {
+    font-family: 'Great Vibes', cursive;
+    font-size: 22px;
+    color: var(--rose);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  #typed-message {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px,2.2vw,18px);
+    font-style: italic;
+    font-weight: 300;
+    color: #7a3040;
+    line-height: 1.8;
+    min-height: 80px;
+  }
+  #typed-message .arabic {
+    direction: rtl;
+    font-size: clamp(16px,2.4vw,20px);
+    display: block;
+    margin-top: 6px;
+    color: #9a3050;
+  }
+  .msg-counter {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--rose);
+    margin-top: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── OPEN BUTTON ── */
+  #open-btn {
+    display: none;
+    margin-top: 14px;
+    padding: 10px 26px;
+    background: linear-gradient(135deg, #d4567a, #e07898);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(180,60,80,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    pointer-events: auto;
+  }
+  #open-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(180,60,80,0.45); }
+
+  /* ── INTRO LABEL ── */
+  #intro-label {
+    position: absolute;
+    bottom: -50px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: 22px;
+    color: rgba(255,240,230,0.85);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    animation: labelPulse 2.5s ease-in-out infinite;
+    transition: opacity 1s ease;
+    z-index: 10;
+    text-shadow: 0 2px 12px rgba(200,80,80,0.4);
+  }
+  @keyframes labelPulse { 0%,100%{opacity:0.6}50%{opacity:1} }
+  #intro-label.hidden { opacity: 0; pointer-events: none; }
+
+  /* ── FLOATING HEARTS ── */
+  .float-heart {
+    position: fixed;
+    font-size: 16px;
+    color: #e8709a;
+    pointer-events: none;
+    z-index: 50;
+    animation: floatUp 2.8s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(-160px) scale(0.5) rotate(30deg); }
+  }
+
+  /* ── CLICK BURST HEARTS ── */
+  .burst-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 55;
+    font-size: 14px;
+    color: #e8709a;
+    animation: burst 1s ease-out forwards;
+  }
+  @keyframes burst {
+    0% { opacity: 1; transform: scale(0) rotate(0deg); }
+    60% { opacity: 1; transform: scale(1.4) rotate(var(--r)); }
+    100% { opacity: 0; transform: scale(0.8) translateY(-50px) rotate(var(--r)); }
+  }
+
+  /* ── FINAL GLOW ── */
+  #final-glow {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(255,200,130,0.0) 0%, transparent 70%);
+    pointer-events: none; z-index: 8;
+    transition: background 2s ease;
+  }
+  #final-glow.active {
+    background: radial-gradient(ellipse at 50% 60%, rgba(255,200,130,0.35) 0%, transparent 60%);
+  }
+
+  /* ── AUDIO ── */
+  #audio-hint {
+    position: fixed; bottom: 20px; right: 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: rgba(255,220,200,0.7);
+    letter-spacing: 1px;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    text-transform: uppercase;
+  }
+</style>
 </head>
 <body>
 
+<canvas id="particles-canvas"></canvas>
+<div class="bg-blur"></div>
+<div id="final-glow"></div>
 
-<!-- ═══ 10. DRAG ═══ -->
-<section id="drag-reveal">
-  <div class="sec-badge">١٠ — HIDDEN TREASURE OF YOUR BODY</div>
-  <div class="drag-outer appear">
-    <div class="drag-frame" id="drag-frame">
-      <canvas class="drag-stars-canvas" id="drag-stars-c"></canvas>
-      <div class="drag-revealed">
-        <div class="drag-revealed-text">
-          You're the sexiest treasure the universe hid for me — I love your perfect curves, big soft breasts, slim waist and tight wet pussy more than life itself. Drag me closer and let's kiss like the world ends tomorrow
-        </div>
-      </div>
-      <div class="drag-veil" id="drag-veil">
-        <div class="drag-veil-text">✦ DRAG TO UNCOVER HOW BAD I NEED TO FUCK YOU ✦</div>
-      </div>
+<div class="fabric">
+  <div class="wrinkle"></div>
+  <div class="wrinkle"></div>
+  <div class="wrinkle"></div>
+  <div class="wrinkle"></div>
+  <div class="wrinkle"></div>
+</div>
+
+<div id="scene">
+  <!-- Message area -->
+  <div id="message-area">
+    <div class="msg-frame">
+      <div class="msg-deco">✦ for Imene ✦</div>
+      <div id="typed-message"></div>
+      <div class="msg-counter" id="msg-counter"></div>
     </div>
-    <p class="drag-hint-text">Drag the veil aside and feel my hunger for your body</p>
+    <button id="open-btn">Open another memory ❤️</button>
   </div>
-</section>
 
-<!-- ═══ 11. STAR HEART ═══ -->
-<section id="star-heart">
-  <canvas id="sh-canvas"></canvas>
-  <div class="sec-badge">١١ — HEART OF THE STARS</div>
-  <div class="sh-msg" id="sh-msg" style="position:relative;z-index:5">
-    Even the stars painted your gorgeous body in the sky so I could worship every curve and thrust deep into you forever
+  <!-- Gift box -->
+  <div id="gift-wrapper">
+    <div class="glow-ring"></div>
+    <!-- Floating light rays -->
+    <div class="light-rays" id="light-rays"></div>
+
+    <!-- Bow -->
+    <div id="bow">
+      <div class="bow-tail-left"></div>
+      <div class="bow-tail-right"></div>
+      <div class="bow-left"></div>
+      <div class="bow-right"></div>
+      <div class="bow-center"></div>
+    </div>
+
+    <!-- Lid -->
+    <div class="box-lid" id="box-lid">
+      <div class="ribbon-h" id="ribbon-h-lid"></div>
+    </div>
+
+    <!-- Body -->
+    <div class="box-body" id="box-body">
+      <div class="ribbon-v" id="ribbon-v"></div>
+      <div class="ribbon-h" id="ribbon-h-body"></div>
+      <div class="box-inner-glow" id="inner-glow"></div>
+      <div class="box-side-left"></div>
+      <div class="box-side-bottom"></div>
+    </div>
+    <div class="box-shadow"></div>
   </div>
-</section>
 
-<!-- ═══ 12. LOVE CLOCK ═══ -->
-<section id="love-clock">
-  <div class="sec-badge">١٢ — CLOCK OF ENDLESS LUST</div>
-  <div class="clock-outer appear">
-    <div class="clock-face-wrap">
-      <canvas id="clock-canvas"></canvas>
-    </div>
-    <div class="clock-msg">
-      Since the first moment I saw you, Imene<br>
-      <span>time stopped and my cock started throbbing only for you. Life is lived only once, baby — don't live in fear. Kiss me deep right now, let our bodies melt together, get excited with me and never regret a single second of pure pleasure</span>
-    </div>
-    <div class="clock-counter">
-      <div class="clock-unit"><div class="clock-digit" id="ck-days">∞</div><div class="clock-unit-name">FOREVER</div></div>
-      <div class="clock-unit"><div class="clock-digit" id="ck-hrs">69</div><div class="clock-unit-name">HOURS OF KISSING</div></div>
-      <div class="clock-unit"><div class="clock-digit" id="ck-min">∞</div><div class="clock-unit-name">MINUTES INSIDE YOU</div></div>
-      <div class="clock-unit"><div class="clock-digit" id="ck-sec">00</div><div class="clock-unit-name">NO REGRETS</div></div>
-    </div>
-  </div>
-</section>
+  <div id="intro-label">✦ Click to open your gift ✦</div>
+</div>
 
-<!-- ═══ 13. INK POEM ═══ -->
-<section id="ink-poem">
-  <div class="sec-badge">١٣ — POEM WRITTEN WITH CUM & LOVE</div>
-  <div class="ink-scene appear">
-    <div class="ink-paper">
-      <div class="ink-header">
-        <h3 id="ink-title">Seductive Poem To Your Perfect Body, Imene</h3>
-      </div>
-      <div class="ink-quill" id="ink-quill">🪶</div>
-      <div class="ink-lines-wrap" id="ink-lines"></div>
-      <div class="ink-footer">— Written with every drop of love and lust in my cock for you</div>
-      <div class="ink-stamp" id="ink-stamp">♥ ZAKI'S COCK WAS HERE ♥</div>
-    </div>
-  </div>
-</section>
+<div id="audio-hint" onclick="toggleAudio()">♪ music</div>
 
-<!-- ═══ 14. BOTTLE ═══ -->
-<section id="bottle-msg">
-  <canvas id="ocean-canvas"></canvas>
-  <div class="sec-badge">١٤ — MESSAGE IN A BOTTLE OF DESIRE</div>
-  <div class="bottle-outer appear">
-    <div class="bottle-svg-wrap" id="bottle-wrap" onclick="openBottle()">
-      <!-- SVG stays exactly the same -->
-      <svg width="min(180px,45vw)" height="min(280px,70vw)" viewBox="0 0 180 280" id="bottle-svg">
-        <!-- ... original SVG unchanged ... -->
-      </svg>
-    </div>
-    <p style="font-size:11px;letter-spacing:4px;color:rgba(150,220,255,0.4);animation:hintPulse 2s infinite;cursor:none;text-transform:uppercase">
-      ✦ CLICK TO OPEN THE FILTHY MESSAGE ✦
-    </p>
-    <div class="bottle-msg-text" id="bottle-text">
-      I wrote this letter soaked in my desire for you, Imene<br>
-      and threw it into the ocean of my cum fantasies<br>
-      so it would reach your heart... and make your tight pussy wet and ready for my cock right now
-    </div>
-  </div>
-</section>
+<script>
+// ─────────────────────────────────────────
+// MESSAGES
+// ─────────────────────────────────────────
+const messages = [
+  { en: "You are not just someone I love — you are the reason I believe love is real.", ar: "أنتِ لستِ فقط من أحبّها… أنتِ السبب الذي يجعلني أؤمن بأن الحبّ حقيقي." },
+  { en: "Every morning I wake up grateful — not for the day, but for the fact that you exist in this world.", ar: "كل صباح أستيقظ شاكراً... ليس لليوم، بل لأنكِ موجودة في هذه الدنيا." },
+  { en: "Imene… your name alone carries a whole universe of warmth inside me.", ar: "إيمان… اسمكِ وحده يحمل كوناً كاملاً من الدفء بداخلي." },
+  { en: "The way you laugh — softly, genuinely — is my favourite sound in the entire world.", ar: "طريقة ضحكتكِ — بهدوء، بصدق — هي صوتي المفضل في هذا الوجود كله." },
+  { en: "I would choose you in every lifetime, in every language, in every version of this story.", ar: "سأختارك في كل حياة، في كل لغة، في كل نسخة من هذه القصة." },
+  { en: "You are the poem I never knew how to write, yet somehow you wrote yourself into me.", ar: "أنتِ القصيدة التي لم أعرف كيف أكتبها، ومع ذلك كتبتِ نفسكِ في داخلي." },
+  { en: "When I look at you, the whole world slows down — like the universe is whispering: pay attention to this.", ar: "حين أنظر إليكِ، يتباطأ العالم كله — كأن الكون يهمس: انتبه لهذه اللحظة." },
+  { en: "You are my quiet — the kind that feels like home, not emptiness.", ar: "أنتِ هدوئي — ذلك النوع الذي يشبه البيت، لا الفراغ." },
+  { en: "I am still amazed that the same stars that watched empires rise and fall — chose to let me meet you.", ar: "ما زلت أتعجب أن النجوم ذاتها التي شهدت صعود إمبراطوريات وسقوطها... اختارت أن تجمعني بكِ." },
+  { en: "Loving you feels like the sun finding a window — necessary, effortless, and warm beyond words.", ar: "حبّكِ يشبه الشمس حين تجد نافذة — ضروري، سلس، ودافئ أكثر مما تستطيع الكلمات وصفه." },
+  { en: "Some people change your life. You, Imene — you changed the entire meaning of it.", ar: "بعض الناس يغيّر حياتك. أنتِ يا إيمان — غيّرتِ معنى الحياة ذاته." },
+  { en: "I love who I become when I am with you. You are my better version's home.", ar: "أحبّ من أكون حين أكون معكِ. أنتِ بيت نسختي الأجمل." },
+  { en: "In a world full of noise, you are the only voice that makes everything make sense.", ar: "في عالم مليء بالضجيج، صوتكِ هو الوحيد الذي يجعل كل شيء منطقياً." },
+  { en: "You deserve every sunrise, every soft breeze, every moment of peace this world has to offer.", ar: "تستحقين كل شروق شمس، كل نسيم رقيق، كل لحظة سلام تقدّمها هذه الدنيا." },
+  { en: "When I am old and grey, I will still be telling stories about the way you smiled at me — like I was something worth smiling at.", ar: "حين أكبر وأشيخ، سأظل أروي قصص ابتسامتك لي — كأنني كنت شيئاً يستحق الابتسام." },
+  { en: "You don't just take up space in my heart — you rearranged it entirely.", ar: "لم تحتلّي فقط مكاناً في قلبي — بل أعدتِ ترتيبه من الأساس." },
+  { en: "My love for you is not loud — it is the kind that lingers, stays, and never asks for anything back.", ar: "حبّي لكِ ليس صاخباً — إنه النوع الذي يبقى، يدوم، ولا يطلب شيئاً في المقابل." },
+  { en: "If love is a language, then every beat of my heart has been spelling your name since the day we met.", ar: "إن كان الحبّ لغةً، فكل نبضة في قلبي تهجّي اسمكِ منذ اليوم الذي التقينا فيه." },
+  { en: "You are my favourite chapter in this story called life — and I keep reading you over and over again.", ar: "أنتِ فصلي المفضل في هذه القصة المسمّاة الحياة — وأعود لقراءتكِ مراراً وتكراراً." },
+  { en: "Imene… this was never just a box… this is my heart, and every time it opens… it chooses you again.", ar: "إيمان… لم يكن هذا مجرد صندوق أبداً… إنه قلبي، وفي كل مرة يُفتح… يختارك من جديد.", final: true },
+];
 
-<!-- ═══ 15. COMPASS ═══ -->
-<section id="compass">
-  <div class="sec-badge">١٥ — COMPASS OF MY COCK</div>
-  <div class="compass-outer appear">
-    <div class="compass-frame">
-      <canvas id="compass-canvas"></canvas>
-    </div>
-    <div class="compass-msg">
-      No matter how lost the roads get<br>
-      the compass of my cock and heart always points straight to your dripping wet pussy, Imene
-    </div>
-  </div>
-</section>
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+let state = 'idle'; // idle → zooming → unbowing → opening → message
+let currentMsg = 0;
+let typingInterval = null;
+let boxOpen = false;
 
-<!-- ═══ 16. GLASS BREAK ═══ -->
-<section id="glass-break">
-  <div class="sec-badge">١٦ — SHATTER THE WALLS</div>
-  <div class="glass-outer appear">
-    <canvas id="glass-canvas" width="min(500,90vw)" height="280"></canvas>
-    <div class="glass-hint-text" id="glass-hint">✦ CLICK TO SHATTER MY LAST RESTRAINTS ✦</div>
-    <div class="glass-msg" id="glass-msg">
-      You shattered every wall I ever built<br>and opened my heart and cock wide open for you — come kiss me now and let me fuck you like you deserve
-    </div>
-  </div>
-</section>
+// ─────────────────────────────────────────
+// ELEMENTS
+// ─────────────────────────────────────────
+const scene = document.getElementById('scene');
+const bow = document.getElementById('bow');
+const lid = document.getElementById('box-lid');
+const ribbonV = document.getElementById('ribbon-v');
+const ribbonH1 = document.getElementById('ribbon-h-lid');
+const ribbonH2 = document.getElementById('ribbon-h-body');
+const innerGlow = document.getElementById('inner-glow');
+const lightRays = document.getElementById('light-rays');
+const msgArea = document.getElementById('message-area');
+const typedMsg = document.getElementById('typed-message');
+const msgCounter = document.getElementById('msg-counter');
+const openBtn = document.getElementById('open-btn');
+const introLabel = document.getElementById('intro-label');
+const giftWrapper = document.getElementById('gift-wrapper');
+const finalGlow = document.getElementById('final-glow');
 
-<!-- ═══ 17. ROSE GARDEN ═══ -->
-<section id="rose-garden">
-  <div class="sec-badge">١٧ — GARDEN OF YOUR CLIT</div>
-  <div class="garden-outer appear">
-    <canvas id="garden-canvas"></canvas>
-    <div class="garden-msg">
-      In every rose I plant I see your swollen clit blooming for my tongue and cock — move your mouse and feel me worship you
-    </div>
-    <p class="garden-hint">✦ MOVE MOUSE OVER THE GARDEN TO FEEL MY TONGUE ✦</p>
-  </div>
-</section>
+// ─────────────────────────────────────────
+// BUILD LIGHT RAYS
+// ─────────────────────────────────────────
+const rayCount = 10;
+for (let i = 0; i < rayCount; i++) {
+  const ray = document.createElement('div');
+  ray.className = 'ray';
+  const angle = -50 + (i / (rayCount - 1)) * 100;
+  const len = 80 + Math.random() * 80;
+  ray.style.cssText = `transform:rotate(${angle}deg);height:${len}px;opacity:${0.3+Math.random()*0.4};animation:rayPulse ${1+Math.random()}s ease-in-out infinite alternate;animation-delay:${Math.random()}s`;
+  lightRays.appendChild(ray);
+}
+const rayStyle = document.createElement('style');
+rayStyle.textContent = `@keyframes rayPulse{0%{opacity:0.2}100%{opacity:0.7}}`;
+document.head.appendChild(rayStyle);
 
-<!-- ═══ 18. SOUND WAVE ═══ -->
-<section id="sound-wave">
-  <div class="sec-badge">١٨ — SOUND OF YOUR MOANS</div>
-  <div class="sound-outer appear">
-    <div class="sound-display">
-      <canvas id="wave-canvas"></canvas>
-      <div class="sound-word" id="sound-word">ZAKI... FUCK ME...</div>
-    </div>
-    <div class="sound-msg">
-      Even the sound waves play your name when I imagine thrusting deep inside you, Imene — your moans are my favorite melody
-    </div>
-  </div>
-</section>
+// ─────────────────────────────────────────
+// PARTICLES
+// ─────────────────────────────────────────
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
 
-<!-- ═══ 19. TREASURE MAP ═══ -->
-<section id="treasure-map">
-  <div class="sec-badge">١٩ — MAP TO YOUR PUSSY</div>
-  <div class="map-outer appear">
-    <div class="map-frame">
-      <canvas id="map-canvas" width="550" height="350"></canvas>
-    </div>
-    <div class="map-msg" id="map-msg">
-      The greatest treasure I've searched for my whole life was always your perfect body — your big soft breasts, slim waist, white thighs and tight wet pussy waiting for me
-    </div>
-  </div>
-</section>
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
 
-<!-- ═══ MEMORY CARDS ═══ -->
-<section id="memory-cards">
-  <div class="sec-badge">٢١ — MOMENTS WORTH FUCKING FOREVER</div>
-  <h2 class="cards-section-title appear">15 Moments That Make Me Want To Kiss & Fuck You Right Now</h2>
-  <p class="cards-section-sub appear">Every memory of you makes my cock hard and my heart explode with love</p>
-  <div class="cards-grid" id="cards-grid"></div>
-</section>
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H + H;
+    this.size = 1 + Math.random() * 2;
+    this.speed = 0.3 + Math.random() * 0.5;
+    this.opacity = 0;
+    this.maxOp = 0.2 + Math.random() * 0.4;
+    this.wobble = Math.random() * Math.PI * 2;
+    this.wobbleSpeed = 0.01 + Math.random() * 0.02;
+  }
+  update() {
+    this.y -= this.speed;
+    this.wobble += this.wobbleSpeed;
+    this.x += Math.sin(this.wobble) * 0.4;
+    this.opacity = Math.min(this.maxOp, this.opacity + 0.003);
+    if (this.y < -10) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = `rgba(255,220,180,1)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
 
-<!-- ═══ FINAL ═══ -->
-<section id="final">
-  <canvas id="final-canvas"></canvas>
-  <div class="final-inner">
-    <div class="final-ornament">♥</div>
-    <h2 class="final-main">
-      In every language of the universe<br>
-      YOU are my meaning, my Imene — my perfect match
-    </h2>
-    <div class="final-line"></div>
-    <p class="final-sub">Made with every drop of love, lust and cum in my heart and cock for you</p>
-    <p style="margin-top:40px;font-size:1.4em;line-height:1.6;color:#ff69b4;">
-      Imene baby... life is lived only once.<br>
-      Don't let fear stop us for another second.<br>
-      Come here right now, kiss me deep and long,<br>
-      let our bodies press together, get excited with me,<br>
-      let me worship every inch of your perfect body — those big soft breasts, that narrow waist, those smooth white thighs and your tight wet pussy that was made for my cock.<br><br>
-      I'm the man who will never hurt you, the one who will make you cum screaming my name Zaki, the one you'll never regret surrendering to.<br>
-      You're safe with me to be as wild and horny as you want.<br>
-      Kiss me now. Fuck me now. Love me forever.<br>
-      I'm yours and you're mine — no fear, only endless pleasure.
-    </p>
-  </div>
-  <div class="final-credit">ETERNAL MESSAGE FROM YOUR ZAKI — ∞</div>
-</section>
+for (let i = 0; i < 70; i++) {
+  const p = new Particle();
+  p.y = Math.random() * H;
+  p.opacity = Math.random() * p.maxOp;
+  particles.push(p);
+}
+
+function animParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+// ─────────────────────────────────────────
+// FLOAT HEARTS from box
+// ─────────────────────────────────────────
+let heartInterval = null;
+function startFloatingHearts() {
+  if (heartInterval) return;
+  const hearts = ['♥', '❤', '💕', '💖', '💗', '💝'];
+  heartInterval = setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'float-heart';
+    const rect = giftWrapper.getBoundingClientRect();
+    h.style.left = (rect.left + rect.width * (0.2 + Math.random() * 0.6)) + 'px';
+    h.style.top = (rect.top - 10) + 'px';
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.fontSize = (12 + Math.random() * 14) + 'px';
+    h.style.animationDuration = (2 + Math.random()) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 3000);
+  }, 280);
+}
+
+// ─────────────────────────────────────────
+// CLICK BURST HEARTS
+// ─────────────────────────────────────────
+function burstHearts(x, y) {
+  for (let i = 0; i < 10; i++) {
+    const h = document.createElement('div');
+    h.className = 'burst-heart';
+    const angle = (Math.random() * 360) + 'deg';
+    h.style.setProperty('--r', angle);
+    h.textContent = '♥';
+    h.style.left = (x - 8) + 'px';
+    h.style.top = (y - 8) + 'px';
+    h.style.animationDelay = (Math.random() * 0.2) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1200);
+  }
+}
+
+// ─────────────────────────────────────────
+// TYPING EFFECT
+// ─────────────────────────────────────────
+function typeMessage(msg, onDone) {
+  if (typingInterval) clearInterval(typingInterval);
+  typedMsg.innerHTML = '';
+  const en = msg.en;
+  const ar = msg.ar;
+  let i = 0;
+  typingInterval = setInterval(() => {
+    if (i <= en.length) {
+      typedMsg.innerHTML = en.slice(0, i) + (i < en.length ? '<span style="opacity:0.4">|</span>' : '') +
+        (ar ? `<span class="arabic" style="opacity:${i === en.length ? 1 : 0.3}">${ar}</span>` : '');
+      i++;
+    } else {
+      clearInterval(typingInterval);
+      if (onDone) onDone();
+    }
+  }, 38);
+}
+
+// ─────────────────────────────────────────
+// OPEN SEQUENCE
+// ─────────────────────────────────────────
+function openBox() {
+  if (state !== 'idle') return;
+  state = 'zooming';
+  introLabel.classList.add('hidden');
+
+  // STEP 1: zoom
+  scene.classList.add('zoom');
+
+  setTimeout(() => {
+    // STEP 2: untie bow
+    bow.classList.add('falling');
+    ribbonV.style.opacity = '0';
+    ribbonV.style.transform = 'translateX(-50%) scaleX(0.2)';
+    ribbonH1.style.opacity = '0';
+    ribbonH2.style.opacity = '0';
+
+    setTimeout(() => {
+      // STEP 3: open lid
+      lid.classList.add('lid-open');
+      innerGlow.classList.add('glowing');
+      lightRays.classList.add('visible');
+
+      setTimeout(() => {
+        // STEP 4: hearts + message
+        startFloatingHearts();
+        finalGlow.classList.add('active');
+        document.body.classList.add('darkened');
+
+        msgArea.classList.add('visible');
+        const msg = messages[currentMsg];
+        msgCounter.textContent = `Memory ${currentMsg + 1} of ${messages.length}`;
+        typeMessage(msg, () => {
+          if (currentMsg < messages.length - 1) {
+            openBtn.style.display = 'inline-block';
+          } else {
+            openBtn.style.display = 'none';
+          }
+        });
+
+        if (msg.final) {
+          // Extra strong glow for final
+          document.getElementById('final-glow').style.background =
+            'radial-gradient(ellipse at 50% 60%, rgba(255,220,100,0.55) 0%, transparent 60%)';
+        }
+
+        state = 'message';
+        boxOpen = true;
+      }, 1400);
+    }, 1000);
+  }, 1000);
+}
+
+// ─────────────────────────────────────────
+// CLOSE + REOPEN
+// ─────────────────────────────────────────
+function nextMemory() {
+  if (state !== 'message') return;
+  currentMsg = (currentMsg + 1) % messages.length;
+  state = 'closing';
+  openBtn.style.display = 'none';
+
+  // Close sequence
+  msgArea.classList.remove('visible');
+  clearHearts();
+  lid.classList.remove('lid-open');
+  innerGlow.classList.remove('glowing');
+  lightRays.classList.remove('visible');
+  finalGlow.classList.remove('active');
+  document.body.classList.remove('darkened');
+  scene.classList.remove('zoom');
+
+  // Restore ribbons
+  setTimeout(() => {
+    ribbonV.style.opacity = '1';
+    ribbonV.style.transform = 'translateX(-50%)';
+    ribbonH1.style.opacity = '1';
+    ribbonH2.style.opacity = '1';
+    bow.classList.remove('falling');
+    state = 'idle';
+
+    setTimeout(() => openBox(), 600);
+  }, 1200);
+}
+
+function clearHearts() {
+  if (heartInterval) { clearInterval(heartInterval); heartInterval = null; }
+  document.querySelectorAll('.float-heart').forEach(h => h.remove());
+}
+
+// ─────────────────────────────────────────
+// EVENTS
+// ─────────────────────────────────────────
+giftWrapper.addEventListener('click', (e) => {
+  burstHearts(e.clientX, e.clientY);
+  if (!boxOpen) openBox();
+});
+
+openBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  nextMemory();
+});
+
+// ─────────────────────────────────────────
+// AUDIO (Web Audio API soft piano)
+// ─────────────────────────────────────────
+let audioCtx = null;
+let audioPlaying = false;
+let audioNodes = [];
+
+function createPianoNote(freq, startTime, duration, volume = 0.15) {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  const filter = audioCtx.createBiquadFilter();
+
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(freq, startTime);
+
+  filter.type = 'lowpass';
+  filter.frequency.value = 2000;
+
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(volume, startTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+  osc.connect(filter);
+  filter.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start(startTime);
+  osc.stop(startTime + duration + 0.1);
+  audioNodes.push(osc);
+}
+
+// Romantic piano melody (Cm pentatonic, slow arpeggio)
+const melody = [
+  [261.63, 0], [311.13, 0.8], [349.23, 1.6], [392.00, 2.4],
+  [349.23, 3.4], [311.13, 4.2], [261.63, 5.0], [233.08, 5.8],
+  [261.63, 7.0], [293.66, 7.8], [349.23, 8.6], [392.00, 9.4],
+  [440.00, 10.4], [392.00, 11.2], [349.23, 12.0], [293.66, 12.8],
+];
+
+function playMelody() {
+  if (!audioCtx || !audioPlaying) return;
+  const now = audioCtx.currentTime;
+  melody.forEach(([freq, t]) => {
+    createPianoNote(freq, now + t, 1.2, 0.12);
+    createPianoNote(freq * 2, now + t + 0.01, 0.6, 0.04); // harmonic
+  });
+  // Bass
+  [130.81, 155.56, 174.61, 196.00].forEach((f, i) => {
+    createPianoNote(f, now + i * 3.5, 2.5, 0.08);
+  });
+  setTimeout(() => { if (audioPlaying) playMelody(); }, 13500);
+}
+
+function toggleAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioPlaying = true;
+    document.getElementById('audio-hint').textContent = '♪ pause';
+    playMelody();
+  } else if (audioPlaying) {
+    audioPlaying = false;
+    audioNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+    audioNodes = [];
+    document.getElementById('audio-hint').textContent = '♪ music';
+  } else {
+    audioPlaying = true;
+    document.getElementById('audio-hint').textContent = '♪ pause';
+    playMelody();
+  }
+}
+
+// Auto-start on first click anywhere
+document.addEventListener('click', function startAudioOnce() {
+  if (!audioCtx) toggleAudio();
+  document.removeEventListener('click', startAudioOnce);
+}, { once: true });
+</script>
+</body>
+</html>

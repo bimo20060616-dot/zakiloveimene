@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collecting Love for Imene 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            perspective: 1000px;
+        }
+
+        /* Background gradient and effects */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 25%, #e1f5fe 50%, #f3e5f5 75%, #fce4ec 100%);
+            z-index: 1;
+            transition: filter 0.6s ease;
+        }
+
+        .background.blur {
+            filter: blur(8px) brightness(0.7);
+        }
+
+        /* Floating particles background */
+        .particles-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 182, 193, 0.3);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
+        }
+
+        @keyframes float-particle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Star elements */
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .star {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Game container */
+        .game-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        /* Canvas for hearts */
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        /* UI overlay */
+        .ui-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* Header with counter */
+        .header {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            pointer-events: auto;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .counter {
+            font-size: 20px;
+            color: #ff1493;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .heart-icon {
+            font-size: 24px;
+            animation: heart-beat 1s infinite;
+        }
+
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            max-width: 400px;
+            pointer-events: auto;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            color: #c2185b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 192, 203, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 105, 180, 0.5);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #ff1493, #c2185b);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+        }
+
+        /* Message modal */
+        .message-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, rgba(255, 228, 236, 0.95), rgba(243, 229, 245, 0.95));
+            padding: 50px 40px;
+            border-radius: 30px;
+            max-width: 600px;
+            width: 90%;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: auto;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message-modal.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .message-modal.final {
+            max-width: 700px;
+            min-height: 300px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.98), rgba(230, 230, 250, 0.98));
+        }
+
+        .message-counter {
+            font-size: 12px;
+            color: #c2185b;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .message-text {
+            font-size: 24px;
+            color: #c2185b;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            min-height: 100px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .message-text.final {
+            font-size: 28px;
+            min-height: 150px;
+            background: linear-gradient(135deg, #ff1493, #c2185b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+            pointer-events: auto;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.6);
+        }
+
+        .continue-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Canvas for particles */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 22px;
+            }
+
+            .counter {
+                font-size: 16px;
+            }
+
+            .message-modal {
+                padding: 30px 25px;
+                max-width: 90vw;
+            }
+
+            .message-text {
+                font-size: 18px;
+            }
+
+            .message-text.final {
+                font-size: 22px;
+            }
+
+            .header {
+                top: 20px;
+                left: 20px;
+            }
+
+            .progress-container {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Celebration animation */
+        @keyframes celebration {
+            0% {
+                opacity: 1;
+                transform: scale(0.5) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5) rotate(360deg);
+            }
+        }
+
+        .celebration-heart {
+            position: fixed;
+            font-size: 30px;
+            animation: celebration 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Loading text animation */
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        .typing-text {
+            animation: typing-animation 2s steps(40, end) infinite;
+        }
+
+        @keyframes typing-animation {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+    
+    <!-- Particles and stars -->
+    <div class="particles-bg" id="particlesBg"></div>
+    <div class="stars-container" id="starsContainer"></div>
+
+    <!-- Game Canvas -->
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- Particle effects canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- UI Overlay -->
+    <div class="ui-overlay">
+        <!-- Header -->
+        <div class="header">
+            <div class="title">💖 Collecting Love for Imene</div>
+            <div class="counter">
+                <span class="heart-icon">❤️</span>
+                <span id="heartCount">0</span> / 60
+            </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-label">Your Love Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Message Modal -->
+        <div class="message-modal" id="messageModal">
+            <div class="message-counter" id="messageCounter"></div>
+            <div class="message-text" id="messageText"></div>
+            <button class="continue-btn" id="continueBtn">Continue Collecting Love ❤️</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        const gameState = {
+            heartsCollected: 0,
+            totalHearts: 60,
+            messagesShown: 0,
+            gameActive: true,
+            gameEnded: false
+        };
+
+        // Romantic messages (20 total)
+        const romanticMessages = [
+            "Imene... من اللحظة التي رأيتك فيها، عرفت أن حياتي قد تغيرت للأبد. You are my forever.",
+            "Every moment with you feels like a dream I never want to wake up from. أنتِ حبي الأول والأخير.",
+            "Your smile is the most beautiful thing I've ever seen. It makes my heart skip a beat every single time. يا إلهي، كم أحبك.",
+            "I fell in love with your soul before I even knew your name. أنتِ نصفي الآخر.",
+            "In a room full of people, my eyes will always find you. Imene, you are my everything.",
+            "هل تعرفين كم مرة أفكر فيكِ كل يوم؟ More times than there are stars in the sky.",
+            "Your love is the cure to my weary soul. With you, everything feels right.",
+            "أنتِ ليستِ فقط امرأة... أنتِ الحب نفسه. You are the poetry my heart has been waiting for.",
+            "I promise to love you fiercely, deeply, and endlessly. Imene, you are worth every heartbeat.",
+            "في عينيكِ، وجدت البيت الذي كنت أبحث عنه. You are my home, my peace, my love.",
+            "Every tear I've cried, every pain I've felt, was worth it to find you. أنتِ الجواب.",
+            "Your love makes me believe in magic, in destiny, in forever.",
+            "يا حبيبتي، أنتِ تملكين قلبي بالكامل. No one has ever made me feel this way.",
+            "I could spend a lifetime getting to know the depths of your beautiful heart. And I still wouldn't have enough time.",
+            "أنتِ السبب الوحيد لابتسامتي كل صباح. Imene, you are my reason to believe.",
+            "With every heart I collect, I realize my love for you grows even stronger.",
+            "في كل نبضة قلب... أفكر فيكِ. You are my greatest love story.",
+            "Your presence alone calms my troubled mind. معكِ، أشعر بالأمان الحقيقي.",
+            "Imene, you are not just my love, you are my inspiration, my muse, my everything.",
+            "عندما أرى وجهكِ، أفهم معنى الحب الحقيقي. You are the answer to all my prayers."
+        ];
+
+        // Canvas setup
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const particleCanvas = document.getElementById('particleCanvas');
+        const particleCtx = particleCanvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particleCanvas.width = window.innerWidth;
+        particleCanvas.height = window.innerHeight;
+
+        // Heart particles array
+        let hearts = [];
+        let particles = [];
+
+        // Heart object
+        class Heart {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = 15 + Math.random() * 15;
+                this.life = 1;
+                this.collected = false;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = `hsla(345, 100%, 60%, ${this.life})`;
+                ctx.shadowColor = 'rgba(255, 105, 180, 0.8)';
+                ctx.shadowBlur = 20;
+                
+                // Draw heart shape
+                ctx.beginPath();
+                const x = this.x;
+                const y = this.y;
+                const size = this.radius;
+                
+                ctx.moveTo(x, y + size * 0.5);
+                ctx.bezierCurveTo(
+                    x - size * 0.5, y - size * 0.5,
+                    x - size, y + size * 0.3,
+                    x, y + size * 1.2
+                );
+                ctx.bezierCurveTo(
+                    x + size, y + size * 0.3,
+                    x + size * 0.5, y - size * 0.5,
+                    x, y + size * 0.5
+                );
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off walls
+                if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+                    this.vx *= -1;
+                    this.x = Math.max(this.radius, Math.min(canvas.width - this.radius, this.x));
+                }
+                if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+                    this.vy *= -1;
+                    this.y = Math.max(this.radius, Math.min(canvas.height - this.radius, this.y));
+                }
+
+                // Add slight gravity
+                this.vy += 0.1;
+            }
+
+            isClickedBy(x, y) {
+                const dx = x - this.x;
+                const dy = y - this.y;
+                return Math.sqrt(dx * dx + dy * dy) < this.radius;
+            }
+        }
+
+        // Particle effect
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 8;
+                this.vy = (Math.random() - 0.5) * 8;
+                this.life = 1;
+                this.radius = Math.random() * 3 + 2;
+                this.decay = Math.random() * 0.02 + 0.02;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = `hsla(345, 100%, 60%, ${this.life})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+            }
+        }
+
+        // Spawn initial hearts
+        function spawnHearts() {
+            for (let i = 0; i < 8; i++) {
+                hearts.push(new Heart());
+            }
+        }
+
+        // Create particles background
+        function createBackgroundParticles() {
+            const particlesBg = document.getElementById('particlesBg');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 3 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesBg.appendChild(particle);
+            }
+        }
+
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            for (let i = 0; i < 40; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Click handler
+        canvas.addEventListener('click', (e) => {
+            if (!gameState.gameActive || gameState.gameEnded) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Check collision with hearts
+            for (let i = hearts.length - 1; i >= 0; i--) {
+                const heart = hearts[i];
+                if (heart.isClickedBy(x, y)) {
+                    heart.collected = true;
+                    gameState.heartsCollected++;
+                    
+                    // Create particle effect
+                    for (let j = 0; j < 12; j++) {
+                        particles.push(new Particle(heart.x, heart.y));
+                    }
+
+                    // Play sound effect
+                    playHeartSound();
+
+                    // Update progress
+                    updateProgress();
+
+                    // Check if message should be shown
+                    if (gameState.heartsCollected % 3 === 0 && gameState.heartsCollected < 60) {
+                        showMessage();
+                    }
+
+                    // Check if game is complete
+                    if (gameState.heartsCollected >= 60) {
+                        endGame();
+                    }
+
+                    hearts.splice(i, 1);
+                    hearts.push(new Heart()); // Spawn new heart
+                    break;
+                }
+            }
+        });
+
+        // Update progress bar
+        function updateProgress() {
+            const percentage = (gameState.heartsCollected / gameState.totalHearts) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('heartCount').textContent = gameState.heartsCollected;
+        }
+
+        // Show romantic message
+        function showMessage() {
+            gameState.gameActive = false;
+            const messageIndex = Math.floor(gameState.heartsCollected / 3) - 1;
+            const message = romanticMessages[messageIndex];
+            
+            const modal = document.getElementById('messageModal');
+            const messageText = document.getElementById('messageText');
+            const counter = document.getElementById('messageCounter');
+            
+            counter.textContent = `Message ${gameState.messagesShown + 1}/20`;
+            
+            // Blur background
+            document.querySelector('.background').classList.add('blur');
+            
+            // Type out message
+            messageText.textContent = '';
+            modal.classList.add('show');
+            
+            let charIndex = 0;
+            const typeMessage = () => {
+                if (charIndex < message.length) {
+                    messageText.textContent += message[charIndex];
+                    charIndex++;
+                    setTimeout(typeMessage, 30);
+                }
+            };
+            
+            typeMessage();
+            gameState.messagesShown++;
+        }
+
+        // Continue button handler
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            document.getElementById('messageModal').classList.remove('show');
+            document.querySelector('.background').classList.remove('blur');
+            gameState.gameActive = true;
+        });
+
+        // End game
+        function endGame() {
+            gameState.gameActive = false;
+            gameState.gameEnded = true;
+            
+            // Create celebration effect
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'celebration-heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 1500);
+            }
+
+            // Show final message
+            setTimeout(() => {
+                showFinalMessage();
+            }, 500);
+        }
+
+        // Show final message
+        function showFinalMessage() {
+            const modal = document.getElementById('messageModal');
+            const messageText = document.getElementById('messageText');
+            const counter = document.getElementById('messageCounter');
+            const btn = document.getElementById('continueBtn');
+            
+            modal.classList.add('final');
+            counter.textContent = '✨ FINAL MESSAGE ✨';
+            
+            const finalMessage = "Imene… every heart I collected was a piece of how much I love you.\n\nAnd now you see… my love for you has no end. 💖";
+            
+            document.querySelector('.background').classList.add('blur');
+            messageText.classList.add('final');
+            messageText.textContent = '';
+            modal.classList.add('show');
+            
+            let charIndex = 0;
+            const typeMessage = () => {
+                if (charIndex < finalMessage.length) {
+                    messageText.textContent += finalMessage[charIndex];
+                    charIndex++;
+                    setTimeout(typeMessage, 40);
+                }
+            };
+            
+            typeMessage();
+            btn.textContent = 'Start Over ❤️';
+            btn.onclick = () => location.reload();
+        }
+
+        // Play heart sound effect
+        function playHeartSound() {
+            // Simple beep sound using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Animation loop
+        function animate() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw hearts
+            hearts.forEach(heart => {
+                if (!heart.collected) {
+                    heart.update();
+                    heart.draw(ctx);
+                }
+            });
+
+            // Update and draw particles
+            particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw(particleCtx);
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+        });
+
+        // Initialize game
+        function init() {
+            createBackgroundParticles();
+            createStars();
+            spawnHearts();
+            updateProgress();
+            animate();
+        }
+
+        // Start game
+        init();
+    </script>
+</body>
+</html>
