@@ -447,10 +447,46 @@
     transition: opacity 0.5s;
     text-transform: uppercase;
   }
+  .music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  padding: 12px 22px;
+  border: none;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #d4567a, #f090b0);
+  color: #fff;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow: 0 6px 20px rgba(180, 60, 80, 0.35);
+  transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 28px rgba(220, 100, 120, 0.5);
+}
+
+.music-btn:active {
+  transform: scale(0.98);
+}
 </style>
 </head>
 <body>
 
+<audio id="song" loop>
+  <source src="Arctic Monkeys - I Wanna Be Yours.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="toggleSong()" id="audio-hint">🎵 Music</button>
 <canvas id="particles-canvas"></canvas>
 <div class="bg-blur"></div>
 <div id="final-glow"></div>
@@ -467,11 +503,11 @@
   <!-- Message area -->
   <div id="message-area">
     <div class="msg-frame">
-      <div class="msg-deco">✦ for Imene ✦</div>
+      <div class="msg-deco">✦ for my princess Imene ✦</div>
       <div id="typed-message"></div>
       <div class="msg-counter" id="msg-counter"></div>
     </div>
-    <button id="open-btn">Open another memory ❤️</button>
+    <button id="open-btn">Open another 3idya from me❤️</button>
   </div>
 
   <!-- Gift box -->
@@ -508,7 +544,6 @@
   <div id="intro-label">✦ Click to open your gift ✦</div>
 </div>
 
-<div id="audio-hint" onclick="toggleAudio()">♪ music</div>
 
 <script>
 // ─────────────────────────────────────────
@@ -528,6 +563,29 @@ const messages = [
   { en:"Abo 3mal  best chi3r hasn't been written yet, because you’re a beauty that words can’t catch.", ar: "بعض الناس يغير حياتك. أنت يا إيمان — غيرت معنى الحياة ذاته." },
 { en: "Even Disney couldn’t write a fairytale as magical as us", ar: "أحب من أكون حين أكون معك. أنتِ بيت نسختي الأجمل." },
   { en:"You make every day feel like Eid morning", ar: "نفد الكلام لكن لم ينفد حبي زاكي لك ." },
+
+
+
+
+
+
+
+
+
+
+  { en: "I don’t count stars anymore… I just count the moments I get to think about you.", ar: "صرت أعد اللحظات التي تمر بك في ذهني… فهي أثمن من الوقت نفسه." },
+
+
+
+
+
+
+
+
+
+
+
+
 ];
 
 // ─────────────────────────────────────────
@@ -724,7 +782,7 @@ function openBox() {
 
         msgArea.classList.add('visible');
         const msg = messages[currentMsg];
-        msgCounter.textContent = `Memory ${currentMsg + 1} of ${messages.length}`;
+        msgCounter.textContent = `romantic ${currentMsg + 1} of ${messages.length}`;
         typeMessage(msg, () => {
           if (currentMsg < messages.length - 1) {
             openBtn.style.display = 'inline-block';
@@ -795,84 +853,21 @@ openBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   nextMemory();
 });
+const song = document.getElementById("song");
 
-// ─────────────────────────────────────────
-// AUDIO (Web Audio API soft piano)
-// ─────────────────────────────────────────
-let audioCtx = null;
-let audioPlaying = false;
-let audioNodes = [];
-
-function createPianoNote(freq, startTime, duration, volume = 0.15) {
-  if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  const filter = audioCtx.createBiquadFilter();
-
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(freq, startTime);
-
-  filter.type = 'lowpass';
-  filter.frequency.value = 2000;
-
-  gain.gain.setValueAtTime(0, startTime);
-  gain.gain.linearRampToValueAtTime(volume, startTime + 0.02);
-  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-
-  osc.connect(filter);
-  filter.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  osc.start(startTime);
-  osc.stop(startTime + duration + 0.1);
-  audioNodes.push(osc);
-}
-
-// Romantic piano melody (Cm pentatonic, slow arpeggio)
-const melody = [
-  [261.63, 0], [311.13, 0.8], [349.23, 1.6], [392.00, 2.4],
-  [349.23, 3.4], [311.13, 4.2], [261.63, 5.0], [233.08, 5.8],
-  [261.63, 7.0], [293.66, 7.8], [349.23, 8.6], [392.00, 9.4],
-  [440.00, 10.4], [392.00, 11.2], [349.23, 12.0], [293.66, 12.8],
-];
-
-function playMelody() {
-  if (!audioCtx || !audioPlaying) return;
-  const now = audioCtx.currentTime;
-  melody.forEach(([freq, t]) => {
-    createPianoNote(freq, now + t, 1.2, 0.12);
-    createPianoNote(freq * 2, now + t + 0.01, 0.6, 0.04); // harmonic
-  });
-  // Bass
-  [130.81, 155.56, 174.61, 196.00].forEach((f, i) => {
-    createPianoNote(f, now + i * 3.5, 2.5, 0.08);
-  });
-  setTimeout(() => { if (audioPlaying) playMelody(); }, 13500);
-}
-
-function toggleAudio() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    audioPlaying = true;
-    document.getElementById('audio-hint').textContent = '♪ pause';
-    playMelody();
-  } else if (audioPlaying) {
-    audioPlaying = false;
-    audioNodes.forEach(n => { try { n.stop(); } catch(e) {} });
-    audioNodes = [];
-    document.getElementById('audio-hint').textContent = '♪ music';
+function toggleSong() {
+  if (song.paused) {
+    song.play();
   } else {
-    audioPlaying = true;
-    document.getElementById('audio-hint').textContent = '♪ pause';
-    playMelody();
+    song.pause();
   }
 }
 
-// Auto-start on first click anywhere
-document.addEventListener('click', function startAudioOnce() {
-  if (!audioCtx) toggleAudio();
-  document.removeEventListener('click', startAudioOnce);
+// تشغيل أول ما يضغط المستخدم
+document.addEventListener("click", () => {
+  song.play();
 }, { once: true });
+
 </script>
 </body>
 </html>
