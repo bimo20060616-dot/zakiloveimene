@@ -1,0 +1,1635 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الكتاب الرقمي الفاخر - سفر من الحكمة والجمال</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-gold: #8837d4;
+        --secondary-gold: #c9a961;
+        --dark-brown: #2c2416;
+        --warm-bg: #f5f1e8;
+        --light-gray: #e8e3d8;
+        --accent-beige: #d4cfc7;
+        --text-dark: #3a342d;
+        --shadow-light: rgba(0, 0, 0, 0.08);
+        --shadow-medium: rgba(0, 0, 0, 0.15);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Amiri", serif;
+        background: linear-gradient(
+          135deg,
+          var(--warm-bg) 0%,
+          var(--light-gray) 100%
+        );
+        color: var(--text-dark);
+        line-height: 1.8;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* تأثير الخلفية المنسوجة */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          0deg,
+          rgba(212, 175, 55, 0.03) 1px,
+          transparent 1px
+        );
+        background-size: 100% 3px;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      /* ✨ الشريط العلوي الفاخر */
+      .header-bar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 80px;
+        background: linear-gradient(
+          180deg,
+          rgba(245, 241, 232, 0.98) 0%,
+          rgba(232, 227, 216, 0.95) 100%
+        );
+        backdrop-filter: blur(10px);
+        border-bottom: 2px solid var(--primary-gold);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        z-index: 1000;
+        box-shadow: 0 8px 32px var(--shadow-medium);
+      }
+
+      .book-logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary-gold);
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px var(--shadow-light);
+      }
+
+      .header-controls {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .header-btn {
+        background: linear-gradient(
+          135deg,
+          var(--primary-gold) 0%,
+          var(--secondary-gold) 100%
+        );
+        color: var(--dark-brown);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-family: "Amiri", serif;
+        font-size: 14px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(39, 10, 255, 0.3);
+      }
+
+      .header-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(67, 14, 190, 0.977);
+      }
+
+      .header-btn:active {
+        transform: translateY(-1px);
+      }
+
+      /* 📚 الحاوية الرئيسية */
+      .main-container {
+        margin-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* 📖 صفحة الغلاف */
+      .cover-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(
+          135deg,
+          var(--warm-bg) 0%,
+          var(--accent-beige) 100%
+        );
+        padding: 60px 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cover-page::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(133, 9, 182, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 50px 50px;
+        animation: floatingBg 20s linear infinite;
+      }
+
+      @keyframes floatingBg {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(50px, 50px);
+        }
+      }
+
+      .cover-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .book-icon {
+        font-size: 80px;
+        margin-bottom: 30px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .cover-title {
+        font-size: 56px;
+        font-weight: 700;
+        color: var(--dark-brown);
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .cover-subtitle {
+        font-size: 24px;
+        color: var(--primary-gold);
+        margin-bottom: 50px;
+        font-weight: 400;
+        letter-spacing: 1px;
+      }
+
+      .cover-description {
+        font-size: 16px;
+        color: var(--text-dark);
+        max-width: 600px;
+        margin: 0 auto 60px;
+        line-height: 1.9;
+      }
+
+      .toc-button {
+        background: linear-gradient(
+          135deg,
+          var(--primary-gold) 0%,
+          var(--secondary-gold) 100%
+        );
+        color: var(--dark-brown);
+        border: 2px solid var(--dark-brown);
+        padding: 15px 50px;
+        font-size: 18px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: "Amiri", serif;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+      }
+
+      .toc-button:hover {
+        transform: scale(1.05) translateY(-3px);
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.6);
+      }
+
+      /* 📑 جدول المحتويات */
+      .toc-modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .toc-content {
+        position: absolute;
+        right: 0;
+        top: 80px;
+        width: 100%;
+        max-width: 450px;
+        height: calc(100vh - 80px);
+        background: linear-gradient(
+          180deg,
+          var(--warm-bg) 0%,
+          var(--light-gray) 100%
+        );
+        overflow-y: auto;
+        padding: 40px 30px;
+        border-left: 3px solid var(--primary-gold);
+        box-shadow: -10px 0 40px var(--shadow-medium);
+        animation: slideInRight 0.4s ease;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      .toc-title {
+        font-size: 28px;
+        color: var(--dark-brown);
+        margin-bottom: 30px;
+        border-bottom: 2px solid var(--primary-gold);
+        padding-bottom: 15px;
+      }
+
+      .toc-list {
+        list-style: none;
+      }
+
+      .toc-item {
+        margin-bottom: 20px;
+      }
+
+      .toc-link {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px 15px;
+        display: block;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+        padding-right: 25px;
+      }
+
+      .toc-link::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: var(--primary-gold);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .toc-link:hover {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--primary-gold);
+        transform: translateX(-10px);
+      }
+
+      .toc-link:hover::before {
+        opacity: 1;
+        transform: translateX(-5px);
+      }
+
+      .close-toc {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 28px;
+        background: none;
+        border: none;
+        color: var(--primary-gold);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .close-toc:hover {
+        transform: rotate(90deg);
+      }
+
+      /* 📄 صفحات الفصول */
+      .chapter-page {
+        display: none;
+        min-height: 100vh;
+        padding: 80px 60px 60px;
+        animation: fadeInChapter 0.6s ease;
+        background: linear-gradient(
+          180deg,
+          var(--warm-bg) 0%,
+          var(--light-gray) 100%
+        );
+      }
+
+      .chapter-page.active {
+        display: block;
+      }
+
+      @keyframes fadeInChapter {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .chapter-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 60px 50px;
+        border-radius: 15px;
+        box-shadow: 0 15px 50px var(--shadow-medium);
+        position: relative;
+      }
+
+      .chapter-container::before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(
+          circle,
+          var(--primary-gold) 1px,
+          transparent 1px
+        );
+        background-size: 10px 10px;
+        opacity: 0.3;
+        border-radius: 15px;
+      }
+
+      .chapter-header {
+        margin-bottom: 50px;
+        border-bottom: 3px solid var(--primary-gold);
+        padding-bottom: 25px;
+        position: relative;
+      }
+
+      .chapter-number {
+        color: var(--primary-gold);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+      }
+
+      .chapter-title {
+        font-size: 48px;
+        color: var(--dark-brown);
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -1px;
+      }
+
+      .chapter-subtitle {
+        font-size: 18px;
+        color: var(--primary-gold);
+        margin-top: 15px;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      .chapter-content {
+        font-size: 17px;
+        line-height: 2;
+        color: var(--text-dark);
+        text-align: justify;
+        direction: rtl;
+      }
+
+      .chapter-content p {
+        margin-bottom: 25px;
+        text-indent: 40px;
+      }
+
+      .chapter-content p:first-letter {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary-gold);
+        margin-right: 5px;
+      }
+
+      .quote {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 55, 0.1) 0%,
+          rgba(212, 175, 55, 0.05) 100%
+        );
+        border-right: 4px solid var(--primary-gold);
+        padding: 25px 30px;
+        margin: 40px 0;
+        font-size: 18px;
+        font-style: italic;
+        color: var(--dark-brown);
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+        position: relative;
+      }
+
+      .quote::before {
+        content: "❝";
+        font-size: 48px;
+        position: absolute;
+        top: -10px;
+        right: 15px;
+        color: var(--primary-gold);
+        opacity: 0.3;
+      }
+
+      .section-break {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 0;
+        opacity: 0.4;
+        font-size: 24px;
+      }
+
+      .section-break span {
+        margin: 0 10px;
+      }
+
+      /* 🔘 أزرار التنقل */
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 2px solid var(--light-gray);
+        gap: 20px;
+      }
+
+      .nav-btn {
+        background: linear-gradient(
+          135deg,
+          var(--primary-gold) 0%,
+          var(--secondary-gold) 100%
+        );
+        color: var(--dark-brown);
+        border: none;
+        padding: 14px 32px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-family: "Amiri", serif;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        flex: 1;
+        text-align: center;
+      }
+
+      .nav-btn:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+      }
+
+      .nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .nav-btn.home-btn {
+        background: linear-gradient(
+          135deg,
+          var(--dark-brown) 0%,
+          var(--text-dark) 100%
+        );
+        color: var(--primary-gold);
+        flex: 0.5;
+      }
+
+      /* 📊 مؤشر التقدم */
+      .progress-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--light-gray);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid var(--accent-beige);
+      }
+
+      .progress-dot.active {
+        background: var(--primary-gold);
+        transform: scale(1.3);
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      }
+
+      .progress-dot:hover {
+        background: var(--secondary-gold);
+        transform: scale(1.2);
+      }
+
+      /* 📱 التجاوب */
+      @media (max-width: 1024px) {
+        .chapter-container {
+          padding: 40px 30px;
+        }
+
+        .chapter-title {
+          font-size: 36px;
+        }
+
+        .header-bar {
+          padding: 0 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-bar {
+          height: 70px;
+          padding: 0 15px;
+        }
+
+        .main-container {
+          margin-top: 70px;
+        }
+
+        .cover-title {
+          font-size: 36px;
+        }
+
+        .cover-subtitle {
+          font-size: 18px;
+        }
+
+        .chapter-page {
+          padding: 70px 20px 40px;
+        }
+
+        .chapter-container {
+          padding: 30px 20px;
+          border-radius: 10px;
+        }
+
+        .chapter-title {
+          font-size: 28px;
+        }
+
+        .chapter-content {
+          font-size: 16px;
+          line-height: 1.9;
+        }
+
+        .toc-content {
+          max-width: 100%;
+          width: 100%;
+          padding: 40px 20px;
+        }
+
+        .navigation {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .nav-btn {
+          width: 100%;
+        }
+
+        .nav-btn.home-btn {
+          flex: 1;
+        }
+
+        .book-logo {
+          font-size: 18px;
+        }
+
+        .header-controls {
+          gap: 10px;
+        }
+
+        .header-btn {
+          padding: 8px 16px;
+          font-size: 13px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .cover-title {
+          font-size: 28px;
+        }
+
+        .chapter-title {
+          font-size: 24px;
+        }
+
+        .chapter-content {
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        .chapter-content p {
+          text-indent: 20px;
+        }
+
+        .quote {
+          padding: 20px 20px;
+          font-size: 16px;
+        }
+      }
+
+      /* 🌙 تأثيرات خفيفة */
+      .glow-effect {
+        position: relative;
+      }
+
+      .glow-effect::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        bottom: -2px;
+        left: -2px;
+        background: linear-gradient(135deg, var(--primary-gold), transparent);
+        border-radius: 15px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .glow-effect:hover::after {
+        opacity: 0.1;
+      }
+
+      /* شريط التمرير المخصص */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--light-gray);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+          180deg,
+          var(--primary-gold) 0%,
+          var(--secondary-gold) 100%
+        );
+        border-radius: 6px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(
+          180deg,
+          var(--secondary-gold) 0%,
+          var(--primary-gold) 100%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <!-- الشريط العلوي -->
+    <div class="header-bar">
+      <div class="book-logo">
+        🫶 الرواية التي كتبت خصيصا لاحد اميرات ديزني :ايمان
+      </div>
+      <div class="header-controls">
+        <button class="header-btn" onclick="openTableOfContents()">
+          📑 الفصول
+        </button>
+        <button class="header-btn" onclick="goToHome()">🏠 البداية</button>
+      </div>
+    </div>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="main-container">
+      <!-- صفحة الغلاف -->
+      <div id="cover" class="cover-page active">
+        <div class="cover-content">
+          <div class="book-icon">📕</div>
+          <h1 class="cover-title">كل كلمة مكتوبة هي نبضة حب من قلبي لك 🫶</h1>
+          <p class="cover-subtitle">
+            قصة حب بين الذاكرة والنسيان، والاختيار بين الحقيقة والعيش
+          </p>
+          <p class="cover-description">
+            تتبعي رحلة زاكي وإيمان في عالم من الأسرار والذكريات المفقودة، حيث
+            يجب أن تختاري بين كشف الحقيقة أو البقاء معه في الحب الجديد...
+          </p>
+          <button class="toc-button" onclick="openTableOfContents()">
+            اكتشف الفصول ولتعيشي الرحلة ✨
+          </button>
+        </div>
+      </div>
+
+      <!-- الفصل الأول -->
+      <div id="chapter-1" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الأول</div>
+            <h2 class="chapter-title">الاستيقاظ على اسمٍ غريب</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              كان الضوء أول ما اخترق وعيه… ضوء أبيض حاد، كأنه سكين باردة تنغرس
+              في عينيه. حاول أن يفتح جفنيه ببطء، لكنهما كانا ثقيلين، كأنهما
+              يحملان سنوات من التعب الذي لا يتذكره. صوت أجهزة طبية… نبض منتظم…
+              رائحة معقمة تخنق أنفاسه. أين أنا؟ السؤال تشكل في ذهنه قبل أن تتحرك
+              شفتاه. حاول أن يرفع يده، لكنها لم تستجب. كأن جسده لم يعد ملكه. ثم…
+              سمع صوتا. ناعما… قريبا… مرتجفا قليلا. "أنا إيمان." تجمد الزمن. لم
+              يكن الاسم غريبا تماما… بل كان أسوأ من ذلك. كان مألوفا بطريقة
+              خاطئة. مألوفا بطريقة تخيف. فتح عينيه أخيرا. رآها. فتاة تقف بجانب
+              سريره، بيضاء البشرة، عيناها بنيتان دافئتان، وشعرها البني ينسدل
+              بهدوء على كتفيها. ملامحها ناعمة… جميلة بشكل يجعل القلب يهدأ. لكن
+              قلبه… لم يهدأ. بل تسارع. بشكل غير منطقي. بشكل مخيف. تراجع قليلا
+              إلى الخلف، رغم ضعفه، وكأن جسده يحاول الهروب قبل أن يفهم. هي لاحظت
+              ذلك. ابتسامتها تلاشت لثانية… ثم عادت. "لا تخف…" قالت بصوت حاول أن
+              يكون مطمئنا، لكنه كان يحمل شيئا آخر… شيئا لم يستطع تفسيره. نظر
+              إليها مطولا. ثم قال بصوت مبحوح: "هل… أعرفك؟" سؤال بسيط. لكن
+              عينيها… تغيرتا. شيء ما انكسر خلف تلك النظرة. "نعم…" همست، "تعرفني
+              جيدا." سكتت لحظة… ثم أضافت: "أكثر مما تتخيل." صمت. الصمت في الغرفة
+              لم يكن عاديا. كان ثقيلا… كأنه يخفي أشياء كثيرة. حاول أن يتذكر. أي
+              شيء. اسم. مكان. وجه. لكن لا شيء. فراغ كامل. "اسمي…؟" سأل ببطء.
+              تقدمت خطوة. "زاكي." الاسم سقط عليه كحجر في ماء راكد. انتشرت تموجات
+              في داخله… إحساس غريب بالانتماء، ممزوج بشيء آخر… شيء مظلم. "زاكي…"
+              كرر، وكأنه يجربه لأول مرة. ابتسمت بخفة. "كنت تنادي نفسك أحيانا…
+              سبايدرمان." ضحكت قليلا، "لأنك تحبه كثيرا." رمش. صورة خاطفة مرت في
+              ذهنه… رجل يرتدي قناعا أحمر، يقفز بين المباني. اختفت بسرعة. أمسك
+              رأسه. "رأسي…" اقتربت بسرعة، وضعت يدها على جبينه. لمستها كانت
+              دافئة. لكن… يداها كانت ترتجفان. بشكل خفيف… لكنه واضح. لاحظ ذلك.
+              دائما هناك تفاصيل صغيرة تخون الحقيقة. نظر إلى يدها… ثم إلى عينيها.
+              "لماذا ترتجفين؟" تجمدت. سحبت يدها ببطء. "أنا فقط… كنت خائفة عليك."
+              كذبة؟ أم نصف حقيقة؟ لم يعرف. لكن قلبه… لم يصدقها بالكامل. دخل طبيب
+              الغرفة فجأة، قاطعا التوتر. "جيد… لقد استيقظت أخيرا." نظر الطبيب
+              إلى إيمان، ثم إلى زاكي. "كيف تشعر؟" "لا أتذكر شيئا." قالها مباشرة.
+              هز الطبيب رأسه. "هذا متوقع." ثم ألقى نظرة سريعة على إيمان… نظرة لم
+              يفهمها زاكي، لكنها كانت مليئة بالمعاني. "يبدو أنك تتذكر الأشخاص
+              بشكل جزئي… وهذا جيد." "هل هي… قريبة مني؟" سأل زاكي، دون أن يبعد
+              عينيه عن إيمان. سكت الطبيب لثانية. ثم قال: "يمكننا قول ذلك." جواب
+              غريب. ليس نعم. وليس لا. إيمان ابتسمت بسرعة، وكأنها تحاول ملء
+              الفراغ. "أنا… شخص مهم في حياتك." نبرة صوتها كانت أقوى هذه المرة…
+              لكنها كانت تخفي شيئا. شيئا يشبه الرجاء. أو الخوف. أو الاثنين معا.
+              زاكي لم يرد. فقط نظر إليها. بتركيز. بشك. بفضول. وفي مكان عميق
+              داخله… بحنين لا يعرف مصدره. — في تلك الليلة، عندما خفتت الأضواء،
+              وبقي وحده في الغرفة… بدأت الأصوات. ليس أصواتا حقيقية. بل… داخله.
+              "يا ولد… هذه جميلة." صوت ساخر… خفيف… مليء بالمزاح. "ركز… هناك شيء
+              غير منطقي." صوت آخر… بارد… تحليلي. "لو احتجت نهرب… أنا جاهز." صوت
+              ثالث… خشن… خطير. تجمد. "من… أنتم؟" صمت. ثم… ضحكة خفيفة داخل رأسه.
+              "نحن أنت… يا زاكي." أغمض عينيه بقوة. هل فقد ذاكرته فقط… أم عقله
+              أيضا؟ — وفي الجهة الأخرى من الغرفة… كانت إيمان لا تزال جالسة.
+              تراقبه. في الظلام. تضم يديها إلى صدرها. وعيناها… مليئتان بشيء يشبه
+              الدموع. لكنها لم تبك. فقط همست، بصوت لم يسمعه: "لو عرفت الحقيقة…
+              ستكرهني." — وإليك يا إيمان… نعم، أنت التي تقرئين الآن… هل تذكرين
+              أول مرة ناداك فيها نيمو؟ هل تذكرين كيف ضحكت… وكأن العالم أصبح أخف؟
+              هو لا يتذكر الآن. لكن قلبه… ما زال يعرفك. وهذا… هو أخطر شيء في هذه
+              القصة. — في تلك اللحظة… فتح زاكي عينيه فجأة. نظر مباشرة نحوها. في
+              الظلام. كأنه شعر بها. وكأن شيئا داخله… لم ينسها أبدا. "إيمان…"
+              همس. تجمدت. "نعم؟" سكت لحظة. ثم قال: "لماذا أشعر… أنك ستؤذينني؟"
+              الصمت الذي تلا ذلك… لم يكن له صوت. لكنه كان بداية كل شيء.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(2)">
+              الفصل الثاني ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل الثاني -->
+      <div id="chapter-2" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الثاني</div>
+            <h2 class="chapter-title">ابتسامة تخفي شيئًا</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              استيقظ زاكي على ضوء الصباح المتسلل بخجل عبر الستائر البيضاء. لم
+              يكن الضوء قاسيا هذه المرة، بل دافئا… كأنه يحاول أن يطمئنه. لكن
+              الطمأنينة… لم تأت. فتح عينيه ببطء، ونظر إلى السقف لثوان، ثم إلى
+              جانبه. كانت هناك. إيمان. جالسة على الكرسي نفسه، رأسها مائل قليلا،
+              وعيناها مغمضتان. بدت وكأنها لم تنم جيدا. خصلات شعرها البني كانت
+              متناثرة بشكل عفوي حول وجهها، وملامحها الهادئة جعلتها تبدو كأميرة
+              خرجت من حلم قديم. للحظة… فقط للحظة… هدأ قلبه. ثم عاد الشعور. ذلك
+              الخوف الغامض. ذلك الصوت الداخلي الذي يهمس: انتبه. جلس ببطء،
+              متجاهلا الألم الخفيف في جسده. صوت الحركة أيقظها. فتحت عينيها
+              بسرعة، وكأنها كانت تنتظر هذه اللحظة. ابتسمت. ابتسامة دافئة… جميلة…
+              لكنها لم تصل إلى عينيها بالكامل. "صباح الخير يا زاكي." توقف عند
+              اسمه. كان غريبا… لكنه بدأ يبدو مألوفا أكثر. "صباح… الخير." صوته لا
+              يزال ضعيفا، لكنه أكثر وضوحا. نظرت إليه بإمعان، وكأنها تدرسه. "كيف
+              تشعر اليوم؟" "أفضل قليلا… لكن لا شيء عاد." هزت رأسها، ثم اقتربت
+              قليلا. "لا بأس… سأساعدك تتذكر." كلماتها كانت لطيفة. لكن نبرتها…
+              كانت تحمل إصرارا غير مريح. جلس صامتا، يراقبها. ثم قالت فجأة: "أنت
+              تحب كرة القدم." رمش. "حقا؟" "نعم… وتعشق ميسي وبرشلونة." توقفت
+              لثانية، ثم أضافت بابتسامة: "وتقول دائما إن ألمانيا أقوى من
+              الجميع." تجمد. صورة خاطفة مرت في ذهنه… ملعب… جمهور… قميص أزرق
+              وأحمر… شعور بالحماس. اختفى بسرعة. "ربما…" قال بهدوء. ابتسمت أكثر،
+              وكأنها سعيدة بهذا التقدم. "وتحب أن تضحكني… دائما." صمت. اقتربت
+              أكثر، جلست على حافة السرير. "كنت تقول إن ضحكتي أهم من أي شيء." نظر
+              إليها. بعمق. "وكنت أضحك؟" ضحكت بخفة. "أكثر مما تتخيل… لديك جانب
+              مضحك جدا." — "أكيد أنا اللي يضحكها." صوت داخلي مرح. "ركز… هي تبني
+              صورة لك." صوت بارد يقاطعه. "ولو كانت تكذب؟" صوت ثالث… حاد. — زاكي
+              أغلق عينيه للحظة. الصراع داخل رأسه بدأ يتضح. فتح عينيه مجددا.
+              "إيمان…" "نعم؟" "قولي لي شيئا… لا يمكن لأي أحد أن يعرفه عني." سؤال
+              مباشر. صعب. ابتسامتها… ترددت. ثم قالت: "مرة… سرقت تفاحة." رفع
+              حاجبه. "ماذا؟" ضحكت. "نعم… من متجر صغير. قلت لي بعدها إنك فعلت ذلك
+              فقط لتعطيني إياها." تجمد. صورة… يد تمتد… تفاحة حمراء… ضحكة… فتاة
+              تقول: أنت مجنون. اختفت. لكن أثرها… بقي. لم يستطع منع نفسه من
+              الابتسام قليلا. "هذا… غبي." "لكنك فعلته." قالت بهدوء. ثم همست:
+              "لأجلي." الصمت عاد. لكن هذه المرة… لم يكن ثقيلا فقط. كان مليئا
+              بشيء آخر. شيء دافئ… ومؤلم في نفس الوقت. — مرت لحظات. ثم لاحظ شيئا.
+              يدها. كانت قريبة منه. قريبة جدا. وترتجف. مرة أخرى. لكن هذه المرة…
+              بشكل أوضح. مد يده فجأة. أمسك يدها. تجمدت. نظر مباشرة في عينيها.
+              "مرة أخرى…" همس. "لماذا ترتجفين؟" نظراتها اهتزت. حاولت سحب يدها.
+              لكنه لم يتركها. ليس بقوة… بل بإصرار. "إيمان." صوته كان هادئا. لكنه
+              جاد. "أنا لا أتذكر شيئا… لكني أشعر بكل شيء." اقترب أكثر. "وأشعر…
+              أنك خائفة مني." سكتت. ثانية. ثانيتان. ثم… انكسرت ابتسامتها. تلك
+              الابتسامة التي كانت تخفي كل شيء… سقطت. ظهرت الحقيقة… ولو للحظة.
+              الخوف. حقيقي. واضح. "أنا…" بدأت. لكنها توقفت. أغمضت عينيها. ثم
+              قالت بسرعة: "أنا فقط خائفة أن تفقدني مرة أخرى." كلمات جميلة.
+              لكنها… لم تكن كاملة. زاكي شعر بذلك. لكنه… لم يضغط. ترك يدها ببطء.
+              نظر بعيدا. "هل نحن… كنا معا؟" سؤال بسيط. لكن الإجابة… لم تكن كذلك.
+              إيمان نظرت إليه. طويلا. بعمق. ثم قالت: "كنا أكثر من ذلك." صمت.
+              زاكي لم يفهم. لكن قلبه… تسارع. — في المساء، عندما خرجت إيمان لشراء
+              شيء… بقي وحده. مرة أخرى. الغرفة هادئة. لكن عقله… لم يكن كذلك. "هي
+              تكذب." الصوت البارد عاد. "أو تخفي." تصحيح سريع. "بس جميلة…" الصوت
+              المرح ضحك. "الجمال لا يعني الأمان." التحليل عاد. "لو كانت خطر…
+              نضرب قبل." الصوت الخشن تدخل. زاكي أمسك رأسه. "اصمتوا!" لكنهم لم
+              يصمتوا. لأنهم… هو. — بعد دقائق… فتح درج الطاولة بجانبه. لا يعرف
+              لماذا. فقط… شعور. شيء يدفعه. فتح الدرج. فارغ… تقريبا. إلا من… ورقة
+              صغيرة. مطوية. ببطء… فتحها. قرأ. تجمد. "لا تثق بإيمان." تسارعت
+              أنفاسه. نظر إلى الباب. ثم إلى الورقة. ثم همس: "ما هذا…؟" — وفي تلك
+              اللحظة… فُتح الباب. إيمان عادت. ابتسامتها ظهرت مجددا. "اشتريت لك
+              عصير أفوكادو… أعرف أنك تحبه." تجمد. عصير أفوكادو؟ نظر إلى الورقة
+              في يده. ثم إلى عينيها. نفس العيون. الدافئة. والخائفة. والغامضة. —
+              وإليك يا إيمان… هل كنت تعلمين أنه سيجد الورقة؟ أم كنت تأملين ألا
+              يفعل؟ هل كنت مستعدة لهذه اللحظة؟ أم أنك… خائفة الآن أكثر منه؟ —
+              زاكي رفع الورقة ببطء. نظر إليها. ثم قال: "إيمان…" صوته كان مختلفا
+              هذه المرة. أبرد. أخطر. "لماذا كتب شخص ما… أني لا يجب أن أثق بك؟"
+              تجمدت. الكأس في يدها… اهتز. قطرة سقطت على الأرض. لم تجب. فقط… نظرت
+              إليه. وعيناها… امتلأتا بشيء لم يعد يمكن إخفاؤه. الخوف… والحقيقة…
+              يبدآن بالظهور.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(1)">
+              ➤ الفصل الأول
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(3)">
+              الفصل الثالث ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل الثالث -->
+      <div id="chapter-3" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الثالث</div>
+            <h2 class="chapter-title">الرجل الذي لا يجب أن تتذكره</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              الصمت الذي تلا سؤال زاكي لم يكن عاديا. كان كأن الغرفة بأكملها
+              توقفت عن التنفس. إيمان لم تتحرك. الكأس في يدها ظل معلقا بين السقوط
+              والثبات، وعيناها مثبتتان عليه… لكن عقلها كان في مكان آخر تماما.
+              زاكي لم يبعد نظره عنها. كان ينتظر. ليس فقط إجابة… بل حقيقة. "قولي
+              شيئا." قال بهدوء، لكن صوته حمل شيئا جديدا… شيئا لم يكن فيه من قبل.
+              الشك. رفعت عينيها ببطء نحوه. فتحت فمها… ثم أغلقته. كأن الكلمات
+              ترفض الخروج. "أنا…" توقفت. ثم فجأة، سمعا صوتا من خلفهما: "يبدو أنك
+              استيقظت في الوقت المناسب." التفت زاكي بسرعة. الطبيب. يقف عند
+              الباب، يراقب المشهد بعينين لا يمكن قراءتهما بسهولة. لكن هذه المرة…
+              لم يبدُ عاديا. كان هناك شيء في حضوره… شيء بارد. دخل بخطوات هادئة،
+              ثم نظر إلى الورقة في يد زاكي. ابتسم ابتسامة خفيفة… غير مريحة. "آه…
+              إذن وجدت ذلك." تجمد زاكي. "أنت تعرف هذه الورقة؟" اقترب الطبيب
+              أكثر. "بالطبع." ثم نظر إلى إيمان. نظرة طويلة. صامتة. مليئة بشيء
+              غير مفهوم. إيمان خفضت عينيها. مرة أخرى. كأنها لا تريد أن تلتقي
+              بنظرته. زاكي لاحظ ذلك. دائما هناك تفاصيل صغيرة تكشف كل شيء. "ما
+              هذا؟" سأل بحدة هذه المرة. الطبيب لم يجب مباشرة. بل جلس على الكرسي
+              المقابل، ووضع يديه معا. "ذاكرتك… يا زاكي، ليست مجرد ذاكرة عادية."
+              صمت. ثم أضاف: "بعض الأشياء… كان من الأفضل أن تبقى منسية." تجمد
+              الهواء. زاكي شعر بشيء ينهار داخله. "ماذا يعني هذا؟" الطبيب ابتسم
+              مرة أخرى. لكن هذه المرة… لم تكن ابتسامة طبيب. كانت ابتسامة شخص
+              يعرف أكثر مما يجب. "يعني… أن هناك أشخاصا في حياتك…" توقف. نظر إلى
+              إيمان. ثم أكمل: "لا يجب أن تتذكرهم." ضربت الكلمات قلب زاكي كرصاصة
+              صامتة. نظر إلى إيمان. هي لم تنظر إليه. فقط… كانت تنظر إلى الأرض.
+              "هل تقصدها؟" سأل ببطء. الطبيب لم يجب. وهذا… كان أسوأ من الإجابة. —
+              "هذا واضح… هو يقصدها." الصوت التحليلي عاد. "نضرب الاثنين ونرتاح."
+              الصوت الخشن اقترح. "بس هي جابت أفوكادو…" الصوت المرح تمتم. — زاكي
+              ضغط على أسنانه. "توقفوا…" ثم نظر إلى الطبيب. "أريد الحقيقة."
+              الطبيب تنهد. "الحقيقة… ثقيلة." وقف ببطء. اقترب من زاكي. ثم قال
+              بصوت منخفض: "هل تثق بنفسك؟" سؤال غريب. "ماذا؟" "هل تثق بنفسك… أنك
+              لو تذكرت كل شيء… ستبقى نفس الشخص؟" زاكي لم يرد. لأنه… لا يعرف.
+              الطبيب مال قليلا نحوه. "أحيانا… النسيان ليس لعنة." ثم همس: "بل
+              نجاة." ابتعد. ثم أشار إلى إيمان. "وهي…" توقف. ابتسم ابتسامة خفيفة.
+              "هي جزء من شيء… لا أعتقد أنك مستعد له." ثم استدار نحو الباب. لكن
+              قبل أن يخرج… قال الجملة التي غيرت كل شيء: "بعض الذكريات… قتلها كان
+              الخيار الصحيح." وخرج. — الصمت عاد. لكن هذه المرة… لم يكن مجرد صمت.
+              كان حربا. داخل زاكي. داخل إيمان. داخل كل شيء. — زاكي نظر إلى
+              الباب… ثم إلى إيمان. "هل هذا صحيح؟" لم تجب. اقترب منها. "إيمان…
+              انظري إلي." ببطء… رفعت عينيها. وكانت تلك اللحظة… لحظة انكشاف. لم
+              تعد تحاول التمثيل. لم تعد تحاول الابتسام. فقط… الخوف. والحزن. وشيء
+              أعمق… شيء يشبه الندم. "أنا…" بدأت. لكن صوتها خانها. اقترب أكثر.
+              "هل أنت خطر علي؟" سؤال مباشر. قاس. لكنه ضروري. إيمان أغمضت عينيها.
+              دمعة سقطت. بصمت. ثم همست: "أنا الخطر الوحيد… الذي سيحاول حمايتك."
+              تجمد. لم يفهم. لكن قلبه… تألم. — "كلامها غريب…" الصوت التحليلي.
+              "بس فيه صدق." صوت آخر… هادئ هذه المرة. "أنا ما أرتاح لها." الصوت
+              الخشن. — زاكي تراجع خطوة. يمسك رأسه. كل شيء… بدأ يتكسر. "من أنا…؟"
+              سؤال خرج منه دون أن يقصد. إيمان نظرت إليه. بعمق. ثم قالت: "أنت…
+              شخص كان يحاول أن يصبح أفضل." صمت. ثم أضافت: "حتى لو اضطر أن يحطم
+              نفسه." — وفي تلك اللحظة… شيء غريب حدث. صورة… سريعة… وجه رجل. غير
+              واضح. لكنه… مخيف. صوت. "لا يجب أن تتذكرني." اختفت. زاكي شهق. "من…
+              هذا؟" إيمان تجمدت. "ماذا رأيت؟" لكنه لم يجب. فقط… نظر إلى الفراغ.
+              كأن شيئا بدأ يستيقظ. — وإليك يا إيمان… هل كنت تعلمين أن هذه اللحظة
+              ستأتي؟ هل كنت تعلمين أن عينيه ستبحثان عن الحقيقة… حتى لو كلفه ذلك
+              كل شيء؟ أم أنك… كنت تأملين أن يبقى كما هو… جاهلا… آمنا… معك؟ —
+              زاكي نظر إليها مجددا. بهدوء مخيف. "هناك شيء… أكبر من هذا." سكت. ثم
+              قال: "وأنتِ… في وسطه." إيمان لم تنكر. لم تهرب. فقط… همست: "نعم." —
+              وفي تلك اللحظة… صوت إنذار خافت بدأ يدوي في الممر. أصوات خطوات
+              سريعة. صرخات بعيدة. التوتر… عاد. لكن هذه المرة… بشكل حقيقي. زاكي
+              نظر نحو الباب. ثم إلى إيمان. "ماذا يحدث؟" إيمان لم تجب مباشرة. لكن
+              عينيها… قالتا كل شيء. الخطر… لم يعد مجرد شعور. لقد وصل.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(2)">
+              ➤ الفصل الثاني
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(4)">
+              الفصل الرابع ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل الرابع -->
+      <div id="chapter-4" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الرابع</div>
+            <h2 class="chapter-title">رسالة من نفسه</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              صوت الإنذار كان يعلو تدريجيا… كنبض قلب ضخم يقترب. أضواء حمراء بدأت
+              تومض في الممر، تنعكس على الجدران البيضاء، فتجعل المكان يبدو وكأنه
+              يغرق في تحذير لا يفهمه أحد. زاكي وقف ببطء. نظره يتنقل بين الباب…
+              وإيمان. "هذا ليس عاديا." قالها، لكن صوته لم يكن سؤالا. إيمان لم
+              تتحرك. كانت واقفة مكانها، ويديها متشابكتان بقوة، كأنها تحاول منع
+              شيء من الانهيار داخلها. ثم همست: "لم يعد لدينا وقت." رفع حاجبه.
+              "وقت لِماذا؟" نظرت إليه. تلك النظرة… التي تحمل ألف كلمة، لكنها لا
+              تقول شيئا. "لكي تختار… قبل أن يختاروا عنك." — "كلامها يزيد الشك."
+              الصوت التحليلي. "بس الوضع خطير فعلا." صوت آخر. "نجهز نهرب." الصوت
+              الخشن. — زاكي تجاهلهم هذه المرة. اقترب من الطاولة. نظر إلى هاتفه.
+              لا يعرف لماذا… لكنه شعر أن هناك شيئا بداخله. شيئا ينتظره. مد يده.
+              أمسك الهاتف. فتح الشاشة. كان مقفلا. توقف. ثم… بدون تفكير… أدخل
+              رمزا. رقم… لا يعرف من أين جاء. لكن أصابعه… عرفته. فتح الهاتف.
+              تجمد. "كيف…؟" — "أنا قلت لك… أنت مو غبي." الصوت المرح ضحك. "ذاكرة
+              عضلية." الصوت التحليلي أجاب. — تجاهلهم مرة أخرى. بدأ يتصفح بسرعة.
+              صور… لا شيء واضح. رسائل… مشفرة… أو محذوفة. ثم… وجد ملفا. مخفيا.
+              باسم غريب: "إذا وصلت إلى هنا…" تسارعت أنفاسه. نظر إلى إيمان. كانت
+              تراقبه. بقلق واضح. "لا…" همست. لكنها لم تتحرك. كأنها تعرف… أنه لن
+              يتوقف. فتح الملف. فيديو. تردد للحظة. ثم ضغط. — الشاشة أضاءت.
+              وصوته… خرج منها. لكن… ليس صوته الحالي. بل صوت آخر. أعمق. أكثر ثقة.
+              أكثر ظلاما. "إذا كنت تشاهد هذا… فهذا يعني أن كل شيء نجح." زاكي
+              تجمد. ينظر إلى نفسه. نسخة منه. لكن… مختلفة. شعره مرتب… عيناه
+              حادتان… نظراته باردة. كأنه شخص… يعرف كل شيء. "أنا أنت." قالها
+              ببساطة. "أو… كنت أنت." صمت لثانية. ثم اقترب من الكاميرا. "استمع
+              جيدا… لأن الوقت ليس في صالحك." زاكي شعر بقلبه يتسارع. الغرفة
+              اختفت. لم يعد هناك إلا هو… ونفسه. "أنت فقدت ذاكرتك… لأنك اخترت
+              ذلك." كلمة "اخترت" ضربته بقوة. "ماذا…؟" همس. الفيديو استمر. "وأعلم
+              أنك الآن… ستبحث عن الأجوبة." ابتسمت النسخة القديمة… ابتسامة خفيفة.
+              "وهذا هو خطؤك الأول." — إيمان تحركت خطوة. "زاكي… أرجوك—" "اصمتي."
+              قالها دون أن ينظر إليها. لم يكن غاضبا. لكن صوته… كان مختلفا.
+              باردا. — الفيديو: "هناك شخص…" توقف. تنهد. "ستثق به." صمت. ثم قال
+              الجملة التي كسرت كل شيء: "إذا رأيت إيمان… لا تثق بها." — كل شيء…
+              توقف. الصوت. الهواء. حتى قلبه… لثانية. زاكي لم يرمش. لم يتحرك.
+              فقط… نظر. ببطء… أدار رأسه نحوها. إيمان. كانت واقفة. مكانها. لكنها
+              لم تعد كما كانت. لم تعد تلك الفتاة اللطيفة فقط. بل… لغز. خطر.
+              حقيقة لم يفهمها بعد. دموعها بدأت تنزل. بصمت. "زاكي…" همست. لكن
+              اسمها على لسانه… لم يخرج. — "أنا قلت لك." الصوت التحليلي. "هي
+              خطر." الصوت الخشن. "بس… هي تبكي." الصوت المرح… هذه المرة… لم يضحك.
+              — الفيديو لم ينته. الصوت عاد: "أعلم… أنك لن تصدقني بالكامل."
+              ابتسم. "لأنك أنا." اقترب أكثر. "لكن اسمع… لا أحد هنا بريء." صمت.
+              ثم: "ولا حتى أنت." زاكي تراجع خطوة. كأن الأرض… لم تعد ثابتة.
+              "أنا…؟" همس. الفيديو: "أنت لم تكن الضحية." سكت. ثم قال ببطء: "كنت
+              السبب." — الصدمة لم تكن في الكلمات. بل… في الطريقة التي قالها بها.
+              بهدوء. بثقة. كحقيقة… لا تقبل النقاش. — الفيديو توقف فجأة. الشاشة
+              أظلمت. الصمت… عاد. لكن هذه المرة… كان ثقيلا لدرجة الاختناق. — زاكي
+              رفع عينيه ببطء. نظر إلى إيمان. "قولي لي…" صوته كان هادئا بشكل
+              مخيف. "هل هذا حقيقي؟" إيمان لم تهرب. لم تنكر. لم تكذب. فقط… اقتربت
+              خطوة. دموعها تسقط. "أنا…" توقفت. ثم قالت: "لم أكذب عليك بالكامل."
+              — "هذا ليس جواب." الصوت التحليلي. — زاكي اقترب. عيناه مظلمتان. "هل
+              أنا… شخص سيء؟" سؤال بسيط. لكن الإجابة… لم تكن كذلك. إيمان نظرت
+              إليه. طويلا. ثم همست: "كنت." تجمد. "وماذا الآن؟" اقتربت أكثر.
+              قريبة جدا. لدرجة أنه شعر بأنفاسها. "الآن…" قالت بصوت مرتجف: "أنت
+              الشخص الذي اخترت أن يصبح أفضل." — وفي تلك اللحظة… صوت خطوات سريعة
+              اقترب من الباب. صرخات. "الغرفة 214!" "أمسكوه!" — الخطر… وصل. —
+              وإليك يا إيمان… هل كنت تتمنين أن لا يشاهد هذا الفيديو؟ أم أنك كنت
+              تعلمين… أن هذه اللحظة… هي البداية الحقيقية؟ — زاكي نظر نحو الباب.
+              ثم إلى إيمان. ثم قال: "إذن…" توقف. "ماذا نفعل الآن؟" إيمان لم
+              تتردد هذه المرة. مدت يدها نحوه. "تهرب معي." صمت. لحظة. قرار. بين
+              عقل… يحذر. وقلب… يتذكر. بطريقته الخاصة. — زاكي نظر إلى يدها. ثم…
+              أمسكها.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(3)">
+              ➤ الفصل الثالث
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(5)">
+              الفصل الخامس ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل الخامس -->
+      <div id="chapter-5" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الخامس</div>
+            <h2 class="chapter-title">الهروب مع العدو</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              اللحظة التي أمسك فيها يدها… لم تكن مجرد قرار. كانت قفزة في
+              المجهول. صوت الخطوات في الخارج يقترب بسرعة، وصوت الرجال يعلو:
+              "هنا! لا تدعوه يخرج!" إيمان شدّت يده بقوة. "تعال!" لم ينتظر. لم
+              يفكر. فقط… تبعها. — فتحَت بابا جانبيا لم يلاحظه من قبل. ممر ضيق،
+              إضاءة خافتة، ورائحة مختلفة عن بقية المستشفى… كأن هذا المكان لا
+              ينتمي إليه. ركضا. أقدامهما تضرب الأرض بإيقاع متسارع. قلبه ينبض.
+              لكن ليس فقط من الخوف. بل من شيء آخر… شيء دافئ… خطير. — "تهرب مع
+              من؟ مع البنت اللي قال لك لا تثق بها؟" الصوت التحليلي. "بس ما عندنا
+              خيار." صوت آخر. "وأنا أصلا أحب المغامرات." الصوت المرح ضحك. "لو
+              خانت… نتصرف." الصوت الخشن. — زاكي شدّ على يدها أكثر. كأن جزءا منه…
+              لا يريد أن يتركها. وصلا إلى باب خلفي. إيمان توقفت. أنفاسها متقطعة.
+              نظرت إليه. قريبة جدا. "هل تثق بي؟" السؤال جاء متأخرا. لكنه كان
+              ضروريا. زاكي نظر في عينيها. بعمق. ثم قال: "لا." تجمدت. لكنه أكمل:
+              "لكنني… لا أستطيع أن أتركك." شيء ما تغير في عينيها. شيء يشبه
+              الألم… والراحة… في نفس الوقت. ابتسمت. ابتسامة حقيقية هذه المرة.
+              "هذا يكفي." — خرجوا. الهواء البارد ضرب وجهيهما. العالم الخارجي بدا
+              غريبا… وكأنه أول مرة يراه. السماء رمادية، والمدينة هادئة بشكل
+              مريب. سيارة سوداء كانت تنتظرهما. إيمان فتحت الباب بسرعة. "ادخل!"
+              جلس. هي تبعته. أغلقت الباب. ثم… أدارت المحرك. السيارة انطلقت. —
+              داخل السيارة… الصمت لم يدم طويلا. زاكي نظر من النافذة. المباني تمر
+              بسرعة. لكن ذهنه… كان في مكان آخر. "إيمان…" "نعم؟" "إلى أين نذهب؟"
+              ترددت. ثم قالت: "إلى مكان آمن." "ومن يطاردنا؟" صمت. ثم: "أشخاص… لا
+              يريدونك أن تتذكر." ابتسم بسخرية خفيفة. "يبدو أن الجميع لا يريد
+              ذلك." نظرت إليه. "وأنت؟" سكت. سؤال بسيط. لكن إجابته… لم تكن كذلك.
+              — بعد دقائق… السيارة تباطأت. دخلت طريقا جانبيا. ثم توقفت أمام منزل
+              صغير. قديم… لكنه دافئ. "انزل." — دخلا. أغلقت الباب خلفهما بسرعة.
+              تنفست بعمق. ثم استندت عليه. كأنها كانت تحمل العالم كله… وتركته
+              الآن. زاكي وقف في المنتصف. ينظر حوله. "هذا… بيتك؟" هزت رأسها.
+              "كان." صمت. ثم أضافت: "كان بيتنا… بطريقة ما." — "بيتكم؟" الصوت
+              المرح. "علاقة." الصوت التحليلي. — زاكي لم يعلق. جلس على الأريكة.
+              مرر يده على وجهه. "كل شيء… غريب." إيمان اقتربت. جلست أمامه.
+              "أعلم." ثم همست: "لكننا كنا أقوى من هذا." نظر إليها. "نحن…؟"
+              ابتسمت بخفة. "كنا نتحدث كل يوم… لساعات." توقفت. "رغم أننا… لم نكن
+              في نفس المدينة." رمش. "علاقة عن بعد؟" ضحكت قليلا. "كنت تكره هذا
+              التعبير." "وماذا كنت أسميه؟" نظرت إليه… بعينين لامعتين. "كنت تقول…
+              نحن قريبان… فقط العالم بعيد." صمت. الكلمات… ضربت شيئا داخله. شيئا
+              ناعما… ومؤلما. — "يا سلام…" صوت أبو علال ظهر لأول مرة، هادئ…
+              عاطفي. "هذا الكلام أنا قلته أكيد." — زاكي أغمض عينيه للحظة. ثم
+              فتحهما. نظر إليها. "إيموش…" خرجت الكلمة دون وعي. تجمدت. عيناها
+              اتسعتا. "ماذا قلت؟" هو نفسه لم يفهم. "لا أعلم… فقط… خرجت." اقتربت
+              أكثر. "قلها مرة أخرى." نظر إليها. قريبة. جميلة. خطيرة. ثم همس:
+              "إيموش." — ❤️ — دموعها نزلت فجأة. لكنها لم تكن دموع حزن. بل… شيء
+              أعمق. "كنت تناديني هكذا… دائما." همست. "كنت تقول إنني مثل نيمو…
+              أضيع وتجدني." ضحك بخفة. "غريب." "أنت أغرب." قالت بابتسامة. — الصمت
+              عاد. لكن هذه المرة… لم يكن ثقيلا. كان… دافئا. مربكا. جميل… وخطير.
+              — اقتربت أكثر. قريبة جدا. لدرجة أن المسافة بينهما… لم تعد شيئا.
+              "زاكي…" "نعم؟" "هل تشعر بشيء… تجاهي؟" سؤال مباشر. جريء. خطير. —
+              "هنا يبدأ الفيلم." الصوت المرح. "انتبه." الصوت التحليلي. — زاكي لم
+              يهرب. لم ينظر بعيدا. فقط… قال الحقيقة. "نعم." صمت. ثم أضاف: "وهذا…
+              يخيفني أكثر من أي شيء." — نظرت إليه. بعينين تمتلئان بشيء لا يمكن
+              وصفه بسهولة. "أنا أيضا خائفة." همست. "لكن… ليس منك." — اقتربت
+              أكثر. ثم… وضعت جبينها على جبينه. أنفاسهما اختلطت. الوقت… توقف. —
+              وفي تلك اللحظة… طرق قوي على الباب. "افتحوا!" صوت خشن. رجال.
+              كثيرون. — تجمدت. ابتعدت بسرعة. "لقد وجدونا." — زاكي وقف. عيناه
+              تغيرتا. شيء ما داخله… استيقظ. "كم عددهم؟" "لا أعلم… لكن—" قاطعها.
+              "لا يهم." صوته… لم يعد نفس الصوت. كان أهدأ. أخطر. — "وأخيرا…"
+              الصوت الخشن ابتسم. — زاكي نظر إلى الباب. ثم إلى إيمان. "إيموش…"
+              همس. "ابقِ خلفي." — وإليك يا إيمان… هل كنت تعلمين أن هذا الشخص
+              سيظهر؟ هذا الذي لا يخاف… هذا الذي كنت تخشينه… أكثر من أي عدو؟ —
+              الباب اهتز بقوة. ضربة أخرى. ثم… انكسر. الرجال دخلوا. لكنهم… لم
+              يجدوا نفس زاكي الذي كان قبل دقائق. — لأن زاكي… بدأ يتغير.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(4)">
+              ➤ الفصل الرابع
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(6)">
+              الفصل السادس ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل السادس -->
+      <div id="chapter-6" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل السادس</div>
+            <h2 class="chapter-title">الحقيقة التي تكسر القلب</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              صوت تحطم الباب لم يكن مجرد ضجيج. كان إعلانا… بأن كل الأقنعة ستسقط.
+              الرجال اندفعوا إلى الداخل، وجوههم قاسية، أعينهم تبحث، وأيديهم
+              جاهزة لكل شيء. لكنهم توقفوا. لثانية. حين رأوه. زاكي. واقف بثبات.
+              عيناه لم تعودا تائهتين… بل حادتين. باردتين. كأن شيئا داخله…
+              استيقظ. — "أخيرا…" صوت خشن داخله، مليء بالثقة. "السيطرة لنا الآن."
+              الصوت التحليلي. — أحد الرجال تقدم. "سلّم نفسك." ابتسامة خفيفة ظهرت
+              على شفتي زاكي. "وإن لم أفعل؟" لم يكن يتحداهم بصوت عال. بل بهدوء
+              أخطر. الرجل لم يجب. بل أشار. اثنان تقدما. — في لحظة… تحرك زاكي. لم
+              يفكر. جسده تحرك وكأنه يعرف ما يفعل. تفادى أول هجوم. أمسك يد الرجل.
+              دفعه بقوة. اصطدم بالجدار. الثاني حاول الإمساك به… لكن زاكي كان
+              أسرع. ضربة. ثم أخرى. سقط. الصمت. حتى الرجال الآخرين… ترددوا. —
+              إيمان كانت تقف خلفه. تراقب. عيناها اتسعتا. "هذا… هو." همست. —
+              "زاكي لعيزة حاضر." الصوت الخشن ضحك. — زاكي تنفس ببطء. ثم نظر إلى
+              البقية. "من التالي؟" لكنهم لم يهاجموا. بل… انسحبوا خطوة. واحد منهم
+              ضغط على جهاز في أذنه. "لقد استيقظ…" قالها بخوف واضح. ثم تراجعوا.
+              ببطء. ثم… هربوا. — الباب بقي مفتوحا. الهواء البارد دخل. والصمت…
+              عاد. — زاكي وقف مكانه. ينظر إلى يديه. كأنهما ليستا له. "كيف…؟"
+              همس. — "مهارات محفوظة." الصوت التحليلي. — استدار ببطء. نظر إلى
+              إيمان. كانت تنظر إليه… وكأنها ترى شخصا آخر. ليس فقط الشاب الذي
+              تحبه. بل… شيئا أخطر. "قولي لي." صوته عاد هادئا. لكن هذه المرة… لم
+              يكن ضعيفا. "من أنا؟" — إيمان لم تهرب. لم تبتسم. لم تحاول التخفيف.
+              فقط… اقتربت. ببطء. حتى أصبحت أمامه مباشرة. "هل تريد الحقيقة؟"
+              "نعم." صمت. ثم… أخذت نفسا عميقا. وقالت: "نعم… كذبت عليك." 💥
+              الكلمات سقطت. بثقل. لكنها لم تتوقف. "لكنني… أنقذتك." — زاكي لم
+              يتحرك. فقط… استمع. — "أنت… لم تكن الضحية يا زاكي." توقفت. عيناها
+              امتلأتا بالدموع. "كنت السبب."  — الصمت الذي تلا
+              ذلك… كان كأنه نهاية العالم. زاكي شعر بشيء ينكسر داخله. ليس ذاكرة.
+              بل… صورة. صورة نفسه. "سبب ماذا؟" سأل بصوت منخفض. إيمان نظرت إليه.
+              بعمق. ثم قالت: "كل هذا." — اقتربت خطوة. "كنت تعمل في مشروع… خطير
+              جدا." "أي مشروع؟" "مشروع يتحكم في… الذكريات." تجمد. — "وهذا يفسر
+              كل شيء." الصوت التحليلي. — "كنت قادرا على حذفها… تعديلها… إعادة
+              كتابتها." صمت. ثم أضافت: "وكنت الأفضل." — زاكي ضحك. لكنها لم تكن
+              ضحكة حقيقية. "أنا؟" "نعم." ثم همست: "وكنت تفقد نفسك… شيئا فشيئا."
+              — اقتربت أكثر. "في البداية… كنت تقول إنك تفعل ذلك لمساعدة الناس."
+              صمت. "ثم… بدأت تستخدمه لأشياء أخرى." نظرت إلى عينيه. "أشياء… لا
+              يمكن إصلاحها." — زاكي شعر ببرودة تسري في جسده. "ماذا فعلت؟" إيمان
+              أغمضت عينيها. "لا أستطيع أن أقول كل شيء…" ثم فتحتها. "لكنني كنت
+              هناك." — "هناك؟" "نعم." — توقفت. ثم قالت بصوت مكسور: "كنت هدفك." —
+              💥 — زاكي تراجع خطوة. "ماذا؟" "كنت تريد… تغيير ذاكرتي." دموعها
+              سقطت. "لأنني عرفت شيئا… لم يكن يجب أن أعرفه." — "أي شيء؟" نظرت
+              إليه. طويلا. ثم همست: "الحقيقة عنك." — صمت. زاكي لم يفهم. أو ربما…
+              لم يرد أن يفهم. — "لكن…" اقتربت فجأة. أمسكت يديه. بقوة. "توقفت." —
+              نظر إليها. "لماذا؟" — دموعها انهمرت. "لأنك… وقعت في حبي." — ❤️ —
+              الصمت تغير. لم يعد باردا فقط. بل… مؤلما. — "كنت تحبني… وأنا
+              أحببتك." همست. "لكن كلما اقتربنا… كنت تخاف." — "مما؟" — "من نفسك."
+              — زاكي شعر بأنفاسه تضيق. "وماذا فعلت؟" — إيمان نظرت إليه. بألم. ثم
+              قالت: "اخترت… أن تمحو نفسك." — — "محو… نفسي؟" — "نعم." — اقتربت
+              أكثر. "طلبت مني… أن أساعدك." — صمت. زاكي شعر بأن الأرض تميد. —
+              "قلت لي…" توقفت. ثم همست: "إذا بقيت هكذا… سأؤذيك… وسأؤذيها." —
+              "ومن هي…؟" — نظرت إليه. بدموع. "أنا." — 💔 — زاكي لم يتحرك. فقط…
+              نظر إليها. كأن كل شيء… انهار. — "لذا…" أكملت. "فعلت ما طلبت." —
+              "محوت ذاكرتي." — "نعم." — صمت. طويل. ثقيـــل. — "وأنا الآن…" همس.
+              "نسخة جديدة؟" — إيمان هزت رأسها ببطء. "أنت… نفس القلب." توقفت.
+              "لكن بدون الظلام." — نظر إليها. "وهل هذا أفضل؟" — ابتسمت. ابتسامة
+              حزينة. "نعم." ثم أضافت: "لكن…" — "لكن ماذا؟" — اقتربت. همست: "لن
+              يدعوك تبقى هكذا." — "من؟" — نظرت نحو الباب. حيث اختفى الرجال. ثم
+              قالت: "الأشخاص الذين صنعوا ذلك المشروع." — صمت. — "وهم…" أكملت.
+              "يريدونك… كما كنت." — وفي تلك اللحظة… زاكي فهم. — الخطر… ليس فقط
+              عليهم. بل… داخله. — وإليك يا إيمان… هل كنت تعلمين أن هذا سيؤلمه
+              بهذا الشكل؟ هل كنت مستعدة لرؤية قلبه ينكسر… مرة أخرى؟ — زاكي اقترب
+              منها. ببطء. ثم… رفع يده. ولمس وجهها. بلطف. "إيموش…" همس. — دموعها
+              توقفت. — "إذا كنت أنا من طلب هذا…" سكت. ثم قال: "فلا بد أن هناك
+              سبب أكبر." — نظر في عينيها. — "وسأعرفه." — الصمت. لكن هذه المرة…
+              كان بداية شيء أخطر. — لأن الحقيقة… لم تنته بعد.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(5)">
+              ➤ الفصل الخامس
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(7)">
+              الفصل السابع ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل السابع -->
+      <div id="chapter-7" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل السابع</div>
+            <h2 class="chapter-title">الحب الذي ولد مرتين</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              الصمت بعد اعتراف إيمان لم يكن فراغا… بل امتلاء مؤلما. زاكي لم يسحب
+              يده من على وجهها. كأنه يخشى… إن ابتعد، أن تختفي. أو أن يعود كل شيء
+              كما كان… باردا… خاليا. "كنت أحبك…" قالها ببطء، كأنه يتذوق الكلمات
+              لأول مرة. "وما زلت." أجابت دون تردد. لكن عينيها… لم تبتسما. كانتا
+              خائفتين. كأن الحب هنا… ليس خلاصا. بل لعنة جميلة. — زاكي تراجع
+              خطوة. جلس. أخذ نفسا عميقا. "أريد أن أرى… شيئا حقيقيا." نظر إليها.
+              "ليس كلاما… ليس اعترافات…" توقف. "دليل." — "طلب منطقي." الصوت
+              التحليلي. "نجيب له." صوت هادئ. — إيمان سكتت لثوان. ثم توجهت نحو
+              خزانة صغيرة في زاوية الغرفة. فتحتها. أخرجت صندوقا قديما. خشبيا…
+              بسيطا… لكنه يحمل شيئا من الزمن. تقدمت. جلست أمامه. وضعت الصندوق
+              بينهما. "هذا… كل ما تبقى." — نظر إليه. "ماذا يوجد داخله؟" — همست:
+              "نحن." — فتح الصندوق ببطء. — الزمن… توقف. — صور. رسائل. أوراق.
+              ذكريات. — أول صورة… فتاة تبتسم للكاميرا… في شرفة. باريس خلفها.
+              السماء رمادية… لكن عينيها تلمعان. "كنت دائما تقول… إن باريس
+              تشبهك." قالت بهدوء. "هادئة… لكنها تخفي الكثير." — زاكي لمس الصورة.
+              شعر بشيء. خفيف… لكنه موجود. — "كنت تحب أن تراني هناك… حتى لو لم
+              نكن معا." — صورة أخرى. كوب. عصير أخضر. — "أفوكادو." قال دون تفكير.
+              تجمدت. "تتذكر؟" هز رأسه ببطء. "لا… لكن… أشعر به." ابتسمت. "كنت
+              تقول إن هذا الطعم… يشبه الهدوء." — "أنا شاعر واضح." صوت أبو علال
+              ظهر… مبتسما. — زاكي أكمل. رسالة. بخط يده. قرأ بصوت منخفض: "إيموش…
+              إذا ضعت يوما… ابحثي عني في الأشياء الصغيرة… لأنني أختبئ فيها."
+              توقف. قلبه… انقبض. — نظر إليها. "أنا كتبت هذا؟" — هزت رأسها.
+              "وأكثر من ذلك." — أخرجت ورقة أخرى. قديمة. ممزقة قليلا. — "هذه… أهم
+              شيء." — أخذها. فتحها. — كانت رسالة. طويلة. لكن سطرا واحدا… جذب
+              عينيه: "أنا أحبك… لكنني أخاف أن أصبح السبب في كسر قلبك… لذلك… ربما
+              أفضل أن أختفي." — 💔 — زاكي لم يكمل. لم يستطع. — "كنت تحبني…" همست
+              إيمان. "لكن كل مرة نقترب… كنت تبتعد." — نظر إليها. "لأنني كنت
+              أعرف… من أنا." — أغمض عينيه. — "كنت تخاف أن تؤذيني… حتى قبل أن
+              تفعل." — دموعها نزلت. "لكنني… لم أكن خائفة." — اقتربت. "كنت أريدك…
+              بكل ما فيك." — ❤️ — الصمت تغير. أصبح أثقل… وأصدق. — زاكي رفع رأسه.
+              نظر إليها. "هل… تقابلنا؟" — ابتسمت بحزن. "مرة واحدة فقط." — "أين؟"
+              — "في وهران." — رمش. صورة… بحر… هواء… ضحكة… — اختفت. لكن الألم…
+              بقي. — "كنت ترتدي قميص برشلونة…" ضحكت بخفة وسط دموعها. "وكان شعرك
+              فوضويا." — ابتسم. دون أن يشعر. — "وقلت لي…" اقتربت. "أنا لا أحتاج
+              أن أكون بطلا خارقا… يكفيني أن أكون معك." — "أكيد أنا." صوت أبو
+              علال. — زاكي تنهد. "وأنا… محوت كل هذا." — "نعم." — "لماذا؟" — صمت.
+              طويل. — ثم قالت: "لأنك اكتشفت شيئا… أكبر من حبنا." — نظر إليها. —
+              "شيئا… قد يدمرني." —  — زاكي تجمد. — "ما هو؟" — إيمان لم تجب.
+              فقط… نظرت إليه. — "هل تريد أن تعرف؟" — سؤال. خطير. — "إذا عرفت…"
+              أكملت. "لن تبقى كما أنت." — الصمت. — داخل زاكي… الأصوات عادت. —
+              "نحتاج الحقيقة." الصوت التحليلي. "لكن ممكن نخسرها." صوت آخر. "أنا
+              ما أبغى تزعل." الصوت المرح… هذه المرة… حزين. — زاكي نظر إليها.
+              بعمق. — "إيموش…" همس. — توقفت أنفاسها. — "لو عرفت كل شيء…" سكت. —
+              "هل سأفقدك؟" — دمعة سقطت. — "نعم." — 💔 — الصمت… تحطم. — زاكي لم
+              يتحرك. لم يصرخ. لم يغضب. — فقط… نظر إليها. — ثم قال: "إذن…" توقف.
+              — "أنا وقعت في حبك مرتين." — ❤️ — إيمان أغمضت عينيها. — دموعها… لم
+              تتوقف. — "وهذه المرة…" أكمل. — "أخاف أن تكون الأخيرة." — — وإليك
+              يا إيمان… نعم… أنت… هل تشعرين بهذا الثقل في صدرك الآن؟ هذا الصراع
+              بين أن تريه الحقيقة… أو تحتفظي به؟ هل الحب… هو أن تقولي كل شيء؟ أم
+              أن تحميه… حتى من الحقيقة؟ — زاكي أغلق الصندوق. — نهض. — نظر نحو
+              النافذة. — "أريد أن أعرف." — الصمت. — إيمان لم تتحرك. — ثم… همست:
+              "إذن… استعد." — لأن ما سيأتي… لن يرحم أحدا.
+            </p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(6)">
+              ➤ الفصل السادس
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+            <button class="nav-btn" onclick="goToChapter(8)">
+              الفصل الثامن ➤
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- الفصل الثامن -->
+      <div id="chapter-8" class="chapter-page">
+        <div class="chapter-container glow-effect">
+          <div class="chapter-header">
+            <div class="chapter-number">الفصل الثامن</div>
+            <h2 class="chapter-title">القرار الأخير: أن تتذكر أو أن تعيش</h2>
+          </div>
+          <div class="chapter-content">
+            <p>
+              الهدوء لم يدم طويلاً. زاكي وقف أمام النافذة، يحدق في المدينة التي
+              امتدت أمامه، أضواءها تتلألأ كأنها تعرف كل أسراره. قلبه ينبض بسرعة،
+              لكنه ليس خوفاً فقط… كان شيء آخر… شعور بالغموض، بالحيرة،
+              بالمسؤولية. إيمان وقفت خلفه، صامتة. يديها ترتجفان، لكنها لم تلمس
+              يده، كأنها تخاف أن تتحرك، تخاف أن تُحدث فرقاً. "زاكي…" همست
+              أخيراً. "الآن… عليك أن تختار." اقترب منها، نظر في عينيها. "أختار
+              ماذا؟" سأل بهدوء، لكنه كان صوته مثقلاً بالأسئلة التي لا جواب لها.
+              ابتلعت نفسها قليلاً قبل أن ترد: "هل ستستعيد ذاكرتك كاملة… وتعرف
+              الحقيقة كلها… مهما كلفك ذلك؟ أم ستبقى كما أنت… شخصاً جديداً… تعيش
+              معي هنا، بعيداً عن كل ما قد يدمرك… أو يدمرنا؟" زاكي شعر بأن كل جزء
+              من داخله ينقسم، بين الرغبة في معرفة الحقيقة، وبين الرغبة في حماية
+              نفسها، وحماية إيمان. أصوات شخصياته الداخلية بدأت تتحدث، تتصارع،
+              تتجادل: "حميدة يقول: المعرفة قوة… عليك أن تعرف." "أبو علال يقول:
+              الحب… الحب أهم من أي حقيقة قاتلة." "زاكي اللص يضحك: هيا… لنسرق كل
+              هذه الأسرار ونحاول اللعب بها." "زاكي المضحك يقول: أوه… لا تقلق…
+              سأجعلها مضحكة على الأقل!" ابتسم زاكي داخلياً، لكنه شعر بثقل
+              القرار. إيمان اقتربت منه ببطء، وضعت يديها على كتفه. "إذا قررت
+              استعادة كل شيء… فستعرف أنني كنت أخاف منك، أخاف منك… لأنك كنت ستصبح
+              شخصاً لم أستطع أن أحبّه." تردد. ثم همس بصوت منخفض، كأنه يهمس
+              لنفسه: "وأنا… كنت أخاف من أن أفقد نفسي… وأن أفقدك." صمتت لحظة. ثم
+              أخرجت شيئاً من حقيبتها: هاتفه القديم، الملف المخفي، الفيديو، كل
+              الذكريات. "كل شيء هنا… سيكون لك إذا اخترت." زاكي أخذ الهاتف.
+              أصابعه ترتجف، قلبه يكاد ينفجر. أضاءت الشاشة، وأعاد تشغيل الفيديو،
+              وصوت نسخته القديمة بدأ يملأ الغرفة. "إذا كنت تشاهد هذا… فهذا يعني
+              أن كل شيء نجح…" توقف. تنهد، ثم أغلق الهاتف فجأة. نظر إلى إيمان.
+              "لا أريد أن أعيش نسخة من نفسي… أريد أن أعيش هنا… معك… حتى لو لم
+              أعرف كل شيء." ابتسمت دموعها تنساب على وجنتيها. "إذن… هذا قرارك؟"
+              هز رأسه. "نعم… نعيش. الآن… فقط نعيش." اقترب منها، احتضنها، وشعر
+              بأن قلبه ينبض معها، ليس مع الذكريات، ليس مع الماضي… بل مع اللحظة
+              الحقيقية، مع الحب الحقيقي الذي وُلد مرتين، وعاد ليجد طريقه إليهم.
+              لكن… كان شيء في داخله يقول إن الحقيقة ستعود يوماً. والسؤال سيطرح
+              نفسه مجدداً: هل سيستعيد ذاكرته… ويخسرها؟ أم سيبقى كما هو… ويحبها
+              من البداية؟ الهواء البارد من النافذة دخلهما معاً، والأضواء في
+              المدينة تتلألأ، كأنها تعرف أن الحب الحقيقي، أحياناً، يبدأ بعد
+              الخطر… وبعد الألم… وبعد كل الأسرار المظلمة. زاكي نظرت إلى إيمان،
+              وقال بصوت هادئ لكنه ممتلئ بالإحساس: "إيموش… مهما حدث… سأحبك الآن…
+              من جديد." إيمان ابتسمت، وبصوت مرتجف لكنها مليء بالأمل قالت:
+              "وسأحبك أيضاً… مهما كانت الأيام القادمة… مهما كانت الحقيقة."
+              أخير خارج النافذة، بين أضواء المدينة، لم يكن كل شيء
+              آمناً… ظل رجل غامض يراقب، يبتسم ابتسامة باردة. شيء لم ينته بعد.
+              والقارئ… هنا، أنت تشاهد اللحظة الحاسمة: هل سيستعيد زاكي ذاكرته
+              ويخسر إيمان؟ أم يبقى كما هو… ليحبها من البداية، مع قلب جديد، وحب
+              جديد؟ النهاية مفتوحة… مؤثرة… وتتركك تتساءل: أين تكمن الشجاعة
+              الحقيقية؟ في معرفة الحقيقة… أم في اختيار العيش بالحب رغم المجهول؟
+              صمت… ولكن الحب ظل ينبض بينهما، قوياً… حتى مع كل الأسرار القادمة.
+            </p>
+            <p>النهاية… أم بداية؟</p>
+          </div>
+          <div class="navigation">
+            <button class="nav-btn" onclick="goToChapter(7)">
+              ➤ الفصل السابع
+            </button>
+            <button class="nav-btn home-btn" onclick="goToHome()">
+              🏠 الرئيسية
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول المحتويات -->
+    <div
+      id="tocModal"
+      class="toc-modal"
+      onclick="if (event.target === this) closeTOC();"
+    >
+      <div class="toc-content">
+        <button class="close-toc" onclick="closeTOC()">✕</button>
+        <h2 class="toc-title">📑 الفصول</h2>
+        <ul class="toc-list">
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToHome();
+                return false;
+              "
+              >🏠 الصفحة الرئيسية</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(1);
+                return false;
+              "
+              >الفصل الأول - الاستيقاظ على اسمٍ غريب</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(2);
+                return false;
+              "
+              >الفصل الثاني - ابتسامة تخفي شيئًا</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(3);
+                return false;
+              "
+              >الفصل الثالث - الرجل الذي لا يجب أن تتذكره</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(4);
+                return false;
+              "
+              >الفصل الرابع - رسالة من نفسه</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(5);
+                return false;
+              "
+              >الفصل الخامس - الهروب مع العدو</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(6);
+                return false;
+              "
+              >الفصل السادس - الحقيقة التي تكسر القلب</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(7);
+                return false;
+              "
+              >الفصل السابع - الحب الذي وُلد مرتين</a
+            >
+          </li>
+          <li class="toc-item">
+            <a
+              href="#"
+              class="toc-link"
+              onclick="
+                goToChapter(8);
+                return false;
+              "
+              >الفصل الثامن - القرار الأخير</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      // متغيرات عامة
+      let currentChapter = 0;
+      const totalChapters = 8;
+
+      // فتح/إغلاق جدول المحتويات
+      function openTableOfContents() {
+        document.getElementById("tocModal").style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeTOC() {
+        document.getElementById("tocModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      // الانتقال إلى فصل معين
+      function goToChapter(chapterNum) {
+        // إخفاء الصفحة الحالية
+        if (currentChapter === 0) {
+          document.getElementById("cover").classList.remove("active");
+        } else {
+          document
+            .getElementById(`chapter-${currentChapter}`)
+            .classList.remove("active");
+        }
+
+        // عرض الفصل الجديد
+        currentChapter = chapterNum;
+        document
+          .getElementById(`chapter-${chapterNum}`)
+          .classList.add("active");
+
+        // إغلاق جدول المحتويات
+        closeTOC();
+
+        // التمرير إلى الأعلى
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // الرجوع إلى الصفحة الرئيسية
+      function goToHome() {
+        if (currentChapter !== 0) {
+          document
+            .getElementById(`chapter-${currentChapter}`)
+            .classList.remove("active");
+        }
+
+        currentChapter = 0;
+        document.getElementById("cover").classList.add("active");
+        closeTOC();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // إغلاق جدول المحتويات عند الضغط على زر Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeTOC();
+        }
+      });
+
+      // تجنب انتشار الحدث عند الضغط داخل جدول المحتويات
+      document.querySelector(".toc-content").addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      // تحميل الصفحة الأولى
+      window.addEventListener("load", () => {
+        goToHome();
+      });
+    </script>
+  </body>
+</html>
