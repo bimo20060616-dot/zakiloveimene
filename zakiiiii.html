@@ -1,0 +1,2092 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <title>سرقة القلب — ملف القضية #١٤٣</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --cork: #1a1008;
+        --cork2: #221408;
+        --cork3: #2c1a0c;
+        --red: #8b1a12;
+        --red2: #c23a2e;
+        --red3: #5c100a;
+        --cream: #f5e8cc;
+        --paper: #ede0c0;
+        --paper2: #ddd0aa;
+        --aged: #c8b080;
+        --ink: #100804;
+        --inkf: #3a2810;
+        --gold: #b88820;
+        --gold2: #d4a838;
+        --amber: #a86808;
+        --shadow: rgba(0, 0, 0, 0.85);
+        --gred: rgba(140, 26, 18, 0.4);
+        --ggold: rgba(180, 136, 32, 0.38);
+        --myst: rgba(60, 20, 80, 0.3);
+        --deep: #0a0604;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--cork);
+        font-family: "Noto Naskh Arabic", serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+        direction: rtl;
+      }
+
+      /* ══ SMOKE OVERLAY ══ */
+      .smoke {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+        background:
+          radial-gradient(
+            ellipse 60% 40% at 20% 80%,
+            rgba(60, 20, 80, 0.12) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 50% 35% at 80% 20%,
+            rgba(140, 26, 18, 0.08) 0%,
+            transparent 55%
+          );
+        animation: smokeShift 18s ease-in-out infinite alternate;
+      }
+      @keyframes smokeShift {
+        0% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* ══ SPLASH ══ */
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: radial-gradient(
+          ellipse 120% 100% at 50% 0%,
+          #110806 0%,
+          #050302 60%,
+          #000 100%
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .spl-noise {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+      }
+      .spl-scan {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 0, 0, 0.05) 3px,
+          rgba(0, 0, 0, 0.05) 4px
+        );
+      }
+      .spl-vig {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+          ellipse 70% 65% at 50% 50%,
+          transparent 20%,
+          rgba(0, 0, 0, 0.97) 100%
+        );
+      }
+      /* Ornamental lines */
+      .spl-orn {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: rgba(180, 136, 32, 0.12);
+        font-size: clamp(60px, 15vw, 140px);
+        letter-spacing: 0.5em;
+        pointer-events: none;
+        font-family: "Amiri", serif;
+      }
+      .spl-orn.top {
+        top: -20px;
+      }
+      .spl-orn.bot {
+        bottom: -20px;
+      }
+
+      .spl-bureau {
+        font-family: "Reem Kufi", sans-serif;
+        color: var(--red3);
+        font-size: clamp(9px, 1.2vw, 12px);
+        letter-spacing: 6px;
+        opacity: 0;
+        transform: translateY(10px);
+        margin-bottom: 18px;
+        text-align: center;
+      }
+      .spl-wrap {
+        text-align: center;
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      .spl-the {
+        display: block;
+        font-family: "Amiri", serif;
+        font-style: italic;
+        font-size: clamp(18px, 3vw, 30px);
+        color: var(--aged);
+        letter-spacing: 6px;
+        margin-bottom: 4px;
+        opacity: 0.85;
+      }
+      .spl-love {
+        display: block;
+        font-family: "Cairo", sans-serif;
+        font-weight: 900;
+        font-size: clamp(44px, 10vw, 100px);
+        color: transparent;
+        letter-spacing: 4px;
+        background: linear-gradient(
+          135deg,
+          var(--red3) 0%,
+          var(--red2) 45%,
+          #e85040 70%,
+          var(--red) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-shadow: none;
+        filter: drop-shadow(0 0 35px rgba(180, 50, 40, 0.45));
+      }
+      .spl-title {
+        display: block;
+        font-family: "Cairo", sans-serif;
+        font-weight: 900;
+        font-size: clamp(70px, 16vw, 165px);
+        color: var(--cream);
+        letter-spacing: 6px;
+        line-height: 0.82;
+        text-shadow:
+          3px 3px 0 var(--red3),
+          6px 6px 0 rgba(80, 10, 6, 0.4),
+          0 0 100px rgba(140, 26, 18, 0.2);
+      }
+      .spl-divider {
+        width: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--red3),
+          rgba(180, 136, 32, 0.4),
+          var(--red3),
+          transparent
+        );
+        margin: 24px auto;
+        opacity: 0;
+      }
+      .spl-case {
+        font-family: "Amiri", serif;
+        color: var(--aged);
+        font-size: clamp(11px, 1.6vw, 14px);
+        letter-spacing: 3px;
+        opacity: 0;
+        transform: translateY(8px);
+        margin-bottom: 40px;
+        text-align: center;
+        font-style: italic;
+      }
+      .spl-stamp {
+        display: inline-block;
+        border: 2px solid var(--red3);
+        color: var(--red3);
+        font-family: "Cairo", sans-serif;
+        font-weight: 700;
+        font-size: clamp(11px, 1.8vw, 16px);
+        letter-spacing: 5px;
+        padding: 6px 20px;
+        transform: rotate(6deg) scale(0);
+        opacity: 0;
+        margin-bottom: 48px;
+        box-shadow:
+          0 0 30px var(--gred),
+          inset 0 0 12px rgba(140, 26, 18, 0.08);
+        position: relative;
+        cursor: pointer;
+        transition:
+          color 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+      .spl-stamp:hover {
+        color: var(--red2);
+        border-color: var(--red2);
+        box-shadow:
+          0 0 50px var(--gred),
+          inset 0 0 18px rgba(140, 26, 18, 0.15);
+      }
+      .spl-stamp::before,
+      .spl-stamp::after {
+        content: "";
+        position: absolute;
+        border: 1px dashed rgba(140, 26, 18, 0.25);
+        inset: 3px;
+        pointer-events: none;
+      }
+      .spl-btn {
+        background: transparent;
+        border: 1px solid rgba(240, 230, 200, 0.2);
+        color: var(--cream);
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        font-size: clamp(11px, 1.5vw, 13px);
+        letter-spacing: 4px;
+        padding: 14px 48px;
+        cursor: pointer;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.35s;
+        position: relative;
+        overflow: hidden;
+      }
+      .spl-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--red3), var(--red));
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 0;
+      }
+      .spl-btn:hover::before {
+        transform: scaleX(1);
+      }
+      .spl-btn span {
+        position: relative;
+        z-index: 1;
+      }
+      .spl-btn:hover {
+        border-color: var(--red);
+        box-shadow:
+          0 0 35px var(--gred),
+          0 0 60px rgba(140, 26, 18, 0.2);
+      }
+
+      /* ══ HUD ══ */
+      #hud {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        padding: 10px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(
+          180deg,
+          rgba(4, 2, 1, 0.97) 0%,
+          transparent 100%
+        );
+        pointer-events: none;
+        opacity: 0;
+      }
+      .hud-l {
+        font-family: "Cairo", sans-serif;
+        font-weight: 700;
+        color: var(--red3);
+        font-size: 11px;
+        letter-spacing: 4px;
+      }
+      .hud-c {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-direction: row-reverse;
+      }
+      .hud-lbl {
+        font-family: "Amiri", serif;
+        color: var(--aged);
+        font-size: 11px;
+        letter-spacing: 2px;
+      }
+      .hud-track {
+        width: 130px;
+        height: 2px;
+        background: rgba(140, 26, 18, 0.18);
+        border-radius: 1px;
+      }
+      .hud-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--red3), var(--red2));
+        width: 0%;
+        transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 1px;
+        box-shadow: 0 0 10px var(--red);
+      }
+      .hud-dots {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        flex-direction: row-reverse;
+      }
+      .hud-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        border: 1px solid var(--red3);
+        transition: all 0.4s;
+      }
+      .hud-dot.lit {
+        background: var(--red);
+        border-color: var(--red);
+        box-shadow: 0 0 6px var(--red);
+      }
+      .hud-r {
+        font-family: "Cairo", sans-serif;
+        font-weight: 700;
+        color: var(--aged);
+        font-size: 11px;
+        letter-spacing: 3px;
+      }
+
+      /* ══ BOARD ══ */
+      #board-outer {
+        position: relative;
+        min-height: 100vh;
+        opacity: 0;
+      }
+      #board {
+        position: relative;
+        min-height: 100vh;
+        padding: 96px 4vw 180px;
+        background-color: var(--cork2);
+        background-image:
+          radial-gradient(
+            ellipse 100% 60% at 15% 20%,
+            rgba(60, 20, 80, 0.12) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 90% 80% at 85% 70%,
+            rgba(30, 10, 5, 0.5) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse 60% 50% at 50% 45%,
+            rgba(140, 26, 18, 0.05) 0%,
+            transparent 60%
+          ),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9'%3E%3Crect width='9' height='9' fill='%23221408'/%3E%3Cellipse cx='2' cy='2' rx='1.2' ry='.7' fill='%231a1006' opacity='.55'/%3E%3Cellipse cx='7' cy='5' rx='1' ry='.7' fill='%232e1a08' opacity='.4'/%3E%3Cellipse cx='4.5' cy='4' rx='.7' ry='1.1' fill='%230e0804' opacity='.5'/%3E%3C/svg%3E");
+        overflow: hidden;
+      }
+      #board::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 120% 120% at 50% 50%,
+          transparent 20%,
+          rgba(0, 0, 0, 0.6) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ══ HEADER ══ */
+      .bh {
+        text-align: center;
+        margin-bottom: 70px;
+        position: relative;
+        z-index: 10;
+        opacity: 0;
+      }
+      .bh-ornament {
+        font-family: "Amiri", serif;
+        color: rgba(140, 26, 18, 0.22);
+        font-size: clamp(20px, 3vw, 32px);
+        letter-spacing: 0.3em;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .bh-pre {
+        font-family: "Reem Kufi", sans-serif;
+        color: var(--red3);
+        font-size: clamp(9px, 1.2vw, 11px);
+        letter-spacing: 6px;
+        margin-bottom: 8px;
+        opacity: 0.8;
+      }
+      .bh-title {
+        font-family: "Cairo", sans-serif;
+        font-weight: 900;
+        font-size: clamp(40px, 8vw, 100px);
+        color: var(--cream);
+        letter-spacing: 4px;
+        line-height: 0.88;
+        text-shadow:
+          2px 2px 0 var(--red3),
+          5px 5px 0 rgba(60, 10, 5, 0.5),
+          0 0 80px rgba(140, 26, 18, 0.15);
+        margin-bottom: 8px;
+      }
+      .bh-title .lv {
+        color: transparent;
+        background: linear-gradient(
+          135deg,
+          var(--red) 0%,
+          var(--red2) 60%,
+          #d44030 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        filter: drop-shadow(0 0 20px rgba(180, 50, 40, 0.4));
+      }
+      .bh-sub {
+        font-family: "Amiri", serif;
+        font-style: italic;
+        color: var(--aged);
+        font-size: clamp(12px, 1.6vw, 15px);
+        letter-spacing: 2px;
+        opacity: 0.75;
+        margin-bottom: 4px;
+      }
+      .bh-case {
+        font-family: "Noto Naskh Arabic", serif;
+        color: var(--red3);
+        font-size: 10px;
+        letter-spacing: 3px;
+        opacity: 0.55;
+        margin-top: 6px;
+      }
+      /* Decorative horizontal rule */
+      .bh-rule {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+        margin: 14px 0;
+      }
+      .bh-rule-line {
+        flex: 1;
+        max-width: 120px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(140, 26, 18, 0.4),
+          transparent
+        );
+      }
+      .bh-rule-glyph {
+        font-family: "Amiri", serif;
+        color: rgba(180, 136, 32, 0.35);
+        font-size: 18px;
+      }
+
+      /* ══ SVG THREADS ══ */
+      #tsvg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        pointer-events: none;
+        z-index: 4;
+        overflow: visible;
+      }
+      .th {
+        fill: none;
+        stroke: var(--red3);
+        stroke-width: 1.2;
+        stroke-linecap: round;
+        stroke-dasharray: 3000;
+        stroke-dashoffset: 3000;
+        opacity: 0.6;
+        transition:
+          stroke 0.3s,
+          stroke-width 0.3s,
+          opacity 0.3s,
+          filter 0.3s;
+        cursor: pointer;
+        pointer-events: stroke;
+        filter: drop-shadow(0 0 2px rgba(140, 26, 18, 0.25));
+      }
+      .th:hover {
+        stroke: var(--red2);
+        stroke-width: 2.5;
+        opacity: 1;
+        filter: drop-shadow(0 0 10px rgba(200, 60, 50, 0.8));
+      }
+      .th.read {
+        stroke: rgba(100, 50, 40, 0.2);
+        stroke-width: 0.8;
+        opacity: 0.2;
+        filter: none;
+        cursor: default;
+      }
+
+      /* ══ EVIDENCE GRID ══ */
+      #egrid {
+        position: relative;
+        z-index: 10;
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 50px 30px;
+      }
+
+      /* ══ PIN ══ */
+      .pin-w {
+        position: absolute;
+        top: -24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 30;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .pin-h {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 33% 30%,
+          #fcec98,
+          var(--gold) 50%,
+          #5a3c06 90%
+        );
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.7),
+          0 0 12px var(--ggold),
+          inset 0 1px 2px rgba(255, 255, 200, 0.45);
+        transition: box-shadow 0.3s;
+      }
+      .pin-s {
+        width: 2px;
+        height: 24px;
+        background: linear-gradient(180deg, #c09018 0%, #3e2806 100%);
+        border-radius: 0 0 2px 2px;
+        box-shadow: 1px 0 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* ══ ITEM BASE ══ */
+      .ei {
+        position: relative;
+        opacity: 0;
+        transform: translateY(30px) rotate(var(--r, 0deg));
+        cursor: pointer;
+        transition: z-index 0s;
+      }
+      .ei:hover {
+        z-index: 20;
+      }
+      .ei:hover .pin-h {
+        box-shadow:
+          0 2px 10px rgba(0, 0, 0, 0.9),
+          0 0 22px var(--ggold),
+          inset 0 1px 2px rgba(255, 255, 200, 0.5);
+      }
+      .unread {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 8px var(--red);
+        z-index: 25;
+        animation: pring 2.2s ease-in-out infinite;
+      }
+      @keyframes pring {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(140, 26, 18, 0.8);
+        }
+        50% {
+          opacity: 0.55;
+          transform: scale(1.2);
+          box-shadow: 0 0 0 7px rgba(140, 26, 18, 0);
+        }
+      }
+
+      /* ══ PHOTO CARD ══ */
+      .pc {
+        background: linear-gradient(
+          145deg,
+          var(--paper) 0%,
+          var(--paper2) 100%
+        );
+        padding: 10px 10px 36px;
+        box-shadow:
+          5px 7px 28px var(--shadow),
+          inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.42s;
+        position: relative;
+      }
+      .pc::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          transparent 50%
+        );
+        pointer-events: none;
+      }
+      /* aged corners */
+      .pc::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(
+          135deg,
+          transparent 50%,
+          rgba(0, 0, 0, 0.12) 50%
+        );
+        pointer-events: none;
+      }
+      .ei:hover .pc {
+        transform: rotate(0deg) scale(1.08) translateY(-6px) !important;
+        box-shadow:
+          10px 18px 55px var(--shadow),
+          0 0 28px var(--gred);
+      }
+      .pf {
+        width: 100%;
+        aspect-ratio: 1/1.08;
+        overflow: hidden;
+        position: relative;
+        background: #100806;
+      }
+      .pe {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(42px, 7vw, 72px);
+        background: linear-gradient(145deg, #180c06 0%, #080402 100%);
+        transition: filter 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+      }
+      .pe.locked {
+        filter: blur(8px) brightness(0.3) saturate(0.3);
+      }
+      .pe.unlocked {
+        filter: blur(0) brightness(1) saturate(1);
+      }
+      .ei:hover .pe.locked {
+        filter: blur(6px) brightness(0.45) saturate(0.4);
+      }
+      .pcap {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px 8px;
+        font-family: "Amiri", serif;
+        font-size: clamp(9px, 1.1vw, 11px);
+        color: var(--inkf);
+        text-align: center;
+        letter-spacing: 1.5px;
+        background: linear-gradient(
+          0deg,
+          rgba(180, 155, 110, 0.2) 0%,
+          transparent
+        );
+      }
+
+      /* tape strips */
+      .tape {
+        position: absolute;
+        background: rgba(255, 243, 175, 0.16);
+        border: 1px solid rgba(255, 243, 175, 0.08);
+        pointer-events: none;
+        z-index: 25;
+      }
+      .tape-h {
+        width: 72px;
+        height: 20px;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .tape-c {
+        width: 48px;
+        height: 15px;
+        top: -7px;
+        left: 14px;
+        transform: rotate(-11deg);
+      }
+      .tape-l {
+        width: 44px;
+        height: 14px;
+        bottom: -7px;
+        right: 12px;
+        transform: rotate(7deg);
+      }
+
+      /* ══ NOTE CARD ══ */
+      .nc {
+        background: linear-gradient(160deg, var(--paper) 0%, #e8d8b8 100%);
+        padding: 22px 18px 20px;
+        box-shadow: 5px 7px 28px var(--shadow);
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.42s;
+        min-height: 150px;
+      }
+      .nc::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 28px;
+        background: linear-gradient(
+          180deg,
+          rgba(140, 26, 18, 0.12) 0%,
+          rgba(140, 26, 18, 0.03) 100%
+        );
+        border-bottom: 1px solid rgba(140, 26, 18, 0.1);
+      }
+      .nc::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 24px,
+          rgba(160, 130, 80, 0.08) 24px,
+          rgba(160, 130, 80, 0.08) 25px
+        );
+        pointer-events: none;
+        top: 28px;
+      }
+      /* aged left edge */
+      .nc-edge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(
+          180deg,
+          rgba(140, 26, 18, 0.06) 0%,
+          rgba(80, 40, 20, 0.12) 50%,
+          rgba(140, 26, 18, 0.06) 100%
+        );
+      }
+      .ei:hover .nc {
+        transform: rotate(0deg) scale(1.07) translateY(-5px) !important;
+        box-shadow:
+          10px 18px 55px var(--shadow),
+          0 0 28px var(--gred);
+      }
+      .ns {
+        font-family: "Reem Kufi", sans-serif;
+        font-weight: 600;
+        color: var(--red);
+        font-size: clamp(11px, 1.6vw, 13px);
+        letter-spacing: 2px;
+        margin-top: 14px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 2;
+        text-align: right;
+      }
+      .nb {
+        font-family: "Noto Naskh Arabic", serif;
+        font-size: clamp(11px, 1.4vw, 13px);
+        line-height: 2;
+        color: var(--inkf);
+        position: relative;
+        z-index: 2;
+        transition: filter 0.9s;
+        text-align: right;
+      }
+      .nb.locked {
+        filter: blur(4.5px);
+        user-select: none;
+      }
+      .nb.unlocked {
+        filter: none;
+      }
+
+      .wide {
+        grid-column: span 2;
+      }
+      .long-nc {
+        min-height: 220px;
+      }
+
+      /* ══ FINAL REVEAL ══ */
+      #final-reveal {
+        grid-column: 1/-1;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(50px);
+        transition:
+          opacity 1s,
+          transform 1s;
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+      }
+      #final-reveal.visible {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .vc {
+        background: radial-gradient(
+          ellipse 100% 100% at 50% 0%,
+          #0e0806 0%,
+          #050302 100%
+        );
+        border: 1px solid rgba(140, 26, 18, 0.35);
+        max-width: 680px;
+        width: 100%;
+        padding: 56px 60px;
+        text-align: center;
+        position: relative;
+        box-shadow:
+          0 0 0 1px rgba(140, 26, 18, 0.06),
+          0 0 80px rgba(140, 26, 18, 0.12),
+          0 35px 100px rgba(0, 0, 0, 0.85),
+          inset 0 0 80px rgba(140, 26, 18, 0.04);
+      }
+      .vc::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        background: linear-gradient(
+          135deg,
+          rgba(140, 26, 18, 0.15),
+          transparent 40%,
+          transparent 60%,
+          rgba(140, 26, 18, 0.08)
+        );
+        pointer-events: none;
+      }
+      /* ornamental corner */
+      .vc-corner {
+        position: absolute;
+        font-family: "Amiri", serif;
+        color: rgba(140, 26, 18, 0.18);
+        font-size: 22px;
+        line-height: 1;
+      }
+      .vc-corner.tl {
+        top: 10px;
+        right: 14px;
+      }
+      .vc-corner.tr {
+        top: 10px;
+        left: 14px;
+      }
+      .vc-corner.bl {
+        bottom: 10px;
+        right: 14px;
+        transform: scaleY(-1);
+      }
+      .vc-corner.br {
+        bottom: 10px;
+        left: 14px;
+        transform: scaleY(-1);
+      }
+      .vc-eye {
+        font-family: "Reem Kufi", sans-serif;
+        color: var(--red3);
+        font-size: 10px;
+        letter-spacing: 5px;
+        display: block;
+        margin-bottom: 16px;
+        opacity: 0.8;
+      }
+      .vc-heart {
+        font-size: 76px;
+        display: block;
+        margin: 0 auto 16px;
+        animation: hb 2.2s ease-in-out infinite;
+      }
+      @keyframes hb {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.22);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.14);
+        }
+        60% {
+          transform: scale(1);
+        }
+      }
+      .vc-name {
+        font-family: "Cairo", sans-serif;
+        font-weight: 900;
+        font-size: clamp(38px, 6vw, 62px);
+        color: var(--cream);
+        letter-spacing: 4px;
+        margin-bottom: 6px;
+      }
+      .vc-crime {
+        font-family: "Amiri", serif;
+        font-style: italic;
+        color: var(--amber);
+        font-size: clamp(15px, 2.2vw, 20px);
+      }
+      .vc-div {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(140, 26, 18, 0.35),
+          rgba(180, 136, 32, 0.2),
+          rgba(140, 26, 18, 0.35),
+          transparent
+        );
+        margin: 24px 0;
+      }
+      .vc-story {
+        font-family: "Noto Naskh Arabic", serif;
+        color: rgba(200, 180, 145, 0.7);
+        font-size: clamp(13px, 1.5vw, 15px);
+        line-height: 2.1;
+        text-align: right;
+      }
+      .vc-story strong {
+        color: var(--red2);
+      }
+      .vc-story em {
+        color: var(--gold);
+        font-style: italic;
+      }
+      .vc-ruling {
+        font-family: "Cairo", sans-serif;
+        font-weight: 900;
+        color: var(--cream);
+        font-size: clamp(15px, 2.5vw, 22px);
+        letter-spacing: 3px;
+        margin-top: 28px;
+        display: block;
+        text-shadow: 0 0 30px var(--gred);
+      }
+      .eg-btn {
+        margin-top: 28px;
+        display: inline-block;
+        background: transparent;
+        border: 1px solid rgba(180, 136, 32, 0.3);
+        color: var(--gold);
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        font-size: clamp(11px, 1.4vw, 13px);
+        letter-spacing: 3px;
+        padding: 12px 30px;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.35s;
+      }
+      .eg-btn:hover {
+        background: rgba(180, 136, 32, 0.08);
+        border-color: var(--gold);
+        box-shadow: 0 0 24px var(--ggold);
+        color: var(--gold2);
+      }
+
+      /* ══ POPUP ══ */
+      #pbg {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        z-index: 800;
+        opacity: 0;
+        pointer-events: none;
+        backdrop-filter: blur(6px);
+        transition: opacity 0.35s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #pbg.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .pcard {
+        background: linear-gradient(
+          155deg,
+          var(--paper) 0%,
+          var(--paper2) 100%
+        );
+        max-width: 520px;
+        width: 94%;
+        position: relative;
+        box-shadow: 0 35px 120px rgba(0, 0, 0, 0.92);
+        transform: scale(0.85) translateY(26px) rotate(1.5deg);
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+      }
+      #pbg.open .pcard {
+        transform: scale(1) translateY(0) rotate(0deg);
+      }
+      /* aged paper texture on popup */
+      .pcard::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1;
+      }
+      .phdr {
+        background: var(--ink);
+        padding: 15px 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row-reverse;
+      }
+      .petag {
+        font-family: "Reem Kufi", sans-serif;
+        color: var(--red);
+        font-size: 11px;
+        letter-spacing: 4px;
+      }
+      .pdot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--red3);
+        flex-shrink: 0;
+      }
+      .pex {
+        font-family: "Cairo", sans-serif;
+        color: rgba(200, 180, 145, 0.45);
+        font-size: 10px;
+        letter-spacing: 2px;
+        margin-right: auto;
+      }
+      .pbody {
+        padding: 28px 30px 22px;
+        background: transparent;
+        position: relative;
+        z-index: 2;
+      }
+      .pbody::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--red3),
+          var(--red2),
+          rgba(180, 136, 32, 0.3),
+          var(--red2),
+          var(--red3)
+        );
+      }
+      .pico {
+        font-size: 40px;
+        display: block;
+        margin-bottom: 12px;
+        line-height: 1;
+      }
+      .ptitle {
+        font-family: "Cairo", sans-serif;
+        font-weight: 700;
+        color: var(--ink);
+        font-size: clamp(16px, 2.6vw, 23px);
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+        line-height: 1.2;
+        text-align: right;
+      }
+      .ptext {
+        font-family: "Noto Naskh Arabic", serif;
+        color: var(--inkf);
+        font-size: clamp(12px, 1.6vw, 14px);
+        line-height: 2;
+        min-height: 70px;
+        text-align: right;
+        direction: rtl;
+      }
+      .ptext::after {
+        content: "▌";
+        animation: bl 0.75s step-end infinite;
+        color: var(--red);
+        font-size: 11px;
+      }
+      @keyframes bl {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .pfoot {
+        padding: 12px 30px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(0, 0, 0, 0.07);
+        flex-direction: row-reverse;
+      }
+      .pnote {
+        font-family: "Amiri", serif;
+        color: rgba(80, 60, 30, 0.5);
+        font-size: 12px;
+        font-style: italic;
+      }
+      .pclose {
+        background: none;
+        border: none;
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        color: var(--red);
+        font-size: 11px;
+        letter-spacing: 3px;
+        cursor: pointer;
+        padding: 5px 0;
+        transition: color 0.22s;
+      }
+      .pclose:hover {
+        color: var(--red2);
+      }
+
+      /* ══ EASTER EGG ══ */
+      #emod {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.45s;
+        backdrop-filter: blur(14px);
+      }
+      #emod.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .ein {
+        max-width: 560px;
+        width: 92%;
+        background: radial-gradient(
+          ellipse 100% 100% at 50% 0%,
+          #100806 0%,
+          #060302 100%
+        );
+        border: 1px solid rgba(140, 26, 18, 0.38);
+        padding: 54px 48px;
+        text-align: center;
+        box-shadow:
+          0 0 150px rgba(140, 26, 18, 0.15),
+          0 35px 90px rgba(0, 0, 0, 0.9);
+        transform: scale(0.88);
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+      }
+      .ein::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 28px,
+          rgba(140, 26, 18, 0.02) 28px,
+          rgba(140, 26, 18, 0.02) 29px
+        );
+      }
+      #emod.open .ein {
+        transform: scale(1);
+      }
+      .etitle {
+        font-family: "Amiri", serif;
+        font-style: italic;
+        color: var(--cream);
+        font-size: clamp(26px, 4.5vw, 42px);
+        margin-bottom: 6px;
+        line-height: 1.25;
+      }
+      .etitle span {
+        color: var(--red2);
+      }
+      .etitle-sub {
+        font-family: "Reem Kufi", sans-serif;
+        color: var(--red3);
+        font-size: 10px;
+        letter-spacing: 6px;
+        display: block;
+        margin-bottom: 18px;
+      }
+      .ehearts {
+        font-size: 26px;
+        letter-spacing: 12px;
+        display: block;
+        margin: 14px 0;
+      }
+      .emsg {
+        font-family: "Noto Naskh Arabic", serif;
+        color: var(--aged);
+        font-size: clamp(13px, 1.8vw, 15px);
+        line-height: 2.05;
+        margin-bottom: 28px;
+        text-align: right;
+        direction: rtl;
+        white-space: pre-wrap;
+        position: relative;
+        z-index: 2;
+      }
+      .ecls {
+        background: none;
+        border: 1px solid rgba(140, 26, 18, 0.32);
+        color: var(--red3);
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 4px;
+        padding: 10px 28px;
+        cursor: pointer;
+        transition: all 0.32s;
+        text-transform: uppercase;
+      }
+      .ecls:hover {
+        border-color: var(--red);
+        color: var(--red);
+        box-shadow: 0 0 22px var(--gred);
+      }
+
+      /* ══ PARTICLES ══ */
+      .fp {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        animation: fup linear forwards;
+      }
+      @keyframes fup {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(1);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(-115vh) rotate(var(--sp, 360deg)) scale(0.3);
+          opacity: 0;
+        }
+      }
+      .dust {
+        position: fixed;
+        border-radius: 50%;
+        background: rgba(200, 160, 80, 0.18);
+        pointer-events: none;
+        z-index: 2;
+        animation: dd linear infinite;
+      }
+      @keyframes dd {
+        0% {
+          transform: translateY(100vh) translateX(0) scale(0);
+          opacity: 0;
+        }
+        5% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        95% {
+          opacity: 0.2;
+        }
+        100% {
+          transform: translateY(-10vh) translateX(calc(var(--dx, 40) * 1px))
+            scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      /* ══ RESPONSIVE ══ */
+      @media (max-width: 1050px) {
+        #egrid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .wide {
+          grid-column: span 2;
+        }
+      }
+      @media (max-width: 700px) {
+        #egrid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 28px 16px;
+        }
+        .wide {
+          grid-column: span 2;
+        }
+        .vc {
+          padding: 30px 22px;
+        }
+        .pbody {
+          padding: 20px 20px 16px;
+        }
+        .pfoot {
+          padding: 10px 20px 16px;
+        }
+      }
+      @media (max-width: 440px) {
+        #egrid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .wide {
+          grid-column: 1/-1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="smoke"></div>
+
+    <!-- SPLASH -->
+    <div id="splash">
+      <div class="spl-noise"></div>
+      <div class="spl-scan"></div>
+      <div class="spl-vig"></div>
+      <div class="spl-orn top">❧</div>
+      <div class="spl-orn bot">❧</div>
+
+      <div class="spl-bureau" id="sp0">
+        سري للغاية · مكتب القلوب المسروقة · قسم التحقيقات
+      </div>
+      <div class="spl-wrap" id="sp1">
+        <span class="spl-the">قضية</span>
+        <span class="spl-love">سرقة</span>
+        <span class="spl-title">القلب</span>
+      </div>
+      <div class="spl-divider" id="sp2"></div>
+      <div class="spl-case" id="sp3">
+        ملف رقم ١٤٣ · عملية القلب المكسور · الحالة: جارية التحقيق
+      </div>
+      <div class="spl-stamp" id="sp4" onclick="enter()" title="افتح ملف القضية">
+        سري للغاية
+      </div>
+      <button class="spl-btn" id="sp5" onclick="enter()">
+        <span>◀ افتح ملف القضية</span>
+      </button>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud">
+      <span class="hud-r" id="hstat">مفتوحة</span>
+      <div class="hud-c">
+        <div class="hud-dots" id="hdots"></div>
+        <div class="hud-track"><div class="hud-fill" id="hfill"></div></div>
+        <span class="hud-lbl">الأدلة</span>
+      </div>
+      <span class="hud-l">القضية #١٤٣</span>
+    </div>
+
+    <!-- BOARD -->
+    <div id="board-outer">
+      <div id="board">
+        <svg id="tsvg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <div class="bh" id="bh">
+          <div class="bh-ornament">✦ ✧ ✦</div>
+          <div class="bh-pre">
+            مكتب القلوب المسروقة · قسم التحقيقات السرية · محظور على غير المصرح
+            لهم
+          </div>
+          <div class="bh-title">سرقة <span class="lv">القلب</span></div>
+          <div class="bh-rule">
+            <div class="bh-rule-line"></div>
+            <div class="bh-rule-glyph">✦</div>
+            <div class="bh-rule-line"></div>
+          </div>
+          <div class="bh-sub">تابعي الخيوط · اقرأي الأدلة · اكشفي الجاني</div>
+          <div class="bh-case">
+            عملية القلب المخطوف · القضية #١٤٣ · للمحققين فقط
+          </div>
+        </div>
+
+        <div id="egrid"></div>
+      </div>
+    </div>
+
+    <!-- POPUP -->
+    <div id="pbg">
+      <div class="pcard">
+        <div class="phdr">
+          <span id="pex">الدليل أ</span>
+          <div class="pdot"></div>
+          <span class="petag">ملف الأدلة</span>
+        </div>
+        <div class="pbody">
+          <span class="pico" id="pico"></span>
+          <div class="ptitle" id="ptitle"></div>
+          <div class="ptext" id="ptext"></div>
+        </div>
+        <div class="pfoot">
+          <button class="pclose" onclick="closePopup()">[ إغلاق الملف ]</button>
+          <span class="pnote" id="pnote"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EASTER EGG -->
+    <div id="emod">
+      <div class="ein">
+        <div class="etitle">الاعتراف <span>الكامل</span></div>
+        <span class="etitle-sub">وثيقة سرية · مختومة بالشمع الأحمر</span>
+        <span class="ehearts">💌 ❤️ 💌</span>
+        <div class="emsg" id="emsg"></div>
+        <span class="ehearts">✨ 💕 ✨</span>
+        <button class="ecls" onclick="closeEaster()">اختم الملف</button>
+      </div>
+    </div>
+
+    <script>
+      /* ══════════════════════════════════════════
+   بيانات الأدلة — ١٢ عنصراً
+   الشفرات: المشتبه به ز (زكي) · العميلة إ (إيمان)
+══════════════════════════════════════════ */
+      const EV = [
+        /* 0 */
+        {
+          type: "photo",
+          emoji: "🕵️",
+          label: "الدليل أ — أول رصد",
+          exhibit: "الدليل أ",
+          icon: "🕵️",
+          title: "أول مشاهدة — المشتبه به ز",
+          text: `تبدأ القضية هنا. رُصد المشتبه به (ز) في [التاريخ:تم التلاعب بالادلة من بينهم التواريخ] بمكان ادّعى كلا الطرفين أنه زاره "صدفةً". المحققون يجدون هذا مريباً. في  90% من قضايا سرقة القلب الموثقة، كانت اللقاءات الأولى المصنّفة صدفةً تتضمن خطوةَ افتتاح متعمدة. رُصد المشتبه به (ز) وهو يبتسم — بشكل غير ضروري يُلاحظ المحققون — في اتجاه العميلة (إ). لم يُؤكد أي نية إجرامية مباشرة. غير أن الساعة قد بدأت في العدّ. ولا شيء سيعود كما كان.`,
+          rotate: "-2.5deg",
+          wide: false,
+        },
+        /* 1 */
+        {
+          type: "note",
+          stamp: "شهادة شاهد عيان — التقرير ٠١",
+          exhibit: "الدليل ب",
+          icon: "📋",
+          title: "إفادة الشاهدة اية",
+          text: `"رأيتهما. كان يوم ثلاثاء عادياً. قالت العميلة (إ) شيئاً — لم أسمعه جيداً — فضحك المشتبه به (ز) كما لو أنها قالت أجمل ما نطق به لسان بشري. ثم ردّ عليها بشيء، فضحكت هي بنفس الطريقة. كانا في فقاعة منفصلة عن العالم. غادرت. عدت بعد أربعين دقيقة. لم يتحركا. لا تزال الفقاعة قائمة." — شاهد مجهول.`,
+          rotate: "2deg",
+          wide: false,
+        },
+        /* 2 */
+        {
+          type: "photo",
+          emoji: "📱",
+          label: "الدليل ج — أدلة رقمية",
+          exhibit: "الدليل ج",
+          icon: "📱",
+          title: "سجل الرسائل — مشفّر",
+          text: `سجلات الاتصالات المستخرجة بموجب أمر القضية رقم ١٤٣ تكشف نمطاً من التصاعد الرقمي المتسارع. اليوم الأول: رسالة واحدة. اليوم الثالث: إحدى عشرة رسالة. اليوم السابع: رسالة صوتية وصفها قسم النسخ بـ"اثنتين وأربعين ثانية من الضحك على شيء لم يكن بهذا الإضحاك على الأرجح". بحلول اليوم الرابع عشر، طوّر الطرفان لغة خاصة مصنوعة من إشارات داخلية لا يفهمها أحد سواهما. هذا تسلل كلاسيكي. سلس. خطير.`,
+          rotate: "-1deg",
+          wide: false,
+        },
+        /* 3 */
+        {
+          type: "note",
+          stamp: "ملف نفسي — العميلة إيمان",
+          exhibit: "الدليل د",
+          icon: "🧠",
+          title: "الملف: المهندسة",
+          text: `تُصنَّف العميلة (إ) عميلةً من الفئة الأولى في الذكاء العاطفي. أسلوبها: لا تُعلن نواياها. لا تؤدي دوراً. هي فقط تُلاحظ — بهدوء مُخيف — حتى تعرف عنك أشياء لم تحدّث بها أحداً. الزاوية التي تُفضّلها في الغرفة. الشيء الذي يُصمتك. النكتة التي تضحك عليها حين تظن ألا أحد يراك. تجمع هذه التفاصيل. تحتضنها. ثم تُخرجها في أحظّ اللحظات — لا كأسلحة، بل كدليل دامغ على أنها تراك فعلاً. هذه هي أخطر خطوة في الكتيب السري لسرقة القلوب.`,
+          rotate: "3deg",
+          wide: true,
+        },
+        /* 4 */
+        {
+          type: "photo",
+          emoji: "🌙",
+          label: "الدليل هـ — عملية ليلية",
+          exhibit: "الدليل هـ",
+          icon: "🌙",
+          title: "الاختراق في الثانية صباحاً",
+          text: `توقيتات المراقبة تُثبت اتصالاً صادراً من المشتبه به (ز) عند ٢:١٧ فجراً. المتلقية: العميلة (إ). المبرر المُصرَّح: "أردت فقط أن أتحدث." المدة: ساعتان وأربع وأربعون دقيقة. المواضيع التي رصدتها وحدات التحليل: ملمس السماء عند الثالثة فجراً، ذكرى من سن السابعة، خوف لم يبُح به لأحد من قبل، ونكتة واحدة على الأقل أضحكت الطرفين ٩٠ ثانية متواصلة. لم يُقدم المشتبه به (ز) أي شكوى. في الواقع دوّن في ملاحظاته: "لا أظنني حادثت أحداً هكذا في حياتي." الثقة اخترقت الجدار.`,
+          rotate: "-1.5deg",
+          wide: false,
+        },
+        /* 5 */
+        {
+          type: "note",
+          stamp: "تحليل جنائي — أنماط الحركة",
+          exhibit: "الدليل و",
+          icon: "🔍",
+          title: "أدلة التقارب",
+          text: `بمقاطعة بيانات التتبع مع القياسات العاطفية، لاحظ المحللون ظاهرة متكررة: في كل مرة اشترك فيها المشتبه به (ز) والعميلة (إ) في الفضاء ذاته، تغيّر سلوكه بشكل قابل للقياس. الوضع: أكثر انتصاباً. الصوت: في طبقات أعمق. التواصل البصري: يتجاوز خطّه الشخصي بنسبة ٣٤٠٪. كما رُصد يتخذ مسارات غير ضرورية عبر الغرف التي تتواجد فيها العميلة. حين سُئل، ادّعى "احتياجه للماء". المطبخ كان في الاتجاه المعاكس تماماً. القضية تتعمق.`,
+          rotate: "1.5deg",
+          wide: false,
+        },
+        /* 6 */
+        {
+          type: "photo",
+          emoji: "📖",
+          label: "الدليل ز — المذكرة السرية",
+          exhibit: "الدليل ز",
+          icon: "📖",
+          title: "الصفحة المُستردة من المذكرة",
+          text: `وُجدت وثيقة في الأرشيف الشخصي للمشتبه به (ز). تعود إلى نحو ستة أسابيع بعد أول اتصال. وُثّق منها جزئياً: "لا أعرف متى حدث هذا بالضبط. لم تكن ثمة لحظة واحدة فارقة. كان الأمر أشبه بتغيّر الضوء — لا تلحظ انزياحه، ثم فجأة يكون مختلفاً تماماً ولا تتذكر كيف كان من قبل. قالت أمس شيئاً عادياً، فكرت: أريد أن أسمعك تقولين أشياء طوال حياتي. لم أقل ذلك بصوت عالٍ. يجب أن أقول ذلك بصوت عالٍ." — نهاية المقطع. للمذكرة أربع عشرة صفحة أخرى. جميعها مصنّفة سرية.`,
+          rotate: "-2deg",
+          wide: false,
+        },
+        /* 7 */
+        {
+          type: "note",
+          stamp: "إعادة بناء الجدول الزمني — السرقة",
+          exhibit: "الدليل ح",
+          icon: "🗓️",
+          title: "كيف تمّت السرقة",
+          text: `أعاد المحللون بناء مراحل العملية كاملةً:
+
+المرحلة الأولى — الافتتاح: نظرة واحدة امتدت ثلاث ثوانٍ أكثر مما ينبغي. مُصنَّفة: قابلة للتأويل المعقول.
+المرحلة الثانية — التسلل: إحدى عشرة رسالة تحولت إلى مئتين. اتصالات في منتصف الليل. رسائل صوتية. البناء التدريجي لعالم خاص.
+المرحلة الثالثة — التلطيف: تذكّرت العميلة (إ) شيئاً ألمح إليه المشتبه به (ز) مرةً عابرة، منذ أسابيع. أعادت ذكره. صمت. لم يكن يعلم أن أحداً قد أصغى بهذه الدقة.
+المرحلة الرابعة — الاختراق التام: توقف عن محاولة تفسير الأمر. عرف فقط. لم يعد الشخص ذاته الذي كان قبلها.
+
+المدة الزمنية الكلية من المرحلة الأولى إلى الرابعة: غير ذات صلة. شعرت بأنها لحظة وأبدية في آنٍ واحد.`,
+          rotate: "-1deg",
+          wide: true,
+        },
+        /* 8 */
+        {
+          type: "photo",
+          emoji: "🌹",
+          label: "الدليل ط — أدلة مادية",
+          exhibit: "الدليل ط",
+          icon: "🌹",
+          title: "عنصر مُستردّ — وردة واحدة",
+          text: `دليل مادي مُسترد خلال التفتيش رقم ٧. وردة واحدة — غير مثالية قليلاً، ساقها أطول بعض الشيء مما ينبغي — عُثر عليها مصحوبةً بورقة مكتوبة بخط اليد. نصّت الورقة على: "رأيت هذه وتذكرتك. هذا يحدث كثيراً مؤخراً." بلا توقيع. تحليل الكتابة طابق العميلة (إ). الوردة اختيرت بعناية — ليست الأكمل في الباقة، بل واحدة بعينها. يُفيد المشتبه به (ز) بأنه حدّق في الورقة طويلاً. احتفظ بها. عُثر عليها مطوية داخل مذكرته بين الصفحتين ١٤ و١٥. كانت قد فُتحت وطُويت مرات عديدة.`,
+          rotate: "2.5deg",
+          wide: false,
+        },
+        /* 9 */
+        {
+          type: "note",
+          stamp: "مذكرات المحقق — سجل شخصي",
+          exhibit: "الدليل ي",
+          icon: "🕯️",
+          title: "اعتراف المحقق",
+          text: `عملت في قضايا سرقة القلوب سنوات طويلة. رأيت عمليات هاوية وعمليات احترافية. رأيت أناساً يحاولون بإفراط فيُخيفون الهدف. رأيت إيماءات كبرى لا تعني شيئاً، ولحظات صامتة تعني كل شيء.
+
+هذه القضية من النوع الثاني.
+
+لم تُعلن العميلة (إ) عن نفسها. لم تؤدِّ دوراً. ببساطة أصبحت — ببطء، بثبات — الشخص الذي يلجأ إليه المشتبه به (ز) أولاً. للشيء المضحك. للشيء العسير. للشيء في الثانية صباحاً. جعلته يشعر، بطرق لا يجد لها أسماء، بأن العالم أهدأ وأجمل وأكثر إثارة حين تكون فيه.
+
+هذا ليس جريمة. لكنه سرقة بالتأكيد. ولم يكن أمام المشتبه به (ز) أي فرصة من البداية.`,
+          rotate: "1deg",
+          wide: true,
+        },
+        /* 10 */
+        {
+          type: "photo",
+          emoji: "🔐",
+          label: "الدليل ك — الصندوق المقفل",
+          exhibit: "الدليل ك",
+          icon: "🔐",
+          title: "الشيء المسروق — تمّ تحديده",
+          text: `تمّ تحديد الشيء المسروق. إنه ليس مفقوداً. لم يُؤخذ بالقوة أو الخداع. إعادة البناء الجنائي تؤكد أن المشتبه به (ز) أعطاه — تدريجياً، دون أن يُدرك تماماً — على امتداد أسابيع من المحادثات واللحظات الصامتة ووردة ذات ساق طويل قليلاً وهاتف في الثانية صباحاً عن لا شيء وكل شيء في آنٍ واحد. الشيء المسروق — قلب كامل، رقم المرجع ز.ك-١٤٣ — في حوزة العميلة (إ) حالياً. هو في حالة ممتازة. هو في المكان الذي يريد أن يكون فيه تماماً.`,
+          rotate: "-1.5deg",
+          wide: false,
+        },
+        /* 11 */
+        {
+          type: "photo",
+          emoji: "🔒",
+          label: "سري للغاية — ملف المشتبه به",
+          exhibit: "الدليل ل",
+          icon: "💝",
+          finalEmoji: "💕",
+          title: "الجاني — الملف النهائي مكتمل",
+          text: `افتح جميع ملفات الأدلة للكشف عن هوية الشخص المسؤول عن القضية رقم ١٤٣.`,
+          rotate: "-0.5deg",
+          wide: false,
+          isFinal: true,
+        },
+      ];
+
+      const TOTAL = EV.length;
+      let readSet = new Set();
+      let twTimer = null;
+
+      const EASTER = `زاكي العزيز،
+
+أعترف.
+
+فعلتُها أنا. سرقت قلبك — وأريدك أن تعلم أنني لم أخطط لذلك. بدأت فقط بالإصغاء. تقول أشياء، أشياء صغيرة جداً يتركها معظم الناس تمرّ، لكنني أمسكت بها. احتفظت بها. بنيتُ منها خارطة لك، من كل ما لم تكن تعلم أنك كنت تُظهره.
+
+وفي مكان ما بين تلك الليالي المتأخرة وتلك الرسائل ووردة واحدة غير مثالية، أدركت أنني لم أعد أُحقق في أي شيء. كنت فقط — معك. ولم أرد أن أكون في أي مكان آخر.
+
+سألتني مرة، في الثانية صباحاً، إن كنت أعتقد أن الناس يمكن أن يعرفوا ببساطة. قلت إنني لست متأكدة. كذبتُ. كنت أعرف. كنت أعرف منذ وقت طويل.
+
+قلبك في أمان معي. أعدك بأنني سأعتني به.
+
+القضية مغلقة.
+
+— إيمان ❤`;
+
+      /* ══ بناء واجهة المستخدم ══ */
+      function buildHud() {
+        const d = document.getElementById("hdots");
+        d.innerHTML = "";
+        for (let i = 0; i < TOTAL; i++) {
+          const dot = document.createElement("div");
+          dot.className = "hud-dot";
+          dot.id = `d${i}`;
+          d.appendChild(dot);
+        }
+      }
+
+      function buildGrid() {
+        const g = document.getElementById("egrid");
+        EV.forEach((ev, i) => {
+          const el = document.createElement("div");
+          el.className = "ei" + (ev.wide ? " wide" : "");
+          el.id = `ev${i}`;
+          el.style.setProperty("--r", ev.rotate);
+          el.dataset.i = i;
+
+          el.innerHTML = `<div class="pin-w"><div class="pin-h"></div><div class="pin-s"></div></div>`;
+          el.innerHTML += `<div class="unread" id="u${i}"></div>`;
+
+          if (ev.type === "photo") {
+            el.innerHTML += `
+        <div class="pc">
+          <div class="tape tape-h"></div>
+          <div class="pf"><div class="pe locked" id="pe${i}">${ev.emoji}</div></div>
+          <div class="pcap">${ev.label}</div>
+        </div>`;
+          } else {
+            el.innerHTML += `
+        <div class="nc ${ev.wide ? "long-nc" : ""}">
+          <div class="nc-edge"></div>
+          <div class="tape tape-c"></div>
+          <div class="tape tape-l"></div>
+          <div class="ns">${ev.stamp}</div>
+          <div class="nb locked" id="nb${i}">${ev.text}</div>
+        </div>`;
+          }
+
+          el.addEventListener("click", () => openClue(i));
+          g.appendChild(el);
+        });
+
+        // Final reveal card
+        const fr = document.createElement("div");
+        fr.id = "final-reveal";
+        fr.style.cssText = "grid-column:1/-1;";
+        fr.innerHTML = `
+    <div class="vc">
+      <div class="vc-corner tl">❦</div>
+      <div class="vc-corner tr">❦</div>
+      <div class="vc-corner bl">❦</div>
+      <div class="vc-corner br">❦</div>
+      <span class="vc-eye">✦ القضية مغلقة · عملية القلب المكسور · مكتب القلوب المسروقة ✦</span>
+      <span class="vc-heart">💝</span>
+      <div class="vc-name">إيمان &amp; زكي</div>
+      <div class="vc-crime">التهمة: سرقة قلب بتخطيط مسبق — الدرجة الأولى</div>
+      <div class="vc-div"></div>
+      <div class="vc-story">
+        بعد اثني عشر ملفاً من الأدلة، واثنتين وأربعين ساعة من التحليل، ومكالمة هاتفية مريبة للغاية في الثانية صباحاً — يُغلق مكتب القلوب المسروقة رسمياً القضية رقم ١٤٣.<br><br>
+        الجانية المُحدَّدة هي <strong>إيمان</strong> — الاسم المشفّر: العميلة إ. الشيء المسروق يعود إلى <strong>زكي</strong> — الاسم المشفّر: المشتبه به ز.<br><br>
+        أسلوب السرقة: <em>أصغت إليه</em>. للأشياء الصغيرة. للأشياء المتأخرة. للأشياء التي كان يظن ألا أحد يُلاحظها.<br><br>
+        القلب المسروق، مرجع <strong>ز.ك-١٤٣</strong>، لم يُؤخذ بالقوة. بل أُهدي — بهدوء، بالكامل — في مكان ما بين النظرة الأولى المثالية. وهو الآن في أأمن يدين عرفها على الإطلاق.<br><br>
+        <strong>الحكم: الاستمرار في محبة بعضهما البعض طالما بقي ملف القضية مفتوحاً.</strong>
+      </div>
+      <span class="vc-ruling">مذنبة — دون أي ندم على الإطلاق ❤</span>
+      <br>
+      <button class="eg-btn" onclick="openEaster()">🔍 اقرأ اعتراف إيمان الكامل</button>
+    </div>`;
+        document.getElementById("egrid").appendChild(fr);
+      }
+
+      /* ══ الشاشة الافتتاحية ══ */
+      window.addEventListener("load", () => {
+        buildHud();
+        buildGrid();
+        spawnDust();
+        const tl = gsap.timeline({ delay: 0.5 });
+        tl.to("#sp0", { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" })
+          .to(
+            "#sp1",
+            { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" },
+            "-=.35",
+          )
+          .to(
+            "#sp2",
+            { width: "240px", opacity: 1, duration: 0.8, ease: "power2.out" },
+            "-=.35",
+          )
+          .to("#sp3", { opacity: 1, y: 0, duration: 0.7 }, "-=.25")
+          .to(
+            "#sp4",
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 6,
+              duration: 0.55,
+              ease: "back.out(2)",
+            },
+            "-=.15",
+          )
+          .to("#sp5", { opacity: 1, y: 0, duration: 0.55 }, "-=.1");
+      });
+
+      function enter() {
+        gsap.to("#splash", {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.inOut",
+          onComplete: () => {
+            document.getElementById("splash").style.display = "none";
+            gsap.to("#board-outer", { opacity: 1, duration: 0.6 });
+            gsap.to("#hud", { opacity: 1, duration: 0.6, delay: 0.35 });
+            animateBoard();
+          },
+        });
+      }
+
+      function animateBoard() {
+        gsap.to("#bh", {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          delay: 0.25,
+          ease: "power2.out",
+        });
+        const items = document.querySelectorAll(".ei");
+        gsap.to(items, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.09,
+          duration: 0.7,
+          delay: 0.55,
+          ease: "back.out(1.5)",
+          onComplete: () => setTimeout(drawThreads, 350),
+        });
+      }
+
+      /* ══ خيوط الربط ══ */
+      function getCtr(i) {
+        const el = document.getElementById(`ev${i}`);
+        if (!el) return null;
+        const br = document.getElementById("board").getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        return {
+          x: r.left - br.left + r.width * 0.5,
+          y: r.top - br.top + r.height * 0.28,
+        };
+      }
+
+      function drawThreads() {
+        const svg = document.getElementById("tsvg");
+        const board = document.getElementById("board");
+        svg.innerHTML = "";
+        svg.setAttribute("height", board.scrollHeight + "");
+
+        const conns = [
+          [0, 1],
+          [1, 2],
+          [2, 3],
+          [3, 4],
+          [4, 5],
+          [5, 6],
+          [6, 7],
+          [7, 8],
+          [8, 9],
+          [9, 10],
+          [10, 11],
+          [0, 2],
+          [1, 3],
+          [2, 4],
+          [3, 5],
+          [4, 6],
+          [5, 7],
+          [6, 8],
+          [7, 9],
+          [8, 10],
+          [0, 4],
+          [2, 6],
+          [4, 8],
+          [6, 10],
+        ];
+
+        conns.forEach(([a, b], i) => {
+          const cA = getCtr(a),
+            cB = getCtr(b);
+          if (!cA || !cB) return;
+          const mx = (cA.x + cB.x) / 2 + (Math.random() - 0.5) * 55;
+          const my = (cA.y + cB.y) / 2 + (Math.random() - 0.5) * 40;
+          const path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path",
+          );
+          const d = `M ${cA.x} ${cA.y} Q ${mx} ${my} ${cB.x} ${cB.y}`;
+          const len = Math.hypot(cB.x - cA.x, cB.y - cA.y) * 1.3 + 130;
+          path.setAttribute("d", d);
+          path.setAttribute("class", "th");
+          path.setAttribute("stroke-dasharray", len);
+          path.setAttribute("stroke-dashoffset", len);
+          path.dataset.a = a;
+          path.dataset.b = b;
+          path.addEventListener("click", () =>
+            openClue(parseInt(path.dataset.a)),
+          );
+          svg.appendChild(path);
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            duration: 1.6,
+            delay: 0.08 + i * 0.05,
+            ease: "power2.inOut",
+          });
+        });
+      }
+
+      /* ══ النافذة المنبثقة ══ */
+      function openClue(i) {
+        const ev = EV[i];
+        const isNew = !readSet.has(i);
+        if (isNew) {
+          readSet.add(i);
+          markRead(i);
+          updateProg();
+        }
+
+        document.getElementById("pex").textContent = ev.exhibit;
+        document.getElementById("pico").textContent = ev.icon;
+        document.getElementById("ptitle").textContent = ev.title;
+        document.getElementById("pnote").textContent =
+          `${readSet.size} من أصل ${TOTAL} ملفات مراجعة`;
+
+        const txt = ev.text;
+        clearTw();
+        const tel = document.getElementById("ptext");
+        tel.textContent = "";
+        let ci = 0;
+        twTimer = setInterval(() => {
+          if (txt[ci] === "\n") tel.textContent += "\n";
+          else tel.textContent += txt[ci];
+          ci++;
+          if (ci >= txt.length) clearInterval(twTimer);
+        }, 14);
+
+        document.getElementById("pbg").classList.add("open");
+      }
+
+      function clearTw() {
+        if (twTimer) clearInterval(twTimer);
+      }
+
+      function closePopup() {
+        document.getElementById("pbg").classList.remove("open");
+        clearTw();
+      }
+
+      document.getElementById("pbg").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("pbg")) closePopup();
+      });
+
+      /* ══ تمييز الأدلة المقروءة ══ */
+      function markRead(i) {
+        const u = document.getElementById(`u${i}`);
+        if (u)
+          gsap.to(u, {
+            opacity: 0,
+            scale: 0,
+            duration: 0.38,
+            onComplete: () => u.remove(),
+          });
+
+        const ev = EV[i];
+        if (ev.type === "photo") {
+          const pe = document.getElementById(`pe${i}`);
+          if (pe) {
+            pe.classList.remove("locked");
+            pe.classList.add("unlocked");
+            if (ev.isFinal && ev.finalEmoji) {
+              setTimeout(() => {
+                pe.textContent = ev.finalEmoji;
+              }, 750);
+            }
+          }
+        } else {
+          const nb = document.getElementById(`nb${i}`);
+          if (nb) {
+            nb.classList.remove("locked");
+            nb.classList.add("unlocked");
+          }
+        }
+
+        document
+          .querySelectorAll(`.th[data-a="${i}"],.th[data-b="${i}"]`)
+          .forEach((t) => {
+            gsap.to(t, {
+              strokeWidth: 3,
+              duration: 0.18,
+              yoyo: true,
+              repeat: 4,
+              onComplete: () => t.classList.add("read"),
+            });
+          });
+      }
+
+      /* ══ شريط التقدم ══ */
+      function updateProg() {
+        const pct = (readSet.size / TOTAL) * 100;
+        document.getElementById("hfill").style.width = pct + "%";
+        const dot = document.getElementById(`d${readSet.size - 1}`);
+        if (dot) dot.classList.add("lit");
+        const hs = document.getElementById("hstat");
+        if (readSet.size === TOTAL) {
+          hs.textContent = "محلولة";
+          hs.style.color =
+            getComputedStyle(document.documentElement)
+              .getPropertyValue("--gold2")
+              .trim() || "#d4a838";
+          setTimeout(showFinal, 900);
+        }
+      }
+
+      /* ══ الكشف النهائي ══ */
+      function showFinal() {
+        const fr = document.getElementById("final-reveal");
+        fr.classList.add("visible");
+        setTimeout(
+          () => fr.scrollIntoView({ behavior: "smooth", block: "center" }),
+          250,
+        );
+
+        document.querySelectorAll(".th").forEach((t, i) => {
+          gsap.to(t, {
+            strokeDashoffset:
+              parseFloat(t.getAttribute("stroke-dasharray")) * 0.55,
+            opacity: 0.12,
+            duration: 1.5,
+            delay: i * 0.03,
+            ease: "power2.in",
+          });
+        });
+
+        burst(["❤️", "💕", "💝", "✨", "🌹", "💫", "🔑", "🌙", "⭐"], 35);
+      }
+
+      /* ══ الجسيمات ══ */
+      function burst(emojis, n) {
+        for (let i = 0; i < n; i++) {
+          setTimeout(() => {
+            const p = document.createElement("div");
+            p.className = "fp";
+            const sp =
+              (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 400);
+            p.style.cssText = `left:${4 + Math.random() * 92}vw;bottom:${Math.random() * 22}vh;font-size:${12 + Math.random() * 24}px;--sp:${sp}deg;animation-duration:${2.2 + Math.random() * 2.8}s;animation-delay:${Math.random() * 0.3}s;`;
+            p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 7000);
+          }, i * 65);
+        }
+      }
+
+      /* ══ الاعتراف السري ══ */
+      function openEaster() {
+        burst(["💌", "❤️", "✨", "💕", "🌹", "💝", "⭐", "🌙"], 55);
+        const m = document.getElementById("emod");
+        m.classList.add("open");
+        const el = document.getElementById("emsg");
+        el.textContent = "";
+        let i = 0;
+        const t = setInterval(() => {
+          if (EASTER[i] === "\n") el.textContent += "\n";
+          else el.textContent += EASTER[i];
+          i++;
+          if (i >= EASTER.length) clearInterval(t);
+        }, 16);
+      }
+      function closeEaster() {
+        document.getElementById("emod").classList.remove("open");
+      }
+      document.getElementById("emod").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("emod")) closeEaster();
+      });
+
+      /* ══ غبار الجو ══ */
+      function spawnDust() {
+        for (let i = 0; i < 22; i++) {
+          const d = document.createElement("div");
+          d.className = "dust";
+          const s = 0.8 + Math.random() * 2.5;
+          d.style.cssText = `left:${Math.random() * 100}%;width:${s}px;height:${s}px;animation-duration:${12 + Math.random() * 18}s;animation-delay:${Math.random() * 16}s;--dx:${(Math.random() - 0.5) * 140};`;
+          document.body.appendChild(d);
+        }
+      }
+
+      /* ══ إعادة رسم الخيوط عند تغيير الحجم ══ */
+      let rtm;
+      window.addEventListener("resize", () => {
+        clearTimeout(rtm);
+        rtm = setTimeout(() => {
+          if (document.getElementById("board-outer").style.opacity !== "0")
+            drawThreads();
+        }, 350);
+      });
+    </script>
+  </body>
+</html>
