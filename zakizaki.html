@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖 كلمات إيمان - Words of Faith</title>
+  <!-- Premium Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Dosis:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Dosis', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      color: #f0f0f0;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(ellipse at 20% 50%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                  radial-gradient(ellipse at 40% 0%, rgba(200, 150, 255, 0.1) 0%, transparent 50%);
+      animation: bgShift 15s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, 20px); }
+    }
+
+    /* Header */
+    header {
+      padding: 80px 20px 40px;
+      position: relative;
+      z-index: 10;
+      animation: slideDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header-subtitle {
+      font-family: 'Dosis', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: #ffd700;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    h1 {
+      font-family: 'Amiri', serif;
+      font-size: clamp(32px, 8vw, 72px);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ffb6c1, #dda0dd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .decorative-line {
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ffd700, transparent);
+      margin: 25px auto;
+      border-radius: 2px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      grid-auto-flow: dense;
+      perspective: 1000px;
+    }
+
+    /* Card Styles */
+    .card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(221, 160, 221, 0.1));
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 20px;
+      padding: 35px 28px;
+      backdrop-filter: blur(20px);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transform: translateY(40px) rotateX(10deg);
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:nth-child(3n) {
+      grid-column: span 1;
+    }
+
+    .card:nth-child(3n+1) {
+      animation-delay: 0.1s;
+    }
+
+    .card:nth-child(3n+2) {
+      animation-delay: 0.2s;
+    }
+
+    .card:nth-child(3n) {
+      animation-delay: 0.3s;
+    }
+
+    .card:hover {
+      background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(221, 160, 221, 0.2));
+      border-color: #ffd700;
+      transform: translateY(-20px) rotateX(0deg) scale(1.05);
+      box-shadow: 0 30px 80px rgba(255, 215, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .card-text {
+      font-family: 'Amiri', serif;
+      font-size: clamp(16px, 2.5vw, 22px);
+      line-height: 1.8;
+      color: #ffffff;
+      position: relative;
+      z-index: 2;
+      font-weight: 400;
+    }
+
+    .card-heart {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0;
+      animation: heartBeat 0.6s ease-out 0.5s forwards;
+    }
+
+    @keyframes heartBeat {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Floating Particles */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 20px;
+      opacity: 0.6;
+      z-index: 5;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 100px;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 215, 0, 0.1);
+      animation: fadeIn 1s ease-out 2s backwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .footer-text {
+      font-size: 14px;
+      color: #b0b0b0;
+      letter-spacing: 1px;
+    }
+
+    /* Loading State */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 60px 20px;
+      font-size: 18px;
+      color: #ffd700;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffd700;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 60px 20px 30px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: 40px auto;
+      }
+
+      .card {
+        min-height: 150px;
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-animation"></div>
+
+  <header>
+    <div class="header-subtitle">✨السلطانة ايمان✨</div>
+    <h1>كلمات إيمان لاول مرة على موقعها </h1>
+    <div class="decorative-line"></div>
+    <p style="margin-top: 15px; font-size: 16px; color: #c0c0c0; letter-spacing: 1px;">Words that touch the soul</p>
+  </header>
+
+  <div class="container" id="container">
+    <div class="loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">💖 Crafted with love and faith 💖</p>
+  </footer>
+
+  <script>
+    const API = "https://api.sheety.co/44a86bb7b3501610f0adec2fb9e8767a/imene/sheet1";
+    const container = document.getElementById("container");
+
+    // Sample fallback data
+    const fallbackData = [
+      { text: "الإيمان هو النور الذي ينير درب الحياة" }
+    ];
+
+    async function loadData() {
+      try {
+        const res = await fetch(API);
+        const data = await res.json();
+        const items = data.sheet1 || fallbackData;
+        renderCards(items);
+      } catch (err) {
+        console.log("Using fallback data");
+        renderCards(fallbackData);
+      }
+    }
+
+    function renderCards(items) {
+      container.innerHTML = "";
+      
+      items.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-heart">💖</div>
+          <div class="card-text">${item.text || item.name || "💖"}</div>
+        `;
+        
+        container.appendChild(card);
+
+        // Staggered entrance animation
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 0.8,
+          delay: index * 0.1,
+          ease: "back.out(1.5)"
+        });
+      });
+
+      // Trigger any scroll animations if they exist
+      if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    }
+
+    // Floating particles
+    function createParticles() {
+      const emojis = ['💖', '✨', '🌹', '💫', '🎀'];
+      setInterval(() => {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.duration = (Math.random() * 3 + 5) + "s";
+        
+        const duration = Math.random() * 3 + 5;
+        particle.style.animation = `float ${duration}s linear forwards`;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), duration * 1000);
+      }, 500);
+    }
+
+    // Initialize
+    createParticles();
+    loadData();
+  </script>
+</body>
+</html>
