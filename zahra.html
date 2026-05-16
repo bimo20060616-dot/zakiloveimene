@@ -365,9 +365,131 @@
     .dots { max-width: 260px; }
     .btn { padding: 6px 13px; font-size: .68rem; gap: 10px; }
   }
+
+  /* ══════════════════════════════════════════
+     LOADING SCREEN
+  ══════════════════════════════════════════ */
+  #loadScreen {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 28px;
+    background:
+      radial-gradient(ellipse 120% 60% at 20% 10%, rgba(120,30,160,.65) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 50% at 80% 5%,  rgba(180,30,100,.55) 0%, transparent 55%),
+      radial-gradient(ellipse 80%  70% at 50% 90%, rgba(60,0,120,.6)    0%, transparent 60%),
+      linear-gradient(180deg, #0d0118 0%, #06000e 60%, #0a0015 100%);
+    transition: opacity .9s ease, transform .9s ease;
+  }
+  #loadScreen.fade-out {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+  }
+
+  /* Floating sparkles inside loader */
+  #loadScreen .ls-sparkle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #f0d080;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(240,200,80,.9);
+    animation: sparklePop ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .ls-book {
+    font-size: 56px;
+    animation: bookPulse 1.8s ease-in-out infinite;
+    filter: drop-shadow(0 0 22px rgba(200,169,110,.7));
+  }
+  @keyframes bookPulse {
+    0%,100% { transform: scale(1) rotate(-4deg); }
+    50%      { transform: scale(1.12) rotate(4deg); }
+  }
+
+  .ls-title {
+    color: #e8cc8a;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 0 0 30px rgba(220,180,100,.7), 0 0 60px rgba(180,100,200,.4);
+    animation: titleGlow 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes titleGlow {
+    from { text-shadow: 0 0 20px rgba(220,180,100,.5), 0 0 40px rgba(180,100,200,.25); }
+    to   { text-shadow: 0 0 40px rgba(220,180,100,.9), 0 0 80px rgba(200,120,255,.5); }
+  }
+
+  .ls-subtitle {
+    color: rgba(200,169,110,.55);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(.7rem, 2vw, .9rem);
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Track bar */
+  .ls-track {
+    width: clamp(220px, 55vw, 360px);
+    height: 4px;
+    background: rgba(200,169,110,.12);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 10px rgba(200,169,110,.15);
+  }
+  .ls-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 10px;
+    background: linear-gradient(to right, #c8a96e, #f0d090, #e8b870);
+    box-shadow: 0 0 12px rgba(200,169,110,.6);
+    transition: width .3s ease;
+  }
+
+  .ls-pct {
+    color: #c8a96e;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(.8rem, 2.5vw, 1.05rem);
+    letter-spacing: .18em;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .ls-hearts {
+    position: absolute; inset: 0;
+    pointer-events: none; overflow: hidden;
+  }
+  .ls-heart {
+    position: absolute; bottom: -30px;
+    font-size: 13px; opacity: 0;
+    animation: heartRise linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255,100,160,.5));
+  }
 </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════
+     LOADING SCREEN
+══════════════════════════════════════════ -->
+<div id="loadScreen">
+  <!-- floating hearts inside loader -->
+  <div class="ls-hearts" id="lsHearts"></div>
+  <!-- sparkles inside loader -->
+
+  <div class="ls-book">📖</div>
+  <div class="ls-title">✦ Zahra ✦</div>
+  <div class="ls-subtitle" id="lsStatus">Loading images…</div>
+
+  <div class="ls-track">
+    <div class="ls-fill" id="lsFill"></div>
+  </div>
+  <div class="ls-pct" id="lsPct">0%</div>
+</div>
 
 <div class="aurora"></div>
 <div class="bokeh" id="bokeh"></div>
@@ -794,8 +916,82 @@ function spawnSparkles() {
 }
 
 // ═══════════════════════════════════════════════════════
+//  LOADING SCREEN — preload all images before show
+// ═══════════════════════════════════════════════════════
+function spawnLoaderHearts() {
+  const c = document.getElementById('lsHearts');
+  const emojis = ['❤️','💖','💕','🌸','💗','✨','💝','🌺'];
+  for (let i = 0; i < 18; i++) {
+    const h = document.createElement('div');
+    h.className = 'ls-heart';
+    const sway = (Math.random()*120-60).toFixed(0)+'px';
+    h.textContent = emojis[i % emojis.length];
+    h.style.cssText = `left:${Math.random()*100}%;
+      font-size:${(Math.random()*12+9).toFixed(0)}px;
+      --sway:${sway};
+      animation-duration:${(Math.random()*14+10).toFixed(1)}s;
+      animation-delay:${(Math.random()*12).toFixed(1)}s;`;
+    c.appendChild(h);
+  }
+}
+
+function spawnLoaderSparkles() {
+  const ls = document.getElementById('loadScreen');
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('div');
+    s.className = 'ls-sparkle';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;
+      animation-duration:${(Math.random()*3+1.2).toFixed(1)}s;
+      animation-delay:${(Math.random()*5).toFixed(1)}s;`;
+    ls.appendChild(s);
+  }
+}
+
+function preloadAllImages(onDone) {
+  const fill  = document.getElementById('lsFill');
+  const pct   = document.getElementById('lsPct');
+  const status = document.getElementById('lsStatus');
+
+  // Build full image list
+  const srcs = [];
+  for (let i = 0; i <= TOTAL_PAGES - 1; i++) srcs.push(pageImg(i));
+
+  let loaded = 0;
+  const total = srcs.length;
+
+  function tick() {
+    loaded++;
+    const p = Math.round(loaded / total * 100);
+    fill.style.width  = p + '%';
+    pct.textContent   = p + '%';
+    if (loaded >= total) {
+      status.textContent = 'Ready ✦';
+      // Small pause so user sees 100%, then fade out
+      setTimeout(onDone, 480);
+    }
+  }
+
+  srcs.forEach(src => {
+    const img = new Image();
+    img.onload  = tick;
+    img.onerror = tick; // count errors too so we don't hang
+    img.src = src;
+  });
+}
+
+function hideLoader() {
+  const ls = document.getElementById('loadScreen');
+  ls.classList.add('fade-out');
+  ls.addEventListener('transitionend', () => ls.remove(), { once: true });
+}
+
+// ═══════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════
+spawnLoaderHearts();
+spawnLoaderSparkles();
+
+// Init ambient effects and book (hidden behind loader)
 spawnStars();
 spawnBokeh();
 spawnHearts();
@@ -803,12 +999,16 @@ spawnPetals();
 spawnSparkles();
 buildDots();
 renderStatic(0);
-resetFlipper(); // this now also loads cover into faceF
+resetFlipper();
 
-setTimeout(() => {
-  const h = document.getElementById('hint');
-  if (h) { h.style.animation = 'hintFade 1.5s ease forwards'; }
-}, 5500);
+// Start preloading — loader hides when done
+preloadAllImages(() => {
+  hideLoader();
+  setTimeout(() => {
+    const h = document.getElementById('hint');
+    if (h) { h.style.animation = 'hintFade 1.5s ease forwards'; }
+  }, 5500);
+});
 </script>
 </body>
 </html>
