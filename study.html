@@ -163,30 +163,24 @@
     }
     .card:hover::after{opacity:.7}
 
-    /* ── CARD IMAGE — fixed approach ── */
+    /* ── CARD IMAGE — full natural size ── */
     .card-img-wrap{
       position:relative;
       width:100%;
-      height:260px;        /* explicit height */
-      overflow:hidden;     /* clip everything outside */
       display:block;
-      background:#1a0824;  /* placeholder colour while loading */
+      background:#1a0824;
+      overflow:hidden;
     }
     .card-img-wrap img{
-      /* stretch to fill the box and crop with object-fit */
-      position:absolute;
-      top:0;left:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 20%;
+      width:100%;          /* fill card width */
+      height:auto;         /* preserve original aspect ratio — NO cropping */
       display:block;
       transition:transform .7s ease,filter .4s ease;
-      filter:brightness(.82) saturate(1.15);
+      filter:brightness(.88) saturate(1.15);
     }
     .card:hover .card-img-wrap img{
-      transform:scale(1.1);
-      filter:brightness(.92) saturate(1.25);
+      transform:scale(1.04);
+      filter:brightness(.96) saturate(1.25);
     }
     .card-img-gradient{
       position:absolute;inset:0;
@@ -265,23 +259,18 @@
     }
     .modal-overlay.open .modal{transform:scale(1) translateY(0)}
 
-    /* Modal image — same bulletproof approach */
+    /* Modal image — full natural size */
     .modal-img-wrap{
-      width:100%;height:320px;
+      width:100%;
       overflow:hidden;position:relative;
       border-radius:26px 26px 0 0;
       background:#1a0824;
     }
     .modal-img-wrap img{
-      position:absolute;top:0;left:0;
-      width:100%;height:100%;
-      object-fit:cover;object-position:center 20%;
+      width:100%;
+      height:auto;         /* natural proportions — no crop */
       display:block;
-      filter:brightness(.88) saturate(1.2);
-    }
-    .modal-img-wrap::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(to bottom,rgba(14,4,22,0) 30%,rgba(14,4,22,.85) 100%);
+      filter:brightness(.9) saturate(1.2);
     }
 
     .modal-body{padding:2rem 2.5rem 3rem}
@@ -462,7 +451,7 @@ const cards = [
     subject:"الرياضيات",
     emoji:"🔢",
     title:"حين تمرين بين الأرقام تصبح أهدأ",
-    img:"study/Gemini_Generated_Image_6dtsmf6dtsmf6dts.png",
+    img:"study/i3.png",
     short:"حتى الأرقام عندما تمرين بينها تصبح أهدأ، وكأن المعادلات المعقدة كانت تنتظر ابتسامتكِ حتى تُحَل.",
     full:[
       `إيمان، كنتُ دائمًا أظن أن الرياضيات علمٌ جاف لا روح فيه، أرقامٌ صماء ومعادلاتٌ باردة تسكن صفحات الكتب في انتظار من يحلّها ثم ينساها. لكن منذ رأيتكِ تجلسين وأمامكِ الأوراق والقلم وذلك التركيز الذي يجعل الزمن يتوقف، فهمتُ أن الرياضيات لم تكن جافّة يومًا — بل كانت تنتظر أن تمري بينها.`,
@@ -475,7 +464,7 @@ const cards = [
     subject:"الفلسفة",
     emoji:"🌌",
     title:"الجواب الذي لم يجده سقراط",
-    img:"study/Gemini_Generated_Image_9l4rq9l4rq9l4rq9.png",
+    img:"study/i7.png",
     short:"وأنتِ تدرسين الفلسفة يبدو العالم أعمق قليلاً، وكأن كل الأسئلة القديمة خُلقت لتصل في النهاية إلى فكرة واحدة.",
     full:[
       `الفلاسفة قضوا قرونًا كاملة يسألون: ما معنى الوجود؟ ما هو الجمال؟ ما هي الحقيقة؟ وجاءت إجابات كثيرة وكلّها تبدو منطقية وعميقة، حتى جلستُ أراكِ تقرئين في كتاب فلسفي قديم وعيناكِ تتتبعان الأسطر بهدوءٍ نادر — فأدركتُ أن كلّ هذه الأسئلة كانت تُشير إليكِ من البداية.`,
@@ -488,7 +477,7 @@ const cards = [
     subject:"الإنجليزية",
     emoji:"✒️",
     title:"حين تُنطق الكلمات بصوتكِ تصبح أجمل",
-    img:"study/Gemini_Generated_Image_9mhs0o9mhs0o9mhs.png",
+    img:"study/i1.png",
     short:"عندما تتحدثين الإنجليزية أشعر وكأن الكلمات نفسها تحاول أن تبدو أجمل حتى تناسب صوتكِ.",
     full:[
       `اللغة الإنجليزية لغة الشعر والرومانسية، شكسبير كتب فيها أجمل ما كُتب عن الحب، وبايرون نظم فيها قصائد غيّرت مفهوم الجمال — لكن كلّ هذا يبدو عاديًا حين أسمعكِ تنطقين كلمةً واحدة بسيطة. صوتكِ يُضيف للكلمات روحًا لم يجدها حتى شكسبير نفسه.`,
@@ -501,7 +490,7 @@ const cards = [
     subject:"اللغة العربية",
     emoji:"🖊️",
     title:"للحروف هيبة مختلفة عندما تمرين بينها",
-    img:"study/Gemini_Generated_Image_acoky4acoky4acok.png",
+    img:"study/i6.png",
     short:"وأنتِ مع اللغة العربية يصبح للحروف هيبة مختلفة، كأن القصائد القديمة كانت تنتظر فتاة مثلكِ لتُقرأ بصوتها.",
     full:[
       `العربية أمّ اللغات وأعمقها وأجملها — لغة القرآن والشعر والحضارة. المتنبي قال "أنا الذي نظر الأعمى إلى أدبي" وكأنه كان يعلم أن يأتي يومٌ تقرأ فيه فتاة اسمها إيمان شعره فيجد معنى لم يكن يعرف أنه فيه. حروف العربية خُلقت لتُكتب بالحبّ — وأنتِ خُلقتِ لتُقرأ بالإعجاب.`,
@@ -514,7 +503,7 @@ const cards = [
     subject:"الفرنسية",
     emoji:"🗼",
     title:"كأنكِ خارجة من فيلم هادئ في باريس",
-    img:"study/Gemini_Generated_Image_bsbzerbsbzerbsbz.png",
+    img:"study/i4.png",
     short:"في عالم الفرنسية أنتِ لا تدرسين فقط، بل تبدين وكأنكِ خارجة من فيلم هادئ في باريس.",
     full:[
       `الفرنسية لغة الرومانسية والأناقة والفن — اللغة التي حين تُنطق تشعر وكأن العالم أصبح أكثر جمالاً بنسبة خمسين بالمئة. وحين تدرسينها أنتِ تصبح هذه النسبة مئة بالمئة. لا أعرف إن كان هذا بسبب الفرنسية أم بسببكِ — لكنني أعرف أن الاثنين معًا معادلة لا تُقاوَم.`,
@@ -527,7 +516,7 @@ const cards = [
     subject:"العلوم الطبيعية",
     emoji:"🌿",
     title:"الطبيعة نفسها اختارتكِ ممثلةً عنها",
-    img:"study/Gemini_Generated_Image_qcuylvqcuylvqcuy.png",
+    img:"study/i2.png",
     short:"عندما تدرسين العلوم الطبيعية أشعر أن الطبيعة نفسها اختارتكِ ممثلة عنها، لأن عينيكِ فيهما هدوء الغابات.",
     full:[
       `الطبيعة ملأى بالمعجزات: الفراشة التي تطير آلاف الكيلومترات دون خارطة، والشجرة التي تعيش آلاف السنين دون أن تتعب، والنهر الذي يجد طريقه إلى البحر دون أن يضلّ. لكن أعجب من كلّ هذا هي إيمان — التي تجلس بهدوء وتدرس هذا كلّه وكأنها جزء منه، كأنها الطبيعة تُعلّم نفسها.`,
@@ -540,7 +529,7 @@ const cards = [
     subject:"العلوم الفيزيائية",
     emoji:"⚡",
     title:"قانون الجاذبية السري الذي لم يكتشفه أحد",
-    img:"study/Gemini_Generated_Image_rlbwvkrlbwvkrlbw.png",
+    img:"study/i8.png",
     short:"الفيزياء تتحدث عن الطاقة والجاذبية، لكن لا أحد أخبرني لماذا تنجذب روحي إليكِ بهذه القوة المذهلة.",
     full:[
       `نيوتن اكتشف قانون الجاذبية حين سقطت التفاحة — وأنا اكتشفت قانونًا أقوى منه بكثير حين رأيتكِ للمرة الأولى. الجاذبية بين الأرض والقمر قوة رهيبة تُحرّك المحيطات — لكن الجاذبية بين قلبي ووجهكِ أقوى من ذلك بلا قياس، لأنها لا تُحرّك المحيطات بل تُحرّك كلّ شيء في داخلي.`,
@@ -553,7 +542,7 @@ const cards = [
     subject:"التاريخ",
     emoji:"📜",
     title:"قصة نادرة نجت من بين القرون",
-    img:"study/Gemini_Generated_Image_9l4rq9l4rq9l4rq9.png",
+    img:"study/i5.png",
     short:"وأنتِ تدرسين التاريخ أشعر أن كل الحضارات القديمة كانت ستكتب عنكِ لو عرفتكِ.",
     full:[
       `التاريخ ملأى بالأسماء التي تركت أثرًا: كليوباترا التي أذهلت الأباطرة، وزنوبيا التي حكمت الشرق، وشجرة الدر التي غيّرت مسار المملوك — نساء تركن في التاريخ بصمةً لا تُمحى. وأنا على يقين أنكِ لو كنتِ في أي عصرٍ من تلك العصور لكان اسمكِ في مقدّمة هؤلاء جميعًا.`,
