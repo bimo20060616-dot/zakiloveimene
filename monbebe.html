@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Bébé - إيمان، ملكة قلبي وروحي</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="موقع خاص ودفتر بطاقات رومانسية مهداة إلى حبيبتي وأميرة قلبي إيمان - من زاكي بكثير من الحب والوفاء الأبدي.">
+    <meta name="keywords" content="إيمان, زاكي, حب, رومانسية, بطاقات, غيتار, أفوكادو, بحر">
+    
+    <!-- Google Fonts & Icon Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Reenie+Beanie&family=Katibeh&display=swap');
+    </style>
+
+    <style>
+        /* ==========================================================================
+           1. المتغيرات والأنماط الأساسية (Dynamic Themes & CSS Variables)
+           ========================================================================== */
+        :root {
+            /* وضع ليلة حالمة - الافتراضي */
+            --bg-gradient: linear-gradient(135deg, #0a0718 0%, #120c24 35%, #23083b 70%, #1a0326 100%);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-bg-hover: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-border-hover: rgba(255, 255, 255, 0.18);
+            --text-primary: #ffffff;
+            --text-secondary: #e0d5ec;
+            --text-muted: #b3a4c4;
+            --accent-gold: #e5c07b;
+            --accent-pink: #ff6584;
+            --accent-pink-glow: rgba(255, 101, 132, 0.4);
+            --nav-bg: rgba(10, 7, 24, 0.75);
+            --shadow-glow: 0 8px 32px 0 rgba(123, 31, 162, 0.35);
+            --transition-speed: 0.5s;
+            --polaroid-bg: rgba(255, 255, 255, 0.07);
+        }
+
+        [data-theme="day"] {
+            /* وضع الصباح الدافئ */
+            --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 35%, #faf0e6 70%, #fae1dd 100%);
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-bg-hover: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 182, 193, 0.4);
+            --card-border-hover: rgba(255, 105, 180, 0.6);
+            --text-primary: #4a2d33;
+            --text-secondary: #6e4e55;
+            --text-muted: #8d6b72;
+            --accent-gold: #c792ea;
+            --accent-pink: #d81b60;
+            --accent-pink-glow: rgba(216, 27, 96, 0.25);
+            --nav-bg: rgba(255, 240, 245, 0.8);
+            --shadow-glow: 0 8px 32px 0 rgba(216, 27, 96, 0.15);
+            --polaroid-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            position: relative;
+        }
+
+        /* خلفية القماش وتأثير الحبيبات */
+        #hearts-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ==========================================================================
+           2. ستارة الدخول التفاعلية (Cinematic Curtain Entrance)
+           ========================================================================== */
+        #curtain-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #070412 0%, #150a22 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 1.5s;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .curtain-logo {
+            font-family: 'Alex Brush', cursive;
+            font-size: 85px;
+            color: var(--accent-pink);
+            text-shadow: 0 0 20px var(--accent-pink-glow);
+            margin-bottom: 10px;
+            animation: pulseGently 3s ease-in-out infinite;
+        }
+
+        .curtain-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .curtain-text {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            color: #d1c7e0;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 0.8s forwards;
+        }
+
+        .enter-btn {
+            background: linear-gradient(45deg, #ff6584, #d81b60);
+            color: #ffffff;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.4), 0 0 15px rgba(255, 101, 132, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.6s;
+        }
+
+        .enter-btn:hover::before {
+            left: 100%;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(216, 27, 96, 0.6), 0 0 25px rgba(255, 101, 132, 0.4);
+        }
+
+        .enter-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* تأثيرات الفلاش والدقة */
+        @keyframes pulseGently {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 20px var(--accent-pink-glow); }
+            50% { transform: scale(1.05); text-shadow: 0 0 40px rgba(255, 101, 132, 0.7); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ==========================================================================
+           3. شريط التنقل العلوي الفاخر (Premium Navigation Bar)
+           ========================================================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            transition: background var(--transition-speed) ease, border var(--transition-speed) ease;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text-eng {
+            font-family: 'Alex Brush', cursive;
+            font-size: 38px;
+            color: var(--accent-pink);
+            letter-spacing: 1.5px;
+        }
+
+        .logo-text-ar {
+            font-family: 'Cairo', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* زر التبديل بين النهار والليل (Theme Switch) */
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--card-border);
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+        }
+
+        .slider:before {
+            content: "";
+            position: absolute;
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--accent-pink);
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            background-color: var(--accent-pink);
+        }
+
+        .slider .fa-sun {
+            color: #ffb13b;
+            font-size: 13px;
+        }
+
+        .slider .fa-moon {
+            color: #d1c7e0;
+            font-size: 13px;
+        }
+
+        /* ==========================================================================
+           4. مشغل الموسيقى الفونومغرافي المطور (Music Widget & Wave)
+           ========================================================================== */
+        .music-widget {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            border-radius: 50px;
+            padding: 4px 18px;
+            gap: 12px;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.05);
+            transition: background var(--transition-speed) ease;
+        }
+
+        [data-theme="day"] .music-widget {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .music-play-btn {
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 4px 10px var(--accent-pink-glow);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .music-play-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* أسطوانة الفونوغراف الدوارة */
+        .vinyl-record {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #2c3e50 0%, #000 70%, #2c3e50 100%);
+            border: 2px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: spinVinyl 3s linear infinite;
+            animation-play-state: paused;
+            transition: border-color var(--transition-speed) ease;
+        }
+
+        .vinyl-record::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+        }
+
+        .vinyl-record.playing {
+            animation-play-state: running;
+        }
+
+        @keyframes spinVinyl {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* عداد ذبذبات الصوت (Wave Visualizer) */
+        .wave-visualizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 20px;
+            width: 40px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            height: 4px;
+            background-color: var(--accent-pink);
+            border-radius: 3px;
+            transition: height 0.15s ease;
+        }
+
+        .wave-visualizer.playing .wave-bar {
+            animation: bounceWave 1.2s ease-in-out infinite alternate;
+        }
+
+        .wave-visualizer.playing .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+        .wave-visualizer.playing .wave-bar:nth-child(2) { animation-delay: 0.4s; }
+        .wave-visualizer.playing .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-visualizer.playing .wave-bar:nth-child(4) { animation-delay: 0.5s; }
+        .wave-visualizer.playing .wave-bar:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes bounceWave {
+            0% { height: 4px; }
+            100% { height: 20px; }
+        }
+
+        /* تحكم في مستوى الصوت المخفي بشكل أنيق */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-slider {
+            width: 0;
+            opacity: 0;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            border-radius: 2px;
+            transition: width 0.3s ease, opacity 0.3s ease;
+        }
+
+        [data-theme="day"] .volume-slider {
+            background: rgba(0,0,0,0.1);
+        }
+
+        .music-widget:hover .volume-slider {
+            width: 60px;
+            opacity: 1;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           5. قسم العنوان والافتتاحية الرئيسية (Hero Section)
+           ========================================================================== */
+        header {
+            margin-top: 130px;
+            text-align: center;
+            padding: 40px 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: 'Amiri', serif;
+            font-size: 55px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            transition: color var(--transition-speed) ease;
+        }
+
+        [data-theme="day"] .hero-title {
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-family: 'Alex Brush', cursive;
+            font-size: 48px;
+            color: var(--accent-pink);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--accent-pink-glow);
+        }
+
+        .hero-desc {
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-weight: 400;
+            transition: color var(--transition-speed) ease;
+        }
+
+        /* ==========================================================================
+           6. شبكة البطاقات تفاعلية ثلاثية الأبعاد (3D Interactive Cards Grid)
+           ========================================================================== */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            padding: 60px 8%;
+            max-width: 1400px;
+            margin: 0 auto;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* حاوية البطاقة الموفرة للمنظور ثلاثي الأبعاد */
+        .card-perspective {
+            perspective: 1500px;
+            height: auto; /* ارتفاع تلقائي مرن */
+        }
+
+        /* جسم البطاقة الذي يدور */
+        .card-inner {
+            width: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-inner:hover {
+            box-shadow: 0 15px 45px var(--accent-pink-glow);
+        }
+
+        /* تفعيل الدوران عبر كلاس JS */
+        .card-perspective.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* الوجه الأمامي (يحدد الارتفاع الطبيعي للبطاقة) */
+        .card-front {
+            position: relative;
+            width: 100%;
+            height: auto;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--card-border);
+            transition: background var(--transition-speed) ease, border var(--transition-speed) ease;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 24px;
+            z-index: 2;
+        }
+
+        /* جزء الإطار القطبي للصورة (Polaroid Frame) */
+        .polaroid-frame {
+            width: 100%;
+            height: auto; /* أبعاد أصلية تلقائية */
+            background: var(--polaroid-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: background var(--transition-speed) ease;
+        }
+
+        .polaroid-image {
+            width: 100%;
+            height: auto; /* أبعاد أصلية تلقائية */
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card-perspective:hover .polaroid-image {
+            transform: scale(1.06);
+        }
+
+        /* شارة الهواية أو اللحظة على الصورة */
+        .polaroid-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(15, 10, 30, 0.65);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* محتوى نصوص البطاقة */
+        .card-content {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-text {
+            font-family: 'Amiri', serif;
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            text-align: justify;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 15px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        /* شريط التمرير المخصص للفقرة */
+        .card-text::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .card-text::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .card-text::-webkit-scrollbar-thumb {
+            background: rgba(255, 101, 132, 0.3);
+            border-radius: 4px;
+        }
+
+        /* زر فتح الرسالة بالأسفل */
+        .flip-btn-trigger {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s, border 0.3s, color 0.3s;
+        }
+
+        [data-theme="day"] .flip-btn-trigger {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .flip-btn-trigger:hover {
+            background: var(--accent-pink);
+            border-color: var(--accent-pink);
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-pink-glow);
+        }
+
+        /* جهة الوجه الخلفي (Secret Handwritten Note - يطابق ارتفاع الأمامي تلقائياً) */
+        .card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(229, 192, 123, 0.4);
+            transition: background var(--transition-speed) ease, border var(--transition-speed) ease;
+            background: linear-gradient(135deg, #fffcf5 0%, #fdf8eb 100%);
+            transform: rotateY(180deg);
+            padding: 30px;
+            color: #3b2a1a;
+            box-shadow: inset 0 0 40px rgba(229, 192, 123, 0.15);
+            z-index: 1;
+        }
+
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(59, 42, 26, 0.15);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .letter-to {
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #d81b60;
+        }
+
+        .letter-stamp {
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 24px;
+            color: #a08151;
+            transform: rotate(-5deg);
+        }
+
+        .letter-body {
+            font-family: 'Katibeh', serif;
+            font-size: 26px;
+            line-height: 1.5;
+            color: #3d2f20;
+            text-align: justify;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* شريط التمرير المخصص للرسالة */
+        .letter-body::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .letter-body::-webkit-scrollbar-thumb {
+            background: rgba(184, 134, 11, 0.3);
+            border-radius: 4px;
+        }
+
+        /* الختم الشمعي الفخم */
+        .wax-seal-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .wax-seal-svg {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .wax-seal-svg:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .flip-back-btn {
+            background: transparent;
+            border: 1px solid rgba(59, 42, 26, 0.2);
+            color: #5d4037;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .flip-back-btn:hover {
+            background: rgba(59, 42, 26, 0.05);
+            color: #3b2a1a;
+        }
+
+        /* ==========================================================================
+           7. مظروف عهد الحب الكبير (Grand Wax-Sealed Envelope Vow)
+           ========================================================================== */
+        .envelope-section {
+            padding: 80px 20px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .envelope-title {
+            font-family: 'Amiri', serif;
+            font-size: 32px;
+            color: var(--accent-pink);
+            margin-bottom: 40px;
+        }
+
+        /* حاوية المظروف */
+        .envelope-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* كرتونة ومجسم المظروف بـ SVG فائق الجودة */
+        .envelope-svg {
+            width: 250px;
+            height: 180px;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+        }
+
+        .envelope-pulse-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-pink-glow) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+        }
+
+        /* ==========================================================================
+           8. النافذة المنبثقة لرسالة العهد الكبرى (Grand Vow Overlay Modal)
+           ========================================================================== */
+        #grand-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 7, 24, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.6s;
+            padding: 20px;
+        }
+
+        #grand-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* المغلف الداخلي للرسالة */
+        .modal-paper {
+            background: linear-gradient(135deg, #fffdf8 0%, #fbf5e6 100%);
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            border-radius: 25px;
+            border: 2px solid rgba(216, 27, 96, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(184, 134, 11, 0.08);
+            overflow-y: auto;
+            position: relative;
+            padding: 40px;
+            transform: translateY(50px) scale(0.9);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #2c1a0e;
+        }
+
+        #grand-modal.active .modal-paper {
+            transform: translateY(0) scale(1);
+        }
+
+        /* زر إغلاق نافذة العهد */
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(59, 42, 26, 0.06);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5d4037;
+            font-size: 16px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .modal-close-btn:hover {
+            background: #d81b60;
+            color: white;
+        }
+
+        .vow-header {
+            text-align: center;
+            border-bottom: 2px dashed rgba(216, 27, 96, 0.15);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .vow-title-ar {
+            font-family: 'Amiri', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #d81b60;
+        }
+
+        .vow-title-eng {
+            font-family: 'Alex Brush', cursive;
+            font-size: 32px;
+            color: #a08151;
+            margin-top: 5px;
+        }
+
+        .vow-body {
+            font-family: 'Katibeh', serif;
+            font-size: 28px;
+            line-height: 1.6;
+            color: #3b2a1a;
+            text-align: justify;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .vow-signature {
+            text-align: left;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #8d6b72;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(59, 42, 26, 0.1);
+        }
+
+        .vow-signature span {
+            font-family: 'Alex Brush', cursive;
+            font-size: 30px;
+            color: #d81b60;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* ==========================================================================
+           9. التذييل الفاخر وشريط الأسفل (Footer)
+           ========================================================================== */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            z-index: 10;
+            position: relative;
+            background: rgba(0,0,0,0.1);
+            transition: border var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        footer i {
+            color: var(--accent-pink);
+            animation: pulseGently 1.5s infinite;
+        }
+
+        /* ==========================================================================
+           10. التوافق والاستجابة لشاشات الموبايل (Responsive Media Queries)
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .logo-text-eng { font-size: 30px; }
+            .logo-text-ar { font-size: 16px; }
+            .music-widget { padding: 4px 12px; gap: 8px; }
+            .vinyl-record { width: 30px; height: 30px; }
+            .wave-visualizer { display: none; }
+            .hero-title { font-size: 40px; }
+            .hero-subtitle { font-size: 36px; }
+            .cards-container { padding: 40px 4%; gap: 30px; }
+            .card-perspective { height: auto; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 10px 3%; }
+            .logo-text-eng { font-size: 26px; }
+            .logo-text-ar { display: none; }
+            .nav-controls { gap: 10px; }
+            header { margin-top: 110px; padding: 20px 10px; }
+            .hero-title { font-size: 30px; }
+            .hero-subtitle { font-size: 28px; }
+            .hero-desc { font-size: 15px; }
+            .cards-container { grid-template-columns: 1fr; }
+            .card-perspective { height: auto; }
+            .modal-paper { padding: 25px 15px; }
+            .vow-title-ar { font-size: 28px; }
+            .vow-body { font-size: 24px; }
+        }
+    </style>
+</head>
+<body data-theme="night">
+
+    <!-- خلفية الجسيمات المتطايرة -->
+    <canvas id="hearts-canvas"></canvas>
+
+    <!-- مشغل يوتيوب مخفي للأغنية -->
+    <div id="yt-player" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
+
+    <!-- 1. ستارة الدخول التفاعلية (Curtain Screen) -->
+    <div id="curtain-screen">
+        <div class="curtain-logo">Mon Bébé</div>
+        <h1 class="curtain-title">مرحباً بكِ في عالمنا الخاص يا نبض قلبي</h1>
+        <p class="curtain-text">
+            لقد صنعتُ لكِ هذا الكون الصغير، ليجمع تفاصيلكِ التي تملأ حياتي بالدفء... 
+            كل صورة، وكل كلمة مكتوبة هنا، هي نبضة حب وعهد وفاء من قلبي إليكِ يا جميلتي إيمان.
+        </p>
+        <button class="enter-btn" id="enter-trigger">
+            ادخلي يا إيمان 💖
+        </button>
+    </div>
+
+    <!-- 2. شريط التنقل العلوي (Navigation Bar) -->
+    <nav>
+        <div class="logo-container">
+            <span class="logo-text-eng">Mon Bébé</span>
+            <span class="logo-text-ar">إيمان 💖</span>
+        </div>
+        
+        <div class="nav-controls">
+            <!-- مشغل الموسيقى الفونوغرافي -->
+            <div class="music-widget">
+                <button class="music-play-btn" id="music-trigger" title="تشغيل/إيقاف الموسيقى">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <div class="vinyl-record" id="vinyl-disc"></div>
+                <div class="wave-visualizer" id="audio-wave">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div class="volume-container">
+                    <i class="fa-solid fa-volume-high" style="font-size: 12px; color: var(--text-muted);"></i>
+                    <input type="range" class="volume-slider" id="vol-slider" min="0" max="1" step="0.05" value="0.7">
+                </div>
+            </div>
+
+            <!-- زر تبديل الثيم -->
+            <label class="theme-switch" title="تبديل الوضع">
+                <input type="checkbox" id="theme-toggle-check">
+                <span class="slider">
+                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
+                </span>
+            </label>
+        </div>
+    </nav>
+
+    <!-- 3. قسم البطل والعنوان الرئيسي (Hero Section) -->
+    <header>
+        <h1 class="hero-title">إلى حبيبتي الأبدية.. إيمان 🌹</h1>
+        <div class="hero-subtitle">You are my hot mommy </div>
+    </header>
+
+    <!-- 4. شبكة بطاقات الحب ثلاثية الأبعاد (Interactive Polaroid Grid) -->
+    <main class="cards-container">
+
+        <!-- بطاقة 1: عصير الأفوكادو -->
+        <div class="card-perspective" id="card-card1">
+            <div class="card-inner">
+                <!-- الوجه الأمامي للبطاقة -->
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_let2f6let2f6let2.png" alt="عصير الأفوكادو">
+                        <div class="polaroid-badge"><i class="fa-solid fa-cookie-bite"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">عصير الأفوكادو ولحظة الهدوء 🥑</h2>
+                        <div class="card-text">
+                            إيمان، يا أميرة روحي وجميلة دنيتي، حتى طريقتكِ البسيطة وأنتِ ترتشفين عصير الأفوكادو تبدو في عيني كأنها مشهد سينمائي دافئ من فيلم كلاسيكي مريح لا أريد له أن ينتهي أبداً. الهدوء الذي يسكن عينيكِ العسليتين الساحرتين في تلك اللحظة يجعل أبسط الأشياء تبدو دافئة بشكل غريب وعميق، وكأن العالم بضوضائه وصخبه يتوقف قليلًا، يحبس أنفاسه هيبةً وإعجاباً، فقط ليراقبكِ وأنتِ تبتسمين للكوب بين يديكِ الرقيقتين. تلك الابتسامة الصغيرة التي ترتسم على شفتيكِ تضيء عتمة قلبي وتزرع في روحي سلاماً لا حدود له. أشعر بالغيرة حتى من ذلك الكوب لأنه يلامس يديكِ، وأتمنى لو أستطيع تجميد الزمن عند تلك الثانية لأظل أتأمل تفاصيل وجهكِ الملائكي الذي يفيض عذوبة ونقاءً.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <!-- الوجه الخلفي للبطاقة -->
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        إيمان حبيبتي، في كل مرة تشربين فيها عصير الأفوكادو، أشعر أن الزمن يتوقف من أجلي. سأبقى ممتناً لكل تفصيل صغير فيكِ، حتى تلك الحركات التلقائية التي تصنعينها دون إدراك منكِ. أعدكِ بأنني سأكون دائماً الأمان والهدوء لعينيكِ الجميلتين.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <!-- SVG ختم شمعي أحمر مذهب تفاعلي -->
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 2: مشاهدة الكيدراما والأنمي -->
+        <div class="card-perspective" id="card-card2">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_wcdtc5wcdtc5wcdt.png" alt="مشاهدة المسلسلات">
+                        <div class="polaroid-badge"><i class="fa-solid fa-film"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">مسلسلنا المفضل وسحر ضحكتكِ 🎬</h2>
+                        <div class="card-text">
+                            حبيبتي إيمان، وأنتِ منغمسة في مشاهدة مسلسلاتكِ المفضلة من الكيدراما أو حلقات الأنمي، تبدين في عيني أجمل وأرقّ من كل البطلات والقصص الأسطورية المكتوبة على الشاشة. أجد نفسي أحياناً غارقاً في النظر إليكِ، سارحاً في تفاصيل وجهكِ، متجاهلاً الأحداث والحوارات تماماً، لأن تعابير وجهكِ الصادقة، وضحكتكِ العفوية التي تخرج من أعماق قلبكِ، وانفعالكِ اللطيف مع المشاهد الحزينة أو الحماسية تصنع لي مسلسلاً رائعاً يفوق في جماله أي عمل درامي قد أنتجته البشرية. عيناكِ اللتان تلمعان مع كل لقطة، وحركات يديكِ التلقائية، تعيد تعريف الجمال بالنسبة لي. أنتِ لستِ فقط بطلة حكايتي، بل أنتِ الحكاية كلها، وبدون وجودكِ بجانبي تصبح كل الشاشات مظلمة وبلا ألوان.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        حياتي إيمان، لستِ بحاجة للبحث عن قصص حب خيالية في المسلسلات، لأن قصة حبنا هي أعظم وأجمل رواية كُتِبت في هذا الكون. ضحكتكِ عند كل لقطة سعيدة هي الموسيقى المفضلة لقلبي، وانفعالكِ اللطيف يثبت لي كم أن قلبكِ نقي ورقيق. أحبكِ في كل حالاتكِ.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 3: الأعمال المنزلية -->
+        <div class="card-perspective" id="card-card3">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_99s1fa99s1fa99s1.png" alt="الأعمال المنزلية">
+                        <div class="polaroid-badge"><i class="fa-solid fa-house-chimney-user"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">دفء حضوركِ في أركان البيت 🧹</h2>
+                        <div class="card-text">
+                            إيماني الغالية، حتى الأعمال المنزلية وتفاصيلها المتعبة تتحول برفقتكِ إلى طقوس شعرية ولحظات لطيفة بشكل غير منطقي ومحبب جداً لقلبي. لا أملك أدنى فكرة كيف تملكين هذه القدرة السحرية العجيبة على جعل التفاصيل اليومية العادية تبدو غاية في الروعة والجمال، ولكنني متأكد تماماً من أن وجودكِ وحده هو الذي يبث الحياة والدفء في أركان المكان. وكأن البيت جدراناً وأثاثاً يتنفس الصعداء ويرتاح عندما تتحركين فيه بخطواتكِ الخفيفة كالغزال. كل زاوية تمرين بها تصبح مضيئة، وكل لمسة من يديكِ تترك أثراً من الحب والسكينة. معكِ، يصبح حتى ترتيب الفوضى متعة، وتتحول المهام الرتيبة إلى نغمات موسيقية نتشارك عزفها معاً في مملكتنا الدافئة.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        إيمان الغالية، سأكون دائماً بجانبكِ، نتقاسم تعب الحياة وأعمالها، ونبني معاً عشاً يملؤه الحب والسكينة. حركتكِ الخفيفة في البيت تعيد ترتيب روحي وتملأني بالراحة. أعدكِ أن أصنع لكِ بيتاً يكون دائماً ملجأكِ الآمن من تعب العالم.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 4: الشاطئ والرمل -->
+        <div class="card-perspective" id="card-card4">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_u8hzlu8hzlu8hzlu.png" alt="الشاطئ والرمل">
+                        <div class="polaroid-badge"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">غروب ساحر مع أميرة البحر 🌊</h2>
+                        <div class="card-text">
+                            يا ملاكي الطاهر إيمان، وأنتِ جالسة برقة على الرمل الذهبي أمام البحر اللامتناهي، تبدين وكأنكِ لستِ مجرد زائرة، بل الجزء الأهم والأجمل من لوحة غروب الشمس الأسطورية المثالية. الهواء الذي يداعب خصلات شعركِ الحريري، والأمواج التي تتكسر بهدوء عند قدميكِ، وألوان السماء الوردية والبرتقالية الساحرة... كل شيء في الطبيعة يصبح أهدأ وأكثر سلاماً عندما تكونين هناك، وكأن البحر العظيم نفسه يخفض صوت أمواجه حياءً ويحاول أن يبدو في أبهى حلة وجمال فقط ليناسب حضوركِ الطاغي وجمالكِ الذي لا يضاهى. البحر يغار من عمق عينيكِ، والرمال تسعد بملامسة خطواتكِ، وأنا هنا أقف مذهولاً أمام هذا المشهد، متسائلاً كيف وهبني الله شرف أن أكون بجانب أجمل نساء الأرض وأكثرهن سحراً ونقاءً.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        ملاكي إيمان، عندما رأيتكِ على الشاطئ، أدركتُ أن الجمال الحقيقي قد وُجِد فيكِ وحدكِ. سأأخذكِ إلى كل بحار العالم، وسأكتب اسمكِ على كل شاطئ نزوره، لتشهد الأمواج والرمال أنني أحببتكِ حباً يفوق عمق المحيطات وأبعاد السماء.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 5: العزف على الغيتار -->
+        <div class="card-perspective" id="card-card5">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_5x2b0e5x2b0e5x2b.png" alt="العزف على الغيتار">
+                        <div class="polaroid-badge"><i class="fa-solid fa-guitar"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">أوتار قلبكِ ونغمات روحي 🎸</h2>
+                        <div class="card-text">
+                            إيمان، نبض قلبي، عندما تمسكين الغيتار برقة بين يديكِ وتبدأ أصابعكِ الناعمة بملامسة أوتاره، أشعر في تلك اللحظة أن الموسيقى قد تجسدت أخيراً وأصبح لها وجه يفيض بالبراءة وصوت يعزف على أوتار روحي وروح تسكنني. حتى لو لم أفهم سرّ النغمات كلها أو تراكيب الألحان، يكفيني فقط، بل يملأ كوني سعادةً، أن أراكِ مندمجة مع اللحن بذلك الهدوء الملائكي الساحر. هدوء يغمر قلبي بالسكينة ويجعل ثغري يبتسم بحب دون سبب واضح، بل بأوضح سبب في الكون: وهو أنني غارق في عشقكِ. كل نغمة تخرج من غيتاركِ تعبر مسافات قلبي لتستقر في أعمق نقطة فيه، وكأنكِ لا تعزفين على الآلة، بل تعزفين على نبضات قلبي التي تهتف باسمكِ دائماً وأبداً.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        حبيبتي إيمان، كل نغمة تعزفينها هي نبضة تنطق باسمكِ في صدري. أريد أن أكون الوتر الذي يترجم مشاعركِ، واللحن الذي يرافقكِ في مسيرتكِ. عجز قلبي عن التعبير بالكلمات، فعزفتِ أنتِ بنقائكِ أجمل سيمفونية حب أعيشها كل يوم.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 6: اكتشاف الحاسوب -->
+        <div class="card-perspective" id="card-card6">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_93min393min393mi.png" alt="مجالات الحاسوب">
+                        <div class="polaroid-badge"><i class="fa-solid fa-laptop-code"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">شغف الذكاء وسحر البرمجة معاً 💻</h2>
+                        <div class="card-text">
+                            إيماني الذكية والفضولية، وأنتِ تغوصين في عالم الحاسوب الواسع وتكتشفين مجالاته المتنوعة، تبدين كعالمة تبحث عن النور وسط شفرات معقدة. جلوسكِ أمام الشاشة بتركيزكِ الشديد، وعيناكِ اللتان تلاحقان السطور البرمجية والتقنيات الحديثة بشغف طفولي رائع، يجعلني أشعر بالانبهار الشديد بكِ. حتى لغات البرمجة والأنظمة الجافة تصبح عذبة ورومانسية عندما تلامس عقلكِ المبدع. كم أعشق فضولكِ، وذكاءكِ، وتلك الابتسامة التي ترتسم على وجهكِ عندما تفهمين خوارزمية معقدة أو تحلين مشكلة برمجية. حبيبتي، لو كان بإمكاني، لكتبتُ لكِ شفرة برمجية من مشاعر قلبي لا تنتهي أبداً، شفرة تجعل اسمكِ يتردد في كل نظام، ولأعلنتُ للعالم أنكِ المجال الأجمل والأكثر سحراً في كوني بأكمله، نظام تشغيل قلبي الذي لا يعمل إلا بحبكِ.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        ذكية قلبي إيمان، في عالم مليء بالأكواد والأنظمة المعقدة، كنتِ أنتِ الخوارزمية الوحيدة التي جعلت حياتي منطقية وجميلة. سأكون دائماً الداعم لكِ في كل مجال تكتشفينه، وسنبرمج معاً مستقبلاً مشرقاً يملؤه النجاح والتميز والحب اللامتناهي.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 7: النوم كثيرًا -->
+        <div class="card-perspective" id="card-card7">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/Gemini_Generated_Image_4otd0f4otd0f4otd.png" alt="النوم كثيرا">
+                        <div class="polaroid-badge"><i class="fa-solid fa-moon"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">جمال ملائكي في عالم الأحلام 💤</h2>
+                        <div class="card-text">
+                            حبيبتي ونور عيني إيمان، حتى وأنتِ نائمة في فراشكِ الدافئ بملامحكِ الهادئة المسترخية، تبدين وكأن روحكِ قد رحلت إلى عالم آخر أسطوري، عالم يملؤه هدوء وسلام يفتقده عالمنا المزدحم. أشعر دائماً وأنا أتأمل وجهكِ النائم كالملائكة، أن النوم بالنسبة لكِ ليس مجرد وسيلة للراحة الجسدية، بل هو طريقة يهرب بها الجمال قليلًا من ضوضاء هذا العالم القاسي وصخبه، ليلجأ إلى محراب وجهكِ ويستعيد طاقته وسحره من جديد ليعود ويشرق في صباح اليوم التالي. أنفاسكِ المنتظمة، وجفونكِ المطبقة بلطف، وجبينكِ الصافي، تفاصيل تصنع أروع لوحة للسلام والسكينة. أتمنى في كل ليلة لو أنني أستطيع حراسة أحلامكِ، أطرد عنها أي كابوس، وأنسج لكِ من خيوط القمر أحلاماً وردية تليق بنقاء قلبكِ وعذوبة روحكِ.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        نجمتي المضيئة إيمان، نومكِ الهادئ هو تذكير يومي بنقاء سريرتكِ وعظمة براءتكِ. نمي بسلام يا حبيبتي، ودعي قلبي يسهر ليحرس أحلامكِ ويطرد عنها كل ما يقلقها. أحبكِ في يقظتكِ وفي أحلامكِ، وسأكون أول وجه تبتسمين له عندما تستيقظين.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة 8: مكالمات الليل الهاتفية -->
+        <div class="card-perspective" id="card-card8">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="polaroid-frame">
+                        <img class="polaroid-image" src="last/phone_call_imene.png" alt="مكالمة هاتفية">
+                        <div class="polaroid-badge"><i class="fa-solid fa-phone-volume"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">همسات منتصف الليل وبلسم التعب 📞</h2>
+                        <div class="card-text">
+                            إيماني الغالية، نبض حياتي وبلسم جروحي، إن أكثر ما أحبه وأنتظره بشوق ولهفة طوال يومي هي تلك اللحظات المتأخرة والساكنة من الليل، عندما تتصلين بي وتتحدثين معي من غرفتكِ الدافئة بصوتكِ الهادئ، العذب، والمرتاح الذي ينساب في أذني كالموسيقى السماوية. في الحقيقة، لا يهم أبداً عن ماذا نتكلم، أو ما هي المواضيع التي نناقشها، لأن صوتكِ وحده، بنبرته الحنونة ودفئه الساحر، قادر على أن يجعل جبلاً كاملاً من التعب والجهد الذي عانيته طوال يومي يتلاشى في ثوانٍ معدودة، وكأن شيئاً سيئاً لم يحدث أصلًا في هذا العالم. صوتكِ هو موطني الآمن، ملاذي الذي أهرب إليه من قسوة الأيام، الشمعة التي تضيء ليلتي الطويلة. عندما أسمع همساتكِ الدافئة، أشعر أنني أملك العالم بأسره بين يدي، وأنني أسعد إنسان على وجه الأرض بوجودكِ في حياتي.
+                        </div>
+                        <button class="flip-btn-trigger">اقرأ رسالة قلبي السرية 💌</button>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="letter-header">
+                        <span class="letter-to">إلى ملاكي إيمان...</span>
+                        <span class="letter-stamp">Z & I</span>
+                    </div>
+                    <div class="letter-body">
+                        إيمان روحي، في اللحظات التي يفصلنا فيها الليل والمسافات، يأتي صوتكِ ليمحو كل الحواجز ويبث الحياة في قلبي المتعب. تلك المكالمات المتأخرة هي الكنز الأثمن الذي أملكه، وصوتكِ هو الهادئ والدافئ الذي يخبرني دائماً أن الحياة جميلة طالما أنكِ فيها معي.
+                    </div>
+                    <div class="wax-seal-wrapper">
+                        <svg class="wax-seal-svg" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#8b0000" stroke="#ffd700" stroke-width="2" />
+                            <path d="M50,15 C69.3,15 85,30.7 85,50 C85,69.3 69.3,85 50,85 C30.7,85 15,69.3 15,50 C15,30.7 30.7,15 50,15 Z" fill="#b22222" />
+                            <text x="50" y="58" font-family="'Alex Brush', cursive" font-size="30" fill="#ffd700" text-anchor="middle" font-weight="bold">I</text>
+                        </svg>
+                    </div>
+                    <button class="flip-back-btn"><i class="fa-solid fa-rotate-left"></i> رجوع للبطاقة</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 5. قسم مظروف عهد الحب الكبير (Wax Sealed Envelope Section) -->
+    <section class="envelope-section">
+        <h2 class="envelope-title">عهد الوفاء الأبدي والرسالة الكبرى 🌹</h2>
+        <div class="envelope-wrapper" id="envelope-trigger">
+            <!-- نبض الجلو الخلفي للمظروف -->
+            <div class="envelope-pulse-glow"></div>
+            <!-- SVG مظروف فائق الجمال والواقعية مع ختم شمعي -->
+            <svg class="envelope-svg" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+                <!-- خلفية المظروف -->
+                <path d="M10,210 L290,210 L290,60 L150,140 L10,60 Z" fill="#b85f6c" stroke="#a24c58" stroke-width="2"/>
+                <!-- الجوانب المطوية للمظروف -->
+                <path d="M10,210 L150,110 L10,60 Z" fill="#c9707e" />
+                <path d="M290,210 L150,110 L290,60 Z" fill="#c9707e" />
+                <!-- القاع المطوي للمظروف -->
+                <path d="M10,210 L150,110 L290,210 Z" fill="#d27d8b" stroke="#b85f6c" stroke-width="1.5"/>
+                <!-- لسان المظروف المغلق -->
+                <path id="envelope-flap" d="M10,60 L150,140 L290,60 Z" fill="#a24c58" stroke="#8c3d48" stroke-width="2"/>
+                <!-- الختم الشمعي المذهب في المنتصف -->
+                <circle cx="150" cy="115" r="24" fill="#8b0000" stroke="#ffd700" stroke-width="1.5" />
+                <path d="M150,96 C160.5,96 169,104.5 169,115 C169,125.5 160.5,134 150,134 C139.5,134 131,125.5 131,115 C131,104.5 139.5,96 150,96 Z" fill="#b22222" />
+                <text x="150" y="122" font-family="'Alex Brush', cursive" font-size="20" fill="#ffd700" text-anchor="middle" font-weight="bold">Z & I</text>
+            </svg>
+        </div>
+        <p style="margin-top: 15px; font-family: 'Cairo', sans-serif; font-size: 14px; color: var(--text-muted);">اضغطي على المغلف لفتح عهد الوفاء 💌</p>
+    </section>
+
+    <!-- 6. النافذة المنبثقة لرسالة العهد الكبرى (Grand Vow Modal Overlay) -->
+    <div id="grand-modal">
+        <div class="modal-paper">
+            <button class="modal-close-btn" id="modal-close-trigger" title="إغلاق الرسالة">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="vow-header">
+                <h3 class="vow-title-ar">عهد الحب والوفاء الأبدي</h3>
+                <div class="vow-title-eng">My Eternal Promise To Imene</div>
+            </div>
+            <div class="vow-body">
+                إلى أميرتي وسيدة قلبي، إيمان...<br><br>
+                في هذا اليوم، وأنا أصنع لكِ هذا الكون الصغير ليكون شاهداً على حبي وعشقي الأبدي لكِ، أقف عاجزاً أمام عظمة حضوركِ في حياتي. لقد جئتِ كالنور إلى قلبي، فأنرتِ كل زواياه المظلمة، وأعدتِ صياغة أيامي لتصبح كلها مليئة بالأمل والدفء والجمال الحقيقي.<br><br>
+                إيمان، أعدكِ أمام الله والكون بأكمله، أن أظل الفارس الذي يحميكِ، والسند الذي يستند إليه كتفكِ المتعب في كل لحظة. أعدكِ أن أكون أمانكِ في لحظات خوفكِ، وابتسامتكِ الرقيقة في لحظات حزنكِ، وضحكتكِ المبهجة في لحظات فرحكِ.<br><br>
+                أعدكِ أن أتقاسم معكِ تفاصيل الحياة اليومية البسيطة والجميلة، من شرب عصير الأفوكادو اللطيف، إلى مشاهدة مسلسلاتنا وحكاياتنا المفضلة، وترتيب بيتنا الدافئ بلمساتكِ الساحرة، والمشي على رمال الشاطئ الذهبية تحت أشعة الغروب التي تغار من حضوركِ. سأكون دائماً أكبر داعم لشغفكِ وذكائكِ في مجالات الحاسوب والبرمجة، وسنحقق معاً كل الأحلام والوعود التي رسمناها في مكالماتنا الهاتفية الدافئة متأخرة الليل من غرفتكِ.<br><br>
+                أنتِ لستِ فقط حبيبتي، بل أنتِ موطني، وسكني، وروحي التي لا تنبض إلا بوجودكِ. سأحبكِ اليوم، وغداً، وإلى نهاية العمر، حباً يتجاوز الزمن والمكان والقدر الأبدي.
+            </div>
+            <div class="vow-signature">
+                شريك عمركِ وعاشقكِ الأبدي،
+                <span>Zaki</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. التذييل (Footer) -->
+    <footer>
+        <p>صُنِع بكل الحب ونبضات القلب من أجل الأميرة إيمان 💖</p>
+        <p style="font-size: 11px; margin-top: 5px; opacity: 0.6;">جميع الحقوق محفوظة لقلب زاكي وعينيكِ © 2026</p>
+    </footer>
+
+    <!-- ==========================================================================
+       11. كود الـ JavaScript التفاعلي والأحداث الديناميكية
+       ========================================================================== */ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // === أ. إعدادات الصوت ومستكشف الأغنية عبر يوتيوب API ===
+            const enterTrigger = document.getElementById('enter-trigger');
+            const curtainScreen = document.getElementById('curtain-screen');
+            const musicTrigger = document.getElementById('music-trigger');
+            const vinylDisc = document.getElementById('vinyl-disc');
+            const audioWave = document.getElementById('audio-wave');
+            const volSlider = document.getElementById('vol-slider');
+
+            // إعداد متغيرات يوتيوب
+            let ytPlayer;
+            let ytReady = false;
+            let currentVolume = 0.7; // القيمة الافتراضية
+
+            // تحميل الـ API الخاص باليوتيوب ديناميكياً
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // استدعاء فوري عند جهوزية الـ API
+            window.onYouTubeIframeAPIReady = function() {
+                ytPlayer = new YT.Player('yt-player', {
+                    height: '1',
+                    width: '1',
+                    videoId: 'uPhWWs49fgY',
+                    playerVars: {
+                        'autoplay': 0,
+                        'controls': 0,
+                        'loop': 1,
+                        'playlist': 'uPhWWs49fgY', // تكرار الفيديو في مشغل يوتيوب
+                        'origin': window.location.origin
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            };
+
+            function onPlayerReady(event) {
+                ytReady = true;
+                ytPlayer.setVolume(currentVolume * 100);
+            }
+
+            function onPlayerStateChange(event) {
+                if (event.data === YT.PlayerState.PLAYING) {
+                    updateMusicUI(true);
+                } else {
+                    updateMusicUI(false);
+                }
+            }
+
+            // حدث الدخول السينمائي وتفعيل الموسيقى
+            enterTrigger.addEventListener('click', () => {
+                curtainScreen.style.opacity = '0';
+                curtainScreen.style.visibility = 'hidden';
+                
+                // تشغيل الأغنية من يوتيوب تلقائياً
+                if (ytReady) {
+                    ytPlayer.playVideo();
+                } else {
+                    // إذا لم يجهز المشغل بعد، انتظر حتى جهوزيته
+                    let checkReady = setInterval(() => {
+                        if (ytReady) {
+                            ytPlayer.playVideo();
+                            clearInterval(checkReady);
+                        }
+                    }, 200);
+                }
+            });
+
+            // الضغط على زر مشغل الموسيقى العائم
+            musicTrigger.addEventListener('click', () => {
+                if (!ytReady) return;
+                
+                const playerState = ytPlayer.getPlayerState();
+                if (playerState !== YT.PlayerState.PLAYING) {
+                    ytPlayer.playVideo();
+                } else {
+                    ytPlayer.pauseVideo();
+                }
+            });
+
+            // تعديل الصوت من السلايدر
+            volSlider.addEventListener('input', (e) => {
+                currentVolume = e.target.value;
+                if (ytReady) {
+                    ytPlayer.setVolume(currentVolume * 100);
+                }
+            });
+
+            function updateMusicUI(isPlaying) {
+                if (isPlaying) {
+                    musicTrigger.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                    vinylDisc.classList.add('playing');
+                    audioWave.classList.add('playing');
+                } else {
+                    musicTrigger.innerHTML = '<i class="fa-solid fa-play"></i>';
+                    vinylDisc.classList.remove('playing');
+                    audioWave.classList.remove('playing');
+                }
+            }
+
+            // === ب. إعدادات التبديل بين النهار والليل (Theme Toggle) ===
+            const themeToggle = document.getElementById('theme-toggle-check');
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.body.setAttribute('data-theme', 'day');
+                } else {
+                    document.body.setAttribute('data-theme', 'night');
+                }
+            });
+
+            // === ج. تأثير دوران البطاقات ثلاثية الأبعاد (3D Flipping Interaction) ===
+            const cards = document.querySelectorAll('.card-perspective');
+            
+            cards.forEach(card => {
+                const flipTrigger = card.querySelector('.flip-btn-trigger');
+                const flipBackTrigger = card.querySelector('.flip-back-btn');
+                const waxSeal = card.querySelector('.wax-seal-svg');
+
+                // قلب البطاقة للخلف لقراءة الرسالة السرية
+                flipTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.add('flipped');
+                });
+
+                // إرجاع البطاقة للوجه الأمامي
+                flipBackTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    card.classList.remove('flipped');
+                });
+
+                // النقر على الختم الشمعي يقلب البطاقة أيضاً
+                if (waxSeal) {
+                    waxSeal.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        card.classList.remove('flipped');
+                    });
+                }
+            });
+
+            // === د. تفاعلية مغلف العهد الأبدي الكبرى والنافذة المنبثقة ===
+            const envelopeTrigger = document.getElementById('envelope-trigger');
+            const grandModal = document.getElementById('grand-modal');
+            const modalCloseTrigger = document.getElementById('modal-close-trigger');
+            const envelopeFlap = document.getElementById('envelope-flap');
+
+            envelopeTrigger.addEventListener('click', () => {
+                // فتح لسان الظرف بصرياً قبل فتح المودال بقليل
+                envelopeFlap.setAttribute('d', 'M10,60 L150,0 L290,60 Z');
+                
+                setTimeout(() => {
+                    grandModal.classList.add('active');
+                }, 400);
+            });
+
+            modalCloseTrigger.addEventListener('click', () => {
+                grandModal.classList.remove('active');
+                
+                // إغلاق لسان الظرف مرة أخرى بعد إغلاق الرسالة
+                setTimeout(() => {
+                    envelopeFlap.setAttribute('d', 'M10,60 L150,140 L290,60 Z');
+                }, 600);
+            });
+
+            // إغلاق المودال عند النقر خارج مساحة الرسالة الورقية
+            grandModal.addEventListener('click', (e) => {
+                if (e.target === grandModal) {
+                    grandModal.classList.remove('active');
+                    setTimeout(() => {
+                        envelopeFlap.setAttribute('d', 'M10,60 L150,140 L290,60 Z');
+                    }, 600);
+                }
+            });
+
+            // === هـ. نظام جزيئات القلوب المتطايرة المطور (Dynamic Canvas Hearts Particle) ===
+            const canvas = document.getElementById('hearts-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let particles = [];
+            const maxParticles = 35;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class HeartParticle {
+                constructor() {
+                    this.reset();
+                    // توزيع البداية بشكل عشوائي لتفادي الصعود الجماعي في البداية
+                    this.y = Math.random() * canvas.height;
+                }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + 20;
+                    this.size = Math.random() * 15 + 10; // حجم الجسيم
+                    this.speedY = -(Math.random() * 1.5 + 0.5); // سرعة الصعود
+                    this.speedX = Math.random() * 0.8 - 0.4; // تمايل جانبي
+                    this.opacity = Math.random() * 0.5 + 0.3; // درجة الشفافية
+                    this.opacitySpeed = 0.003;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = Math.random() * 0.02 - 0.01;
+                    // تدرجات ألوان رومانسية وردية مذهبة
+                    this.color = Math.random() > 0.3 ? 'rgba(255, 101, 132, ' : 'rgba(229, 192, 123, ';
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+                    this.rotation += this.rotationSpeed;
+                    
+                    // تلاشي تدريجي عند الاقتراب من القمة
+                    if (this.y < canvas.height * 0.3) {
+                        this.opacity -= 0.005;
+                    }
+
+                    if (this.y < -20 || this.opacity <= 0) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.globalAlpha = Math.max(0, this.opacity);
+                    
+                    // رسم شكل القلب بدقة رياضية
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size/2, -this.size/2, -this.size, -this.size/4, -this.size, this.size/4);
+                    ctx.bezierCurveTo(-this.size, this.size*0.7, -this.size/4, this.size, 0, this.size*1.3);
+                    ctx.bezierCurveTo(this.size/4, this.size, this.size, this.size*0.7, this.size, this.size/4);
+                    ctx.bezierCurveTo(this.size, -this.size/4, this.size/2, -this.size/2, 0, 0);
+                    
+                    ctx.fillStyle = this.color + this.opacity + ')';
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // إنشاء الجسيمات
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new HeartParticle());
+            }
+
+            // حلقة الأنيميشن اللامتناهية
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        });
+    </script>
+</body>
+</html>
