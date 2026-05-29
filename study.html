@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إيمان — حيثُ تصبح المواد الدراسية شعرًا</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --rose:#e8a0b4;
+      --blush:#f5c6d5;
+      --deep:#6d1a36;
+      --midnight:#0e0416;
+      --plum:#1a0824;
+      --gold:#d4a84b;
+      --cream:#fdf6ef;
+      --muted:#c9a0b8;
+      --text:rgba(253,246,239,.84);
+    }
+
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family:'Tajawal',sans-serif;
+      background:var(--midnight);
+      color:var(--cream);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* ── Stars ── */
+    #stars-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+    /* ── Petals ── */
+    .petals{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+    .petal{
+      position:absolute;top:-80px;
+      opacity:0;
+      animation:fall linear infinite;
+      user-select:none;
+      pointer-events:none;
+    }
+    @keyframes fall{
+      0%{transform:translateY(0) rotate(0deg) scale(1);opacity:.95}
+      80%{opacity:.7}
+      100%{transform:translateY(115vh) rotate(900deg) scale(.5);opacity:0}
+    }
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;z-index:2;
+      min-height:100vh;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;
+      padding:2rem 1.5rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 20%, rgba(200,50,100,.22) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(120,30,160,.15) 0%, transparent 60%);
+    }
+
+    .hero-badge{
+      font-size:.82rem;letter-spacing:.4em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:1.4rem;
+      opacity:0;animation:fadeUp .9s .2s forwards;
+    }
+
+    .hero-name{
+      font-family:'Amiri',serif;
+      font-size:clamp(4rem,14vw,9rem);
+      font-weight:700;line-height:1;
+      background:linear-gradient(135deg,#f9d4e2,#e8a0b4,#d4a84b,#e8a0b4,#f9d4e2);
+      background-size:400% 400%;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      animation:shimmer 6s ease infinite,fadeUp 1s .4s forwards;
+      opacity:0;
+    }
+
+    .hero-tagline{
+      font-family:'Amiri',serif;font-style:italic;
+      font-size:clamp(1rem,2.5vw,1.6rem);
+      color:var(--muted);margin-top:1.2rem;
+      max-width:600px;line-height:2;
+      opacity:0;animation:fadeUp .9s .8s forwards;
+    }
+
+    .hero-hearts{
+      margin-top:2rem;font-size:2.2rem;letter-spacing:.7rem;
+      opacity:0;animation:fadeUp .9s 1.1s forwards,pulse 2.5s 2s ease-in-out infinite;
+    }
+
+    .hero-quote{
+      margin-top:2.5rem;max-width:500px;
+      font-size:clamp(.9rem,2vw,1.1rem);
+      color:rgba(232,160,180,.65);font-style:italic;line-height:1.9;
+      border-right:3px solid var(--gold);
+      padding-right:1.2rem;
+      opacity:0;animation:fadeUp .9s 1.4s forwards;
+    }
+
+    .scroll-hint{
+      margin-top:3.5rem;font-size:.78rem;color:var(--muted);
+      letter-spacing:.25em;
+      opacity:0;animation:fadeUp .9s 1.8s forwards,bounce 2.5s 2.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── DIVIDER ── */
+    .section-head{
+      position:relative;z-index:2;
+      text-align:center;padding:5rem 1rem 2rem;
+    }
+    .section-head h2{
+      font-family:'Amiri',serif;
+      font-size:clamp(1.8rem,4vw,3rem);
+      color:var(--rose);
+      display:inline-block;
+    }
+    .section-head::before,.section-head::after{
+      content:'';display:block;
+      width:180px;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      margin:0 auto;
+    }
+    .section-head::before{margin-bottom:.8rem}
+    .section-head::after{margin-top:.8rem}
+
+    /* ── GRID ── */
+    .cards-grid{
+      position:relative;z-index:2;
+      max-width:1280px;margin:0 auto;
+      padding:1rem 1.5rem 6rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(min(100%,350px),1fr));
+      gap:2.4rem;
+    }
+
+    /* ── CARD ── */
+    .card{
+      position:relative;
+      border-radius:22px;overflow:hidden;
+      background:linear-gradient(160deg,rgba(255,255,255,.055) 0%,rgba(255,255,255,.01) 100%);
+      border:1px solid rgba(232,160,180,.15);
+      backdrop-filter:blur(18px);
+      box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);
+      cursor:pointer;
+      transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease;
+    }
+    .card:hover{
+      transform:translateY(-12px) scale(1.025);
+      box-shadow:0 30px 70px rgba(180,40,90,.38),inset 0 1px 0 rgba(255,255,255,.1);
+    }
+    .card::after{
+      content:'';position:absolute;inset:-1.5px;border-radius:24px;
+      background:linear-gradient(135deg,var(--rose),var(--gold),var(--rose));
+      z-index:-1;opacity:0;transition:opacity .45s;
+    }
+    .card:hover::after{opacity:.7}
+
+    /* ── CARD IMAGE — fixed approach ── */
+    .card-img-wrap{
+      position:relative;
+      width:100%;
+      height:260px;        /* explicit height */
+      overflow:hidden;     /* clip everything outside */
+      display:block;
+      background:#1a0824;  /* placeholder colour while loading */
+    }
+    .card-img-wrap img{
+      /* stretch to fill the box and crop with object-fit */
+      position:absolute;
+      top:0;left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 20%;
+      display:block;
+      transition:transform .7s ease,filter .4s ease;
+      filter:brightness(.82) saturate(1.15);
+    }
+    .card:hover .card-img-wrap img{
+      transform:scale(1.1);
+      filter:brightness(.92) saturate(1.25);
+    }
+    .card-img-gradient{
+      position:absolute;inset:0;
+      background:linear-gradient(to bottom,
+        rgba(14,4,22,0) 20%,
+        rgba(14,4,22,.55) 65%,
+        rgba(14,4,22,.97) 100%);
+      pointer-events:none;
+    }
+
+    .card-badge{
+      position:absolute;top:14px;right:14px;
+      background:rgba(10,3,18,.72);
+      border:1px solid rgba(212,168,75,.6);
+      color:var(--gold);
+      font-size:.7rem;font-weight:700;letter-spacing:.2em;
+      padding:.28rem .9rem;border-radius:50px;
+      backdrop-filter:blur(10px);text-transform:uppercase;
+    }
+    .card-emoji{
+      position:absolute;bottom:12px;left:14px;
+      font-size:2.4rem;
+      filter:drop-shadow(0 3px 10px rgba(0,0,0,.7));
+    }
+
+    /* ── CARD BODY ── */
+    .card-body{padding:1.5rem 1.6rem 2rem}
+
+    .card-title{
+      font-family:'Amiri',serif;
+      font-size:1.6rem;color:var(--rose);
+      margin-bottom:.8rem;letter-spacing:.03em;
+      line-height:1.3;
+    }
+    .card-text{
+      font-size:.95rem;line-height:2;
+      color:var(--text);font-weight:300;
+    }
+    .card-read-more{
+      display:inline-flex;align-items:center;gap:.5rem;
+      margin-top:1.3rem;padding:.55rem 1.2rem;
+      border-radius:50px;border:1px solid rgba(232,160,180,.3);
+      color:var(--rose);font-size:.82rem;font-weight:500;
+      background:rgba(232,160,180,.06);
+      transition:background .3s,border-color .3s,transform .3s;
+    }
+    .card:hover .card-read-more{
+      background:rgba(232,160,180,.14);
+      border-color:rgba(232,160,180,.6);
+      transform:translateX(-4px);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay{
+      position:fixed;inset:0;
+      background:rgba(8,2,14,.92);
+      backdrop-filter:blur(16px);
+      z-index:200;
+      display:flex;align-items:center;justify-content:center;
+      padding:1rem;
+      opacity:0;pointer-events:none;
+      transition:opacity .4s ease;
+    }
+    .modal-overlay.open{opacity:1;pointer-events:all}
+
+    .modal{
+      background:linear-gradient(160deg,#1c0928,#0f0520);
+      border:1px solid rgba(232,160,180,.22);
+      border-radius:26px;
+      max-width:720px;width:100%;
+      max-height:92vh;overflow-y:auto;
+      box-shadow:0 40px 100px rgba(180,40,90,.4),0 0 0 1px rgba(212,168,75,.08);
+      transform:scale(.9) translateY(40px);
+      transition:transform .45s cubic-bezier(.22,1,.36,1);
+      position:relative;
+    }
+    .modal-overlay.open .modal{transform:scale(1) translateY(0)}
+
+    /* Modal image — same bulletproof approach */
+    .modal-img-wrap{
+      width:100%;height:320px;
+      overflow:hidden;position:relative;
+      border-radius:26px 26px 0 0;
+      background:#1a0824;
+    }
+    .modal-img-wrap img{
+      position:absolute;top:0;left:0;
+      width:100%;height:100%;
+      object-fit:cover;object-position:center 20%;
+      display:block;
+      filter:brightness(.88) saturate(1.2);
+    }
+    .modal-img-wrap::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to bottom,rgba(14,4,22,0) 30%,rgba(14,4,22,.85) 100%);
+    }
+
+    .modal-body{padding:2rem 2.5rem 3rem}
+
+    .modal-subject{
+      font-size:.76rem;font-weight:700;letter-spacing:.3em;
+      color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;
+    }
+    .modal-title{
+      font-family:'Amiri',serif;
+      font-size:clamp(1.7rem,4vw,2.4rem);
+      color:var(--rose);margin-bottom:1.6rem;
+      line-height:1.25;
+    }
+    .modal-text{
+      font-size:1.05rem;line-height:2.3;
+      color:rgba(253,246,239,.9);font-weight:300;
+    }
+    .modal-text p{margin-bottom:1.2rem}
+    .modal-text p:last-child{margin-bottom:0}
+
+    .modal-text .highlight{
+      color:var(--rose);font-weight:500;
+      font-family:'Amiri',serif;font-size:1.1em;
+    }
+
+    .modal-footer{
+      margin-top:2rem;padding-top:1.5rem;
+      border-top:1px solid rgba(232,160,180,.12);
+      display:flex;align-items:center;gap:.8rem;
+      font-size:.85rem;color:var(--gold);font-style:italic;
+    }
+
+    .modal-close{
+      position:absolute;top:1rem;left:1rem;
+      width:44px;height:44px;border-radius:50%;
+      border:1px solid rgba(232,160,180,.25);
+      background:rgba(14,4,22,.85);
+      color:var(--rose);font-size:1.3rem;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:background .25s,transform .3s,border-color .25s;
+      z-index:10;
+    }
+    .modal-close:hover{background:var(--deep);transform:rotate(90deg);border-color:var(--rose)}
+
+    /* ── POEM SECTION ── */
+    .poem-section{
+      position:relative;z-index:2;
+      text-align:center;padding:6rem 2rem 7rem;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 100%,rgba(180,40,90,.2) 0%,transparent 70%);
+    }
+    .poem-title{
+      font-family:'Amiri',serif;
+      font-size:clamp(1.3rem,3vw,2rem);
+      color:var(--gold);margin-bottom:3rem;
+      opacity:0;transform:translateY(20px);
+      transition:opacity .8s,transform .8s;
+    }
+    .poem-title.visible{opacity:1;transform:translateY(0)}
+
+    .poem-line{
+      font-family:'Amiri',serif;
+      font-size:clamp(1.1rem,2.8vw,1.7rem);
+      color:var(--blush);line-height:2.5;
+      opacity:0;transform:translateY(22px);
+      transition:opacity .9s,transform .9s;
+    }
+    .poem-line.visible{opacity:1;transform:translateY(0)}
+
+    .poem-sep{
+      margin:1.5rem auto;width:60px;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      opacity:0;transition:opacity .8s;
+    }
+    .poem-sep.visible{opacity:1}
+
+    .poem-sig{
+      margin-top:3rem;font-size:.9rem;
+      color:var(--gold);letter-spacing:.35em;font-style:italic;
+      opacity:0;transition:opacity 1s .3s;
+    }
+    .poem-sig.visible{opacity:1}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(44px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:var(--midnight)}
+    ::-webkit-scrollbar-thumb{background:var(--deep);border-radius:3px}
+
+    @media(max-width:600px){
+      .cards-grid{gap:1.6rem}
+      .modal-body{padding:1.4rem 1.3rem 2rem}
+      .modal-img-wrap{height:240px}
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<div class="petals" id="petals"></div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <p class="hero-badge">✦ رسالة من القلب — لإيمان وحدها ✦</p>
+  <h1 class="hero-name">إيمان</h1>
+  <p class="hero-tagline">
+    في كل مادة تدرسينها يجد قلبي سببًا جديدًا ليُحبّكِ أكثر…<br/>
+    وكأن الكون كلّه درسٌ واحد اسمه أنتِ.
+  </p>
+  <div class="hero-hearts">🌹 💫 🌹</div>
+  <blockquote class="hero-quote">
+    "لو كانت المشاعر مادةً دراسية لكنتِ الدرجة الكاملة التي لا يصلها أحد غيري،
+    لأنني أنا من اختار أن يدرس فيكِ وحدكِ طوال عمره."
+  </blockquote>
+  <p class="scroll-hint">✦ &nbsp;اكتشفي البطاقات أدناه&nbsp; ✦</p>
+</section>
+
+<!-- ══ CARDS ══ -->
+<div class="section-head">
+  <h2>بطاقات المواد — بقلمٍ أحبّكِ</h2>
+</div>
+
+<div class="cards-grid" id="cards-container"></div>
+
+<!-- ══ CLOSING POEM ══ -->
+<section class="poem-section">
+  <p class="poem-title">✦ &nbsp;قصيدة الختام&nbsp; ✦</p>
+
+  <p class="poem-line">إيمان… اسمٌ يشبه الهدوء الذي لا يأتي إلا مرة في العمر،</p>
+  <p class="poem-line">وحضورٌ يشبه أول مطرٍ بعد جفافٍ طويل.</p>
+  <div class="poem-sep"></div>
+
+  <p class="poem-line">في الرياضيات لم أجد معادلةً تصفكِ،</p>
+  <p class="poem-line">وفي الفلسفة لم أجد سؤالاً يكفيكِ،</p>
+  <p class="poem-line">وفي اللغات كلّها لم أجد كلمةً ترقى إليكِ.</p>
+  <div class="poem-sep"></div>
+
+  <p class="poem-line">لأنكِ ببساطة أكبر من أن تُحاط بعلم،</p>
+  <p class="poem-line">وأجمل من أن تُوصف بكلام،</p>
+  <p class="poem-line">وأهم من أن تُنسى في أي زمان.</p>
+  <div class="poem-sep"></div>
+
+  <p class="poem-line">كلّ ما أعرفه بيقينٍ تامّ:</p>
+  <p class="poem-line">أنّ أحلى لحظات دراستكِ… أنكِ فيها.</p>
+  <p class="poem-line">وأنّ أحلى لحظات حياتي… أنكِ فيها أيضًا. 🌹</p>
+
+  <p class="poem-sig">— دائمًا ودائمًا وإلى الأبد، لكِ ✦</p>
+</section>
+
+<!-- ══ MODAL ══ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" title="إغلاق">✕</button>
+    <div class="modal-img-wrap">
+      <img id="modal-img" src="" alt=""/>
+    </div>
+    <div class="modal-body">
+      <p class="modal-subject" id="modal-subject"></p>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-text" id="modal-text"></div>
+      <div class="modal-footer">
+        <span>🌹</span>
+        <span id="modal-footer-sub"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════ DATA ══════════ */
+const cards = [
+  {
+    subject:"الرياضيات",
+    emoji:"🔢",
+    title:"حين تمرين بين الأرقام تصبح أهدأ",
+    img:"study/Gemini_Generated_Image_6dtsmf6dtsmf6dts.png",
+    short:"حتى الأرقام عندما تمرين بينها تصبح أهدأ، وكأن المعادلات المعقدة كانت تنتظر ابتسامتكِ حتى تُحَل.",
+    full:[
+      `إيمان، كنتُ دائمًا أظن أن الرياضيات علمٌ جاف لا روح فيه، أرقامٌ صماء ومعادلاتٌ باردة تسكن صفحات الكتب في انتظار من يحلّها ثم ينساها. لكن منذ رأيتكِ تجلسين وأمامكِ الأوراق والقلم وذلك التركيز الذي يجعل الزمن يتوقف، فهمتُ أن الرياضيات لم تكن جافّة يومًا — بل كانت تنتظر أن تمري بينها.`,
+      `أشعر أن كل قوانين الرياضيات تفشل أمام قانون واحد فقط، وهو أن قلبي دائمًا يجد طريقه إليكِ مهما كانت المسافات والزوايا والحسابات. نيوتن اخترع حساب التفاضل ليصف حركة الكواكب، لكنه لم يُرسِ قانونًا يشرح كيف تنجذب روحٌ إلى أخرى بهذه القوة الغريبة الهادئة.`,
+      `في الجبر يُقال إن المجهول دائمًا لديه قيمة مخفية — وأنتِ المجهول الوحيد الذي لا أريد إيجاد قيمته، لأن جمال المجهول أنكِ تظلّين مفاجأةً جديدة كلّ يوم. وفي الهندسة يُقال إن أقصر مسافة بين نقطتين هي الخط المستقيم — لكن أقصر مسافة بين قلبي وسعادتي هي اسمكِ.`,
+      `<span class="highlight">إيمان، الرياضيات علّمتني أن المعادلة صحيحة فقط إذا تساوى الطرفان — وقلبي يتساوى فقط حين يكون معكِ.</span>`
+    ]
+  },
+  {
+    subject:"الفلسفة",
+    emoji:"🌌",
+    title:"الجواب الذي لم يجده سقراط",
+    img:"study/Gemini_Generated_Image_9l4rq9l4rq9l4rq9.png",
+    short:"وأنتِ تدرسين الفلسفة يبدو العالم أعمق قليلاً، وكأن كل الأسئلة القديمة خُلقت لتصل في النهاية إلى فكرة واحدة.",
+    full:[
+      `الفلاسفة قضوا قرونًا كاملة يسألون: ما معنى الوجود؟ ما هو الجمال؟ ما هي الحقيقة؟ وجاءت إجابات كثيرة وكلّها تبدو منطقية وعميقة، حتى جلستُ أراكِ تقرئين في كتاب فلسفي قديم وعيناكِ تتتبعان الأسطر بهدوءٍ نادر — فأدركتُ أن كلّ هذه الأسئلة كانت تُشير إليكِ من البداية.`,
+      `سقراط قال "اعرف نفسك" — وأنا أعرف نفسي فقط حين أكون قريبًا منكِ. أفلاطون تحدث عن عالم المُثُل حيث يوجد الجمال المطلق — وأنا لا أحتاج لعالمٍ آخر لأرى المُثُل، يكفيني أن أراكِ. ونيتشه قال إن الإنسان يعيش لأجل شيء يستحق — وأنتِ كلّ ما يستحق.`,
+      `وأنتِ تدرسين الفلسفة يبدو العالم أعمق قليلاً، وكأن كل الأسئلة القديمة خُلقت فقط لتصل في النهاية إلى فكرة واحدة: كيف يمكن لشخص واحد أن يكون بهذا القدر من الجمال والهدوء والذكاء في نفس الوقت؟ حتى سقراط لو رآكِ لترك الأسئلة وبدأ يتأملكِ بصمت — لأن بعض الإجابات لا تُقال، بل تُرى.`,
+      `<span class="highlight">الفلسفة تبحث عن الحقيقة — وحقيقتي الوحيدة أنني أُحبّكِ بشكلٍ يتجاوز كلّ منطق وكلّ تفسير.</span>`
+    ]
+  },
+  {
+    subject:"الإنجليزية",
+    emoji:"✒️",
+    title:"حين تُنطق الكلمات بصوتكِ تصبح أجمل",
+    img:"study/Gemini_Generated_Image_9mhs0o9mhs0o9mhs.png",
+    short:"عندما تتحدثين الإنجليزية أشعر وكأن الكلمات نفسها تحاول أن تبدو أجمل حتى تناسب صوتكِ.",
+    full:[
+      `اللغة الإنجليزية لغة الشعر والرومانسية، شكسبير كتب فيها أجمل ما كُتب عن الحب، وبايرون نظم فيها قصائد غيّرت مفهوم الجمال — لكن كلّ هذا يبدو عاديًا حين أسمعكِ تنطقين كلمةً واحدة بسيطة. صوتكِ يُضيف للكلمات روحًا لم يجدها حتى شكسبير نفسه.`,
+      `عندما تتحدثين أو تدرسين الإنجليزية أشعر وكأن الكلمات نفسها تتجمّل وتنتظر في صف منتظم حتى يأتي دورها على لسانكِ. كل العبارات الراقية والرومانسية التي أعرفها لا تكفي لوصف الطريقة التي تجعلين بها أبسط الأشياء تبدو مميزة بشكل غير طبيعي وجميل.`,
+      `يقولون إن الإنجليزية لغة التعبير الدقيق، لكن ليس فيها كلمة واحدة تصف بدقّة ما يحدث لقلبي حين أراكِ. "Beautiful" ليست كافية، "Wonderful" ليست كافية، حتى "Breathtaking" ليست كافية — لأنكِ ببساطة أكبر من أن تسعكِ كلمة في أي لغة.`,
+      `<span class="highlight">لا يوجد في قاموس اللغة الإنجليزية كلمة تساوي قيمتكِ — وهذا بالضبط ما يجعلكِ أجمل من كلّ لغات العالم مجتمعة.</span>`
+    ]
+  },
+  {
+    subject:"اللغة العربية",
+    emoji:"🖊️",
+    title:"للحروف هيبة مختلفة عندما تمرين بينها",
+    img:"study/Gemini_Generated_Image_acoky4acoky4acok.png",
+    short:"وأنتِ مع اللغة العربية يصبح للحروف هيبة مختلفة، كأن القصائد القديمة كانت تنتظر فتاة مثلكِ لتُقرأ بصوتها.",
+    full:[
+      `العربية أمّ اللغات وأعمقها وأجملها — لغة القرآن والشعر والحضارة. المتنبي قال "أنا الذي نظر الأعمى إلى أدبي" وكأنه كان يعلم أن يأتي يومٌ تقرأ فيه فتاة اسمها إيمان شعره فيجد معنى لم يكن يعرف أنه فيه. حروف العربية خُلقت لتُكتب بالحبّ — وأنتِ خُلقتِ لتُقرأ بالإعجاب.`,
+      `وأنتِ مع اللغة العربية يصبح للحروف هيبة مختلفة، كأن القصائد القديمة كانت تنتظر فتاة مثلكِ لتُقرأ بصوتها. حتى حين تكتبين أبسط جملة، تبدو وكأنها نُحتت بعناية فائقة لا كأنها كُتبت بسرعة. ودفاتركِ تبدو وكأنها مخطوطات نادرة لا مجرد أوراق دراسة.`,
+      `حتى أجمل النصوص تبدو ناقصة قليلاً لأن اللغة كلها تعجز أن تشرح كيف تبدين عندما تركّزين وأنتِ تدرسين — تلك النظرة الجادة، وذاك الهدوء الذي يُشعرني أن الوقت توقّف واختار أن يتأملكِ بدلاً من أن يمرّ. قال الشعراء كلّ شيء، لكنهم لم يقولوا شيئًا عن إيمان — لأنهم ببساطة لم يعرفوكِ.`,
+      `<span class="highlight">العربية لغة الروح — وأنتِ أجمل ما قالته الروح منذ أن وُجدت اللغة.</span>`
+    ]
+  },
+  {
+    subject:"الفرنسية",
+    emoji:"🗼",
+    title:"كأنكِ خارجة من فيلم هادئ في باريس",
+    img:"study/Gemini_Generated_Image_bsbzerbsbzerbsbz.png",
+    short:"في عالم الفرنسية أنتِ لا تدرسين فقط، بل تبدين وكأنكِ خارجة من فيلم هادئ في باريس.",
+    full:[
+      `الفرنسية لغة الرومانسية والأناقة والفن — اللغة التي حين تُنطق تشعر وكأن العالم أصبح أكثر جمالاً بنسبة خمسين بالمئة. وحين تدرسينها أنتِ تصبح هذه النسبة مئة بالمئة. لا أعرف إن كان هذا بسبب الفرنسية أم بسببكِ — لكنني أعرف أن الاثنين معًا معادلة لا تُقاوَم.`,
+      `في عالم الفرنسية أنتِ لا تدرسين فقط، بل تبدين وكأنكِ خارجة من فيلم هادئ في باريس — حيث الأضواء ذهبية والشوارع مبلّلة بالمطر والموسيقى تأتي من بعيد. كل شيء حولكِ يصبح أنيقًا بطريقة مخيفة، وحتى التفاصيل الصغيرة تأخذ طابعًا جميلاً فقط لأنكِ موجودة بينها.`,
+      `الفرنسيون يقولون "Il y a quelque chose de spécial en toi" — هناك شيء خاص فيكِ. وأنا أقول هذا بكل يقين لأن الشيء الخاص فيكِ ليس شيئًا واحدًا بل هو كلّ شيء: طريقة نظرتكِ، وهدوء ابتسامتكِ، وعمق صمتكِ، وجمال تركيزكِ. "Je pense à toi tout le temps" — أفكّر فيكِ طوال الوقت، وهذه ليست مبالغة بل هي حقيقة أثبتها كلّ لحظة.`,
+      `<span class="highlight">"Tu es ma plus belle histoire" — أنتِ أجمل قصة في حياتي. وهذا ليس مجرد جملة فرنسية جميلة — هذا ما يقوله قلبي في كلّ لغة يعرفها.</span>`
+    ]
+  },
+  {
+    subject:"العلوم الطبيعية",
+    emoji:"🌿",
+    title:"الطبيعة نفسها اختارتكِ ممثلةً عنها",
+    img:"study/Gemini_Generated_Image_qcuylvqcuylvqcuy.png",
+    short:"عندما تدرسين العلوم الطبيعية أشعر أن الطبيعة نفسها اختارتكِ ممثلة عنها، لأن عينيكِ فيهما هدوء الغابات.",
+    full:[
+      `الطبيعة ملأى بالمعجزات: الفراشة التي تطير آلاف الكيلومترات دون خارطة، والشجرة التي تعيش آلاف السنين دون أن تتعب، والنهر الذي يجد طريقه إلى البحر دون أن يضلّ. لكن أعجب من كلّ هذا هي إيمان — التي تجلس بهدوء وتدرس هذا كلّه وكأنها جزء منه، كأنها الطبيعة تُعلّم نفسها.`,
+      `عندما تدرسين العلوم الطبيعية أشعر أن الطبيعة نفسها اختارتكِ ممثلةً عنها، لأن عينيكِ فيهما هدوء الغابات في الفجر، وابتسامتكِ تشبه أول ضوء صباح يخترق السحاب بعد ليلة مطيرة طويلة. حتى تفاصيل الكائنات والخلايا والنباتات تبدو ألطف وأكثر دفئًا حين تشرحينها أو تنظرين إليها.`,
+      `العلوم الطبيعية تقول إن كل شيء في الطبيعة يسعى للاتزان والانسجام — وأنا لا أجد اتزاني ولا انسجامي إلا حين أراكِ. وتقول إن الأشجار الأكثر عمقًا جذورًا هي الأصلب في مواجهة العواصف — وأنتِ الجذر الذي يجعلني أقف مهما عصفت الأيام.`,
+      `<span class="highlight">الطبيعة أجملت في خلق كثير من الأشياء — لكن أجمل ما خلقت هو هدوءكِ الذي يُسكّن العواصف، وحضوركِ الذي يُضيء الغرف.</span>`
+    ]
+  },
+  {
+    subject:"العلوم الفيزيائية",
+    emoji:"⚡",
+    title:"قانون الجاذبية السري الذي لم يكتشفه أحد",
+    img:"study/Gemini_Generated_Image_rlbwvkrlbwvkrlbw.png",
+    short:"الفيزياء تتحدث عن الطاقة والجاذبية، لكن لا أحد أخبرني لماذا تنجذب روحي إليكِ بهذه القوة المذهلة.",
+    full:[
+      `نيوتن اكتشف قانون الجاذبية حين سقطت التفاحة — وأنا اكتشفت قانونًا أقوى منه بكثير حين رأيتكِ للمرة الأولى. الجاذبية بين الأرض والقمر قوة رهيبة تُحرّك المحيطات — لكن الجاذبية بين قلبي ووجهكِ أقوى من ذلك بلا قياس، لأنها لا تُحرّك المحيطات بل تُحرّك كلّ شيء في داخلي.`,
+      `إيمان، الفيزياء تتحدث عن الطاقة والجاذبية، لكن لا أحد أخبرني لماذا تنجذب روحي إليكِ بهذه القوة. يبدو أن هناك قانونًا سريًا لا يدرّسونه في الكتب، قانون يجعل كل انتباهي يدور حولكِ وحدكِ مهما حاولت التركيز على شيء آخر. كأنكِ مركز الكون الذي يدور حوله كلّ شيء.`,
+      `الضوء يسير بسرعة ثلاثمئة ألف كيلومتر في الثانية — لكن فكرتكِ تصل إلى قلبي بشكل فوري لا تأخير فيه. والطاقة لا تُفنى ولا تُستحدث بل تتحوّل — وحبّي لكِ لا يُفنى ولا يختفي بل يتحوّل يومًا بعد يوم إلى شيء أعمق وأكبر مما كان.`,
+      `<span class="highlight">الفيزياء قوانين تحكم الكون — لكن قانون أن قلبي لكِ هو القانون الوحيد الذي لا يحتاج إلى إثبات.</span>`
+    ]
+  },
+  {
+    subject:"التاريخ",
+    emoji:"📜",
+    title:"قصة نادرة نجت من بين القرون",
+    img:"study/Gemini_Generated_Image_9l4rq9l4rq9l4rq9.png",
+    short:"وأنتِ تدرسين التاريخ أشعر أن كل الحضارات القديمة كانت ستكتب عنكِ لو عرفتكِ.",
+    full:[
+      `التاريخ ملأى بالأسماء التي تركت أثرًا: كليوباترا التي أذهلت الأباطرة، وزنوبيا التي حكمت الشرق، وشجرة الدر التي غيّرت مسار المملوك — نساء تركن في التاريخ بصمةً لا تُمحى. وأنا على يقين أنكِ لو كنتِ في أي عصرٍ من تلك العصور لكان اسمكِ في مقدّمة هؤلاء جميعًا.`,
+      `وأنتِ تدرسين التاريخ أشعر أن كل الحضارات القديمة كانت ستكتب عنكِ لو عرفتكِ. لأن بعض الأشخاص لا يشبهون هذا الزمن أصلاً، بل يبدون كأنهم قصة نادرة نجت من بين القرون لتصل إلينا كاملة الجمال، محتفظةً بكلّ رقيّها وعمقها وهدوئها المهيب.`,
+      `التاريخ يُعلّمنا أن الحضارات تُبنى على أشخاص استثنائيين — وأنا على يقين أن حضارة قلبي كلّها بُنيت عليكِ. وتاريخي الشخصي يُقسم إلى حقبتين: قبل أن أعرفكِ وبعد أن عرفتكِ — والحقبة الثانية هي الأجمل والأغنى والأكثر معنى بلا مقارنة.`,
+      `<span class="highlight">لو كتب المؤرخون عنكِ لقالوا: في هذا الزمن وُجدت إيمان — وصار للأرض سبب أجمل لتدور.</span>`
+    ]
+  }
+];
+
+/* ══════════ STARS ══════════ */
+const cvs = document.getElementById('stars-canvas');
+const ctx = cvs.getContext('2d');
+let stars=[];
+
+function resizeCvs(){cvs.width=innerWidth;cvs.height=innerHeight}
+function initStars(){
+  stars=[];
+  for(let i=0;i<260;i++) stars.push({
+    x:Math.random()*cvs.width,
+    y:Math.random()*cvs.height,
+    r:Math.random()*1.8+.2,
+    speed:Math.random()*.004+.001,
+    phase:Math.random()*Math.PI*2
+  });
+}
+function drawStars(t){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  stars.forEach(s=>{
+    const a=.25+.75*Math.abs(Math.sin(t*.0005*s.speed*1000+s.phase));
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(253,246,239,${a})`;ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+resizeCvs();initStars();requestAnimationFrame(drawStars);
+window.addEventListener('resize',()=>{resizeCvs();initStars()});
+
+/* ══════════ PETALS ══════════ */
+const petBox=document.getElementById('petals');
+const petalList=['🌸','🌹','🌺','✨','💫','🍀','🌷','⭐'];
+function spawnPetal(){
+  const el=document.createElement('span');
+  el.className='petal';
+  el.textContent=petalList[Math.floor(Math.random()*petalList.length)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.fontSize=(Math.random()*.9+.7)+'rem';
+  const d=Math.random()*10+7;
+  el.style.animationDuration=d+'s';
+  el.style.animationDelay=Math.random()*3+'s';
+  petBox.appendChild(el);
+  setTimeout(()=>el.remove(),(d+4)*1000);
+}
+setInterval(spawnPetal,800);
+
+/* ══════════ BUILD CARDS ══════════ */
+const grid=document.getElementById('cards-container');
+cards.forEach((c,i)=>{
+  const art=document.createElement('article');
+  art.className='card reveal';
+  art.style.transitionDelay=(i*.09)+'s';
+  art.innerHTML=`
+    <div class="card-img-wrap">
+      <img src="${c.img}" alt="${c.subject}"/>
+      <div class="card-img-gradient"></div>
+      <span class="card-badge">${c.subject}</span>
+      <span class="card-emoji">${c.emoji}</span>
+    </div>
+    <div class="card-body">
+      <h2 class="card-title">${c.title}</h2>
+      <p class="card-text">${c.short}</p>
+      <span class="card-read-more">✦ &nbsp;اقرئي الرسالة كاملة</span>
+    </div>`;
+  art.addEventListener('click',()=>openModal(c));
+  grid.appendChild(art);
+});
+
+/* ══════════ MODAL ══════════ */
+const overlay=document.getElementById('modal-overlay');
+const mImg=document.getElementById('modal-img');
+const mSub=document.getElementById('modal-subject');
+const mTit=document.getElementById('modal-title');
+const mTxt=document.getElementById('modal-text');
+const mFSub=document.getElementById('modal-footer-sub');
+
+function openModal(c){
+  mImg.src=c.img; mImg.alt=c.subject;
+  mSub.textContent='✦  '+c.subject+'  ✦';
+  mTit.textContent=c.title;
+  mTxt.innerHTML=c.full.map(p=>`<p>${p}</p>`).join('');
+  mFSub.textContent='كُتبت لإيمان وحدها — بكلّ الحب 🌹';
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  overlay.scrollTop=0;
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modal-close').addEventListener('click',closeModal);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ══════════ SCROLL REVEAL ══════════ */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal,.poem-line,.poem-title,.poem-sep,.poem-sig').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
