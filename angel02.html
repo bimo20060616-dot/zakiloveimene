@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>i love you  ❤️</title>
+
+    <!-- ============================================================
+     GOOGLE FONTS — Display script + elegant serif + clean body
+     ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Tangerine:wght@700&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ================================================================
+   ROOT TOKENS — deliberate palette: dusty rose / champagne / plum
+   ================================================================ */
+      :root {
+        --rose-50: #fdf3f3;
+        --rose-100: #fbe4e6;
+        --rose-200: #f3c7cd;
+        --rose-300: #e6a3ad;
+        --rose-deep: #c9748a;
+        --plum: #4a2438;
+        --plum-deep: #2e1626;
+        --gold: #d8b46a;
+        --gold-soft: #f0ddb0;
+        --ink: #3a2532;
+        --cream: #fff8f3;
+        --glass-bg: rgba(255, 248, 250, 0.38);
+        --glass-border: rgba(255, 255, 255, 0.55);
+        --shadow-soft: 0 20px 60px -20px rgba(74, 36, 56, 0.35);
+
+        --font-script: "Tangerine", cursive;
+        --font-serif: "Cormorant Garamond", serif;
+        --font-body: "Jost", sans-serif;
+      }
+
+      /* ================================================================
+   RESET
+   ================================================================ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--ink);
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(ellipse at 20% 0%, #b3052d 0%, transparent 55%),
+          radial-gradient(ellipse at 85% 15%, #f6d9e2 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 100%, #76001d 0%, transparent 60%),
+          linear-gradient(
+            160deg,
+            #a90505 0%,
+            #e82f57 35%,
+            #b40a40 65%,
+            #ff0055 100%
+          );
+        background-attachment: fixed;
+        position: relative;
+      }
+
+      /* subtle grain/texture overlay for premium feel */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.5) 1px,
+          transparent 1px
+        );
+        background-size: 3px 3px;
+        opacity: 0.25;
+        mix-blend-mode: overlay;
+      }
+
+      /* ================================================================
+   BACKGROUND FX LAYERS (hearts + sparkles canvas containers)
+   ================================================================ */
+      #hearts-layer,
+      #sparkle-layer {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .floating-heart {
+        position: absolute;
+        bottom: -10%;
+        font-size: 22px;
+        color: var(--rose-deep);
+        opacity: 0.55;
+        filter: drop-shadow(0 0 6px rgba(201, 116, 138, 0.35));
+        animation-name: floatUp;
+        animation-timing-function: ease-in;
+        animation-iteration-count: infinite;
+        user-select: none;
+        will-change: transform, opacity;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) translateX(0) rotate(0deg) scale(0.8);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 0.6;
+        }
+
+        50% {
+          transform: translateY(-50vh) translateX(var(--drift, 20px))
+            rotate(180deg) scale(1);
+        }
+
+        90% {
+          opacity: 0.45;
+        }
+
+        100% {
+          transform: translateY(-110vh)
+            translateX(calc(var(--drift, 20px) * -1)) rotate(360deg) scale(0.7);
+          opacity: 0;
+        }
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: var(--gold-soft);
+        border-radius: 50%;
+        opacity: 0;
+        box-shadow: 0 0 8px 2px rgba(216, 180, 106, 0.6);
+        animation: sparklePulse 3.2s ease-in-out infinite;
+      }
+
+      @keyframes sparklePulse {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scale(0.3);
+        }
+
+        50% {
+          opacity: 0.9;
+          transform: scale(1.2);
+        }
+      }
+
+      /* ================================================================
+   PAGE CONTENT WRAPPER
+   ================================================================ */
+      .page {
+        position: relative;
+        z-index: 2;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 64px 24px 100px;
+      }
+
+      /* ================================================================
+   HERO / HEADER
+   ================================================================ */
+      .hero {
+        text-align: center;
+        margin-bottom: 56px;
+        opacity: 0;
+        transform: translateY(24px);
+        animation: heroFadeIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        animation-delay: 0.2s;
+      }
+
+      @keyframes heroFadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-eyebrow {
+        font-family: var(--font-body);
+        font-weight: 400;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        font-size: 11px;
+        color: var(--rose-deep);
+        opacity: 0.8;
+        margin-bottom: 18px;
+      }
+
+      .hero-eyebrow::before,
+      .hero-eyebrow::after {
+        content: "✦";
+        margin: 0 12px;
+        font-size: 9px;
+        vertical-align: middle;
+      }
+
+      .hero-title {
+        font-family: var(--font-script);
+        font-size: clamp(64px, 12vw, 128px);
+        line-height: 0.95;
+        font-weight: 700;
+        color: var(--plum);
+        text-shadow: 0 4px 30px rgba(201, 116, 138, 0.35);
+        position: relative;
+        display: inline-block;
+      }
+
+      .hero-title .heart-emoji {
+        display: inline-block;
+        animation: heartbeat 1.6s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+
+        15% {
+          transform: scale(1.18);
+        }
+
+        30% {
+          transform: scale(0.98);
+        }
+
+        45% {
+          transform: scale(1.12);
+        }
+
+        60% {
+          transform: scale(1);
+        }
+      }
+
+      .hero-subtitle {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(17px, 2.4vw, 22px);
+        color: var(--ink);
+        opacity: 0.75;
+        margin-top: 6px;
+        letter-spacing: 0.02em;
+      }
+
+      .hero-divider {
+        width: 80px;
+        height: 1px;
+        margin: 28px auto 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        position: relative;
+      }
+
+      .hero-divider::after {
+        content: "❀";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(160deg, #fdf2f2, #fbe3e8);
+        padding: 0 10px;
+        font-size: 13px;
+        color: var(--gold);
+      }
+
+      /* ================================================================
+   PROGRESS TRACKER — signature element: ten hearts that fill
+   as the visitor opens each card, tracking the journey
+   ================================================================ */
+      .progress-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 36px auto 8px;
+        opacity: 0;
+        animation: heroFadeIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        animation-delay: 0.6s;
+      }
+
+      .progress-label {
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--plum);
+        opacity: 0.55;
+      }
+
+      .progress-hearts {
+        display: flex;
+        gap: 8px;
+      }
+
+      .progress-dot {
+        width: 13px;
+        height: 13px;
+        position: relative;
+        opacity: 0.35;
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+
+      .progress-dot svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .progress-dot path {
+        fill: var(--rose-200);
+        stroke: var(--rose-deep);
+        stroke-width: 1;
+        transition: fill 0.5s ease;
+      }
+
+      .progress-dot.filled {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+
+      .progress-dot.filled path {
+        fill: var(--gold);
+        stroke: var(--rose-deep);
+      }
+
+      /* ================================================================
+   CARD GRID
+   ================================================================ */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 28px;
+        margin-top: 50px;
+      }
+
+      /* Tablet: 2 per row */
+      @media (max-width: 1024px) {
+        .card-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
+        }
+      }
+
+      /* Mobile: 1 per row */
+      @media (max-width: 600px) {
+        .card-grid {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+
+        .page {
+          padding: 48px 16px 80px;
+        }
+      }
+
+      /* ================================================================
+   FLIP CARD
+   ================================================================ */
+      .card-slot {
+        perspective: 1600px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: cardEnter 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes cardEnter {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .flip-card {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3 / 4.1;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 0.85s cubic-bezier(0.45, 0.05, 0.18, 1);
+      }
+
+      .flip-card.flipped {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 6px;
+        border-radius: 22px;
+      }
+
+      .card-face {
+        position: absolute;
+        inset: 0;
+        border-radius: 22px;
+        overflow: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+
+        /* glassmorphism */
+        background: var(--glass-bg);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        border: 1px solid var(--glass-border);
+        box-shadow:
+          var(--shadow-soft),
+          inset 0 1px 1px rgba(255, 255, 255, 0.6);
+
+        display: flex;
+        flex-direction: column;
+        transition:
+          box-shadow 0.4s ease,
+          border-color 0.4s ease;
+      }
+
+      /* border glow on hover */
+      .card-slot:hover .card-face {
+        box-shadow:
+          0 22px 70px -18px rgba(201, 116, 138, 0.55),
+          inset 0 1px 1px rgba(255, 255, 255, 0.7);
+        border-color: rgba(216, 180, 106, 0.65);
+      }
+
+      .card-slot:hover .flip-card:not(.flipped) {
+        transform: translateY(-8px) scale(1.015);
+      }
+
+      /* corner glow accent */
+      .card-face::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        left: -20%;
+        width: 70%;
+        height: 70%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.55),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* ---------- FRONT FACE ---------- */
+      .card-front {
+        padding: 30px 24px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 18px;
+      }
+
+      .card-index {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 13px;
+        color: var(--gold);
+        letter-spacing: 0.15em;
+        opacity: 0.85;
+      }
+
+      .card-question {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: clamp(19px, 2.6vw, 22px);
+        line-height: 1.35;
+        color: var(--plum);
+      }
+
+      .card-answers {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      .card-answers li {
+        font-family: var(--font-body);
+        font-weight: 400;
+        font-size: 14.5px;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 12px;
+        padding: 10px 14px;
+        text-align: left;
+        transition:
+          background 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .card-slot:hover .card-answers li {
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .card-answers li span.letter {
+        font-weight: 600;
+        color: var(--rose-deep);
+        margin-right: 8px;
+      }
+
+      /* Correct & Incorrect Answer Styles */
+      .card-answers li.correct {
+        background: rgba(46, 204, 113, 0.25) !important;
+        border: 1.5px solid #2ecc71 !important;
+        color: #1e7e43 !important;
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.35);
+        animation: correctPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+      }
+
+      .card-answers li.correct span.letter {
+        color: #1e7e43 !important;
+      }
+
+      .card-answers li.incorrect {
+        background: rgba(231, 76, 60, 0.2) !important;
+        border: 1.5px solid #e74c3c !important;
+        color: #a82c1f !important;
+        transform: scale(0.98);
+        box-shadow: 0 0 15px rgba(231, 76, 60, 0.25);
+        animation: incorrectShake 0.4s ease-in-out forwards;
+      }
+
+      .card-answers li.incorrect span.letter {
+        color: #a82c1f !important;
+      }
+
+      @keyframes correctPop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.06);
+        }
+        100% {
+          transform: scale(1.02);
+        }
+      }
+
+      @keyframes incorrectShake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-6px);
+        }
+        40%,
+        80% {
+          transform: translateX(6px);
+        }
+      }
+
+      .flip-hint {
+        margin-top: auto;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--plum);
+        opacity: 0.45;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .flip-hint::before {
+        content: "";
+        width: 16px;
+        height: 1px;
+        background: var(--plum);
+        opacity: 0.5;
+      }
+
+      /* ---------- BACK FACE ---------- */
+      .card-back {
+        transform: rotateY(180deg);
+        padding: 18px;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 14px;
+        background: linear-gradient(
+          165deg,
+          rgba(255, 250, 248, 0.55),
+          rgba(250, 230, 235, 0.45)
+        );
+      }
+
+      .card-photo-frame {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* IMAGE: never cropped, never stretched — natural aspect ratio preserved */
+      .card-photo-frame img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        border-radius: 8px;
+      }
+
+      .card-message {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--plum);
+        text-align: center;
+        padding: 0 4px;
+      }
+
+      .card-back-index {
+        font-size: 10px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--rose-deep);
+        opacity: 0.7;
+      }
+
+      /* ================================================================
+   FOOTER
+   ================================================================ */
+      .site-footer {
+        text-align: center;
+        margin-top: 90px;
+        opacity: 0;
+        animation: heroFadeIn 1.2s ease forwards;
+        animation-delay: 0.4s;
+      }
+
+      .footer-script {
+        font-family: var(--font-script);
+        font-size: 46px;
+        color: var(--rose-deep);
+        line-height: 1;
+      }
+
+      .footer-sub {
+        font-family: var(--font-body);
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--plum);
+        opacity: 0.5;
+        margin-top: 10px;
+      }
+
+      /* ================================================================
+   REDUCED MOTION
+   ================================================================ */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Background FX containers, populated by JS -->
+    <div id="hearts-layer" aria-hidden="true"></div>
+    <div id="sparkle-layer" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- ============================================================
+       HERO HEADER
+       ============================================================ -->
+      <header class="hero">
+        <p class="hero-eyebrow">For my Mommy</p>
+        <h1 class="hero-title">
+          i love you mamsita <span class="heart-emoji">❤️</span>
+        </h1>
+        <p class="hero-subtitle"></p>
+        <div class="hero-divider"></div>
+      </header>
+
+      <!-- ============================================================
+       PROGRESS TRACKER (signature element)
+       ============================================================ -->
+      <div class="progress-wrap">
+        <div class="progress-hearts" id="progressHearts">
+          <!-- filled by JS -->
+        </div>
+        <p class="progress-label" id="progressLabel">0 of 10 opened</p>
+      </div>
+
+      <!-- ============================================================
+       CARD GRID — 10 flip cards
+       ============================================================ -->
+      <main class="card-grid" id="cardGrid">
+        <!-- Cards are injected by JavaScript from the cardData array below -->
+      </main>
+
+      <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+      <footer class="site-footer">
+        <p class="footer-script">always yours and always obssesd with youu</p>
+        <p class="footer-sub">Made with my love for you</p>
+      </footer>
+    </div>
+
+    <script>
+      /* ================================================================
+           CARD DATA
+           Each entry: question, 3 decorative answers, image path, message.
+           Replace the "img" paths with your own photos — same filenames
+           work as drop-in replacements (images/photo1.jpg ... photo10.jpg).
+           ================================================================ */
+      const cardData = [
+        {
+          question: "ما الشيء الذي يجعل جسمي كله يرتجف من المتعة؟",
+          answers: ["النسيم البارد", "مشروبي المفضل ", " جسم إيمان وهو يلتصق بجسمي تحت الغطاء"],
+          img: "z/z1.jpg",
+          message: "ثدياكِ يا إيمانُ يرتفعانِ كالبركانْ  أغوصُ بينهما حتى أفقدَ العنوانْ",
+        },
+        {
+          question: "ما الذي يجعل الفم يسيل ويصعب السيطرة عليه؟",
+          answers: ["رائحة الشوكولاتة الذائبة", "طعام حار جداً", "طعم قبلات إيمان الساخنة عندما اتدوقها "],
+          img: "z/z2.jpg",
+          message: "بشرتكِ البيضاء الناعمة تذوب تحت لساني وأنا ألحس كل منحنى فيكِ.",
+        },
+        {
+          question: "ما ألذ رطوبة في العالم؟",
+          answers: ["عصير فاكهة بارد", "ندى الصباح", " رطوبة إيمان الساخنة وهي تغرق أصابعي داخلها"],
+          img: "z/z3.jpg",
+          message: "فخذاكِ الناعمانِ يحيطانُ بي كالحريرْ أفتحُهما وأغرقُ في بحرِ الشهوةِ الغزيرْ",
+        },
+        {
+          question: "ما أجمل صوت يذيب القلب؟",
+          answers: ["غناء هادئ", "موسيقى جميلة ", " انين إيمان الشهواني وهي تقول اi want more zaki dont stop"],
+          img: "z/z4.jpg", 
+          message: "لساني يرقصُ على زهرتكِ الورديةْ يمتصُّ رحيقكِ حتى تصرخينَ بصوتٍ عدب جميل ",
+        },
+        {
+          question: "ما أشهى طعم في الدنيا؟",
+          answers: ["شوكولاتة مذابة", "عسل طبيعي", "طعم وردة إيمان الحلوة وهي تتدفق على لساني"],
+          img: "z/z5.jpg",
+          message: "يا إيمانُ، أريدُ أن أملأكِ بحليبي الساخن حتى يسيل من بين فخذيكِ.",
+        },
+        {
+          question: "ما أقوى نوع من الإدمان؟",
+          answers: ["كافيين", "تدخين", " إدمان جسم إيمان وطريقة حركتها عندما أكون داخلها"],
+          img: "z/z6.jpg",
+          message: "أدخلُكِ من الخلفِ وأمسكُ خصركِ بقوة وأضربُ بعمقٍ حتى يرتجَّ السريرُ من شدةِ اللذة",
+        },
+        {
+          question: "ما أحلى ألم في الدنيا؟",
+          answers: ["تمارين رياضية", "متبلعش العام", "عضات إيمان على كتفي وهي تحاول كتم صوتها"],
+          img: "z/z7.jpg",
+          message: "أمامكِ تمامًا أقبل جبينكِ وأنتِ مستلقية، الزمن يتوقف بيننا.",
+        },
+        {
+          question: "ما أجمل طريقة للموت والحياة في نفس الوقت؟",
+          answers: ["نوم عميق", "حلم جميل", " اللحظة اللي أنفجر فيها داخل إيمان وهي تحتضني بقوة"],
+          img: "z/z8.jpg",
+          message: "جهًا لوجه، أغرق في نظراتكِ الساحرة وأنتِ تتحركين بلطف فوق حضني.",
+        },
+        {
+          question: "ما الذي يخلي الفخذين يحترقان والتنفس يتقطع؟",
+          answers: ["تمرين ركض", "جلسة سكوات", " إيمان وهي تركب فوقي بقوة وفخذيها تضغطان على خصري"],
+          img: "z/z9.jpg",
+          message: "أحتضنكِ من الخلف وأنتِ تستقرين عليّ، أشم عطر بشرتكِ مع ريح الزهور.",
+        },
+        {
+          question: "ما الشيء اللي يخلي عيونك تتمتع بمنظر يجنن والجسم كله يسخن",
+          answers: ["منظر غروب الشمس", "لوحة فنية جميلة", "إيمان تجلس علي وأنا أنظر لظهرها الناعم ومؤخرتها تضغط علي بقوة"],
+          img: "z/z10.jpg",
+          message: "أمامي مباشرة، ثدياكِ يرتفعان مع أنفاسكِ ونتبادل قبلات عميقة في الهواء الطلق.",
+        },
+         {
+          question: "ما الشيء اللي يخلي الجسم يسخن فجأة ويصير صعب السيطرة؟",
+          answers: ["كوب شاي ساخن", "دخول حمام دافئ", "إيمان تجلس فوقي وإيدي تتجول على مؤخرتها البيضاء والمثيرة ببطء"],
+          img: "z/z11.jpg",
+          message: "في حديقة هادئة، أنتِ تستقرين على حجري وأداعب خصركِ برقة تحت القمر",
+        },
+          {
+          question: "ما ألذ لحظة يصير فيها الجسم كله حساس جداً؟",
+          answers: ["لمسة بعد الاستحمام", "احتضان من الخلف", "إيمان تجلس فوقي وإيدي تتمتع بمؤخرتها الناعمةو تتحسس كل تفصيل فيها"],
+          img: "z/z12.png",
+          message: "وجهًا لوجه نلتحم في حضن رومانسي، عيونكِ تحرقني وأنتِ تتحركين ببطء فوقي.",
+        }
+        
+        ];
+        
+        /* ================================================================
+           BUILD CARD GRID
+           ================================================================ */
+      const cardGrid = document.getElementById("cardGrid");
+      const letters = ["A", "B", "C"];
+      const openedCards = new Set();
+
+      cardData.forEach((data, i) => {
+        // outer slot handles entrance animation + perspective
+        const slot = document.createElement("div");
+        slot.className = "card-slot";
+        slot.style.animationDelay = `${0.15 * i + 0.3}s`;
+
+        // the actual flipping element
+        const flipCard = document.createElement("div");
+        flipCard.className = "flip-card";
+        flipCard.setAttribute("tabindex", "0");
+        flipCard.setAttribute("role", "button");
+        flipCard.setAttribute("aria-label", `Card ${i + 1}: ${data.question}`);
+
+        // ---------- FRONT FACE ----------
+        const front = document.createElement("div");
+        front.className = "card-face card-front";
+        front.innerHTML = `
+    <span class="card-index">No. ${String(i + 1).padStart(2, "0")}</span>
+    <p class="card-question">${data.question}</p>
+    <ul class="card-answers">
+      ${data.answers.map((ans, idx) => `<li data-idx="${idx}"><span class="letter">${letters[idx]})</span>${ans}</li>`).join("")}
+    </ul>
+    <span class="flip-hint">Tap to reveal</span>
+  `;
+
+        // ---------- BACK FACE ----------
+        const back = document.createElement("div");
+        back.className = "card-face card-back";
+        back.innerHTML = `
+    <span class="card-back-index">No. ${String(i + 1).padStart(2, "0")}</span>
+    <div class="card-photo-frame">
+      <img src="${data.img}" alt="A memory for Imaan, photo ${i + 1}"
+           loading="lazy"
+           onerror="this.parentElement.innerHTML='<span style=\\'font-family:var(--font-serif);font-style:italic;color:var(--rose-deep);opacity:0.7;font-size:14px;padding:20px;text-align:center;\\'>📷 Add ${data.img}</span>'">
+    </div>
+    <p class="card-message">${data.message}</p>
+  `;
+
+        flipCard.appendChild(front);
+        flipCard.appendChild(back);
+        slot.appendChild(flipCard);
+        cardGrid.appendChild(slot);
+
+        // ---------- FLIP INTERACTION ----------
+        function toggleFlip() {
+          flipCard.classList.toggle("flipped");
+          if (flipCard.classList.contains("flipped") && !openedCards.has(i)) {
+            openedCards.add(i);
+            updateProgress();
+            spawnBurstSparkles(slot);
+          }
+        }
+
+        let isAnswering = false;
+        const answersContainer = front.querySelector(".card-answers");
+        const answerItems = answersContainer.querySelectorAll("li");
+
+        answerItems.forEach((item) => {
+          item.addEventListener("click", (e) => {
+            e.stopPropagation(); // Stop click from triggering flipCard's toggleFlip
+
+            if (isAnswering || flipCard.classList.contains("flipped")) return;
+            isAnswering = true;
+
+            // Disable further interactions on these answers
+            answersContainer.style.pointerEvents = "none";
+
+            const selectedIdx = parseInt(item.getAttribute("data-idx"));
+            const correctIdx = 2; // The 3rd option (index 2) is the romantic correct answer
+
+            if (selectedIdx === correctIdx) {
+              item.classList.add("correct");
+            } else {
+              item.classList.add("incorrect");
+              // Also show the correct one
+              answerItems[correctIdx].classList.add("correct");
+            }
+
+            // Flip after 3 seconds
+            setTimeout(() => {
+              if (!flipCard.classList.contains("flipped")) {
+                toggleFlip();
+              }
+            }, 1000);
+          });
+        });
+
+        flipCard.addEventListener("click", () => {
+          if (isAnswering && !openedCards.has(i)) return;
+          toggleFlip();
+        });
+
+        flipCard.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            if (isAnswering && !openedCards.has(i)) return;
+            toggleFlip();
+          }
+        });
+      });
+
+      /* ================================================================
+           PROGRESS TRACKER — ten small hearts that fill in gold
+           ================================================================ */
+      const progressContainer = document.getElementById("progressHearts");
+      const progressLabel = document.getElementById("progressLabel");
+      const HEART_PATH =
+        "M12 21s-7.5-4.6-10.2-9.1C0.1 8.9 1.4 5.4 4.6 4.4c2-0.6 4 0.2 5.4 2 1.4-1.8 3.4-2.6 5.4-2 3.2 1 4.5 4.5 2.8 7.5C19.5 16.4 12 21 12 21z";
+
+      for (let i = 0; i < cardData.length; i++) {
+        const dot = document.createElement("div");
+        dot.className = "progress-dot";
+        dot.id = `progress-dot-${i}`;
+        dot.innerHTML = `<svg viewBox="0 0 24 24"><path d="${HEART_PATH}"/></svg>`;
+        progressContainer.appendChild(dot);
+      }
+
+      function updateProgress() {
+        openedCards.forEach((i) => {
+          const dot = document.getElementById(`progress-dot-${i}`);
+          if (dot) dot.classList.add("filled");
+        });
+        const count = openedCards.size;
+        progressLabel.textContent =
+          count < cardData.length
+            ? `${count} of ${cardData.length} opened`
+            : "All ten opened — my whole heart is yours ❤️";
+      }
+
+      /* ================================================================
+           FLOATING HEARTS BACKGROUND
+           ================================================================ */
+      const heartsLayer = document.getElementById("hearts-layer");
+      const HEART_GLYPHS = ["❤", "💗", "💕"];
+
+      function createFloatingHeart() {
+        const heart = document.createElement("span");
+        heart.className = "floating-heart";
+        heart.textContent =
+          HEART_GLYPHS[Math.floor(Math.random() * HEART_GLYPHS.length)];
+
+        const startX = Math.random() * 100; // vw
+        const size = 14 + Math.random() * 22; // px
+        const duration = 9 + Math.random() * 10; // seconds
+        const drift = Math.random() * 80 - 40 + "px";
+
+        heart.style.left = `${startX}vw`;
+        heart.style.fontSize = `${size}px`;
+        heart.style.animationDuration = `${duration}s`;
+        heart.style.setProperty("--drift", drift);
+
+        heartsLayer.appendChild(heart);
+
+        // clean up after animation completes
+        setTimeout(() => heart.remove(), duration * 1000 + 500);
+      }
+
+      // seed initial hearts, then keep spawning at an interval
+      for (let i = 0; i < 8; i++) {
+        setTimeout(createFloatingHeart, i * 600);
+      }
+      setInterval(createFloatingHeart, 1400);
+
+      /* ================================================================
+           AMBIENT SPARKLE LAYER
+           ================================================================ */
+      const sparkleLayer = document.getElementById("sparkle-layer");
+
+      function createAmbientSparkle() {
+        const sparkle = document.createElement("span");
+        sparkle.className = "sparkle";
+        sparkle.style.left = `${Math.random() * 100}vw`;
+        sparkle.style.top = `${Math.random() * 100}vh`;
+        sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
+        sparkle.style.animationDuration = `${2.5 + Math.random() * 2}s`;
+        sparkleLayer.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 5000);
+      }
+
+      for (let i = 0; i < 14; i++) {
+        setTimeout(createAmbientSparkle, i * 250);
+      }
+      setInterval(createAmbientSparkle, 600);
+
+      /* ================================================================
+           BURST SPARKLES — small celebratory flourish on first card open
+           ================================================================ */
+      function spawnBurstSparkles(originEl) {
+        const rect = originEl.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        for (let i = 0; i < 10; i++) {
+          const s = document.createElement("span");
+          s.className = "sparkle";
+          s.style.left = `${centerX}px`;
+          s.style.top = `${centerY}px`;
+          s.style.position = "fixed";
+          s.style.animation = "none";
+          s.style.opacity = "1";
+          s.style.transform = "scale(1)";
+
+          const angle = (Math.PI * 2 * i) / 10;
+          const distance = 50 + Math.random() * 40;
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance;
+
+          document.body.appendChild(s);
+
+          // animate manually via Web Animations API for a one-shot burst
+          s.animate(
+            [
+              { transform: "translate(0,0) scale(1)", opacity: 1 },
+              {
+                transform: `translate(${dx}px, ${dy}px) scale(0.2)`,
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 700 + Math.random() * 300,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            },
+          );
+
+          setTimeout(() => s.remove(), 1100);
+        }
+      }
+    </script>
+  </body>
+</html>
