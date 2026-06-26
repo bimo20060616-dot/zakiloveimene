@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PROGRES - بوابة الطالب</title>
+  <style>
+    /* =====================================================
+       RESET & BASE
+    ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: #c8c8c8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, 'Helvetica Neue', sans-serif;
+    }
+
+    /* =====================================================
+       PHONE WRAPPER — center on desktop, fill on mobile
+    ===================================================== */
+    #app {
+      width: 390px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background-color: #eeeeee;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 390px) {
+      #app { width: 100%; }
+    }
+
+    /* =====================================================
+       PAGE SYSTEM
+    ===================================================== */
+    .page {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+      width: 100%;
+    }
+    .page.active {
+      display: flex;
+    }
+
+    /* =====================================================
+       LOGIN PAGE
+    ===================================================== */
+    #page-login {
+      background-color: #eeeeee;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    .login-top {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 72px;
+      gap: 0;
+    }
+
+    /* PROGRES Logo */
+    .progres-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 14px;
+    }
+
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      margin-left: -8px;
+    }
+
+    .logo-text {
+      font-size: 46px;
+      font-weight: 900;
+      color: #1a1a1a;
+      letter-spacing: 1px;
+      font-family: Arial, sans-serif;
+      line-height: 1;
+    }
+
+    /* Ministry name */
+    .ministry-ar {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-align: center;
+      direction: rtl;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .flag-dz {
+      width: 26px;
+      height: 18px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .ministry-fr {
+      font-size: 11px;
+      color: #555;
+      text-align: center;
+      direction: ltr;
+      margin-top: 2px;
+    }
+
+    /* Portal title */
+    .portal-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-top: 56px;
+      margin-bottom: 28px;
+      text-align: center;
+      direction: rtl;
+    }
+
+    /* Form fields */
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      background: #fff;
+      border-radius: 28px;
+      border: 1.5px solid #d0d0d0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 52px;
+      direction: rtl;
+    }
+
+    .input-wrapper .input-icon {
+      color: #888;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+
+    .input-wrapper input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 15px;
+      color: #333;
+      text-align: right;
+      direction: rtl;
+      font-family: inherit;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #bbb;
+      font-size: 15px;
+    }
+
+    .eye-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #888;
+      font-size: 18px;
+      padding: 0;
+      flex-shrink: 0;
+      margin-right: 6px;
+    }
+
+    /* Login button */
+    .btn-login {
+      width: 100%;
+      height: 54px;
+      background-color: #1a8a6e;
+      border: none;
+      border-radius: 28px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      font-family: inherit;
+      direction: rtl;
+    }
+
+    .btn-login:active {
+      opacity: 0.9;
+    }
+
+    /* Login footer */
+    .login-footer {
+      text-align: center;
+      padding-bottom: 28px;
+      color: #555;
+      font-size: 12px;
+      direction: rtl;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       HOME PAGE
+    ===================================================== */
+    #page-home {
+      background-color: #eeeeee;
+    }
+
+    /* Dots indicator at top */
+    .dots-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 0 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #bbb;
+    }
+
+    .dot.active {
+      background-color: #1a8a6e;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 8px 12px 12px;
+      flex: 1;
+    }
+
+    .card {
+      background-color: #1a8a6e;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 10px 14px;
+      cursor: pointer;
+      min-height: 90px;
+      gap: 8px;
+      border: none;
+      text-decoration: none;
+    }
+
+    .card:active {
+      opacity: 0.85;
+    }
+
+    .card-icon {
+      font-size: 28px;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .card-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+
+    .card-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      direction: rtl;
+      line-height: 1.3;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      display: flex;
+      flex-direction: row-reverse;
+      background-color: #2b2b2b;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      height: 72px;
+      flex-shrink: 0;
+    }
+
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #ccc;
+      font-size: 12px;
+      font-family: inherit;
+    }
+
+    .nav-item.active {
+      background-color: #1a8a6e;
+      color: #fff;
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav-item span {
+      font-size: 13px;
+      font-weight: 500;
+      direction: rtl;
+    }
+
+    /* =====================================================
+       POINTS PAGE
+    ===================================================== */
+    #page-points {
+      background-color: #eeeeee;
+    }
+
+    /* Green header */
+    .points-header {
+      background-color: #1a8a6e;
+      padding: 14px 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .points-header-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* Year pills */
+    .year-pills {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 12px;
+      padding: 16px 16px 10px;
+      justify-content: center;
+    }
+
+    .pill {
+      padding: 10px 28px;
+      border-radius: 28px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid #1a8a6e;
+      font-family: inherit;
+      direction: ltr;
+    }
+
+    .pill.selected {
+      background-color: #1a8a6e;
+      color: #fff;
+    }
+
+    .pill.outline {
+      background-color: transparent;
+      color: #1a8a6e;
+    }
+
+    /* Decision box */
+    .decision-box {
+      background-color: #fff;
+      border-radius: 14px;
+      margin: 8px 14px;
+      padding: 12px 16px;
+    }
+
+    .decision-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+      direction: rtl;
+      margin-bottom: 12px;
+    }
+
+    .decision-stats {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-pill {
+      flex: 1;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      direction: rtl;
+    }
+
+    .stat-pill.green {
+      background-color: #1a8a6e;
+      color: #fff;
+    }
+
+    .stat-pill.blue {
+      background-color: #2980d9;
+      color: #fff;
+    }
+
+    /* Semester box */
+    .semester-box {
+      background-color: #fff;
+      border-radius: 14px;
+      margin: 10px 14px 14px;
+      padding: 12px 14px 6px;
+      overflow: hidden;
+    }
+
+    .semester-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #222;
+      text-align: center;
+      direction: rtl;
+      margin-bottom: 10px;
+    }
+
+    .semester-stats {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .sem-stat {
+      border: 2px solid #1a8a6e;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a8a6e;
+      direction: rtl;
+    }
+
+    /* Points table */
+    .points-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      direction: rtl;
+    }
+
+    .points-table thead tr th {
+      font-size: 12px;
+      font-weight: 700;
+      color: #444;
+      padding: 4px 4px 8px;
+      text-align: right;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+    }
+
+    .points-table thead tr th:last-child {
+      text-align: left;
+    }
+
+    .points-table tbody tr {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .points-table tbody tr.sub-row {
+      background-color: #fff8f8;
+    }
+
+    .points-table tbody tr td {
+      padding: 7px 4px;
+      color: #333;
+      vertical-align: middle;
+    }
+
+    .points-table tbody tr td:first-child {
+      text-align: right;
+      direction: ltr;
+      font-size: 12px;
+    }
+
+    .points-table tbody tr td.grade {
+      font-weight: 700;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .points-table tbody tr td.grade.red {
+      color: #e53935;
+    }
+
+    .points-table tbody tr td.grade.green {
+      color: #1a8a6e;
+    }
+
+    .points-table tbody tr td.coef,
+    .points-table tbody tr td.credit {
+      text-align: center;
+      color: #333;
+      font-size: 12.5px;
+    }
+
+    .points-table tbody tr td.module-name {
+      text-align: left;
+      direction: ltr;
+      font-size: 12px;
+      color: #222;
+      max-width: 140px;
+    }
+
+    .points-table tbody tr td.module-name-sub {
+      text-align: left;
+      direction: ltr;
+      font-size: 11px;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* Scrollable points content */
+    .points-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 16px;
+    }
+
+    /* Coming Soon overlay */
+    .coming-soon-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coming-soon-overlay.visible {
+      display: flex;
+    }
+
+    .coming-soon-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px 40px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a8a6e;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    .coming-soon-box button {
+      margin-top: 20px;
+      padding: 10px 32px;
+      background: #1a8a6e;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      display: block;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- =====================================================
+     APP SHELL
+===================================================== -->
+<div id="app">
+
+  <!-- =====================================================
+       PAGE 1 — LOGIN
+  ===================================================== -->
+  <div id="page-login" class="page active">
+
+    <div class="login-top">
+
+      <!-- PROGRES Logo -->
+      <div class="progres-logo">
+        <!-- Swoosh icon (inline SVG approximation of the PROGRES logo mark) -->
+        <svg class="logo-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <!-- Green swooshes -->
+          <path d="M 8 60 Q 10 20 50 18 Q 26 24 24 48 Z" fill="#1a8a6e"/>
+          <path d="M 14 65 Q 18 30 58 22 Q 32 32 30 56 Z" fill="#1a8a6e" opacity="0.75"/>
+          <!-- Red top arc -->
+          <path d="M 16 14 Q 40 4 62 20 Q 50 10 30 14 Z" fill="#e53935"/>
+        </svg>
+        <span class="logo-text">PROGRES</span>
+      </div>
+
+      <!-- Ministry Arabic name + flag -->
+      <div class="ministry-ar">
+        وزارة التعليم العالي والبحث العلمي
+        <!-- Algerian flag inline SVG -->
+        <svg class="flag-dz" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+          <rect width="15" height="20" fill="#006233"/>
+          <rect x="15" width="15" height="20" fill="#fff"/>
+          <circle cx="15" cy="10" r="4.5" fill="#006233"/>
+          <circle cx="16.5" cy="10" r="4.5" fill="#fff"/>
+          <polygon points="17,7 18.2,9.6 21,9.6 18.9,11.3 19.7,14 17,12.3 14.3,14 15.1,11.3 13,9.6 15.8,9.6" fill="#d21034"/>
+        </svg>
+      </div>
+
+      <!-- Ministry French name -->
+      <div class="ministry-fr">Ministère de l'Enseignement Supérieur et de la Recherche Scientifique</div>
+
+      <!-- Portal Title -->
+      <div class="portal-title">بوابة الطالب</div>
+
+      <!-- Login Form -->
+      <div class="login-form">
+
+        <!-- Registration number -->
+        <div class="input-wrapper">
+          <span class="input-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </span>
+          <input type="text" id="reg-input" placeholder="ادخل رقم التسجيل" dir="rtl" autocomplete="off" />
+        </div>
+
+        <!-- Password -->
+        <div class="input-wrapper">
+          <span class="input-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </span>
+          <input type="password" id="pw-input" placeholder="ادخل كلمة المرور" dir="rtl" autocomplete="off" />
+          <button class="eye-btn" id="eye-btn" type="button" onclick="togglePassword()">
+            <svg id="eye-icon-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg id="eye-icon-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Login button -->
+        <button class="btn-login" onclick="goHome()">تسجيل الدخول</button>
+
+      </div>
+    </div><!-- /.login-top -->
+
+    <!-- Footer -->
+    <div class="login-footer">
+      وزارة التعليم العالي و البحث العلمي<br/>
+      جميع الحقوق محفوظة © 2026
+    </div>
+
+  </div><!-- /#page-login -->
+
+
+  <!-- =====================================================
+       PAGE 2 — HOME
+  ===================================================== -->
+  <div id="page-home" class="page">
+
+    <!-- Page-indicator dots -->
+    <div class="dots-indicator">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="cards-grid">
+
+      <!-- Row 1 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </span>
+        <span class="card-label">التبرئة الإلكترونية</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="8" y1="14" x2="8" y2="14"/>
+            <line x1="12" y1="14" x2="12" y2="14"/>
+            <line x1="16" y1="14" x2="16" y2="14"/>
+            <line x1="8" y1="18" x2="8" y2="18"/>
+            <line x1="12" y1="18" x2="12" y2="18"/>
+          </svg>
+        </span>
+        <span class="card-label">الجدول الزمني</span>
+      </button>
+
+      <!-- Row 2 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <span class="card-label">المجموعة و الفوج</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="8" y1="14" x2="16" y2="14"/>
+            <line x1="8" y1="18" x2="12" y2="18"/>
+          </svg>
+        </span>
+        <span class="card-label">الجدول الزمني للإمتحانات</span>
+      </button>
+
+      <!-- Row 3 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </span>
+        <span class="card-label">علامات الامتحانات</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+        </span>
+        <span class="card-label">التقييم المستمر</span>
+      </button>
+
+      <!-- Row 4 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+            <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+          </svg>
+        </span>
+        <span class="card-label">النسبة المئوية للمقاييس</span>
+      </button>
+
+      <!-- كشف النقاط — FUNCTIONAL -->
+      <button class="card" onclick="goPoints()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+        </span>
+        <span class="card-label">كشف النقاط</span>
+      </button>
+
+      <!-- Row 5 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </span>
+        <span class="card-label">الديون</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </span>
+        <span class="card-label">عطلة أكاديمية</span>
+      </button>
+
+      <!-- Row 6 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+        </span>
+        <span class="card-label">تسجيلاتي</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </span>
+        <span class="card-label">الغيابات و الإقصاءات</span>
+      </button>
+
+      <!-- Row 7 -->
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </span>
+        <span class="card-label">خدمات جامعية</span>
+      </button>
+
+      <button class="card" onclick="comingSoon()">
+        <span class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        <span class="card-label">خدمات أخرى</span>
+      </button>
+
+    </div><!-- /.cards-grid -->
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+
+      <!-- حسابي (left in RTL layout = right visually) -->
+      <button class="nav-item" onclick="comingSoon()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>حسابي</span>
+      </button>
+
+      <!-- بطاقتي (center) -->
+      <button class="nav-item" onclick="comingSoon()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+          <line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <span>بطاقتي</span>
+      </button>
+
+      <!-- الرئيسية (right in RTL = first rendered) -->
+      <button class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>الرئيسية</span>
+      </button>
+
+    </div><!-- /.bottom-nav -->
+
+  </div><!-- /#page-home -->
+
+
+  <!-- =====================================================
+       PAGE 3 — POINTS (كشف النقاط)
+  ===================================================== -->
+  <div id="page-points" class="page">
+
+    <!-- Green Header -->
+    <div class="points-header">
+      <span class="points-header-title">كشف النقاط</span>
+      <button class="back-btn" onclick="goHome()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="points-scroll">
+
+      <!-- Year pills -->
+      <div class="year-pills">
+        <button class="pill selected" id="pill-2526" onclick="selectYear('2526')">2025/2026</button>
+        <button class="pill outline" id="pill-2425" onclick="selectYear('2425')">2024/2025</button>
+      </div>
+
+      <!-- Decision box -->
+      <div class="decision-box">
+        <div class="decision-label">القرار :ناجحة بامتياز في سرقة قلبي وإشعال النار فيه</div>
+        <div class="decision-stats">
+          <div class="stat-pill green">المعدل العام : ∞ / 20
+(ومع ذلك كلما نظرت إليها يرتفع المعدل أكثر) </div>
+          <div class="stat-pill blue">الرصيد السنوي : 60
+            والرصيد يرتفع كل ما أتخيلها عارية تحتي
+          </div>
+        </div>
+      </div>
+
+      <!-- Semester box -->
+      <div class="semester-box">
+        <div class="semester-title">مدرسة عليا سنة: سنة أولى في فن الإغراء والجمال المميت
+</div>
+        <div class="semester-stats">
+          <div class="sem-stat">معدل السداسي الثاني : 20:00</div>
+          <div class="sem-stat">الرصيد : 30</div>
+        </div>
+
+        <!-- Table -->
+        <table class="points-table">
+          <thead>
+            <tr>
+              <th style="text-align:right; width:30px;">المعدل</th>
+              <th style="text-align:center; width:36px;">المعامل</th>
+              <th style="text-align:center; width:36px;">الرصيد</th>
+              <th style="text-align:left; direction:ltr;">المقياس</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Algèbre 2 -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">2</td>
+              <td class="credit">10</td>
+              <td class="module-name">Ur Eyes</td>
+            </tr>
+            <!-- Sub row C00F0001S2 (أ.ت) -->
+            <tr class="sub-row">
+              <td class="grade green">20</td>
+              <td class="coef"></td>
+              <td class="credit">0/10</td>
+              <td class="module-name-sub">C00F0001S2 (أ.ت)</td>
+            </tr>
+
+            <!-- Analyse 2 -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">4</td>
+              <td class="credit">0</td>
+              <td class="module-name">Ur Pure Heart</td>
+            </tr>
+
+            <!-- Electronique fondamentale -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">2</td>
+              <td class="credit">0</td>
+              <td class="module-name">Ur sexy Body</td>
+            </tr>
+            <!-- Sub row C00T0001S2 (ع.ت) -->
+            <tr class="sub-row">
+              <td class="grade green">20</td>
+              <td class="coef"></td>
+              <td class="credit">0/4</td>
+              <td class="module-name-sub">C00T0001S2 (ع.ت)</td>
+            </tr>
+
+            <!-- Logique Mathématique -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">1</td>
+              <td class="credit">0</td>
+              <td class="module-name">ur pretty face</td>
+            </tr>
+
+            <!-- Introduction à l'IA -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">1</td>
+              <td class="credit">2</td>
+              <td class="module-name">ur white skin</td>
+            </tr>
+            <!-- Sub row C00M0001S2 (م.ت) -->
+            <tr class="sub-row">
+              <td class="grade green">20</td>
+              <td class="coef"></td>
+              <td class="credit">2/4</td>
+              <td class="module-name-sub">C00M0001S2 (م.ت)</td>
+            </tr>
+
+            <!-- Algorithmique et structure de données 2 -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">5</td>
+              <td class="credit">7</td>
+              <td class="module-name">ur Soft Thighs</td>
+            </tr>
+
+            <!-- Structure machine 2 -->
+            <tr>
+              <td class="grade green">20</td>
+              <td class="coef">3</td>
+              <td class="credit">5</td>
+              <td class="module-name">ur sexyyyy ass</td>
+            </tr>
+            <!-- Sub row C00F0001S2 (أ.ت) -->
+            <tr class="sub-row">
+              <td class="grade green">20</td>
+              <td class="coef"></td>
+              <td class="credit">12/12</td>
+              <td class="module-name-sub">C00F0001S2 (أ.ت)</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div><!-- /.semester-box -->
+
+    </div><!-- /.points-scroll -->
+
+  </div><!-- /#page-points -->
+
+</div><!-- /#app -->
+
+<!-- Coming Soon Overlay -->
+<div class="coming-soon-overlay" id="coming-soon-overlay" onclick="closeComingSoon(event)">
+  <div class="coming-soon-box">
+    <div>قريباً</div>
+    <div style="font-size:15px; color:#555; font-weight:400; margin-top:8px;">هذه الخدمة غير متاحة حالياً</div>
+    <button onclick="closeComingSoon(null, true)">حسناً</button>
+  </div>
+</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+<script>
+  /* ---- Navigation helpers ---- */
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function goHome() {
+    showPage('page-home');
+  }
+
+  function goPoints() {
+    showPage('page-points');
+  }
+
+  /* ---- Login ---- */
+
+  // Login button is handled by inline onclick on the button
+
+  /* ---- Password visibility toggle ---- */
+
+  function togglePassword() {
+    var input = document.getElementById('pw-input');
+    var showIcon = document.getElementById('eye-icon-show');
+    var hideIcon = document.getElementById('eye-icon-hide');
+    if (input.type === 'password') {
+      input.type = 'text';
+      showIcon.style.display = 'none';
+      hideIcon.style.display = 'block';
+    } else {
+      input.type = 'password';
+      showIcon.style.display = 'block';
+      hideIcon.style.display = 'none';
+    }
+  }
+
+  /* ---- Coming Soon overlay ---- */
+
+  function comingSoon() {
+    document.getElementById('coming-soon-overlay').classList.add('visible');
+  }
+
+  function closeComingSoon(event, force) {
+    if (force || (event && event.target === document.getElementById('coming-soon-overlay'))) {
+      document.getElementById('coming-soon-overlay').classList.remove('visible');
+    }
+  }
+
+  /* ---- Year pill selection (Points page) ---- */
+
+  function selectYear(year) {
+    var pill2526 = document.getElementById('pill-2526');
+    var pill2425 = document.getElementById('pill-2425');
+    if (year === '2526') {
+      pill2526.className = 'pill selected';
+      pill2425.className = 'pill outline';
+    } else {
+      pill2526.className = 'pill outline';
+      pill2425.className = 'pill selected';
+    }
+    // Both years show the same data in this demo
+  }
+</script>
+
+</body>
+</html>
