@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Imene — Our Story in Ten Chapters</title>
+  <meta name="description" content="Ten chapters, each a universe of memories dedicated to Imene." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg:           #080305;        /* near-black with deep red tint   */
+      --glass:        rgba(255,255,255,0.05);
+      --glass-border: rgba(180,40,40,0.18);
+      --cream:        #fdf0f0;        /* warm cream with red undertone   */
+      --gold:         #c0282b;        /* deep crimson red                */
+      --gold-lt:      #e05555;        /* brighter red                    */
+      --pink:         #9b1c1c;        /* dark wine red                   */
+      --pink-dk:      #6b0f0f;        /* very deep burgundy              */
+      --radius:       26px;
+      --radius-sm:    16px;
+      --font-serif:   'Cormorant Garamond', Georgia, serif;
+      --font-sans:    'Montserrat', sans-serif;
+      --shadow:       0 28px 70px rgba(0,0,0,0.72), 0 0 55px rgba(160,28,28,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       ROMANTIC BACKGROUND
+    ============================================================ */
+
+    /* Base deep-dark body */
+    body { background: #050103; }
+
+    /* Multi-layer aurora glow */
+    .bg-glow {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        /* top-left warm crimson bloom */
+        radial-gradient(ellipse 60% 50% at 5%  5%,  rgba(140,18,18,.22)  0%, transparent 60%),
+        /* top-right soft rose */
+        radial-gradient(ellipse 45% 40% at 92% 8%,  rgba(100,10,30,.18)  0%, transparent 55%),
+        /* center deep burgundy pulse */
+        radial-gradient(ellipse 70% 55% at 50% 48%, rgba(80,8,8,.25)     0%, transparent 70%),
+        /* bottom-left wine */
+        radial-gradient(ellipse 50% 45% at 8%  95%, rgba(120,15,15,.2)   0%, transparent 55%),
+        /* bottom-right crimson */
+        radial-gradient(ellipse 55% 40% at 94% 90%, rgba(110,12,25,.18)  0%, transparent 55%),
+        /* overall base */
+        linear-gradient(160deg, #0e0205 0%, #050103 40%, #0a0103 100%);
+      animation: auroraShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraShift {
+      0%   { opacity: .75; filter: blur(0px);  }
+      50%  { opacity: 1;   filter: blur(1px);  }
+      100% { opacity: .8;  filter: blur(0px);  }
+    }
+
+    /* Subtle radial vignette overlay */
+    .bg-vignette {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 90% 85% at 50% 50%,
+        transparent 40%, rgba(0,0,0,.55) 100%);
+    }
+
+    #particles-canvas {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    }
+
+    /* ============================================================
+       APP SHELL
+    ============================================================ */
+    #app {
+      position: relative; z-index: 2;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 32px 16px 60px;
+      gap: 28px;
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .site-header {
+      text-align: center;
+      opacity: 0; transform: translateY(-24px);
+    }
+    .site-header .eyebrow {
+      font-size: .65rem; letter-spacing: .38em; text-transform: uppercase;
+      color: var(--gold-lt); opacity: .8; margin-bottom: 10px;
+    }
+    .site-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 300; font-style: italic; line-height: 1.1;
+      text-shadow: 0 0 60px rgba(160,28,28,.45);
+    }
+    .site-header h1 span { color: var(--gold-lt); }
+    .header-rule {
+      width: 72px; height: 1px; margin: 16px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold-lt), transparent);
+      opacity: .6;
+    }
+
+    /* ============================================================
+       CARD PROGRESS (1/10 dots)
+    ============================================================ */
+    .card-progress {
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0;
+    }
+    .cp-label {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold-lt); opacity: .75; min-width: 90px; text-align: right;
+    }
+    .cp-dots { display: flex; gap: 7px; }
+    .cp-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.08);
+      cursor: pointer;
+      transition: background .35s, transform .35s, box-shadow .35s;
+    }
+    .cp-dot.active {
+      background: var(--gold-lt);
+      box-shadow: 0 0 10px rgba(192,40,43,.7);
+      transform: scale(1.4);
+    }
+    .cp-dot.done { background: rgba(160,28,28,.45); }
+
+    /* ============================================================
+       MAIN CARD
+    ============================================================ */
+    .card-wrap { width: 100%; max-width: 580px; perspective: 1200px; }
+
+    .memory-card {
+      width: 100%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(22px) saturate(1.35);
+      -webkit-backdrop-filter: blur(22px) saturate(1.35);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      opacity: 0; transform: translateY(36px);
+      will-change: transform;
+    }
+
+    /* red-top shimmer line */
+    .memory-card::after {
+      content: '';
+      position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192,40,43,.55), transparent);
+      pointer-events: none;
+    }
+
+    .card-body { padding: 26px 26px 30px; display: flex; flex-direction: column; gap: 0; }
+
+    /* ---- Card top bar ---- */
+    .card-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card-tag {
+      font-size: .58rem; letter-spacing: .22em; text-transform: uppercase;
+      color: #f08080;
+      background: rgba(40,0,0,.45);
+      border: 1px solid rgba(192,40,43,.35);
+      padding: 4px 12px; border-radius: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .card-chapter-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 3.5vw, 1.75rem);
+      font-weight: 400; font-style: italic;
+      color: #e07070; line-height: 1.2;
+      text-align: right;
+    }
+
+    /* ============================================================
+       CAROUSEL — IMAGE AREA
+    ============================================================ */
+    .carousel {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: rgba(0,0,0,.25);
+      /* min/max height keeps images contained nicely */
+      min-height: 200px;
+      max-height: 380px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* The sliding track */
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      /* translateX controlled by GSAP */
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: contain;   /* NEVER crop, NEVER stretch */
+      object-position: center;
+      border-radius: var(--radius-sm);
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Arrow buttons */
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 5;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--cream);
+      font-size: 1rem; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+      transition: background .25s, transform .25s, box-shadow .25s;
+      opacity: 0; /* shown when >1 image */
+    }
+    .carousel-btn.visible { opacity: 1; }
+    .carousel-btn:hover {
+      background: rgba(160,28,28,.3);
+      box-shadow: 0 0 18px rgba(192,40,43,.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+
+    /* Image counter dots */
+    .carousel-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 5;
+    }
+    .c-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,.3);
+      transition: background .3s, transform .3s;
+    }
+    .c-dot.active {
+      background: #e05555;
+      transform: scale(1.5);
+      box-shadow: 0 0 6px rgba(192,40,43,.8);
+    }
+
+    /* Image fraction label (1 / 3) */
+    .carousel-fraction {
+      position: absolute; top: 10px; right: 12px; z-index: 5;
+      font-size: .58rem; letter-spacing: .12em;
+      color: rgba(253,246,236,.65);
+      background: rgba(0,0,0,.4);
+      border-radius: 20px; padding: 3px 9px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ============================================================
+       IMAGE CAPTION (below carousel)
+    ============================================================ */
+    .caption-area {
+      margin-top: 20px; min-height: 80px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .caption-rule {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192,40,43,.35), transparent);
+    }
+    .caption-text {
+      font-family: var(--font-serif);
+      font-size: clamp(.95rem, 2.5vw, 1.1rem);
+      font-weight: 300; line-height: 1.85;
+      color: rgba(253,246,236,.78);
+      letter-spacing: .01em;
+    }
+
+    /* ============================================================
+       CARD FOOTER
+    ============================================================ */
+    .card-footer {
+      margin-top: 26px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .footer-hint {
+      font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(253,246,236,.28);
+    }
+    .btn-next-card {
+      font-family: var(--font-sans);
+      font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+      color: #fdf0f0;
+      background: linear-gradient(135deg, #c0282b, #7b0f0f);
+      border: none; padding: 11px 26px; border-radius: 50px;
+      cursor: pointer; font-weight: 500;
+      box-shadow: 0 4px 22px rgba(160,28,28,.45);
+      transition: transform .3s, box-shadow .3s, filter .3s;
+    }
+    .btn-next-card:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 32px rgba(192,40,43,.6);
+      filter: brightness(1.12);
+    }
+    .btn-next-card:active { transform: scale(.97); }
+
+    /* ============================================================
+       FINAL SCREEN
+    ============================================================ */
+    #final-screen {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: radial-gradient(ellipse at center, #1a0505 0%, #080302 100%);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+    }
+    #final-screen.show { display: flex; }
+    #hearts-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .final-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+    }
+    .f-eyebrow {
+      font-size: .65rem; letter-spacing: .4em; text-transform: uppercase;
+      color: #e05555; opacity: 0;
+    }
+    .f-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 300; font-style: italic; line-height: 1.1;
+      color: #fdf0f0; opacity: 0;
+      text-shadow: 0 0 80px rgba(160,28,28,.5);
+    }
+    .f-title span { color: #e05555; }
+    .f-line {
+      width: 110px; height: 2px; border-radius: 2px; opacity: 0;
+      background: linear-gradient(90deg, transparent, #c0282b, transparent);
+      box-shadow: 0 0 18px rgba(192,40,43,.8);
+    }
+    .f-msg {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2.8vw, 1.25rem);
+      font-weight: 300; line-height: 1.85;
+      color: rgba(253,246,236,.72); max-width: 500px; opacity: 0;
+    }
+    .btn-replay {
+      font-family: var(--font-sans);
+      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+      color: #fdf0f0; background: transparent;
+      border: 1px solid rgba(192,40,43,.5); padding: 13px 32px; border-radius: 50px;
+      cursor: pointer; opacity: 0; margin-top: 6px;
+      transition: all .3s;
+    }
+    .btn-replay:hover {
+      background: rgba(160,28,28,.18); border-color: #c0282b;
+      box-shadow: 0 0 28px rgba(160,28,28,.3);
+    }
+
+    /* ============================================================
+       TINY PULSE HEART
+    ============================================================ */
+    .pulse-heart {
+      position: fixed; bottom: 22px; left: 50%;
+      transform: translateX(-50%); z-index: 5;
+      font-size: 1rem; opacity: .35; pointer-events: none;
+      animation: hbeat 1.7s ease-in-out infinite;
+    }
+    @keyframes hbeat {
+      0%,100% { transform: translateX(-50%) scale(1); }
+      50%      { transform: translateX(-50%) scale(1.3); }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 480px) {
+      .card-body { padding: 18px 16px 22px; }
+      .carousel { max-height: 260px; min-height: 140px; }
+      .carousel-slide img { max-height: 260px; }
+      .card-footer { flex-direction: column; align-items: stretch; }
+      .btn-next-card { text-align: center; }
+      .footer-hint { display: none; }
+      .card-topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Ambient -->
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       MAIN APP
+  ============================================================ -->
+  <main id="app">
+
+    <!-- Header -->
+    <header class="site-header" id="site-header">
+      <p class="eyebrow">Our story — ten chapters</p>
+      <h1>For <span>Imene</span>,<br>With All My Heart</h1>
+      <div class="header-rule"></div>
+    </header>
+
+    <!-- Card progress (1/10) -->
+    <nav class="card-progress" id="card-progress" aria-label="Card progress">
+      <span class="cp-label" id="cp-label">Chapter 1 / 10</span>
+      <div class="cp-dots" id="cp-dots"></div>
+    </nav>
+
+    <!-- The ONE card that transforms -->
+    <div class="card-wrap">
+      <article class="memory-card" id="memory-card" role="article">
+        <div class="card-body">
+
+          <!-- Top bar: tag + chapter title -->
+          <div class="card-topbar">
+            <span class="card-tag" id="card-tag">Chapter 01</span>
+            <h2 class="card-chapter-title" id="card-chapter-title">—</h2>
+          </div>
+
+          <!-- Carousel -->
+          <div class="carousel" id="carousel">
+
+            <!-- Sliding track -->
+            <div class="carousel-track" id="carousel-track">
+              <!-- slides injected by JS -->
+            </div>
+
+            <!-- Arrows -->
+            <button class="carousel-btn prev" id="btn-prev" aria-label="Previous image">&#8592;</button>
+            <button class="carousel-btn next" id="btn-next-img" aria-label="Next image">&#8594;</button>
+
+            <!-- Dots -->
+            <div class="carousel-dots" id="carousel-dots"></div>
+
+            <!-- Fraction -->
+            <span class="carousel-fraction" id="carousel-fraction">1 / 1</span>
+
+          </div>
+
+          <!-- Caption -->
+          <div class="caption-area">
+            <div class="caption-rule"></div>
+            <p class="caption-text" id="caption-text">—</p>
+          </div>
+
+          <!-- Footer -->
+          <footer class="card-footer">
+            <span class="footer-hint" id="footer-hint">swipe images inside · then next chapter</span>
+            <button class="btn-next-card" id="btn-next-card" aria-label="Next chapter">
+              Next Chapter →
+            </button>
+          </footer>
+
+        </div>
+      </article>
+    </div>
+
+  </main>
+
+  <!-- Tiny pulse heart -->
+  <div class="pulse-heart" aria-hidden="true">♥</div>
+
+  <!-- ============================================================
+       FINAL SCREEN
+  ============================================================ -->
+  <section id="final-screen" aria-label="Final message" role="region">
+    <canvas id="hearts-canvas"></canvas>
+    <div class="final-inner">
+      <p class="f-eyebrow">The end of the beginning</p>
+      <h2 class="f-title">I Love You,<br><span>Imene</span></h2>
+      <div class="f-line"></div>
+      <p class="f-msg">
+        Every photo, every moment, every smile —<br>
+        they are all pages of our story.<br>
+        A story that has no final chapter.<br><br>
+        <em>Thank you for reading ♥</em>
+      </p>
+      <button class="btn-replay" id="btn-replay">↺ &nbsp; Replay Our Story</button>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SCRIPT
+  ============================================================ -->
+  <script>
+    /* ============================================================
+       ██████╗  █████╗ ████████╗ █████╗
+       ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗
+       ██║  ██║███████║   ██║   ███████║
+       ██║  ██║██╔══██║   ██║   ██╔══██║
+       ██████╔╝██║  ██║   ██║   ██║  ██║
+       ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝
+       ————————————————————————————————————
+       Edit CARDS below to change images & captions.
+
+       IMAGES:  place your photos inside the same folder as this file.
+                Name them exactly as written in the "src" field.
+
+       CAPTION: the romantic text shown below each image.
+
+       Each card can have 3 OR 4 images (max 4 recommended).
+    ============================================================ */
+    const CARDS = [
+      /* ── Chapter 01 ────────────────────────────── */
+      {
+        tag:   "Chapter 01",
+        title: "",
+        images: [
+          { src: "travel/f1.png", caption: "كل الطرق كانت تبدو متشابهة... لكن شيئًا ما كان يدعوني للاستمرار." },
+          { src: "travel/f2.png", caption: "حتى النهر لم يعرف إلى أين أقصد... لكنه تركني أعبر." },
+          { src: "travel/f3.png", caption: "كلما اقتربت من القمة... شعرت أن النهاية ليست نهاية الطريق." },
+          { src: "travel/f4.png", caption: "لم أكن أبحث عن كنز... كنت أبحث عنك.وعندما وجدت قلبا يحمل اسم إيمان، أدركت أن كل الطرق، وكل الأنهار، وكل القمم... لم تكن إلا طريقا يقودني إليك. أنت أجمل صدفة كتبها القدر، وأغلى حكاية سكنت قلبي، ولو خيرت بين العالم كله وبينك... لاخترتك أنت، في كل مرة، وإلى الأبد. 💛" },
+
+        ]
+      },
+      /* ── Chapter 02 ────────────────────────────── */
+      {
+        tag:   "Chapter 02",
+        title: "",
+        images: [
+          { src: "travel/f5.png", caption: "ظننت أن الإجابة قد تكون بين النجوم..." },
+          { src: "travel/f6.png", caption: "وحتى السماء... أخفت سرا لم أفهمه بعد." },
+          { src: "travel/f7.png", caption: "وصلت إلى مكانٍ لا تطأه الأقدام... وما زال هناك شيء ينقص الرحلة." },
+           { src: "travel/f8.png", caption: "زرت الفضاء، وعبرت الغيوم، ووقفت على القمر... لكنني اكتشفت أن أجمل عالم لم يكن بين النجوم، بل كان في عينيك يا إيمان. فبقربك تصبح كل الأماكن وطنا، وكل رحلة تنتهي ببداية أجمل معك. 💛" },
+        ]
+      },
+      /* ── Chapter 03 ────────────────────────────── */
+      {
+        tag:   "Chapter 03",
+        title: "",
+        images: [
+          { src: "travel/f9.png", caption: "كل سطر كتبته... كان يقودني إلى حكاية أجمل." },
+          { src: "travel/f10.png", caption: "الكلمات تعرف الطريق... قبل أن يعرفه القلب." },
+          { src: "travel/f11.png", caption: "لم أسرق ذهبا... كانت تفاحة والباقي انت تعرفينه ." },
+          { src: "travel/f12.png", caption: "مرت الأعوام... لكن بعض الأشياء لا يغيّرها الزمن." },
+          { src: "travel/f13.png", caption: "قابلت نسخا كثيرة من نفسي... المبرمج، والشاعر، والمغامر، وحتى العجوز. اختلفت الوجوه، وتغيرت الحكايات， لكن شيئا واحدا بقي كما هو... قلبي كلما بحث عن مكان ليستقر， لم يجد أجمل من إيمان. فمهما تغيرت نسخي， سيبقى حبي لك هو النسخة الوحيدة التي لا تتبدل. 💛"}
+
+
+        ]
+      },
+    ];
+    /* ============================================================
+       END OF DATA — DO NOT EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING
+    ============================================================ */
+
+
+    /* ---- State ---- */
+    let cardIndex   = 0;          // which card (0-9)
+    let imgIndex    = 0;          // which image inside the current card
+    let isAnimating = false;      // lock during transitions
+    const TOTAL_CARDS = CARDS.length;
+
+    /* ---- DOM refs ---- */
+    const memoryCard    = document.getElementById('memory-card');
+    const cardTag       = document.getElementById('card-tag');
+    const cardChapTitle = document.getElementById('card-chapter-title');
+    const carouselTrack = document.getElementById('carousel-track');
+    const carouselDots  = document.getElementById('carousel-dots');
+    const carouselFrac  = document.getElementById('carousel-fraction');
+    const btnPrev       = document.getElementById('btn-prev');
+    const btnNextImg    = document.getElementById('btn-next-img');
+    const captionText   = document.getElementById('caption-text');
+    const btnNextCard   = document.getElementById('btn-next-card');
+    const cpLabel       = document.getElementById('cp-label');
+    const cpDots        = document.getElementById('cp-dots');
+    const footerHint    = document.getElementById('footer-hint');
+    const finalScreen   = document.getElementById('final-screen');
+    const heartsCanvas  = document.getElementById('hearts-canvas');
+    const btnReplay     = document.getElementById('btn-replay');
+
+    /* ================================================================
+       BUILD PROGRESS DOTS (chapter dots at the top)
+    ================================================================ */
+    function buildChapterDots() {
+      cpDots.innerHTML = '';
+      for (let i = 0; i < TOTAL_CARDS; i++) {
+        const d = document.createElement('span');
+        d.className = 'cp-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', `Chapter ${i + 1}`);
+        d.addEventListener('click', () => {
+          if (!isAnimating && i !== cardIndex) switchCard(i);
+        });
+        cpDots.appendChild(d);
+      }
+    }
+
+    function updateChapterDots(idx) {
+      cpLabel.textContent = `Chapter ${idx + 1} / ${TOTAL_CARDS}`;
+      cpDots.querySelectorAll('.cp-dot').forEach((d, i) => {
+        d.className = 'cp-dot' + (i === idx ? ' active' : i < idx ? ' done' : '');
+      });
+    }
+
+    /* ================================================================
+       BUILD CAROUSEL SLIDES for the current card
+    ================================================================ */
+    function buildCarousel(card) {
+      const imgs = card.images;
+
+      /* ─ Track slides ─ */
+      carouselTrack.innerHTML = '';
+      imgs.forEach((im, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        const img = document.createElement('img');
+        img.src   = im.src;
+        img.alt   = im.caption.slice(0, 60);
+        img.loading = i === 0 ? 'eager' : 'lazy';
+
+        slide.appendChild(img);
+        carouselTrack.appendChild(slide);
+      });
+
+      /* ─ Dots ─ */
+      carouselDots.innerHTML = '';
+      imgs.forEach((_, i) => {
+        const d = document.createElement('span');
+        d.className = 'c-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goToImage(i));
+        carouselDots.appendChild(d);
+      });
+
+      /* ─ Arrows visibility ─ */
+      const multi = imgs.length > 1;
+      btnPrev.classList.toggle('visible', multi);
+      btnNextImg.classList.toggle('visible', multi);
+
+      /* ─ Reset track position ─ */
+      gsap.set(carouselTrack, { x: 0 });
+      imgIndex = 0;
+      updateCarouselUI(0, card);
+    }
+
+    /* ─ Update dots + fraction + caption for current image ─ */
+    function updateCarouselUI(idx, card) {
+      card = card || CARDS[cardIndex];
+      const total = card.images.length;
+
+      /* dots */
+      carouselDots.querySelectorAll('.c-dot').forEach((d, i) => {
+        d.className = 'c-dot' + (i === idx ? ' active' : '');
+      });
+
+      /* fraction */
+      carouselFrac.textContent = `${idx + 1} / ${total}`;
+
+      /* caption fade */
+      gsap.to(captionText, {
+        opacity: 0, y: 8, duration: .25, ease: 'power2.in',
+        onComplete: () => {
+          captionText.textContent = card.images[idx].caption;
+          gsap.to(captionText, { opacity: 1, y: 0, duration: .4, ease: 'power2.out' });
+        }
+      });
+
+      /* Next-card button label */
+      if (cardIndex === TOTAL_CARDS - 1 && idx === total - 1) {
+        btnNextCard.textContent = 'Finish ♥';
+        footerHint.textContent  = 'Click to see the final message';
+      } else {
+        btnNextCard.textContent = 'Next Chapter →';
+        footerHint.textContent  = 'browse images · then next chapter';
+      }
+    }
+
+    /* ================================================================
+       SLIDE TO IMAGE (within the same card)
+    ================================================================ */
+    function goToImage(newIdx) {
+      if (newIdx < 0 || newIdx >= CARDS[cardIndex].images.length) return;
+      if (newIdx === imgIndex) return;
+
+      const slideW = carouselTrack.parentElement.offsetWidth;
+      const dir    = newIdx > imgIndex ? -1 : 1;
+
+      gsap.to(carouselTrack, {
+        x: -newIdx * slideW,
+        duration: .55,
+        ease: 'power3.out'
+      });
+
+      imgIndex = newIdx;
+      updateCarouselUI(newIdx);
+    }
+
+    /* ================================================================
+       SWITCH CARD (chapter transition — the cinematic one)
+    ================================================================ */
+    function switchCard(nextCardIdx) {
+      if (isAnimating) return;
+      if (nextCardIdx >= TOTAL_CARDS) { showFinalScreen(); return; }
+
+      isAnimating = true;
+
+      const tl = gsap.timeline({
+        onComplete: () => { isAnimating = false; }
+      });
+
+      /* Phase 1 — fade out current card content */
+      tl.to(carouselTrack, {
+        opacity: 0, scale: .96, filter: 'blur(7px)',
+        duration: .4, ease: 'power2.in'
+      })
+      .to(captionText, {
+        opacity: 0, y: 8, duration: .3, ease: 'power2.in'
+      }, '<.05')
+      .to([cardTag, cardChapTitle], {
+        opacity: 0, duration: .25, ease: 'power2.in'
+      }, '<')
+
+      /* Phase 2 — swap content */
+      .add(() => {
+        cardIndex = nextCardIdx;
+        const c = CARDS[cardIndex];
+        cardTag.textContent       = c.tag;
+        cardChapTitle.textContent = c.title;
+        buildCarousel(c);
+        updateChapterDots(cardIndex);
+        // caption already set by buildCarousel → updateCarouselUI, but opacity=0 still
+        gsap.set(captionText, { opacity: 0, y: 8 });
+      })
+
+      /* Phase 3 — fade in new content */
+      .fromTo(carouselTrack,
+        { opacity: 0, scale: 1.04, filter: 'blur(7px)' },
+        { opacity: 1, scale: 1,    filter: 'blur(0px)', duration: .55, ease: 'power2.out' }
+      )
+      .to(captionText, {
+        opacity: 1, y: 0, duration: .45, ease: 'power3.out'
+      }, '<.12')
+      .fromTo([cardTag, cardChapTitle],
+        { opacity: 0 },
+        { opacity: 1, duration: .4 },
+        '<'
+      );
+
+      /* Subtle card bounce */
+      gsap.to(memoryCard, {
+        scale: .982, duration: .22, ease: 'power2.in',
+        onComplete: () => gsap.to(memoryCard, {
+          scale: 1, duration: .55, ease: 'elastic.out(1,.7)'
+        })
+      });
+    }
+
+    /* ================================================================
+       3D TILT ON HOVER
+    ================================================================ */
+    function initTilt() {
+      memoryCard.addEventListener('mousemove', e => {
+        if (isAnimating) return;
+        const r  = memoryCard.getBoundingClientRect();
+        const cx = r.left + r.width  / 2;
+        const cy = r.top  + r.height / 2;
+        gsap.to(memoryCard, {
+          rotateY:  (e.clientX - cx) / (r.width  / 2) * 5,
+          rotateX: -(e.clientY - cy) / (r.height / 2) * 4,
+          duration: .4, ease: 'power2.out',
+          transformPerspective: 1200
+        });
+      });
+      memoryCard.addEventListener('mouseleave', () => {
+        gsap.to(memoryCard, {
+          rotateX: 0, rotateY: 0,
+          duration: .6, ease: 'elastic.out(1,.7)'
+        });
+      });
+    }
+
+    /* ================================================================
+       TOUCH / SWIPE SUPPORT for the carousel
+    ================================================================ */
+    function initSwipe() {
+      let startX = 0;
+      const carousel = document.getElementById('carousel');
+      carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) dx < 0 ? goToImage(imgIndex + 1) : goToImage(imgIndex - 1);
+      }, { passive: true });
+    }
+
+    /* ================================================================
+       ROMANTIC BACKGROUND PARTICLES
+       — Rose petals + bokeh orbs + sparkles
+    ================================================================ */
+    function initParticles() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx    = canvas.getContext('2d');
+      let W, H;
+
+      const resize = () => { W = canvas.width = innerWidth; H = canvas.height = innerHeight; };
+      resize();
+      window.addEventListener('resize', resize);
+
+      /* ─── Petal shape ─────────────────────────────────────── */
+      function drawPetal(ctx, x, y, w, h, rot) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.beginPath();
+        // an oval petal using bezier
+        ctx.moveTo(0, -h / 2);
+        ctx.bezierCurveTo( w / 2, -h / 2,  w / 2,  h / 2, 0,  h / 2);
+        ctx.bezierCurveTo(-w / 2,  h / 2, -w / 2, -h / 2, 0, -h / 2);
+        ctx.closePath();
+        ctx.restore();
+      }
+
+      /* ─── Particle pools ──────────────────────────────────── */
+
+      // 1) Rose petals — drifting down
+      const PETAL_COUNT = Math.min(38, Math.floor(innerWidth / 30));
+      const petals = Array.from({ length: PETAL_COUNT }, () => ({
+        x:    Math.random() * innerWidth,
+        y:    Math.random() * innerHeight,          // start scattered
+        w:    Math.random() * 12 + 6,               // petal width
+        h:    Math.random() * 18 + 10,              // petal height
+        rot:  Math.random() * Math.PI * 2,
+        rotS: (Math.random() - .5) * .025,          // rotation speed
+        sx:   (Math.random() - .5) * .7,            // horizontal drift
+        sy:   Math.random() * 0.9 + 0.3,            // fall speed
+        a:    Math.random() * 0.45 + 0.1,           // opacity
+        wobble: Math.random() * Math.PI * 2,        // phase for sway
+        r: 160 + Math.floor(Math.random() * 60),    // red channel
+        g: Math.floor(Math.random() * 35),
+        b: Math.floor(Math.random() * 35),
+      }));
+
+      // 2) Bokeh orbs — slow floating glowing circles
+      const BOKEH_COUNT = Math.min(22, Math.floor(innerWidth / 55));
+      const bokeh = Array.from({ length: BOKEH_COUNT }, () => ({
+        x:    Math.random() * innerWidth,
+        y:    Math.random() * innerHeight,
+        r:    Math.random() * 55 + 18,
+        sx:   (Math.random() - .5) * .18,
+        sy:   -(Math.random() * .25 + .05),
+        a:    Math.random() * 0.07 + 0.02,
+        pulse: Math.random() * Math.PI * 2,
+        pulseS: Math.random() * 0.012 + 0.006,
+      }));
+
+      // 3) Sparkles — tiny twinkling dots
+      const SPARK_COUNT = Math.min(55, Math.floor(innerWidth / 22));
+      const sparks = Array.from({ length: SPARK_COUNT }, () => ({
+        x:    Math.random() * innerWidth,
+        y:    Math.random() * innerHeight,
+        r:    Math.random() * 1.4 + .3,
+        a:    Math.random(),
+        aDir: Math.random() < .5 ? 1 : -1,
+        aSpd: Math.random() * 0.018 + 0.006,
+        sx:   (Math.random() - .5) * .15,
+        sy:   -(Math.random() * .2 + .05),
+      }));
+
+      let frame = 0;
+
+      const loop = () => {
+        ctx.clearRect(0, 0, W, H);
+        frame++;
+
+        /* ── Bokeh orbs ─────────────────────────────────── */
+        bokeh.forEach(b => {
+          b.x += b.sx;
+          b.y += b.sy;
+          b.pulse += b.pulseS;
+          if (b.y < -b.r * 2) { b.y = H + b.r; b.x = Math.random() * W; }
+
+          const pulsedA = b.a * (0.6 + 0.4 * Math.sin(b.pulse));
+          const grd = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+          grd.addColorStop(0,   `rgba(192,40,43,${pulsedA})`);
+          grd.addColorStop(0.5, `rgba(140,18,18,${pulsedA * .5})`);
+          grd.addColorStop(1,   'rgba(0,0,0,0)');
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        /* ── Rose petals ────────────────────────────────── */
+        petals.forEach(p => {
+          p.rot    += p.rotS;
+          p.wobble += 0.018;
+          p.x      += p.sx + Math.sin(p.wobble) * 0.45;
+          p.y      += p.sy;
+          if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
+
+          ctx.save();
+          ctx.globalAlpha = p.a;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+
+          // Petal gradient
+          const pg = ctx.createRadialGradient(0, 0, 0, 0, 0, p.h / 2);
+          pg.addColorStop(0,   `rgba(${p.r},${p.g},${p.b},0.9)`);
+          pg.addColorStop(0.6, `rgba(${p.r},${p.g},${p.b},0.6)`);
+          pg.addColorStop(1,   `rgba(${p.r},${p.g},${p.b},0)`);
+
+          ctx.beginPath();
+          ctx.moveTo(0, -p.h / 2);
+          ctx.bezierCurveTo( p.w/2, -p.h/2,  p.w/2,  p.h/2, 0,  p.h/2);
+          ctx.bezierCurveTo(-p.w/2,  p.h/2, -p.w/2, -p.h/2, 0, -p.h/2);
+          ctx.closePath();
+
+          ctx.fillStyle   = pg;
+          ctx.shadowColor = `rgba(${p.r},20,20,0.4)`;
+          ctx.shadowBlur  = 8;
+          ctx.fill();
+          ctx.restore();
+        });
+
+        /* ── Sparkles ───────────────────────────────────── */
+        sparks.forEach(s => {
+          s.x += s.sx;
+          s.y += s.sy;
+          s.a += s.aSpd * s.aDir;
+          if (s.a > 0.85) s.aDir = -1;
+          if (s.a < 0.02) s.aDir =  1;
+          if (s.y < -5)   { s.y = H + 5; s.x = Math.random() * W; }
+
+          ctx.save();
+          ctx.globalAlpha = s.a;
+          ctx.shadowColor = 'rgba(220,80,80,0.8)';
+          ctx.shadowBlur  = 6;
+          ctx.fillStyle   = `rgba(255,160,160,${s.a})`;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        });
+
+        requestAnimationFrame(loop);
+      };
+
+      loop();
+    }
+
+    /* ================================================================
+       FINAL SCREEN — HEARTS ANIMATION
+    ================================================================ */
+    let heartsRAF = null;
+
+    function startHearts() {
+      const canvas = heartsCanvas;
+      const ctx    = canvas.getContext('2d');
+      canvas.width = innerWidth; canvas.height = innerHeight;
+      window.addEventListener('resize', () => {
+        canvas.width = innerWidth; canvas.height = innerHeight;
+      });
+
+      const COLORS = [
+        [192,40,43], [224,85,85], [160,28,28],
+        [107,15,15], [240,128,128]
+      ];
+      const H_COUNT = 200;
+      const hearts  = Array.from({ length: H_COUNT }, () => ({
+        x:    Math.random() * innerWidth,
+        y:    Math.random() * innerHeight + innerHeight,
+        size: Math.random() * 18 + 5,
+        sp:   Math.random() * 1.8 + .5,
+        dr:   (Math.random() - .5) * .7,
+        a:    Math.random() * .55 + .2,
+        col:  COLORS[Math.floor(Math.random() * COLORS.length)],
+        ph:   Math.random() * Math.PI * 2,
+        rot:  0, rs: (Math.random() - .5) * .02,
+      }));
+
+      const drawHeart = (ctx, s) => {
+        ctx.beginPath();
+        ctx.moveTo(0, -s * .3);
+        ctx.bezierCurveTo( s*.5, -s,   s, -s*.4,  s*.5,  s*.2);
+        ctx.bezierCurveTo( s*.2,  s*.6, 0,  s*.7,  0,     s*.8);
+        ctx.bezierCurveTo(-s*.2,  s*.6,-s*.5, s*.2,-s*.5,  s*.2);
+        ctx.bezierCurveTo(-s,    -s*.4,-s*.5,-s,    0,    -s*.3);
+        ctx.closePath();
+      };
+
+      let frame = 0;
+      const loop = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frame++;
+        hearts.forEach(h => {
+          h.y   -= h.sp;
+          h.x   += Math.sin(frame * .018 + h.ph) * h.dr;
+          h.rot += h.rs;
+          if (h.y < -50) { h.y = canvas.height + 20; h.x = Math.random() * canvas.width; }
+          const [r,g,b] = h.col;
+          ctx.save();
+          ctx.globalAlpha   = h.a;
+          ctx.translate(h.x, h.y);
+          ctx.rotate(h.rot);
+          ctx.shadowColor   = `rgba(${r},${g},${b},.5)`;
+          ctx.shadowBlur    = 10;
+          ctx.fillStyle     = `rgba(${r},${g},${b},${h.a})`;
+          drawHeart(ctx, h.size);
+          ctx.fill();
+          ctx.restore();
+        });
+        heartsRAF = requestAnimationFrame(loop);
+      };
+      loop();
+    }
+
+    function showFinalScreen() {
+      gsap.to('#app', {
+        opacity: 0, duration: .6,
+        onComplete: () => { document.getElementById('app').style.display = 'none'; }
+      });
+      document.querySelector('.pulse-heart').style.display = 'none';
+      finalScreen.classList.add('show');
+      startHearts();
+
+      const tl = gsap.timeline();
+      tl.to('.f-eyebrow', { opacity:1, y:0, duration:.8, ease:'power3.out', delay:.3 })
+        .fromTo('.f-eyebrow', { y:20 }, { y:0 }, '<')
+        .to('.f-title',   { opacity:1, y:0, duration:1,  ease:'power3.out' }, '-=.2')
+        .fromTo('.f-title', { y:30 }, { y:0 }, '<')
+        .to('.f-line',    { opacity:1, scaleX:1, duration:.8, ease:'power2.out' }, '-=.3')
+        .to('.f-msg',     { opacity:1, y:0, duration:.9, ease:'power3.out' }, '-=.25')
+        .fromTo('.f-msg', { y:20 }, { y:0 }, '<')
+        .to('.btn-replay',{ opacity:1, y:0, duration:.6, ease:'power2.out' }, '-=.1')
+        .fromTo('.btn-replay', { y:16 }, { y:0 }, '<');
+
+      gsap.to('.f-title', {
+        textShadow: '0 0 100px rgba(160,28,28,.65)',
+        duration: 2.2, delay: 2, ease: 'sine.inOut',
+        yoyo: true, repeat: -1
+      });
+    }
+
+    /* ================================================================
+       ENTRANCE ANIMATION
+    ================================================================ */
+    function playEntrance() {
+      gsap.timeline()
+        .to('#site-header', {
+          opacity:1, y:0, duration:1, ease:'power3.out'
+        })
+        .to('.card-progress', {
+          opacity:1, duration:.6, ease:'power2.out'
+        }, '-=.4')
+        .to(memoryCard, {
+          opacity:1, y:0, duration:.8, ease:'power3.out'
+        }, '-=.3');
+    }
+
+    /* ================================================================
+       REPLAY
+    ================================================================ */
+    function replay() {
+      if (heartsRAF) { cancelAnimationFrame(heartsRAF); heartsRAF = null; }
+      finalScreen.classList.remove('show');
+      gsap.set(['.f-eyebrow','.f-title','.f-line','.f-msg','.btn-replay'], {
+        opacity:0, clearProps:'textShadow'
+      });
+
+      cardIndex = 0; imgIndex = 0; isAnimating = false;
+
+      const c = CARDS[0];
+      cardTag.textContent       = c.tag;
+      cardChapTitle.textContent = c.title;
+      buildCarousel(c);
+      updateChapterDots(0);
+
+      const app = document.getElementById('app');
+      app.style.display = '';
+      gsap.to(app, { opacity:1, duration:.7 });
+      document.querySelector('.pulse-heart').style.display = '';
+      gsap.to(memoryCard, { opacity:1, y:0, duration:.8, ease:'power3.out', delay:.2 });
+    }
+
+    /* ================================================================
+       EVENT LISTENERS
+    ================================================================ */
+    btnPrev.addEventListener('click',     e => { e.stopPropagation(); goToImage(imgIndex - 1); });
+    btnNextImg.addEventListener('click',  e => { e.stopPropagation(); goToImage(imgIndex + 1); });
+    btnNextCard.addEventListener('click', e => { e.stopPropagation(); switchCard(cardIndex + 1); });
+    btnReplay.addEventListener('click', replay);
+
+    /* Keyboard */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') goToImage(imgIndex + 1);
+      if (e.key === 'ArrowLeft')  goToImage(imgIndex - 1);
+      if (e.key === 'Enter')      switchCard(cardIndex + 1);
+    });
+
+    /* ================================================================
+       INIT
+    ================================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      const first = CARDS[0];
+      cardTag.textContent       = first.tag;
+      cardChapTitle.textContent = first.title;
+      buildChapterDots();
+      buildCarousel(first);
+      initParticles();
+      initTilt();
+      initSwipe();
+      playEntrance();
+    });
+
+  </script>
+</body>
+</html>
