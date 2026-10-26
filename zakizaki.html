@@ -339,7 +339,7 @@
       try {
         const res = await fetch(API);
         const data = await res.json();
-        const items = data.sheet1 || fallbackData;
+        const items = (data.sheet1 || fallbackData).slice().reverse();
         renderCards(items);
       } catch (err) {
         console.log("Using fallback data");
